@@ -54,9 +54,17 @@ Before any novelty claim:
 
 ## Current status
 
-The first implementation and unit tests are committed. Scientific benchmark results are
-not yet claimed. CI must be green on the latest commit before the implementation is
-treated as stable.
+The first scaling sweep has now executed successfully in CI (144 rows; nodes = 100, 1,000, 10,000; field dimensions = 1, 2, 4, 8; active-pair budgets = 1, 4, 16). CI and unit tests passed on the benchmark commit.
+
+### Observed baseline sweep
+
+The deterministic fixture shows the expected communication scaling: for state dimension 8, full transmission grows from 640 bytes (100 nodes) to 6,400 bytes (1,000) and 64,000 bytes (10,000), while the field payload remains 8–64 bytes depending on field dimension and the sparse payload is bounded by the active-pair budget.
+
+For the current synthetic task definitions, sparse routing gives much lower global RMSE than the compact field at the same small communication budgets, while the field can recover the global aggregate exactly when field dimension equals the full state dimension. The hybrid condition exactly recovers the selected pair-sensitive target while retaining the compact field payload.
+
+These are **implementation-validation observations, not evidence of architectural superiority**. The field error grows strongly with node count in this fixture because the deterministic node-state generator currently has a magnitude that grows with node index. Therefore the absolute RMSE is not yet a scale-normalized scientific metric. The next revision must use bounded/normalized signals and report normalized error before interpreting scaling behavior.
+
+No novelty claim is made from this sweep.
 
 ## Multiscale implementation
 
