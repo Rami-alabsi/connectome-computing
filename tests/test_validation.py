@@ -8,4 +8,4 @@ def test_profile_comparison_reports_absolute_and_relative_error():
     result = compare_profiles(observed, synthetic)
     assert result.absolute_error["directed_edges"] == 20.0
     assert result.relative_error["directed_edges"] == 0.1
-    assert result.absolute_error["reciprocal_edge_fraction"] == 0.02
+    assert abs(result.absolute_error["reciprocal_edge_fraction"] - 0.02) < 1e-12
