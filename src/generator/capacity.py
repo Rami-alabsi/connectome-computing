@@ -45,10 +45,6 @@ def build_capacity_hierarchy(
     for node, module in enumerate(node_to_module):
         module_nodes[module].append(node)
 
-    parent_groups = {}
-    for module, path in enumerate(node_to_path[::module_capacity] if False else []):
-        parent_groups.setdefault(path[:-1], []).append(module)
-
     # Parent identity is derived from the module index, not node labels.
     parent_groups = {}
     for module in range(module_count):
