@@ -1,0 +1,15 @@
+__pycache__/
+*.py[cod]
+.venv/
+.env
+.pytest_cache/
+.ipynb_checkpoints/
+
+data/raw/
+data/interim/
+data/processed/
+results/generated/
+*.csv
+*.csv.gz
+*.parquet
+*.feather
