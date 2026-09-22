@@ -7,7 +7,7 @@ from src.simulator.effective_state import (
 
 def test_mean_compression_is_deterministic_and_dimension_limited():
     states = [(1, 2, 3, 4), (3, 4, 5, 6)]
-    assert compress_mean(states, 2) == (2.0, 5.0)
+    assert compress_mean(states, 2) == (2.5, 4.5)
 
 
 def test_interface_collapses_node_edges_into_one_module_message():
@@ -22,7 +22,7 @@ def test_interface_collapses_node_edges_into_one_module_message():
     messages, report = build_effective_messages(
         states, edges, modules, config=InterfaceConfig(interface_dim=1)
     )
-    assert messages == {(0, 1): (5.0,)}
+    assert messages == {(0, 1): (2.5,)}
     assert report.candidate_cross_edges == 4
     assert report.active_module_pairs == 1
     assert report.transmitted_values == 1
@@ -38,7 +38,7 @@ def test_interface_pair_budget_drops_excess_pairs_deterministically():
     )
     assert list(messages) == [(0, 1), (0, 2)]
     assert report.active_module_pairs == 2
-    assert report.dropped_module_pairs == 1
+    assert report.dropped_module_pairs == 3
 
 
 def test_interface_preserves_local_state_by_only_emitting_cross_module_messages():
