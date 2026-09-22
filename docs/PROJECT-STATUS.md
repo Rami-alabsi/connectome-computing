@@ -28,6 +28,8 @@ The goal is not to reproduce a fly or human brain literally. The goal is to iden
 - [x] M6 communication accounting
 - [x] M6 bounded higher-order coordination primitive
 - [x] M6 higher-order and dynamic-backbone literature synthesis
+- [x] M6 minimal stateful local-plus-interface simulator
+- [x] M6 deterministic simulator tests and communication accounting
 
 ### Active workstreams
 
@@ -145,7 +147,7 @@ The project does **not** claim:
 
 1. Repair and keep CI green after every change.
 2. Complete real FAFB v783 profiling.
-3. Finish the minimal stateful effective-state simulator.
+3. Run the minimal stateful effective-state simulator on controlled synthetic graphs.
 4. Add explicit interface bandwidth and state-dimension sweeps.
 5. Add state-dependent routing and sparse-backbone controls.
 6. Add bounded higher-order coordination.
@@ -153,6 +155,12 @@ The project does **not** claim:
 8. Compare all mechanisms independently and jointly.
 9. Perform exact prior-art search on any surviving combined mechanism.
 10. Scale only after the small controlled system is reproducible.
+
+## Latest research update — 2026-09-22
+
+A targeted search also confirms that dynamic routing and communication-constrained specialization are already active engineering/research areas. Recent MoE routing work explicitly treats dynamic expert activation and load balancing as resource-allocation problems, while recent higher-order and connectome studies motivate bounded collective relations and stable infrastructure with flexible recruitment. These findings strengthen the control design but do not make the project mechanism novel by themselves.
+
+The simulator therefore treats **interface dimension, active route count, transmitted values, and bytes** as explicit resources. This is important because a routing policy can look efficient while merely moving the cost into data movement or larger interface states.
 
 ## Scientific status
 
