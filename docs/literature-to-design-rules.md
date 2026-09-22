@@ -104,3 +104,44 @@ This order moves from directly measurable structure toward increasingly mechanis
 | 2026 higher-order brain interaction study | Do not assume pairwise edges are sufficient; allow bounded collective module relations | synergy/redundancy, task utility per relation, communication cost | pairwise-only and unrestricted higher-order controls |
 | 2025 resource-constrained specialization study | Interface bandwidth can dynamically alter functional specialization | specialization trajectory vs interface rate | fixed high-bandwidth and fixed low-bandwidth controls |
 | 2026 naturalistic connectome backbone study | Separate conserved backbone from context-flexible hub recruitment | backbone stability, hub flexibility, state-dependent routing | static hub set and degree-matched controls |
+
+
+## Dynamic relational layers across the life course
+
+Human social networks provide a useful non-biological analogy for **state-dependent hierarchical interfaces**, not a specification for the architecture. Evidence shows that personal networks have layered structure associated with relationship closeness, while network composition and communication patterns change with age and life events. Population-scale work also finds overlapping relationship layers such as close family, extended family, household, work, school, and neighbors. citeturn0search2turn0search3turn0search0
+
+A useful engineering abstraction is therefore:
+
+> **The system should not require one permanent hierarchy of all relationships. It should maintain nested local groups with different interaction strengths and purposes, while allowing interfaces, memberships, and routing priorities to change with state, role, time, and context.**
+
+Design rules:
+- **DL1 — Nested relational layers:** represent local/core, group, community, and broader coordination layers without requiring every lower-level member to communicate directly with every upper-level entity.
+- **DL2 — Typed relations:** distinguish relation purpose (e.g. local state exchange, coordination, support/control, external interface) instead of treating every edge as equivalent.
+- **DL3 — Dynamic layer membership:** allow a node/module to participate in multiple overlapping groups when tasks or context require it.
+- **DL4 — State-dependent routing:** prioritize different interfaces as the system state changes; avoid a permanently fixed communication hierarchy.
+- **DL5 — Representative interfaces:** higher levels should receive compact effective states from lower levels rather than all microscopic states.
+- **DL6 — Direct exception path:** an upper-level controller should be able to address a lower-level node/module directly when the task requires it, without making all communication permanently dense.
+- **DL7 — Life-course analogue → adaptive topology:** use changing human relationships only as inspiration for adaptive topology; do not encode human age, family roles, or social norms as architectural requirements.
+- **DL8 — Test hierarchy depth:** compare flat, two-level, deeper, and overlapping-layer architectures under equal communication/compute budgets; deeper hierarchy is not assumed to be beneficial.
+
+This idea extends MCIA/ERG into a **Dynamic Relational Layering (DRL)** hypothesis:
+
+> **Scalable systems may organize communication as overlapping, state-dependent relational layers whose interfaces are compact and whose direct links are selectively activated according to current context.**
+
+Falsifiable predictions:
+1. Adaptive relational layers can achieve comparable global coordination with fewer transmitted values than dense all-to-all communication on tasks with changing context.
+2. Overlapping groups can outperform strictly tree-shaped hierarchies on tasks requiring cross-domain interactions, at equal communication budget.
+3. A direct exception path can preserve pair-specific performance without requiring the full network to expose pairwise state.
+4. Excessive layer depth will eventually saturate or reduce performance because additional interfaces add routing and communication overhead.
+5. If adaptive routing is merely exploiting more parameters or more communication, matched-budget fixed-routing and random-routing controls should remove the apparent advantage.
+
+Controls:
+- flat all-to-all;
+- fixed tree hierarchy;
+- fixed overlapping groups;
+- adaptive overlapping groups;
+- random state-dependent routing with the same active-edge budget;
+- matched-bandwidth fixed routing;
+- matched-parameter pooling/compression.
+
+The human evidence supports the **existence of layered, changing, overlapping relationships**, not the claim that such a structure is optimal for computation. citeturn0search0turn0search3turn0search4
