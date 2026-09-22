@@ -99,7 +99,7 @@ connectome-computing/
 
 ## Status
 
-**Stage: Project initialization / literature and architecture definition**
+**Stage: M5 → M6 — synthetic connectome validation and effective-state interface prototyping**
 
 The first implementation milestone is a reproducible FlyWire graph-ingestion and analysis pipeline, followed by motif/module analysis and the first computational abstraction.
 
