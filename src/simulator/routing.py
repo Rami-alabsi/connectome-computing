@@ -49,6 +49,24 @@ def _norm(state: Sequence[float]) -> float:
     return sqrt(sum(float(x) * float(x) for x in state))
 
 
+def select_fixed_routes(
+    candidate_pairs: Sequence[Pair],
+    *,
+    config: RoutingConfig,
+) -> tuple[tuple[Pair, ...], RoutingReport]:
+    """Select the first deterministic candidate routes under the same budget."""
+    unique = tuple(sorted(set(candidate_pairs)))
+    selected = unique[: config.max_active_pairs]
+    values = len(selected) * config.values_per_message
+    return selected, RoutingReport(
+        candidate_pairs=len(unique),
+        active_pairs=len(selected),
+        dropped_pairs=len(unique) - len(selected),
+        transmitted_values=values,
+        transmitted_bytes=values * config.bytes_per_value,
+    )
+
+
 def select_state_dependent_routes(
     module_states: Mapping[ModuleId, Sequence[float]],
     candidate_pairs: Sequence[Pair],
