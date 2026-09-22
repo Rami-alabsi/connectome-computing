@@ -10,7 +10,7 @@ def test_degree_profile_captures_directional_hubs():
     assert result.nodes == 6
     assert result.directed_edges == 8
     assert result.max_out == 5
-    assert result.max_in == 5
+    assert result.max_in == 3
     assert result.hub_fraction_in > 0
     assert result.hub_fraction_out > 0
 
