@@ -89,3 +89,8 @@ A novelty claim requires:
 ## Next empirical gate
 
 The next major scientific gate is real-data anchoring with FAFB v783. Synthetic experiments should not be interpreted as biological validation until the structural and spatial constraints are measured from the selected connectome snapshot.
+
+
+## Cosmic-scale extension
+
+The project now includes a separate cosmic-scale abstraction branch: **Field-Mediated Relational Layer (FMRL)**. The cosmic web is treated as an independent physical example of multiscale spatial organization produced by gravitational dynamics, not as evidence that gravity is equivalent to computation. The proposed computational test is to compare explicit pairwise communication with a bounded latent relational field and a hybrid field + sparse explicit backbone under matched communication budgets. See `docs/cross-domain-synthesis-cosmic-web.md`.
