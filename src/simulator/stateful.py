@@ -16,7 +16,7 @@ from math import tanh
 from typing import Mapping, Sequence
 
 from .effective_state import InterfaceConfig, build_effective_messages
-from .routing import RoutingConfig, RoutingReport, select_state_dependent_routes
+from .routing import RoutingConfig, RoutingReport, select_fixed_routes, select_state_dependent_routes
 
 State = tuple[float, ...]
 Edge = tuple[int, int]
@@ -31,6 +31,7 @@ class SimulatorConfig:
     local_decay: float = 0.9
     coupling: float = 0.2
     bytes_per_value: int = 8
+    routing_mode: str = "state_dependent"
 
     def __post_init__(self) -> None:
         if self.interface_dim < 1:
@@ -43,6 +44,8 @@ class SimulatorConfig:
             raise ValueError("coupling must be non-negative")
         if self.bytes_per_value < 1:
             raise ValueError("bytes_per_value must be positive")
+        if self.routing_mode not in {"fixed", "state_dependent"}:
+            raise ValueError("routing_mode must be fixed or state_dependent")
 
 
 @dataclass(frozen=True)
@@ -122,11 +125,17 @@ def step(
         bytes_per_value=config.bytes_per_value,
         values_per_message=config.interface_dim,
     )
-    active_pairs, routing_report = select_state_dependent_routes(
-        module_states,
-        candidate_pairs,
-        config=routing_config,
-    )
+    if config.routing_mode == "fixed":
+        active_pairs, routing_report = select_fixed_routes(
+            candidate_pairs,
+            config=routing_config,
+        )
+    else:
+        active_pairs, routing_report = select_state_dependent_routes(
+            module_states,
+            candidate_pairs,
+            config=routing_config,
+        )
 
     active_set = set(active_pairs)
     active_edges = _filter_edges(node_edges, node_to_module, active_set)
