@@ -18,14 +18,21 @@ Run the same observed-data split and target edge budget through:
 7. + rich-club/backbone;
 8. full multi-constraint model.
 
+Additional mechanistic branch for M6 preparation:
+
+9. + typed cooperation/competition;
+10. + dynamic/state-dependent hierarchy.
+
 Every stage is compared with strong controls:
 
-- Erdős-Rényi-style random graph at matched density;
+- random graph at matched density;
 - degree-preserving directed null;
 - cost-matched graph;
 - hierarchy-only graph;
 - spatial-only graph;
-- hub-only graph.
+- hub-only graph;
+- cooperation-only vs cooperation+competition;
+- flat hierarchy vs state-dependent hierarchy.
 
 ## Metrics
 
@@ -38,7 +45,8 @@ Every stage is compared with strong controls:
 - rich-club density across multiple thresholds;
 - motif/graphlet statistics;
 - edge-length distribution;
-- long-range edge fraction.
+- long-range edge fraction;
+- within-level vs hierarchy-crossing edge fractions.
 
 ### Cost/resource proxies
 - total wiring length;
@@ -53,13 +61,15 @@ Every stage is compared with strong controls:
 - propagation latency;
 - state-transition/control energy;
 - multiscale mode reconstruction;
+- effective hierarchy by state;
+- cooperative vs competitive interaction effects;
 - task performance after topology is fixed.
 
 ## Human-reference constraints
 
 Human literature is used as a reference layer, not as a target to imitate literally.
 
-The current hypotheses to test are:
+Current hypotheses:
 
 - nested hierarchy;
 - within-level local connectivity;
@@ -67,7 +77,29 @@ The current hypotheses to test are:
 - rich-club integration backbone;
 - spatially constrained wiring;
 - multiscale topology-to-dynamics coupling;
-- separation of anatomical topology from learned/latent dynamics.
+- state-dependent effective hierarchy;
+- distributed spatial influence/control.
+
+## Fly embodied-control constraint
+
+The 2026 unified fly brain-and-nerve-cord connectome motivates a separate hypothesis:
+local sensory-to-effector feedback loops can remain relatively autonomous while
+long-range ascending/descending pathways coordinate behavior modules.
+
+This should be compared against a centralized-control baseline rather than assumed superior.
+
+## Cooperation/competition constraint
+
+A 2026 cross-species mammalian study reports that faithful whole-brain dynamics
+combine modular cooperative interactions with diffuse long-range competitive interactions.
+This motivates a typed interaction branch:
+
+- local/modular cooperation;
+- diffuse long-range competition.
+
+The engineering hypothesis is not that inhibition/competition is universally beneficial.
+It is that mixed interaction signs may provide a different stability/expressivity/resource
+trade-off than cooperation-only networks.
 
 ## Novelty gate
 
@@ -85,18 +117,8 @@ A novelty candidate requires:
 
 ## Reproducibility
 
-Record:
-
-- dataset and version;
-- exact resource URL/data product;
-- preprocessing rules;
-- node/edge sampling policy;
-- random seed;
-- hierarchy parameters;
-- spatial length scale;
-- long-range fraction;
-- rich-club threshold/null model;
-- all metric definitions;
-- software commit.
+Record dataset/version, resource URL, preprocessing, node/edge sampling, random seed,
+all generator parameters, null-model definition, metric definitions, software commit,
+and environment information.
 
 Do not report real-data results until the experiment is actually executed.
