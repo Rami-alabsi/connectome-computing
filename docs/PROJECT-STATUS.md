@@ -18,6 +18,10 @@
 - [x] M5 profile comparison/discrepancy layer
 - [x] M5 scalable sparse generator baseline
 - [x] M5 degree-distribution and hub metric layer
+- [x] M5 hierarchical generator baseline
+- [x] M5 spatial wiring-cost and distance-decay baseline
+- [x] M5 rich-club metric layer
+- [x] M5 2026 neuroscience literature checkpoint
 - [x] M5 novelty tracking and novelty-gate documentation
 - [x] M5 literature-to-design-rule matrix
 - [x] M5 literature review checkpoint
@@ -108,3 +112,26 @@ Relevant literature is treated as design constraints. See:
 
 A **NOVELTY ALERT** is only raised when the exact method/result survives a targeted
 prior-art check and reproducible experiments with controls and ablations.
+
+
+## Latest science checkpoint — 2026-09-22
+
+Recent 2026 work strengthens several project directions:
+
+- Human cortical hierarchy is measurable as state-dependent effective signal flow, so
+  static community hierarchy and dynamic/effective hierarchy must remain separate.
+- White-matter tracts span hierarchical levels and may bridge otherwise distinct
+  biological/cognitive systems, motivating typed long-range edges.
+- Multiscale structural connectome modes can constrain observed functional dynamics,
+  motivating a multiscale topology-to-dynamics interface in M6.
+- Rich-club regions have measurable network-control consequences in human connectome
+  models, supporting an explicit backbone hypothesis but not proving engineering benefit.
+- Spatially diffuse control models show that distance-dependent influence can alter
+  control efficiency; spatial embedding is therefore more than a wiring-cost penalty.
+- New high-speed whole-brain fly imaging makes temporal validation increasingly practical.
+- FlyWire-constrained whole-brain spiking models show that anatomical topology alone
+  does not fully specify resting dynamics.
+- Recent fly and neuromorphic studies reinforce explicit energy, memory and communication
+  accounting.
+
+See docs/literature-review-2026-09-22.md and docs/literature-to-design-rules.md.
