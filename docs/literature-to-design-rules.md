@@ -2,44 +2,73 @@
 
 Updated: 2026-09-22
 
-This document turns established neuroscience/connectomics findings into testable
-engineering constraints. It does **not** assume that a biological property is
-automatically computationally optimal.
+This matrix converts established neuroscience findings into testable engineering
+constraints. A biological property is never assumed to be computationally optimal.
 
 | Evidence | Design constraint to test | Metric | Ablation |
 |---|---|---|---|
-| Sparse biological connectivity is repeatedly observed, and sparse connectome-constrained models can predict neural activity. | Sparse/event-driven communication | active edges, messages/step, memory traffic | dense/randomized connectivity |
-| Fly whole-brain models and connectome statistics show recurrent and reciprocal structure. | Recurrent state + reciprocal pathways | reciprocal-edge fraction, cycle statistics, activity persistence | remove recurrence/reciprocity |
-| Brain networks contain modules and connector hubs. | Modular local processing + limited global integration | modularity, hub participation, path efficiency | flat random graph |
-| Brain organization reflects a cost/efficiency trade-off. | Optimize communication benefit under wiring/resource cost | path efficiency, edge count, communication cost, memory/energy proxy | unconstrained efficiency |
-| Human and animal connectomes show non-random small-world-like organization. | Short-range dense modules plus sparse long-range shortcuts | clustering, path length, small-world controls | degree-matched random graph |
-| Recent scalable generative work shows that topology plus spatial constraints can reproduce additional neural-network properties. | Include spatial/contact constraints, not topology alone | distance-dependent connection probability, wiring length, graphlets | topology-only generator |
-| Recent FlyWire dynamical modeling identifies a compact neuropil core and sparse inhibitory/excitatory reciprocal hub structure associated with spontaneous activity. | Test typed hub/core structure, not just untyped degree hubs | core participation, typed reciprocity, activity stability | degree-matched untyped hubs |
-| Fly visual-system work shows connectivity can constrain task-optimized mechanistic models when neuron/synapse parameters are learned. | Separate topology from learnable dynamics and task optimization | task accuracy, fitted dynamics, parameter count | unconstrained topology |
-| Neuromorphic FlyWire mapping demonstrates sparse, irregular, recurrent connectivity creates hardware constraints and can benefit from event-driven hardware. | Treat communication pattern and fan-in/fan-out as first-class architecture constraints | memory footprint, event throughput, latency, utilization | dense ANN baseline |
+| Sparse biological connectivity and sparse connectome-constrained models | Sparse/event-driven communication | active edges, messages/step, memory traffic | dense/randomized connectivity |
+| Recurrent and reciprocal connectome structure | Recurrent state + reciprocal pathways | reciprocal fraction, cycles, activity persistence | remove recurrence |
+| Modules + connector hubs | Modular local processing + limited global integration | modularity, participation, path efficiency | flat graph |
+| Human brain cost/efficiency trade-offs | Communication benefit under wiring/resource cost | path efficiency, wiring cost, memory/energy proxy | unconstrained efficiency |
+| Small-world-like organization | Dense local modules + sparse long-range links | clustering, path length, shortcut fraction | degree-matched random |
+| Spatial + topological generative work | Joint spatial/topological constraints | distance law, degree, graphlets | topology-only / spatial-only |
+| 2026 human hierarchy studies | Nested hierarchy plus hierarchy-aware long-range edges | hierarchy depth, within-level vs cross-level edges | flat modularity |
+| 2026 multiscale eigenmode work | Multiscale topology-to-dynamics operator | eigenmode/activity reconstruction error | single-scale operator |
+| 2026 rich-club control study | Explicit integration/control backbone | rich-club density, control proxy, cost per transition | size-matched peripheral core |
+| 2026 spatially diffuse control work | Distance-decaying influence/control | control energy vs radius, input count | point-input model |
+| 2026 fly whole-brain imaging | Temporal constraints from fast activity | autocorrelation, latency, event statistics | static-only validation |
+| 2026 FlyWire-constrained dynamics | Separate anatomical topology from learned dynamics | structural fit vs activity fit | fixed-weight topology |
+| 2026 fly energy-information analysis | Explicit energy-information objective | information/task score per resource unit | performance-only objective |
+| 2026 neuromorphic co-design | Fast event path + compact slow state | event throughput, memory traffic, latency, energy | dense memory path |
+
+## New M5 implementation
+
+The generator now has three explicit experimental components:
+
+1. hierarchy.py
+   - nested community labels;
+   - hierarchy-aware edge probabilities;
+   - exact target edge count;
+   - deliberately transparent baseline, not a fitted biological model.
+
+2. spatial.py
+   - Euclidean wiring-cost proxy;
+   - exponential distance-decay probability;
+   - explicit long-range shortcut budget.
+
+3. rich_club.py
+   - explicit degree-threshold rich-club profile;
+   - rich-core density;
+   - optional normalization against an externally generated null;
+   - rich-to-periphery edge fraction.
+
+These components are intentionally separable so later ablations can distinguish
+hierarchy, spatial embedding and hub structure.
 
 ## Rules for interpretation
 
-1. A structural match is not a functional match.
-2. A functional match is not an engineering advantage.
-3. An engineering advantage must survive strong non-biological controls.
-4. Spatial constraints must be tested separately from topological constraints.
-5. Biological neuron/synapse types must not be collapsed into one generic node if
-   doing so destroys a tested mechanism.
-6. Every claimed advantage must report resource cost as well as task performance.
+1. Structural match is not functional match.
+2. Functional match is not engineering advantage.
+3. Engineering advantage must survive strong non-biological controls.
+4. Spatial and topological constraints must be tested separately.
+5. Human findings are reference constraints, not instructions to imitate every biological detail.
+6. Biological neuron/synapse types must remain explicit where a tested mechanism depends on them.
+7. Every claimed advantage must report resource cost as well as task performance.
+8. A rich-club threshold is a measurement convention unless independently justified.
+9. Long-range edges must be evaluated by function and cost, not treated as automatically beneficial.
+10. Effective/dynamic hierarchy must not be conflated with static community hierarchy.
 
 ## Priority order
 
-The next generator versions should therefore progress in this order:
-
-1. density + degree distribution;
+1. density + full degree distributions;
 2. hubs + reciprocity;
-3. modularity + short/long-range structure;
+3. hierarchy + modularity + short/long-range structure;
 4. spatial distance/contact constraints;
-5. motif/graphlet constraints;
-6. typed inhibitory/excitatory dynamics;
-7. activity-derived constraints;
-8. hardware mapping and resource measurements.
+5. rich-club/backbone and cost-efficiency;
+6. motif/graphlet constraints;
+7. typed inhibitory/excitatory dynamics;
+8. multiscale dynamics and activity-derived constraints;
+9. hardware/resource mapping.
 
-This ordering is deliberately conservative: it moves from directly measurable
-structure toward increasingly mechanistic constraints.
+This order moves from directly measurable structure toward increasingly mechanistic constraints.
