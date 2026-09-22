@@ -51,6 +51,12 @@ The generator now has three explicit experimental components:
 These components are intentionally separable so later ablations can distinguish
 hierarchy, spatial embedding and hub structure.
 
+| Quantum entanglement monogamy/shareability | Bounded relational strength/channel capacity | strength concentration, cross-module bandwidth, stability | equal-edge-count unrestricted-strength control |
+| Quantum entanglement routing under fidelity/coherence/memory constraints | Stateful routing through finite interfaces | routing success, latency, communication cost, congestion | static shortest-path routing |
+| Tensor-network multiscale representation | Compact effective state at module boundaries | information retention per communicated bit, task score, latency | raw-state communication |
+| Holographic/QEC tensor-network models | Constrained boundary representation + structured redundancy | fault recovery, interface bandwidth, failure containment | full-state access / uniform replication |
+| Emergent geometry from relational structure | Derive effective distance from interaction/communication structure | predictive power of effective distance for dynamics | Euclidean distance / graph distance |
+
 ## Rules for interpretation
 
 1. Structural match is not functional match.
