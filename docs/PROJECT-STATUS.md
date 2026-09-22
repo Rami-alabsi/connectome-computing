@@ -108,11 +108,11 @@ Primary controls include random, degree-preserving, hierarchy-preserving, cost-m
 
 The 2026 literature strengthens several links in the project but also narrows the claims we can make.
 
-Hierarchical modular reservoirs improve memory, multitasking and temporal diversity, while performance rapidly saturates with additional hierarchy; this supports testing shallow/optimal hierarchy rather than assuming unlimited depth. citeturn0search0
+Hierarchical modular reservoirs improve memory, multitasking and temporal diversity, while performance rapidly saturates with additional hierarchy; this supports testing shallow/optimal hierarchy rather than assuming unlimited depth.
 
-Recent higher-order brain analyses show that third-order interactions reveal redundancy and synergy that pairwise connectivity does not capture fully, while remaining task- and hierarchy-dependent. This supports a controlled higher-order coordination branch, not a claim that hypergraphs are inherently superior. citeturn0search2
+Recent higher-order brain analyses show that third-order interactions reveal redundancy and synergy that pairwise connectivity does not capture fully, while remaining task- and hierarchy-dependent. This supports a controlled higher-order coordination branch, not a claim that hypergraphs are inherently superior.
 
-Naturalistic connectome work reports a conserved degree-based backbone together with context-dependent hub recruitment, motivating the project's stable-infrastructure/flexible-routing hypothesis. This is an empirical reference constraint, not yet an engineering result. citeturn0search1turn0search4
+Naturalistic connectome work reports a conserved degree-based backbone together with context-dependent hub recruitment, motivating the project's stable-infrastructure/flexible-routing hypothesis. This is an empirical reference constraint, not yet an engineering result. See the 2026 NeuroImage study listed in the literature review.
 
 ### Core synthesis
 
