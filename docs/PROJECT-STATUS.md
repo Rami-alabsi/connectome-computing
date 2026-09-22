@@ -173,3 +173,10 @@ No biological or computational benchmark result is claimed until the correspondi
 **No novelty claim yet.**
 
 Any future novelty statement must identify a narrow mechanism, document exact prior art searched, provide reproducible implementation, and show an advantage that survives matched-resource controls and ablations.
+
+
+## Cross-domain extension — 2026-09-22
+
+Added the **Field-Mediated Relational Layer (FMRL)** research branch based on the cosmic-web literature. This branch treats the cosmic web as an independent example of multiscale, spatially organized field-mediated dynamics. It does not assume that gravity is equivalent to computation.
+
+The next implementation target is **M6-COSMIC**: compare explicit sparse communication, bounded latent-field coordination, and a hybrid latent-field + sparse-backbone architecture under matched communication budgets.
