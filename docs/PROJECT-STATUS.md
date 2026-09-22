@@ -18,20 +18,23 @@
 - [x] M5 profile comparison/discrepancy layer
 - [x] M5 scalable sparse generator baseline
 - [x] M5 novelty tracking and novelty-gate documentation
+- [x] M5 literature-to-design-rule matrix
+- [x] M5 literature review checkpoint
 
 ### Active
 
-**M5 — Real FAFB validation**
+**M5 — Real FAFB validation + multi-constraint generator design**
 
 Immediate tasks:
 
 1. Run the pipeline against a real downloaded FAFB v783 resource.
 2. Extract observed structural profile from the real connection table.
-3. Calibrate a synthetic graph and measure it independently.
-4. Compare density, degree, reciprocity, modularity, hub structure and later motif statistics.
-5. Add distribution-preserving calibration where first-order probabilities are insufficient.
-6. Add controlled ablations for each biological constraint.
-7. Re-run targeted literature searches before any novelty claim.
+3. Add degree-distribution and hub statistics.
+4. Add modularity and spatial/distance constraints.
+5. Compare synthetic vs observed using independent validation metrics.
+6. Add constraints one at a time with ablations.
+7. Only after the exact method stabilizes, perform another targeted prior-art search.
+8. Continue toward M6 with topology and dynamics kept as separate experimental factors.
 
 ### Work path
 
@@ -54,7 +57,7 @@ Immediate tasks:
 [M4] Architecture primitives
   |
   v
->>> [M5] Synthetic connectome generator + real-data validation <<<
+>>> [M5] Synthetic generator + multi-constraint validation <<<
   |
   v
 [M6] Computational simulator
@@ -75,30 +78,21 @@ Immediate tasks:
 [M11] Reproducible scientific release
 ```
 
+## Scientific status
+
+No biological or computational benchmark result is claimed until the corresponding
+data and experiment have actually been executed.
+
 ## Novelty status
 
 **No novelty claim yet.**
 
-The broad project direction is supported by substantial prior art: connectome-constrained
-models, generative biological network models, connectomics-derived architecture search,
-and neuromorphic fly-connectome implementations all exist.
+The project now explicitly incorporates relevant literature as design constraints.
+See:
 
-The potentially distinctive target is the experimentally validated combination of
-multi-constraint connectome extraction, scalable synthetic expansion, controlled
-ablations, and computational efficiency/scaling measurements. This remains a research
-hypothesis until the exact method and results pass the novelty gate documented in
-docs/novelty-tracker.md.
+- `docs/literature-review-2026-09-22.md`
+- `docs/literature-to-design-rules.md`
+- `docs/novelty-tracker.md`
 
-## Scientific status
-
-No biological or computational benchmark result is claimed until the corresponding
-data and experiment have actually been executed. The sparse generator and calibration
-are computational baselines, not validated biological models.
-
-## Resume point
-
-Continue from **M5 — Real FAFB validation**.
-
-When a result appears to satisfy the novelty gate, explicitly raise a **NOVELTY ALERT**
-with the exact method/result, supporting evidence, closest prior art checked, and
-remaining limitations.
+A **NOVELTY ALERT** is only raised when the exact method/result survives a targeted
+prior-art check and reproducible experiments with controls and ablations.
