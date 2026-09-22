@@ -1,0 +1,1 @@
+"""Synthetic connectome generation from explicit structural constraints."""
