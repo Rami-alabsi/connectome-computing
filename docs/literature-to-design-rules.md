@@ -57,6 +57,10 @@ hierarchy, spatial embedding and hub structure.
 | Holographic/QEC tensor-network models | Constrained boundary representation + structured redundancy | fault recovery, interface bandwidth, failure containment | full-state access / uniform replication |
 | Emergent geometry from relational structure | Derive effective distance from interaction/communication structure | predictive power of effective distance for dynamics | Euclidean distance / graph distance |
 
+| 2025 neural-module resource study | Structural modularity alone does not guarantee functional specialization; sparse communication can be sufficient for specific cross-module information | specialization, inter-module messages, task performance | dense communication and randomized sparse controls |
+| 2025-2026 information-bottleneck communication | Transmit compact task-relevant representations under rate/latency constraints | task utility per communicated bit, compression ratio, robustness | raw-state/full-feature communication |
+| Quantum/tensor-network synthesis | Treat module boundaries as finite information interfaces and test multiscale effective states | interface rate, retained task information, fault isolation | unrestricted cross-level state access |
+
 ## Rules for interpretation
 
 1. Structural match is not functional match.
