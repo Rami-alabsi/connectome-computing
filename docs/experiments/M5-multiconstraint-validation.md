@@ -127,3 +127,62 @@ No novelty claim is permitted from matching these properties individually.
 Record dataset/version, preprocessing, node/edge sampling, random seed, generator parameters, null-model definition, metric definitions, software commit, and environment information.
 
 Do not report real-data results until the experiment is actually executed.
+
+## Quantum-information-inspired interface branch
+
+This branch translates quantum-information and tensor-network ideas into classical, falsifiable constraints. It does not assume quantum computation or biological quantum effects.
+
+### Q1 — Effective-state interface
+
+For each module, preserve a detailed internal state but expose only a compact interface state to other modules.
+
+Compare:
+- full-state communication;
+- fixed pooled state;
+- learned compact state.
+
+Match:
+- topology;
+- parameter count where possible;
+- total communication budget;
+- compute budget.
+
+Measure:
+- task performance;
+- information retained by the interface;
+- messages/bytes per step;
+- latency;
+- robustness to internal perturbations.
+
+### Q2 — Interface capacity
+
+Vary the maximum interface bandwidth/state dimension while holding node count and total edge budget fixed.
+
+Test:
+- unrestricted;
+- fixed small interface;
+- adaptive interface.
+
+### Q3 — Structured redundancy
+
+After establishing Q1/Q2, compare:
+- no redundancy;
+- uniform redundancy;
+- targeted redundancy on high-value interfaces/backbone.
+
+Measure failure recovery and redundancy cost.
+
+### Q4 — Effective geometry
+
+Derive an interaction/communication-based distance and compare it with Euclidean and graph distance as predictors of:
+- communication load;
+- activity propagation;
+- task-relevant influence.
+
+### Q5 — Relational-strength budget
+
+Hold edge count fixed but constrain the number/strength of high-weight relationships per module. Compare with unconstrained and strength-shuffled controls.
+
+### Interpretation gate
+
+Quantum-inspired branches are only retained if the observed benefit survives equal-resource controls and can be explained without invoking quantum mechanics. No claim of quantum biological computation is made.
