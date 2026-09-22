@@ -2,9 +2,9 @@
 
 ## Current position
 
-**Stage: M4 — Computational abstraction → M5 Synthetic architecture**
+**Stage: M5 — Synthetic Connectome Generator**
 
-Last completed layers:
+### Completed
 
 - [x] M0 Research foundation
 - [x] M1 FlyWire/Codex ingestion layer
@@ -12,31 +12,23 @@ Last completed layers:
 - [x] M2b Motif/null-model foundation
 - [x] M3 Biological annotation layer
 - [x] M4 Architecture primitives
-- [ ] M5 Synthetic connectome generator
-- [ ] M6 Architecture simulator
-- [ ] M7 Controlled benchmarks
-- [ ] M8 Scaling experiments
-- [ ] M9 Human-brain reference constraints
-- [ ] M10 Neuromorphic/hardware mapping
-- [ ] M11 Scientific release
+- [x] M5 modular directed synthetic generator
+- [x] M5 structural profile model
+- [x] M5 first-order biological-profile calibration
 
-## Active work
+### Active
 
-**M5 — Synthetic Connectome Generator**
+**M5 — Generator validation against biological structure**
 
-Goal: generate larger computational graphs from measurable biological constraints rather
-than copying a fly connectome node-for-node.
+Immediate tasks:
 
-Current generator targets:
+1. Run the calibration against a real downloaded FAFB resource.
+2. Measure the generated graph.
+3. Compare generated vs observed density, degree, reciprocity, modularity and hub statistics.
+4. Add a discrepancy report.
+5. Add better distribution-preserving calibration where first-order probabilities are insufficient.
 
-1. node count;
-2. directed edge density;
-3. degree distribution;
-4. modular organization;
-5. recurrence;
-6. optional hub structure.
-
-## Work path
+### Work path
 
 ```text
 [M0] Research foundation
@@ -57,7 +49,7 @@ Current generator targets:
 [M4] Architecture primitives
   |
   v
->>> [M5] Synthetic connectome generator <<< CURRENT
+>>> [M5] Synthetic connectome generator + validation <<<
   |
   v
 [M6] Computational simulator
@@ -78,17 +70,12 @@ Current generator targets:
 [M11] Reproducible scientific release
 ```
 
-## Rules for continuing the project
+## Scientific status
 
-- Never claim biological validity from generated networks alone.
-- Keep observed biological data separate from synthetic data.
-- Every architecture claim requires a matched control.
-- Every large experiment records seed, configuration, source dataset/version, and metrics.
-- Do not treat human brain measurements as a direct scaling factor for the fly.
-- Prefer falsifiable hypotheses over narrative similarity.
+No biological or computational benchmark result is claimed until the corresponding
+data and experiment have actually been executed. Generator calibration is currently
+a baseline hypothesis.
 
 ## Resume point
 
-When returning to the project, start at **M5 — Synthetic Connectome Generator**.
-The immediate next task is to implement a configurable modular directed graph generator
-and tests for its measurable structural properties.
+Continue from **M5 — Generator validation against real FAFB data**.
