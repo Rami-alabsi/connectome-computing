@@ -42,3 +42,24 @@ def test_pair_task_requires_both_target_endpoints():
     pair_result = next(r for r in results if r.task == "pair")
     assert pair_result.active_relations == 1
     assert pair_result.error > 0.0
+
+
+def test_fixed_overlap_is_context_independent():
+    config = RSSSweepConfig(modules=12, contexts=3, sequence_length=6, max_active_relations=4)
+    case = next(c for c in default_rss_cases(config) if c.name == "E_fixed_overlapping")
+    results = run_rss_case(case, config)
+    routes = [(r.task, r.context, r.active_relations) for r in results]
+    assert all(count == 4 for _, _, count in routes)
+
+
+def test_random_context_control_is_deterministic():
+    config = RSSSweepConfig(modules=12, contexts=3, sequence_length=6, max_active_relations=4)
+    case = next(c for c in default_rss_cases(config) if c.name == "F_random_context_matched")
+    assert run_rss_case(case, config) == run_rss_case(case, config)
+
+
+def test_stable_core_control_always_has_core_candidate_sources():
+    config = RSSSweepConfig(modules=12, contexts=3, sequence_length=3, max_active_relations=4)
+    case = next(c for c in default_rss_cases(config) if c.name == "G_stable_core_flexible_periphery")
+    results = run_rss_case(case, config)
+    assert all(r.active_relations == 4 for r in results)
