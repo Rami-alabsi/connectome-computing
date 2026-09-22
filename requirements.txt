@@ -1,0 +1,2 @@
+# Initial ingestion client uses Python standard library only.
+# Add scientific dependencies when the corresponding analysis milestone requires them.
