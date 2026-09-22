@@ -5,6 +5,7 @@ from __future__ import annotations
 import argparse
 import csv
 import sys
+from pathlib import Path
 
 from src.simulator.multiscale_benchmark import MultiscaleCase, run_multiscale_case
 
@@ -36,7 +37,9 @@ def main() -> int:
                     )
                     rows.append(result.__dict__)
 
-    with open(args.output, "w", newline="", encoding="utf-8") as handle:
+    output_path = Path(args.output)
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    with output_path.open("w", newline="", encoding="utf-8") as handle:
         writer = csv.DictWriter(handle, fieldnames=rows[0].keys())
         writer.writeheader()
         writer.writerows(rows)
