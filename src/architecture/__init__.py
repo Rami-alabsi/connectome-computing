@@ -1,0 +1,1 @@
+"""Computational abstractions derived from connectome observations."""
