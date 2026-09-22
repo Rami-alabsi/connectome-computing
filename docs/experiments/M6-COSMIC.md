@@ -57,3 +57,7 @@ Before any novelty claim:
 The first implementation and unit tests are committed. Scientific benchmark results are
 not yet claimed. CI must be green on the latest commit before the implementation is
 treated as stable.
+
+## Multiscale implementation
+
+The benchmark now includes a deterministic hierarchy generator and scaling runner. The first sweep varies node count, compact field dimension, and explicit active-pair budget across full, sparse, field, and hybrid conditions. The runner writes a CSV under `results/` when executed locally or in CI. No empirical result is recorded in this document until the sweep is actually executed and its output is reviewed.
