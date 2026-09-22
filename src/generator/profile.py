@@ -12,14 +12,27 @@ class StructuralProfile:
     mean_in_degree: float
     mean_out_degree: float
     reciprocal_edge_fraction: float
+    total_synapses: float | None = None
 
-def profile_from_edges(edges: set[tuple[str, str]], nodes: int | None = None) -> StructuralProfile:
+def profile_from_edges(
+    edges: set[tuple[str, str]],
+    nodes: int | None = None,
+    total_synapses: float | None = None,
+) -> StructuralProfile:
     clean = {(u, v) for u, v in edges if u != v}
     node_set = {n for edge in clean for n in edge}
     node_count = nodes if nodes is not None else len(node_set)
     density = len(clean) / (node_count * (node_count - 1)) if node_count > 1 else 0.0
     reciprocal = sum(1 for u, v in clean if (v, u) in clean)
-    return StructuralProfile(node_count, len(clean), density, len(clean) / node_count if node_count else 0.0, len(clean) / node_count if node_count else 0.0, reciprocal / len(clean) if clean else 0.0)
+    return StructuralProfile(
+        node_count,
+        len(clean),
+        density,
+        len(clean) / node_count if node_count else 0.0,
+        len(clean) / node_count if node_count else 0.0,
+        reciprocal / len(clean) if clean else 0.0,
+        total_synapses,
+    )
 
 def save_profile(profile: StructuralProfile, path: str | Path) -> None:
     destination = Path(path)
