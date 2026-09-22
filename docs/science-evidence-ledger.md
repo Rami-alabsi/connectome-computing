@@ -39,3 +39,8 @@ an engineering claim is made.
 A literature result is never copied into the architecture as an unquestioned truth.
 The project records the observation, the proposed abstraction, its falsifiable prediction,
 and the control required to separate the biological effect from generic graph effects.
+
+
+| 2026 neuromorphic hierarchical-reservoir study finds performance gains saturate after limited hierarchy depth in its tested tasks | Established for the studied reservoir experiments | test shallow hierarchy and parallel pathways rather than assuming deep fractal scaling | flat-modular, random and deeper-hierarchy controls with matched density/degree |
+| 2026 community-aware sparse SNN topology work reinforces that sparse topology can be designed jointly with communities for efficient spiking computation | Promising engineering evidence | preserve community structure while minimizing active communication | degree/density-matched random sparse topology |
+| 2026 cortical microcircuit generative-model work learns compressed latent structure and links generated circuits to reservoir tasks | Promising cross-domain prior art | treat compressed generative representations as a possible M5/M6 interface | explicit parameter-count and held-out-structure controls |
