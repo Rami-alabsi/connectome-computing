@@ -27,6 +27,12 @@ an engineering claim is made.
 | Fly visual pathways are shallow and parallel, while fine spatial sampling persists into central brain regions | Promising/established for the studied visual pathways (Cell 2026) | avoid assuming deep serial hierarchy; allow parallel feature pathways with spatial maps | deep-serial hierarchy and spatially shuffled controls |
 | Fly brain-and-cord control is distributed and embodied, with local body-part feedback loops linked by long-range ascending/descending circuits | Established (Nature 2026) | distributed local controllers + sparse coordination layer | centralized-controller ablation |
 
+| Quantum entanglement has multipartite shareability/monogamy constraints | Established quantum-information result | investigate bounded high-value relational capacity rather than unlimited strong cross-module coupling | equal-edge-count strength-distribution controls |
+| 2025-2026 quantum-network studies show entanglement routing is constrained by fidelity, coherence, memory, errors and bottlenecks | Established engineering/physics evidence | treat interface/routing capacity as dynamic stateful resources | shortest-path, unrestricted-bandwidth and static-routing controls |
+| Tensor networks provide structured multiscale representations of high-dimensional states | Established computational method | compact effective module states and scale-dependent interfaces | raw-state vs pooled vs learned compressed state |
+| Holographic tensor-network models connect boundary representations, entanglement and quantum-error-correction properties | Established within theoretical models | test constrained boundary/interface representations and structured redundancy | full-state access and uniform-redundancy controls |
+| Emergent-geometry interpretations from entanglement/tensor networks | Theoretical framework / promising cross-domain abstraction | test whether effective communication geometry predicts dynamics beyond raw Euclidean distance | Euclidean-only and graph-distance controls |
+
 ## Evidence classes
 
 - **Established:** repeatedly measured or strongly supported in the cited literature.
