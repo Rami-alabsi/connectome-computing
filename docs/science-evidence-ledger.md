@@ -24,6 +24,8 @@ an engineering claim is made.
 | Combined mammalian evidence links modular cooperation with diffuse long-range competition and hierarchical/synergistic dynamics | Promising / cross-species | local cooperative modules + sparse long-range competitive channel | cooperation-only, competition-only and sign-shuffled controls |
 | Spatial + topological maximum-entropy models predict additional connectome properties beyond their fitted constraints | Established across fly, mouse and human datasets | fit topology and geometry jointly rather than as independent heuristics | held-out graphlets, weights and wiring-cost prediction |
 | Mesoscale participation and hierarchy-crossing connectivity provide measurable separation between local specialists and cross-module integrators | Established network-science measures; biological interpretation remains model-dependent | M5 validation metrics for local/global organization | degree-preserving, module-preserving and spatial nulls |
+| Fly visual pathways are shallow and parallel, while fine spatial sampling persists into central brain regions | Promising/established for the studied visual pathways (Cell 2026) | avoid assuming deep serial hierarchy; allow parallel feature pathways with spatial maps | deep-serial hierarchy and spatially shuffled controls |
+| Fly brain-and-cord control is distributed and embodied, with local body-part feedback loops linked by long-range ascending/descending circuits | Established (Nature 2026) | distributed local controllers + sparse coordination layer | centralized-controller ablation |
 
 ## Evidence classes
 
