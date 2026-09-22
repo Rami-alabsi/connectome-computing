@@ -180,3 +180,31 @@ Any future novelty statement must identify a narrow mechanism, document exact pr
 Added the **Field-Mediated Relational Layer (FMRL)** research branch based on the cosmic-web literature. This branch treats the cosmic web as an independent example of multiscale, spatially organized field-mediated dynamics. It does not assume that gravity is equivalent to computation.
 
 The next implementation target is **M6-COSMIC**: compare explicit sparse communication, bounded latent-field coordination, and a hybrid latent-field + sparse-backbone architecture under matched communication budgets.
+
+
+## M6-COSMIC implementation checkpoint — 2026-09-22
+
+Implemented the first **Field-Mediated Relational Layer (FMRL)** primitive in `src/simulator/relational_field.py`.
+
+The primitive is intentionally conservative:
+- module states are first formed at the existing effective-state level;
+- a deterministic, non-learned global field is produced by mean pooling;
+- the field dimension is explicit;
+- broadcast payload cost is explicit in values and bytes;
+- no node-level state is exported by the field interface;
+- field coordination is kept separate from sparse pairwise routing.
+
+This creates the minimum control needed for the next experiment family:
+**explicit sparse edges vs global field vs field + sparse backbone**, with matched field/interface budgets.
+
+The implementation is an engineering abstraction. It does not model gravity, quantum fields, holography, or spacetime and must not be interpreted as evidence for those physical theories.
+
+A new 2026 literature check reinforces three design constraints: hierarchical modular reservoirs motivate finite/shallow hierarchy tests rather than assuming unlimited depth; higher-order brain analyses support testing collective interactions without assuming they are universally superior; and resource-constrained neural-module work shows that specialization depends on information-flow timing and bandwidth. These findings keep interface capacity and hierarchy depth as explicit experimental variables.
+
+## Compass rule
+
+All branches remain subordinate to one experimental spine:
+
+**evidence → abstraction → falsifiable prediction → matched control → implementation → execution → ablation → scaling → prior-art recheck**
+
+The cross-domain branches (atomic/subatomic, quantum information, cosmic web, quantum-to-cosmic) are hypothesis generators and mathematical analogies only. They do not override the biological anchor or the requirement for non-biological controls.
