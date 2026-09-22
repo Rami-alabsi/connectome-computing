@@ -26,12 +26,40 @@ def rich_club_profile(edges: Iterable[tuple[str, str]], *, nodes: Iterable[str] 
     possible = len(rich) * (len(rich) - 1)
     rich_edges = sum(1 for u, v in clean if u in rich and v in rich)
     density = rich_edges / possible if possible else 0.0
-    null = null_rich_density if null_rich_density and null_rich_density > 0 else None
+    null = null_rich_density if null_rich_density is not None and null_rich_density > 0 else None
     normalized = density / null if null else 1.0
     cross = sum(1 for u, v in clean if (u in rich) ^ (v in rich))
     cross_fraction = cross / len(clean) if clean else 0.0
     return RichClubProfile(len(node_set), len(clean), degree_threshold, len(rich),
                            rich_edges, density, normalized, cross_fraction)
+
+def rich_club_curve(
+    edges: Iterable[tuple[str, str]],
+    *,
+    nodes: Iterable[str] | None = None,
+    thresholds: Iterable[int] | None = None,
+) -> list[RichClubProfile]:
+    """Compute rich-club profiles over multiple degree thresholds.
+
+    A curve is preferred to a single threshold because the apparent
+    rich-club effect can depend strongly on where the core is cut.
+    """
+    clean = {(u, v) for u, v in edges if u != v}
+    node_set = set(nodes or ())
+    node_set.update(u for u, _ in clean)
+    node_set.update(v for _, v in clean)
+    degree = {n: 0 for n in node_set}
+    for u, v in clean:
+        degree[u] += 1
+        degree[v] += 1
+
+    if thresholds is None:
+        unique = sorted(set(degree.values()))
+        thresholds = unique
+    return [
+        rich_club_profile(clean, nodes=node_set, degree_threshold=t)
+        for t in thresholds
+    ]
 
 def to_dict(profile: RichClubProfile) -> dict[str, float | int]:
     return asdict(profile)
