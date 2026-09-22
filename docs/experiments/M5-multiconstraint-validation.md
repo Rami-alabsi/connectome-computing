@@ -186,3 +186,51 @@ Hold edge count fixed but constrain the number/strength of high-weight relations
 ### Interpretation gate
 
 Quantum-inspired branches are only retained if the observed benefit survives equal-resource controls and can be explained without invoking quantum mechanics. No claim of quantum biological computation is made.
+
+
+## M6 cross-link: bounded interfaces + higher-order coordination
+
+The interface hypothesis now has a second layer. Pairwise module-to-module messages may
+not capture all task-relevant collective interactions. Recent 2026 brain-network work
+shows higher-order interaction measures can reveal redundancy, synergy and topological
+scaffolds that are not reducible to pairwise connectivity; these measures also align
+with cortical hierarchy. This motivates a controlled engineering branch rather than an
+assumption that hyperedges are inherently superior.
+
+### H1 — Pairwise vs higher-order interface
+
+Compare:
+- pairwise bounded interfaces only;
+- bounded 3-module coordination simplices;
+- unrestricted higher-order coordination.
+
+Match:
+- total transmitted state values;
+- active relation count;
+- compute budget;
+- topology where possible.
+
+Measure:
+- task utility;
+- communication volume;
+- latency;
+- redundancy vs synergy;
+- robustness after module ablation.
+
+The key question is whether a small number of higher-order relations provides
+measurable benefit per resource unit over pairwise communication.
+
+### H2 — State-dependent coordination
+
+Candidate simplices should be activated only when the current module states make them
+useful. Compare static relation sets against state-dependent activation under the same
+maximum relation budget.
+
+### H3 — Interface specialization
+
+Measure whether narrowing the interface changes module specialization over time.
+This directly connects M6 to the 2025 resource-constrained modularity result.
+
+No novelty claim is permitted for higher-order interactions, hypergraphs, information
+bottlenecks, or tensor-network compression individually. Any future claim must concern
+a narrowly defined combination and survive matched-resource controls.
