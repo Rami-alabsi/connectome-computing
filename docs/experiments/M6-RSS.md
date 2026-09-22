@@ -3,101 +3,117 @@
 ## Purpose
 
 This experiment operationalizes the **Relational State Space (RSS)** hypothesis:
-hierarchy is treated as one relational coordinate, alongside overlapping layers,
-context, temporal activation, and bounded higher-order group relations.
+hierarchy is one relational coordinate alongside overlapping layers, context,
+temporal activation, and bounded collective relations.
 
 This is a classical engineering benchmark. It is not a model of human social
 behavior, brain physics, quantum gravity, or a literal fourth spatial dimension.
 
 ## Conditions
 
-| Condition | Representation | Dynamic routing | Higher-order |
-|---|---|---:|---:|
+| Condition | Representation | Routing | Collective relation |
+|---|---|---|---:|
 | A | flat pairwise | state-ranked | no |
-| B | fixed hierarchy | no | no |
-| C | overlapping context layers | yes | no |
-| D | overlapping context layers | yes | bounded |
+| B | fixed hierarchy | fixed | no |
+| C | overlapping context layers | dynamic | no |
+| D | overlapping context layers | dynamic | bounded collective |
+| E | fixed overlapping | fixed | no |
+| F | random context-matched | random | no |
+| G | stable core + flexible periphery | state/context priority | no |
 
-All conditions expose the same configured active-relation budget and
-bytes-per-relation. The current benchmark uses the active route endpoints as
-the only source states available to the receiver.
+D's current collective operation is deliberately a **bounded group pooling
+surrogate**. It is not yet a general nonlinear higher-order interaction model.
+Any stronger higher-order claim requires a separate interaction function and
+null model.
 
-## Tasks
+## Information-flow boundary
 
-- **global** — target depends on an aggregate over all modules. A condition
-  receives only the subset of source states represented by its active routes.
-- **pair** — target depends on a specific ordered module pair. The prediction is
-  exact only when both target endpoints are transmitted.
-- **context** — target depends on the currently selected overlapping group.
-- **temporal** — target changes with the context sequence and tests whether the
-  active relational structure follows that sequence.
-
-The target is computed from the full hidden fixture state only for evaluation.
-The prediction path is restricted to transmitted source states.
-
-## Metrics
-
-- absolute task error;
-- active relation count;
-- transmitted bytes;
-- routing churn between successive contexts;
-- explicit higher-order relation activation.
-
-The benchmark deliberately does not collapse these into a single score.
-
-## Information-flow integrity gate
-
-The earlier prototype allowed some global predictions to read the complete
-fixture state directly. That was an implementation shortcut, not a valid
-communication experiment. It has now been removed.
-
-The current benchmark enforces:
+The benchmark enforces:
 
 **hidden source states → selected communication routes → visible source subset → prediction**
 
-Therefore a condition cannot obtain a zero-error result by reading states that
-its routing policy did not transmit.
+The evaluator may compute the hidden target from the complete fixture only for
+measurement. A condition cannot use untransmitted source states to form its
+prediction.
 
-The pair task also explicitly requires both target endpoints, preventing the
-benchmark from treating an unrelated route as successful pairwise information
-transfer.
+For pair-sensitive tasks, the prediction is exact only when both target
+endpoints are actually transmitted.
 
-## Controls and interpretation
+## Tasks
 
-A result is not evidence for an architectural advantage merely because dynamic
-routing reduces error. The effect must survive matched active-relation,
-parameter, interface-state and byte budgets.
+- **global** — aggregate over all hidden modules;
+- **pair** — a specific ordered module pair;
+- **context** — aggregate over the active overlapping group;
+- **temporal** — context-dependent state channel over a sequence.
 
-Required controls:
+## Matched-resource protocol
 
-- fixed overlapping groups;
-- random context-dependent routing with the same active-route budget;
+The runner now evaluates:
+
+- seeds: 0–4;
+- active relation budgets: 2, 4, 6, 8;
+- identical module count and state dimension;
+- identical bytes per transmitted relation;
+- identical sequence length and contexts.
+
+The benchmark records error, active relations, transmitted bytes, routing churn
+and collective-relation activation. No single scalar score is used.
+
+## Controls
+
+E is a fixed-overlap control. It separates the effect of overlap itself from
+state-dependent routing.
+
+F is a random context-dependent routing control with the same active-route
+budget. It tests whether any apparent benefit comes merely from route churn or
+context dependence.
+
+G is a stable-core/flexible-periphery control. It tests whether a small
+persistent coordination core explains any benefit attributed to dynamic
+relational organization.
+
+Required future controls remain:
+
 - parameter/interface-dimension matching;
-- matched active-relation count;
-- shuffled higher-order relation null;
-- stable-core + flexible-periphery ablation;
-- sparse brokerage ablation.
+- shuffled collective-relation null;
+- sparse brokerage ablation;
+- explicit stable-core removal;
+- candidate-topology matching where appropriate.
 
-The benchmark is therefore a **mechanism test**, not a novelty test.
+## Interpretation gate
+
+A dynamic condition is not considered advantageous merely because its raw error
+is lower. An effect must survive matched active-relation, transmitted-byte,
+parameter/interface and topology controls, and should be stable across seeds
+and budgets.
+
+CI success demonstrates implementation/test correctness only. It is not
+scientific validation.
 
 ## Prior-art boundary
 
-Dynamic routing is established: learned dynamically routed neural networks have
-been systematically studied for years, and network-routing literature includes
-candidate-path, multipath and opportunistic routing. Recent 2026 work also
-explicitly evaluates dynamic multi-path candidate decoding. These establish that
-multiple candidate routes and state-dependent route selection are not novel by
-themselves. citeturn0search14turn0search8turn0search15turn0search0
+Dynamic routing, multipath routing, multilayer networks and higher-order
+networks are established fields. Recent work continues to study dynamic
+multilayer/higher-order switching and routing trade-offs. citeturn0search2turn0search3turn0search5
 
-The research question here is narrower: whether a **resource-bounded,
-overlapping, higher-order relational state space with controlled information
-interfaces** provides an independent engineering benefit, and later whether a
-bounded delayed-commitment/potential-path mechanism adds benefit beyond ordinary
-dynamic routing. That remains unproven.
+Therefore the current research question is not whether dynamic routing or
+higher-order relations are novel. It is whether this particular combination of
+resource-bounded effective interfaces, overlapping relational contexts, sparse
+coordination and (later) delayed path commitment yields an independently
+measurable engineering trade-off.
 
-## Current execution status
+## Biological gate
 
-The information-flow semantics have now been corrected in code and protected by
-unit tests. GitHub Actions must be inspected after the new commits complete,
-including the uploaded CSV artifact. No scientific result is claimed until the
-artifact and matched controls have been evaluated.
+The architecture is not considered connectome-supported until it is compared
+against real FlyWire structure. Current public Codex data identify FAFB v783 as
+139,255 neurons and 3,732,460 directed connection pairs; BANC v888 is the newer
+2026 brain-and-nerve-cord snapshot. citeturn0search0turn0search1
+
+FAFB profiling remains a separate validation stage; synthetic benchmark results
+must not be presented as biological evidence.
+
+## Current status
+
+The information-flow semantics, matched controls and multi-seed/multi-budget
+sweep are now implemented. The next gate is CI execution plus inspection of the
+generated CSV artifact. No benchmark advantage or novelty claim is made yet.
