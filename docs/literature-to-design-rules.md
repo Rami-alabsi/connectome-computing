@@ -93,3 +93,10 @@ This order moves from directly measurable structure toward increasingly mechanis
 | 2026 community-aware sparse SNN topology | Jointly optimize sparse communication and module structure | active edges, events/step, communication-cost proxy | matched-degree sparse random topology |
 | 2026 cortical microcircuit generative modeling | Explore compact latent representations only after structural validation | latent size vs held-out graphlets/degree/spatial statistics | direct high-dimensional parameterization |
 | Cross-domain resource principle | Report task performance together with event, edge, wiring and memory proxies | task score per resource proxy | performance-only objective |
+
+
+| 2025 Nature Communications modular-resource study | A narrow bottleneck can increase module specialization, but structural modularity alone does not guarantee it | specialization, interface dimension, inter-module communication | shared-readout, dense-interface, randomized sparse-interface controls |
+| 2026 Conditional Rate–Utility communication-edge inference | Adaptive bottlenecks can trade task utility against communication rate under changing conditions | task utility/bit, interface rate, adaptation cost | fixed-bandwidth and unrestricted-rate controls |
+| 2026 tensor-network bottleneck compression | Effective low-rank/MPO representations can compress large linear transformations without immediate task loss in studied image-classification settings | interface dimension, retained task information, compute/communication cost | dense linear layer and fixed pooling controls |
+| 2026 hyperbolic temporal graph networks | Hyperbolic representations are established graph-learning machinery for hierarchical/dynamic graphs, not evidence for biological geometry | optional effective-geometry benchmark | Euclidean graph embedding and graph-distance controls |
+| 2026 selective redundancy for fault tolerance | Targeted redundancy can trade reliability against hardware resource use in studied accelerators | recovery probability, redundancy cost, latency | no redundancy and uniform redundancy |
