@@ -85,7 +85,7 @@ def run_cosmic_case(
             sum(field) / len(field) for _ in range(dim)
         )
     else:
-        global_estimate = target_global
+        global_estimate = target_pair
 
     if case.mode in ("sparse", "hybrid"):
         # Explicit pair communication transmits both endpoint effective states.
