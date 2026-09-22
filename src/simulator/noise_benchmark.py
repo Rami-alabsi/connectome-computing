@@ -30,6 +30,8 @@ class NoiseCase:
 @dataclass(frozen=True)
 class NoiseResult:
     mode: NoiseMode
+    field_dim: int
+    active_pairs: int
     nodes: int
     noise_std: float
     seed: int
@@ -121,6 +123,8 @@ def run_noise_case(
 
     return NoiseResult(
         mode=case.mode,
+        field_dim=case.field_dim,
+        active_pairs=case.active_pairs,
         nodes=nodes,
         noise_std=case.noise_std,
         seed=case.seed,
