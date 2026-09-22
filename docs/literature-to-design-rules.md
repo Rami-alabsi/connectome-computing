@@ -77,3 +77,9 @@ hierarchy, spatial embedding and hub structure.
 9. hardware/resource mapping.
 
 This order moves from directly measurable structure toward increasingly mechanistic constraints.
+
+
+| 2026 neuromorphic hierarchical-reservoir study | Prefer shallow/nested hierarchy search with explicit depth-saturation measurement | memory, multitasking, timescale diversity vs hierarchy depth | flat modular, random, and deeper hierarchy |
+| 2026 community-aware sparse SNN topology | Jointly optimize sparse communication and module structure | active edges, events/step, communication-cost proxy | matched-degree sparse random topology |
+| 2026 cortical microcircuit generative modeling | Explore compact latent representations only after structural validation | latent size vs held-out graphlets/degree/spatial statistics | direct high-dimensional parameterization |
+| Cross-domain resource principle | Report task performance together with event, edge, wiring and memory proxies | task score per resource proxy | performance-only objective |
