@@ -46,12 +46,27 @@
 - [ ] Add deterministic experiment replay.
 
 ## M6 — Benchmark Suite
+- [x] Add deterministic bounded effective-state interface.
+- [x] Add explicit communication accounting.
+- [x] Add fixed vs state-dependent routing controls.
+- [x] Add bounded higher-order coordination primitive.
+- [x] Add first Field-Mediated Relational Layer (FMRL) primitive.
+- [ ] Build M6-COSMIC matched-resource benchmark: explicit edges vs field vs hybrid.
+- [ ] Add global-aggregate vs pair-sensitive task split.
+- [ ] Add field-dimension and bandwidth sweeps.
+- [ ] Add field-ablation and backbone-ablation controls.
 - [ ] Classification.
 - [ ] Sequence/recurrent processing.
 - [ ] Graph reasoning.
 - [ ] Control or decision-making.
 - [ ] Optional chess/game workload.
 - [ ] Conventional and random baselines.
+
+## M6+ — Cross-scale research branches
+- [ ] Q-COSMIC bridge benchmark: microscopic states → effective states → relational geometry.
+- [ ] Test capacity-triggered hierarchy against shallow/deep hierarchy controls.
+- [ ] Test dynamic backbone: conserved infrastructure + context-dependent recruitment.
+- [ ] Re-run exact prior-art search before any novelty statement.
 
 ## M7 — Scalable Generator
 - [ ] Define preserved statistics.
