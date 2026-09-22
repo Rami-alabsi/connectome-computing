@@ -60,7 +60,7 @@ def default_experiment_matrix(
         raise ValueError("active_pairs must be positive")
 
     return (
-        ExperimentCase("E0_full_fixed_unlimited", "full", "fixed", full_state_dim, active_pairs),
+        ExperimentCase("E0_full_fixed_all_candidates", "full", "fixed", full_state_dim, active_pairs),
         ExperimentCase("E1_full_sparse_fixed", "full", "fixed", full_state_dim, active_pairs),
         ExperimentCase("E2_compressed_fixed", "compressed", "fixed", compressed_dim, active_pairs),
         ExperimentCase("E3_compressed_state_dependent", "compressed", "state_dependent", compressed_dim, active_pairs),
@@ -79,17 +79,27 @@ def run_case(
 ) -> ExperimentResult:
     """Run one deterministic one-step case.
 
-    The current stateful simulator exposes state-dependent routing. The fixed
-    routing control is represented by supplying a stable route budget and a
-    caller-provided candidate set; a dedicated fixed-policy primitive should
-    replace this placeholder before interpreting E1/E2/E3 as a causal result.
+    Fixed routing uses a deterministic candidate-prefix policy; E0 is the
+    all-candidate reference while E1-E4 use the supplied sparse active-pair budget.
     """
     if case.interface_mode == "full":
         dimension = full_state_dim
     else:
         dimension = case.interface_dim
 
-    config = case.simulator_config(full_state_dim)
+    if case.name == "E0_full_fixed_all_candidates":
+        config = SimulatorConfig(
+            interface_dim=full_state_dim,
+            max_active_pairs=max(1, len(set(candidate_pairs))),
+            routing_mode="fixed",
+        )
+    else:
+        base = case.simulator_config(full_state_dim)
+        config = SimulatorConfig(
+            interface_dim=base.interface_dim,
+            max_active_pairs=base.max_active_pairs,
+            routing_mode=case.routing_mode,
+        )
     next_states, report = step(
         node_states,
         node_edges,
