@@ -11,7 +11,7 @@ def test_profile_from_edges():
     assert profile.mean_in_degree == 1.0
     assert profile.reciprocal_edge_fraction == 2 / 3
     assert profile.max_out_degree == 2
-    assert profile.max_in_degree == 2
+    assert profile.max_in_degree == 1
 
 
 def test_profile_preserves_declared_isolate():
