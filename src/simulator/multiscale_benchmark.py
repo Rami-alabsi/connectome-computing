@@ -36,10 +36,14 @@ class MultiscaleResult:
 
 
 def _state(node: int, dim: int) -> tuple[float, ...]:
-    # Deterministic heterogeneous signal with both global and pair-sensitive
-    # components; no randomness is needed for the baseline fixture.
+    # Deterministic bounded heterogeneous signal with both global and
+    # pair-sensitive components. Bounded amplitude prevents absolute RMSE from
+    # growing merely because the node index grows with benchmark scale.
+    import math
+
     return tuple(
-        ((node + 1) * (i + 2) + (node % 7) * (i + 1)) / 100.0
+        math.sin((node + 1) * (i + 1) * 0.37)
+        + 0.35 * math.cos((node % 17 + 1) * (i + 2) * 0.19)
         for i in range(dim)
     )
 
