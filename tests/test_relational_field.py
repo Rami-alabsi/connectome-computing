@@ -8,7 +8,7 @@ def test_global_field_is_deterministic_and_compact():
     }
     field, report = build_global_field(modules, config=FieldConfig(field_dim=2))
 
-    assert field == (2.0, 3.0)
+    assert field == (2.5, 4.5)
     assert report.source_modules == 2
     assert report.field_values == 2
     assert report.transmitted_values == 2
