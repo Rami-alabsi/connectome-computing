@@ -21,6 +21,11 @@ constraints. A biological property is never assumed to be computationally optima
 | 2026 FlyWire-constrained dynamics | Separate anatomical topology from learned dynamics | structural fit vs activity fit | fixed-weight topology |
 | 2026 fly energy-information analysis | Explicit energy-information objective | information/task score per resource unit | performance-only objective |
 | 2026 neuromorphic co-design | Fast event path + compact slow state | event throughput, memory traffic, latency, energy | dense memory path |
+| 2026 fly visual pathway study | Parallel, shallow hierarchy with persistent fine spatial sampling | parallel pathway count, hierarchy depth, spatial-map preservation | forced deep serial hierarchy |
+| 2026 fly brain-and-cord connectome | Distributed embodied control with local loops linked by long-range ascending/descending circuits | local-loop autonomy, cross-module control, communication cost | centralized controller |
+| 2026 hierarchical reservoir study | Hierarchy can improve memory, multitasking and temporal range; reciprocal/cyclic motifs are implicated | memory capacity, multitask score, timescale diversity | flat modular / random matched controls |
+| Cross-species spatial+topological maximum-entropy work | Joint geometry + topology can predict graphlets and weight-related structure beyond fitted constraints | held-out graphlets, edge-length distribution, weight proxy | topology-only / distance-only |
+
 
 ## New M5 implementation
 
