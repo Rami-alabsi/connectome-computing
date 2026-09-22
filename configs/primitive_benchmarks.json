@@ -1,0 +1,34 @@
+{
+  "benchmarks": [
+    {
+      "primitive_id": "AP-001",
+      "workloads": ["sparse classification", "graph routing"],
+      "metrics": ["messages", "latency", "energy_proxy", "accuracy"],
+      "controls": ["dense network", "degree-matched random network"]
+    },
+    {
+      "primitive_id": "AP-002",
+      "workloads": ["sequence prediction", "temporal classification"],
+      "metrics": ["accuracy", "steps", "messages"],
+      "controls": ["feed-forward network", "recurrent-edge ablation"]
+    },
+    {
+      "primitive_id": "AP-003",
+      "workloads": ["modular graph tasks", "multi-stage inference"],
+      "metrics": ["cross-module messages", "latency", "accuracy"],
+      "controls": ["non-modular degree-matched network"]
+    },
+    {
+      "primitive_id": "AP-004",
+      "workloads": ["multi-module integration", "graph aggregation"],
+      "metrics": ["hop count", "messages", "latency", "accuracy"],
+      "controls": ["hub ablation", "degree-preserving randomization"]
+    },
+    {
+      "primitive_id": "AP-005",
+      "workloads": ["local pattern detection", "temporal microtasks"],
+      "metrics": ["accuracy", "messages", "latency"],
+      "controls": ["motif-randomized network", "degree-matched random network"]
+    }
+  ]
+}
