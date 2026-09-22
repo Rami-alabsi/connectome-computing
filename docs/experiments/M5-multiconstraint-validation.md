@@ -2,8 +2,7 @@
 
 ## Objective
 
-Determine whether a synthetic connectome can reproduce selected biological constraints
-without hiding which constraint caused each improvement.
+Determine whether a synthetic connectome can reproduce selected biological constraints without hiding which constraint caused each improvement.
 
 ## Constraint ladder
 
@@ -16,23 +15,49 @@ Run the same observed-data split and target edge budget through:
 5. + spatial distance law;
 6. + explicit long-range budget;
 7. + rich-club/backbone;
-8. full multi-constraint model.
-
-Additional mechanistic branch for M6 preparation:
-
+8. full multi-constraint model;
 9. + typed cooperation/competition;
-10. + dynamic/state-dependent hierarchy.
+10. + dynamic/state-dependent hierarchy;
+11. + bounded-capacity hierarchy / saturation-triggered expansion.
 
-Every stage is compared with strong controls:
+The new capacity branch is a computational hypothesis, not a claim that connectomes literally follow atomic shell rules.
 
-- random graph at matched density;
-- degree-preserving directed null;
-- cost-matched graph;
-- hierarchy-only graph;
-- spatial-only graph;
-- hub-only graph;
-- cooperation-only vs cooperation+competition;
-- flat hierarchy vs state-dependent hierarchy.
+## Capacity-triggered hierarchy experiment
+
+Compare:
+
+- A: uniform-density topology;
+- B: capacity hierarchy;
+- C: capacity hierarchy + sparse backbone;
+- D: hierarchy control with capacity assignment randomized.
+
+Match node count, directed edge count, degree distribution, approximate modularity, spatial/wiring-cost budget, parameter count, and event/compute budget as far as the generator permits.
+
+Primary capacity metrics:
+
+- module occupancy distribution;
+- fraction of saturated modules;
+- hierarchy depth;
+- inter-module interface count;
+- hierarchy-crossing fraction;
+- communication events/messages;
+- wiring cost;
+- task performance and memory capacity in M6+;
+- timescale diversity;
+- fault tolerance.
+
+### Required ablations
+
+- remove capacity limit;
+- change capacity while holding total edges fixed;
+- disable saturation-triggered expansion;
+- vary hierarchy depth;
+- vary interface budget;
+- remove sparse backbone;
+- randomize module assignment;
+- preserve degree sequence while rewiring.
+
+A capacity result is only useful if it survives these controls.
 
 ## Metrics
 
@@ -82,43 +107,23 @@ Current hypotheses:
 
 ## Fly embodied-control constraint
 
-The 2026 unified fly brain-and-nerve-cord connectome motivates a separate hypothesis:
-local sensory-to-effector feedback loops can remain relatively autonomous while
-long-range ascending/descending pathways coordinate behavior modules.
-
-This should be compared against a centralized-control baseline rather than assumed superior.
+The 2026 unified fly brain-and-nerve-cord connectome motivates a separate hypothesis: local sensory-to-effector feedback loops can remain relatively autonomous while long-range ascending/descending pathways coordinate behavior modules.
 
 ## Cooperation/competition constraint
 
-A 2026 cross-species mammalian study reports that faithful whole-brain dynamics
-combine modular cooperative interactions with diffuse long-range competitive interactions.
-This motivates a typed interaction branch:
+A 2026 cross-species mammalian study motivates a typed interaction branch:
 
 - local/modular cooperation;
 - diffuse long-range competition.
 
-The engineering hypothesis is not that inhibition/competition is universally beneficial.
-It is that mixed interaction signs may provide a different stability/expressivity/resource
-trade-off than cooperation-only networks.
+The engineering hypothesis is not that mixed signs are universally beneficial; it is that mixed interaction signs may create a different stability/expressivity/resource trade-off.
 
 ## Novelty gate
 
 No novelty claim is permitted from matching these properties individually.
-A novelty candidate requires:
-
-1. exact method specification;
-2. targeted prior-art search for the combined method;
-3. reproducible controls;
-4. ablation evidence;
-5. statistically appropriate uncertainty reporting;
-6. independent or held-out validation;
-7. an engineering result that cannot be explained by parameter count,
-   density, degree sequence or another generic advantage.
 
 ## Reproducibility
 
-Record dataset/version, resource URL, preprocessing, node/edge sampling, random seed,
-all generator parameters, null-model definition, metric definitions, software commit,
-and environment information.
+Record dataset/version, preprocessing, node/edge sampling, random seed, generator parameters, null-model definition, metric definitions, software commit, and environment information.
 
 Do not report real-data results until the experiment is actually executed.
