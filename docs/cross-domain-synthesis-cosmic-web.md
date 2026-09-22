@@ -6,7 +6,7 @@ Updated: 2026-09-22
 
 The project should not stop its abstraction ladder at the microscopic/quantum or biological scale.
 
-At cosmological scales, observed matter is organized as a **cosmic web** of nodes, filaments, sheets and voids. Large-scale structure grew from primordial density fluctuations whose evolution was amplified by gravity; simulations and observations describe the resulting organization as a multiscale connected network. citeturn0search0turn0search1
+At cosmological scales, observed matter is organized as a **cosmic web** of nodes, filaments, sheets and voids. Large-scale structure grew from primordial density fluctuations whose evolution was amplified by gravity; simulations and observations describe the resulting organization as a multiscale connected network.
 
 This is scientifically useful for the project, but only if we distinguish **network-like organization** from literal graph edges. Gravity is a field interaction and the cosmic web is a spatial/dynamical structure, not a pre-existing communication network.
 
@@ -19,7 +19,7 @@ A planetary system is not simply a miniature cosmic web.
 - Many superclusters are not gravitationally bound as a single object; large-scale expansion matters.
 - The useful common abstraction is therefore not "everything is connected like wires", but **entities coupled through a spatially structured interaction field whose effective influence changes with scale and state**.
 
-NASA's large-scale-structure description likewise distinguishes gravitationally bound structures from larger supercluster-scale organization and describes the cosmic web as clusters and galaxies connected by filaments. citeturn0search3
+NASA's large-scale-structure description likewise distinguishes gravitationally bound structures from larger supercluster-scale organization and describes the cosmic web as clusters and galaxies connected by filaments.
 
 ## New abstraction: Field-Mediated Relational Layer (FMRL)
 
@@ -49,11 +49,11 @@ These are **engineering abstractions**, not claims that a computer literally imp
 
 ## Scientific evidence relevant to the abstraction
 
-Cosmic-web studies explicitly quantify connectivity: the number of filaments connected to a cluster/halo varies with scale, redshift and halo mass, and cosmic connectivity is used as a quantitative probe of large-scale structure. citeturn0search1
+Cosmic-web studies explicitly quantify connectivity: the number of filaments connected to a cluster/halo varies with scale, redshift and halo mass, and cosmic connectivity is used as a quantitative probe of large-scale structure.
 
-A 2026 study of gravitational forces and tidal fields in simulations reports that filaments can be a dominant dynamical component in filament interiors, many underdense regions and wall regions. This makes the filamentary structure interesting as a possible example of a **distributed influence corridor**, rather than merely a visual network. citeturn0search8turn0search15
+A 2026 study of gravitational forces and tidal fields in simulations reports that filaments can be a dominant dynamical component in filament interiors, many underdense regions and wall regions. This makes the filamentary structure interesting as a possible example of a **distributed influence corridor**, rather than merely a visual network.
 
-Recent work also emphasizes that filament connectivity and morphology originate from the geometry of the primordial density/deformation field and evolve through gravitational dynamics. citeturn0search14
+Recent work also emphasizes that filament connectivity and morphology originate from the geometry of the primordial density/deformation field and evolve through gravitational dynamics.
 
 ## Hypothesis G — Field-mediated sparse coordination
 
@@ -183,3 +183,12 @@ The possible research contribution would only emerge if a narrowly defined field
 > **Do not represent every interaction explicitly when a lower-dimensional field can preserve the task-relevant aggregate influence; reserve explicit bandwidth for relations whose identity matters.**
 
 This is a hypothesis to test, not an assumption.
+
+
+## Primary references
+
+- Springel, Frenk & White (2006), *The large-scale structure of the Universe*, Nature 440, 1137–1144. https://doi.org/10.1038/nature04805
+- Codis et al. (2018), *On the connectivity of the cosmic web*, MNRAS 479, 973–993. https://doi.org/10.1093/mnras/sty1643
+- Libeskind et al. (2018), *Tracing the cosmic web*, MNRAS 473, 1195–1217. https://doi.org/10.1093/mnras/stx1976
+- van de Weygaert et al. (2026), *Cosmic web dynamics: forces and strains*, MNRAS. https://doi.org/10.1093/mnras/stag193
+- Jones et al. (2025), *What makes a cosmic filament? The dynamical origin and identity of filaments*, MNRAS 539, 873–. 
