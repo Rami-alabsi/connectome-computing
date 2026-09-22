@@ -26,6 +26,7 @@
 - [x] M5 literature-to-design-rule matrix
 - [x] M5 literature review checkpoint
 - [x] M5 capacity-triggered hierarchy prototype
+- [x] M5 quantum-information/tensor-network synthesis and experiment branch
 
 ### Active
 
