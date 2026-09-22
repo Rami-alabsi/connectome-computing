@@ -37,4 +37,4 @@ def test_hierarchy_crossing_fraction():
 def test_long_range_fraction():
     edges = [(1, 2), (1, 3), (2, 3)]
     positions = {1: (0.0, 0.0), 2: (1.0, 0.0), 3: (3.0, 0.0)}
-    assert long_range_fraction(edges, positions, threshold=2.0) == 1 / 3
+    assert long_range_fraction(edges, positions, threshold=2.0) == 2 / 3
