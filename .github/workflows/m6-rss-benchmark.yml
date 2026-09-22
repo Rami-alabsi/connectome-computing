@@ -1,0 +1,28 @@
+name: M6 RSS benchmark
+on:
+  push:
+    paths:
+      - 'src/simulator/**'
+      - 'tests/test_rss_benchmark.py'
+      - 'scripts/run_m6_rss.py'
+      - '.github/workflows/m6-rss-benchmark.yml'
+  workflow_dispatch:
+jobs:
+  benchmark:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install package
+        run: python -m pip install -e .
+      - name: Run tests
+        run: python -m pytest -q tests/test_rss_benchmark.py
+      - name: Run benchmark
+        run: python scripts/run_m6_rss.py
+      - name: Upload results
+        uses: actions/upload-artifact@v4
+        with:
+          name: m6-rss-results
+          path: artifacts/m6-rss/results.csv
