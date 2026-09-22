@@ -94,3 +94,26 @@ The next major scientific gate is real-data anchoring with FAFB v783. Synthetic 
 ## Cosmic-scale extension
 
 The project now includes a separate cosmic-scale abstraction branch: **Field-Mediated Relational Layer (FMRL)**. The cosmic web is treated as an independent physical example of multiscale spatial organization produced by gravitational dynamics, not as evidence that gravity is equivalent to computation. The proposed computational test is to compare explicit pairwise communication with a bounded latent relational field and a hybrid field + sparse explicit backbone under matched communication budgets. See `docs/cross-domain-synthesis-cosmic-web.md`.
+
+
+## Dynamic Relational Layering (DRL)
+
+A new cross-domain engineering hypothesis is motivated by human social-network structure across the life course. Human relationships are not a single flat graph: they form nested layers of closeness and purpose, overlap across family/work/community domains, and change with life events and context. citeturn0search2turn0search3turn0search0
+
+For Connectome Computing, the abstraction is **not** "copy human society." Instead:
+
+**microscopic state → local group → overlapping relational layers → compact effective interfaces → selective direct routing**
+
+The proposed DRL principle is:
+
+> **Scale by changing which relational layer carries information, rather than requiring every entity to maintain every relationship at every scale.**
+
+This gives a concrete extension to MCIA and ERG:
+- local modules retain detailed state;
+- modules may belong to multiple overlapping groups;
+- each group exposes a compact effective state;
+- state-dependent routing selects which layer/interface is active;
+- sparse direct links handle exceptions requiring precise pair identity;
+- the active hierarchy can change with task/context.
+
+The key engineering question is whether this adaptive layering provides a measurable communication/robustness benefit under matched resource budgets. It remains a hypothesis until controlled experiments are completed.
