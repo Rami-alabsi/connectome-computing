@@ -2,209 +2,125 @@
 
 ## Current position
 
-**Stage: M5 → M6 transition — Real-data validation + resource-constrained multiscale simulator**
+**Stage: M6 — resource-constrained multiscale simulator + real-data validation**
 
-The project is now organized around a single experimental chain:
+Experimental spine:
 
-**biological evidence → structural abstraction → bounded resources → effective state → coordination → dynamics → benchmark → ablation → scaling**
+**biological evidence → structural abstraction → bounded resources → effective state → relational coordination → dynamics → benchmark → ablation → scaling**
 
-The goal is not to reproduce a fly or human brain literally. The goal is to identify computational principles that remain useful after biological details are abstracted away and strong non-biological controls are applied.
+The project does not attempt to reproduce a fly or human brain literally. Biological structure is evidence used to generate falsifiable computational abstractions.
 
 ### Completed
 
 - [x] M0 Research foundation
 - [x] M1 FlyWire/Codex ingestion layer
-- [x] M2 Structural graph analysis
-- [x] M2b Motif/null-model foundation
-- [x] M3 Biological annotation layer
-- [x] M4 Architecture primitives
-- [x] M5 modular directed synthetic generator
-- [x] M5 structural profile and first-order calibration
-- [x] M5 sparse, hierarchical, spatial and rich-club baselines
-- [x] M5 multi-constraint validation framework
+- [x] M2 structural graph analysis
+- [x] M2b motif/null-model foundation
+- [x] M3 biological annotation layer
+- [x] M4 architecture primitives
+- [x] M5 modular/sparse/hierarchical/spatial generators and validation
 - [x] M5 capacity-triggered hierarchy prototype
-- [x] M5 quantum-information/tensor-network synthesis as a classical hypothesis branch
-- [x] M6 effective-state interface skeleton
-- [x] M6 communication accounting
+- [x] M6 effective-state interface and communication accounting
 - [x] M6 bounded higher-order coordination primitive
-- [x] M6 higher-order and dynamic-backbone literature synthesis
-- [x] M6 minimal stateful local-plus-interface simulator
-- [x] M6 deterministic simulator tests and communication accounting
-- [x] M6 controlled E0-E4 experiment matrix with fixed-routing control
+- [x] M6 stateful local-plus-interface simulator
+- [x] M6 state-dependent routing primitive
+- [x] M6 dynamic relational layering primitive
+- [x] M6 field-mediated relational layer prototype
+- [x] M6 controlled RSS benchmark implementation + tests
 
-### Active workstreams
+## Active workstreams
 
-#### 1. Real biological anchor
-Run FAFB v783 through the streaming profile pipeline and measure:
-- directed degree distributions
-- reciprocity
-- hubs/rich-club
-- motifs
-- hierarchy/modularity
-- spatial/contact constraints where data permit
-- long-range structure
-- multi-constraint interactions
+### 1. Real biological anchor
 
-This remains the main empirical anchor before claiming that synthetic rules reproduce biological organization.
+Run FAFB v783 through a streaming profile pipeline and measure directed degree,
+reciprocity, hubs/rich-club, motifs, hierarchy/modularity, spatial/contact
+constraints, long-range structure and multi-constraint interactions.
 
-#### 2. Multiscale effective-state simulator
-Build a minimal stateful simulator in which:
-- detailed node states remain local;
-- modules expose bounded effective states;
-- cross-module bandwidth is explicit;
-- interface dimension is explicit;
-- communication cost is measured;
-- routing can become state-dependent;
-- higher-order module relations can be activated under a budget.
+This remains the main biological gate.
 
-The simulator must keep topology, interface compression and dynamics as separable factors.
+### 2. Dynamic Relational State Space (RSS)
 
-#### 3. Sparse control architecture
-Test the emerging architecture:
+The current abstraction moves beyond a single tree:
 
-**local parallel modules → bounded interfaces → sparse conserved backbone → flexible hubs/routing → optional higher-order coordination → state-dependent integration**
+**local state → effective module state → overlapping relational layers → selective direct routes → bounded higher-order relations**
 
-This is a hypothesis, not a biological conclusion.
+A relation may be represented by endpoint pair, layer/type, context, order,
+strength/priority, activation and cost.
 
-#### 4. Capacity and hierarchy
-Treat capacity as multiple independent resources:
-- node occupancy
-- internal edge density
-- interface bandwidth
-- interface state dimension
-- active relational strength
-- dynamic/event rate
+This is **not** a claim of a literal fourth spatial dimension. It is an engineering
+representation of time-varying multiplex/higher-order relational structure.
 
-Test whether saturation should trigger new modules, higher-order aggregation, or alternative routing rather than indiscriminate densification.
+### 3. M6-RSS benchmark
 
-#### 5. Higher-order coordination
-Compare pairwise-only interfaces with bounded third-order module relations. Measure:
-- task utility
-- communication volume
-- latency
-- redundancy/synergy proxies
-- robustness under module ablation
+Implemented four controlled conditions:
 
-Keep fourth-order and higher relations optional until lower-order evidence justifies them.
+- A: flat pairwise;
+- B: fixed hierarchy;
+- C: dynamic overlapping context layers;
+- D: dynamic layers + bounded higher-order relation.
 
-#### 6. Dynamic backbone
-Test a dual architecture:
-- stable infrastructure/backbone
-- context-dependent hub recruitment
+Tasks include global aggregation, pair-sensitive information, context-selected
+group information and temporal context switching.
 
-Compare against fixed hubs, fully dynamic routing and degree-matched controls.
+Measured resources include active relations, transmitted bytes, routing churn
+and higher-order relation activation. Results are not yet interpreted
+scientifically until the CI artifact is inspected.
 
-#### 7. Strong-control benchmark suite
-Every proposed mechanism should be compared under matched:
-- node count
-- edge count
-- degree distribution
-- modularity
-- parameter count
-- communication budget
-- compute budget
-- latency where applicable
+### 4. Required next controls
 
-Primary controls include random, degree-preserving, hierarchy-preserving, cost-matched and sign/routing-shuffled variants.
+Before any performance interpretation, add:
 
-### Scientific checkpoint
+- fixed overlapping groups;
+- random context-dependent routing with the same active-route budget;
+- parameter/interface-dimension matching;
+- matched active-relation count;
+- shuffled higher-order relation null;
+- stable-core + flexible-periphery ablation;
+- sparse brokerage ablation.
 
-The 2026 literature strengthens several links in the project but also narrows the claims we can make.
+### 5. Multiscale and cosmic branches
 
-Hierarchical modular reservoirs improve memory, multitasking and temporal diversity, while performance rapidly saturates with additional hierarchy; this supports testing shallow/optimal hierarchy rather than assuming unlimited depth.
+M6-COSMIC compares explicit sparse communication, bounded latent-field
+coordination and hybrid field + sparse backbone. Its scaling signal must be
+rechecked after the bounded-state correction before any scientific claim.
 
-Recent higher-order brain analyses show that third-order interactions reveal redundancy and synergy that pairwise connectivity does not capture fully, while remaining task- and hierarchy-dependent. This supports a controlled higher-order coordination branch, not a claim that hypergraphs are inherently superior.
+Hierarchy depth must not be interpreted until parent grouping is genuinely
+multilevel rather than a one-level prototype.
 
-Naturalistic connectome work reports a conserved degree-based backbone together with context-dependent hub recruitment, motivating the project's stable-infrastructure/flexible-routing hypothesis. This is an empirical reference constraint, not yet an engineering result. See the 2026 NeuroImage study listed in the literature review.
+## Scientific evidence boundary
 
-### Core synthesis
-
-The strongest common thread currently running through the project is:
-
-> **A scalable system may grow by adding higher-order effective units while keeping detailed computation local, restricting cross-scale interfaces, and allocating scarce global coordination resources only where they provide measurable value.**
-
-This unifies the previously separate threads:
-
-- **Fly connectome:** modular, sparse, recurrent, distributed organization.
-- **Human connectome:** hierarchy, rich-club/control structure, spatial cost and state-dependent organization.
-- **Capacity hypothesis:** bounded local resources can force structured expansion.
-- **Effective-state hypothesis:** higher levels need not expose every microscopic variable.
-- **Quantum/tensor-network inspiration:** use multiscale compression and constrained relational resources as mathematical/engineering abstractions, not physical claims.
-- **Higher-order interactions:** allow collective module relations when pairwise interfaces are insufficient.
-- **Dynamic backbone:** preserve stable infrastructure while allowing context-dependent recruitment.
-- **Neuromorphic constraints:** communication, memory, sparsity and event-driven cost become first-class resources.
-
-### Important scientific boundaries
-
-The project does **not** claim:
-- neurons are quantum objects or strings;
-- connectome edges are entanglement;
-- holography is a brain mechanism;
-- quarks have demonstrated substructure;
-- biological evolution implies a single optimal architecture;
-- any proposed combination is novel before targeted prior-art search and controlled experiments.
-
-### Immediate sequence
-
-1. Repair and keep CI green after every change.
-2. Complete real FAFB v783 profiling.
-3. Run the minimal stateful effective-state simulator on controlled synthetic graphs.
-4. Execute the E0-E4 matrix with matched resource budgets.
-5. Add explicit interface bandwidth and state-dimension sweeps.
-6. Add state-dependent routing and sparse-backbone controls.
-7. Add bounded higher-order coordination.
-8. Run matched-resource experiments.
-9. Compare all mechanisms independently and jointly.
-10. Perform exact prior-art search on any surviving combined mechanism.
-11. Scale only after the small controlled system is reproducible.
-
-## Latest research update — 2026-09-22
-
-A targeted search also confirms that dynamic routing and communication-constrained specialization are already active engineering/research areas. Recent MoE routing work explicitly treats dynamic expert activation and load balancing as resource-allocation problems, while recent higher-order and connectome studies motivate bounded collective relations and stable infrastructure with flexible recruitment. These findings strengthen the control design but do not make the project mechanism novel by themselves.
-
-The simulator therefore treats **interface dimension, active route count, transmitted values, and bytes** as explicit resources. This is important because a routing policy can look efficient while merely moving the cost into data movement or larger interface states.
+Current network science establishes multilayer, temporal and higher-order
+representations; recent reviews explicitly call for deeper integration of these
+structures. Higher-order brain analyses also show that collective interaction
+metrics can expose information beyond pairwise connectivity. These are prior-art
+constraints and motivation, not evidence that the project combination is novel.
 
 ## Scientific status
 
-No biological or computational benchmark result is claimed until the corresponding data and experiment have actually been executed.
+**No benchmark advantage or novelty claim yet.**
 
-## Novelty status
+CI passing means implementation correctness for the tested fixture, not scientific
+validation. Any scientific result requires executed data, matched-resource
+controls, ablations and reproducible artifacts.
 
-**No novelty claim yet.**
+## Immediate sequence
 
-Any future novelty statement must identify a narrow mechanism, document exact prior art searched, provide reproducible implementation, and show an advantage that survives matched-resource controls and ablations.
+1. Inspect the M6-RSS CI artifact after completion.
+2. Fix implementation issues before adding more mechanisms.
+3. Add the required RSS controls.
+4. Execute the RSS matrix across multiple seeds and budgets.
+5. Analyze error/resource tradeoffs without collapsing them into one score.
+6. Re-run M6-COSMIC after the bounded-state correction.
+7. Complete FAFB v783 profiling.
+8. Only then consider scaling and exact prior-art recheck.
 
+## Cross-domain rule
 
-## Cross-domain extension — 2026-09-22
+Quantum information, holography, cosmic web and social-network analogies are
+hypothesis generators and mathematical/engineering abstractions only. They do not
+override the biological anchor and never substitute for non-biological controls.
 
-Added the **Field-Mediated Relational Layer (FMRL)** research branch based on the cosmic-web literature. This branch treats the cosmic web as an independent example of multiscale, spatially organized field-mediated dynamics. It does not assume that gravity is equivalent to computation.
-
-The next implementation target is **M6-COSMIC**: compare explicit sparse communication, bounded latent-field coordination, and a hybrid latent-field + sparse-backbone architecture under matched communication budgets.
-
-
-## M6-COSMIC implementation checkpoint — 2026-09-22
-
-Implemented the first **Field-Mediated Relational Layer (FMRL)** primitive in `src/simulator/relational_field.py`.
-
-The primitive is intentionally conservative:
-- module states are first formed at the existing effective-state level;
-- a deterministic, non-learned global field is produced by mean pooling;
-- the field dimension is explicit;
-- broadcast payload cost is explicit in values and bytes;
-- no node-level state is exported by the field interface;
-- field coordination is kept separate from sparse pairwise routing.
-
-This creates the minimum control needed for the next experiment family:
-**explicit sparse edges vs global field vs field + sparse backbone**, with matched field/interface budgets.
-
-The implementation is an engineering abstraction. It does not model gravity, quantum fields, holography, or spacetime and must not be interpreted as evidence for those physical theories.
-
-A new 2026 literature check reinforces three design constraints: hierarchical modular reservoirs motivate finite/shallow hierarchy tests rather than assuming unlimited depth; higher-order brain analyses support testing collective interactions without assuming they are universally superior; and resource-constrained neural-module work shows that specialization depends on information-flow timing and bandwidth. These findings keep interface capacity and hierarchy depth as explicit experimental variables.
-
-## Compass rule
-
-All branches remain subordinate to one experimental spine:
+## Compass
 
 **evidence → abstraction → falsifiable prediction → matched control → implementation → execution → ablation → scaling → prior-art recheck**
 
-The cross-domain branches (atomic/subatomic, quantum information, cosmic web, quantum-to-cosmic) are hypothesis generators and mathematical analogies only. They do not override the biological anchor or the requirement for non-biological controls.
