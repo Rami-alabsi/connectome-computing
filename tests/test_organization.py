@@ -11,7 +11,7 @@ def test_participation_coefficients():
     edges = [(1, 2), (1, 3), (1, 4), (2, 3)]
     labels = {1: "a", 2: "a", 3: "b", 4: "b"}
     values = participation_coefficients(edges, labels)
-    assert round(values[1], 6) == 0.5
+    assert round(values[1], 6) == round(4 / 9, 6)
 
 
 def test_module_edge_fractions():
