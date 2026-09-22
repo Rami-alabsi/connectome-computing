@@ -8,7 +8,8 @@ Experimental spine:
 
 **biological evidence → structural abstraction → bounded resources → effective state → relational coordination → dynamics → benchmark → ablation → scaling**
 
-The project does not attempt to reproduce a fly or human brain literally. Biological structure is evidence used to generate falsifiable computational abstractions.
+Biological structure is evidence used to generate falsifiable computational
+abstractions, not a specification to copy literally.
 
 ### Completed
 
@@ -28,6 +29,7 @@ The project does not attempt to reproduce a fly or human brain literally. Biolog
 - [x] M6 field-mediated relational layer prototype
 - [x] M6 controlled RSS benchmark implementation
 - [x] M6 RSS information-flow semantics corrected + unit tests strengthened
+- [x] M6 RSS matched-control matrix + multi-seed/multi-budget runner
 
 ## Active workstreams
 
@@ -37,108 +39,90 @@ Run FAFB v783 through a streaming profile pipeline and measure directed degree,
 reciprocity, hubs/rich-club, motifs, hierarchy/modularity, spatial/contact
 constraints, long-range structure and multi-constraint interactions.
 
+Current public Codex identifies FAFB v783 as 139,255 neurons and 3,732,460
+directed connection pairs; BANC v888 is a newer 2026 brain-and-nerve-cord
+snapshot. citeturn0search0turn0search1
+
 This remains the main biological gate.
 
 ### 2. Dynamic Relational State Space (RSS)
 
-The current abstraction moves beyond a single tree:
+**local state → effective module state → overlapping relational layers → selective direct routes → bounded collective relations**
 
-**local state → effective module state → overlapping relational layers → selective direct routes → bounded higher-order relations**
-
-A relation may be represented by endpoint pair, layer/type, context, order,
-strength/priority, activation and cost.
-
-This is **not** a claim of a literal fourth spatial dimension. It is an engineering
-representation of time-varying multiplex/higher-order relational structure.
+A relation may carry endpoint pair, layer/type, context, order, strength/priority,
+activation and cost. This is not a literal fourth spatial dimension.
 
 ### 3. M6-RSS benchmark
 
-Implemented four controlled conditions:
+Current conditions:
 
 - A: flat pairwise;
 - B: fixed hierarchy;
 - C: dynamic overlapping context layers;
-- D: dynamic layers + bounded higher-order relation.
+- D: dynamic layers + bounded collective pooling;
+- E: fixed overlap;
+- F: random context-matched routing;
+- G: stable core + flexible periphery.
 
-The benchmark now enforces an explicit information-flow boundary:
+The benchmark enforces:
 
 **hidden source states → selected routes → visible source subset → prediction**
 
-The evaluator may compute the hidden target from the complete fixture, but a
-condition cannot use untransmitted source states to form its prediction.
+The runner now sweeps seeds 0–4 and active-relation budgets 2/4/6/8 with matched
+module count, state dimension, bytes per relation, contexts and sequence length.
 
-Tasks include global aggregation, pair-sensitive information, context-selected
-group information and temporal context switching.
+D is explicitly documented as a bounded collective-pooling surrogate, not a
+general nonlinear higher-order interaction model.
 
-Measured resources include active relations, transmitted bytes, routing churn
-and higher-order relation activation.
+### 4. Required next controls
 
-### 4. Required RSS controls
+Still required before scientific interpretation:
 
-Before any performance interpretation, add:
-
-- fixed overlapping groups;
-- random context-dependent routing with the same active-route budget;
 - parameter/interface-dimension matching;
-- matched active-relation count;
-- shuffled higher-order relation null;
-- stable-core + flexible-periphery ablation;
-- sparse brokerage ablation.
+- shuffled collective-relation null;
+- sparse brokerage ablation;
+- explicit stable-core removal;
+- candidate-topology matching where appropriate.
 
 ### 5. Potential-path branch
 
-The recent photon/double-slit discussion is formalized only as a future classical
-engineering hypothesis:
+Future classical hypothesis:
 
 **candidate paths → state/context evolution → selective activation/suppression → delayed commitment**
 
-This must first pass a narrow prior-art search. Dynamic routing, candidate-path,
-multipath and opportunistic routing are already established, so no novelty is
-assumed. It will not be implemented on top of the RSS benchmark until the current
-benchmark and controls are validated.
+Dynamic routing, candidate-path and multipath mechanisms already have substantial
+prior art. Therefore no novelty is assumed. The branch remains blocked until RSS
+controls and artifacts are validated.
 
-### 6. Multiscale and cosmic branches
+### 6. M6-COSMIC and multiscale branches
 
-M6-COSMIC compares explicit sparse communication, bounded latent-field
-coordination and hybrid field + sparse backbone. Its scaling signal must be
-rechecked after the bounded-state correction before any scientific claim.
-
-Hierarchy depth must not be interpreted until parent grouping is genuinely
-multilevel rather than a one-level prototype.
-
-## Scientific evidence boundary
-
-Current network science establishes multilayer, temporal and higher-order
-representations; dynamic routing and multipath communication also have extensive
-prior art. These are constraints and motivation, not evidence that the project
-combination is novel.
+Re-run M6-COSMIC after the bounded-state correction before interpreting scaling.
+Do not interpret hierarchy depth until parent grouping is genuinely multilevel.
 
 ## Scientific status
 
 **No benchmark advantage or novelty claim yet.**
 
-CI passing means implementation correctness for the tested fixture, not scientific
-validation. Any scientific result requires executed data, matched-resource
-controls, ablations and reproducible artifacts.
+CI success is implementation evidence only. Scientific claims require executed
+artifacts, matched-resource controls, ablations, multiple seeds and reproducible
+analysis.
 
 ## Immediate sequence
 
-1. Inspect the new M6-RSS CI run and CSV artifact after the semantic correction.
-2. Fix any remaining benchmark issues before adding mechanisms.
-3. Add the required RSS controls.
-4. Execute the RSS matrix across multiple seeds and budgets.
-5. Analyze error/resource tradeoffs without collapsing them into one score.
-6. Re-run M6-COSMIC after the bounded-state correction.
-7. Complete FAFB v783 profiling.
-8. Only then implement the potential-path branch if its narrow prior-art search
-   identifies a genuinely distinct testable mechanism.
-9. Scale only after the mechanisms survive controls.
+1. Inspect the new RSS CI run and CSV artifact.
+2. Fix any remaining semantic/test issues.
+3. Add the remaining null/ablation controls.
+4. Analyze the 5-seed × 4-budget matrix without a single aggregate score.
+5. Re-run M6-COSMIC.
+6. Complete FAFB v783 profiling.
+7. Reassess the potential-path branch using narrow prior-art search.
+8. Scale only after mechanisms survive controls.
 
 ## Cross-domain rule
 
 Quantum information, holography, cosmic web and social-network analogies are
-hypothesis generators and mathematical/engineering abstractions only. They do not
-override the biological anchor and never substitute for non-biological controls.
+hypothesis generators only. They never substitute for connectome evidence or
+matched non-biological controls.
 
 ## Compass
 
