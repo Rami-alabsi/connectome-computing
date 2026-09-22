@@ -30,6 +30,7 @@ The goal is not to reproduce a fly or human brain literally. The goal is to iden
 - [x] M6 higher-order and dynamic-backbone literature synthesis
 - [x] M6 minimal stateful local-plus-interface simulator
 - [x] M6 deterministic simulator tests and communication accounting
+- [x] M6 controlled E0-E4 experiment matrix with fixed-routing control
 
 ### Active workstreams
 
@@ -148,13 +149,14 @@ The project does **not** claim:
 1. Repair and keep CI green after every change.
 2. Complete real FAFB v783 profiling.
 3. Run the minimal stateful effective-state simulator on controlled synthetic graphs.
-4. Add explicit interface bandwidth and state-dimension sweeps.
-5. Add state-dependent routing and sparse-backbone controls.
-6. Add bounded higher-order coordination.
-7. Run matched-resource experiments.
-8. Compare all mechanisms independently and jointly.
-9. Perform exact prior-art search on any surviving combined mechanism.
-10. Scale only after the small controlled system is reproducible.
+4. Execute the E0-E4 matrix with matched resource budgets.
+5. Add explicit interface bandwidth and state-dimension sweeps.
+6. Add state-dependent routing and sparse-backbone controls.
+7. Add bounded higher-order coordination.
+8. Run matched-resource experiments.
+9. Compare all mechanisms independently and jointly.
+10. Perform exact prior-art search on any surviving combined mechanism.
+11. Scale only after the small controlled system is reproducible.
 
 ## Latest research update — 2026-09-22
 
