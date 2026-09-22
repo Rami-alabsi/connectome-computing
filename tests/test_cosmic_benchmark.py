@@ -8,7 +8,7 @@ def test_field_and_hybrid_are_deterministic():
         2: (5.0, 0.0, 0.0, 0.0),
         3: (7.0, 0.0, 0.0, 0.0),
     }
-    pair = ((0, 3),)
+    pair = ((0, 1),)
 
     field = run_cosmic_case(
         states,
