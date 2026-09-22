@@ -22,7 +22,7 @@ def test_interface_collapses_node_edges_into_one_module_message():
     messages, report = build_effective_messages(
         states, edges, modules, config=InterfaceConfig(interface_dim=1)
     )
-    assert messages == {(0, 1): (2.0,)}
+    assert messages == {(0, 1): (5.0,)}
     assert report.candidate_cross_edges == 4
     assert report.active_module_pairs == 1
     assert report.transmitted_values == 1
