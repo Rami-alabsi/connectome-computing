@@ -17,6 +17,7 @@
 - [x] M5 first-order biological-profile calibration
 - [x] M5 profile comparison/discrepancy layer
 - [x] M5 scalable sparse generator baseline
+- [x] M5 degree-distribution and hub metric layer
 - [x] M5 novelty tracking and novelty-gate documentation
 - [x] M5 literature-to-design-rule matrix
 - [x] M5 literature review checkpoint
@@ -28,17 +29,29 @@
 Immediate tasks:
 
 1. Run the pipeline against a real downloaded FAFB v783 resource.
-2. Extract observed structural profile from the real connection table.
-3. Add degree-distribution and hub statistics.
-4. Add modularity and spatial/distance constraints.
-5. Compare synthetic vs observed using independent validation metrics.
-6. Add constraints one at a time with ablations.
-7. Only after the exact method stabilizes, perform another targeted prior-art search.
-8. Continue toward M6 with topology and dynamics kept as separate experimental factors.
+2. Extract the observed structural profile.
+3. Compare in/out degree distributions and hub statistics.
+4. Add modularity and short/long-range structure.
+5. Add spatial/distance/contact constraints.
+6. Compare synthetic vs observed using independent validation metrics.
+7. Add constraints one at a time with ablations.
+8. Perform another targeted prior-art search once the exact method stabilizes.
+9. Continue toward M6 with topology and dynamics kept as separate experimental factors.
+
+### Scientific checkpoint
+
+A 2025 Network Neuroscience study comparing fly, mouse, and human connectomes found
+that degree sequence alone does not recover spatial structure, while distance constraints
+alone do not recover broad degree distributions and hubs. Its scalable maximum-entropy
+models combine these constraint families and recover additional properties such as
+graphlets.
+
+A separate 2025 study reports that long-range connectivity and hub topography can remain
+poorly captured even when conventional topology metrics look similar. We therefore will
+not accept aggregate degree or modularity matching as sufficient validation.
 
 ### Work path
 
-```text
 [M0] Research foundation
   |
   v
@@ -76,7 +89,6 @@ Immediate tasks:
   |
   v
 [M11] Reproducible scientific release
-```
 
 ## Scientific status
 
@@ -87,12 +99,12 @@ data and experiment have actually been executed.
 
 **No novelty claim yet.**
 
-The project now explicitly incorporates relevant literature as design constraints.
-See:
+Relevant literature is treated as design constraints. See:
 
-- `docs/literature-review-2026-09-22.md`
-- `docs/literature-to-design-rules.md`
-- `docs/novelty-tracker.md`
+- docs/literature-review-2026-09-22.md
+- docs/literature-to-design-rules.md
+- docs/novelty-tracker.md
+- docs/degree-and-hub-metrics.md
 
 A **NOVELTY ALERT** is only raised when the exact method/result survives a targeted
 prior-art check and reproducible experiments with controls and ablations.
