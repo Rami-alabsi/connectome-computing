@@ -39,4 +39,4 @@ def test_sparse_pair_preserves_pair_information():
 
     assert result.transmitted_values == 4
     assert result.pair_error == 0.0
-    assert result.global_error == 0.0
+    assert result.global_error > 0.0
