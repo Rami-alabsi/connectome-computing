@@ -145,3 +145,27 @@ Controls:
 - matched-parameter pooling/compression.
 
 The human evidence supports the **existence of layered, changing, overlapping relationships**, not the claim that such a structure is optimal for computation. citeturn0search0turn0search3turn0search4
+
+
+### Additional human-network principles worth testing
+
+Recent social-network literature suggests several abstractions beyond simple nested circles:
+
+1. **Finite relational budget:** relationship layers reflect limited time/attention/resource allocation; continuous relationship-strength models fit phone, face-to-face and online data rather than requiring hard circle boundaries. See Tamarit et al. (2022): https://www.nature.com/articles/s41598-022-06066-1
+2. **Churn with structural continuity:** individual ties can be replaced while the overall layered organization remains comparatively stable; life transitions can increase turnover. See Weiss et al. (2022): https://pmc.ncbi.nlm.nih.gov/articles/PMC9519061/ and Escribano et al. (2023): https://www.nature.com/articles/s41598-023-41787-x
+3. **Multiplexity:** the same nodes can participate in distinct relation layers (social, health, economic, professional, etc.), and the layers can interact rather than simply being aggregated. A 2026 Nature Communications study modeled 176 multiplex networks and found layer-specific roles/trade-offs and interdependence. See https://www.nature.com/articles/s41467-026-68896-1
+4. **Overlapping membership:** nodes can belong to multiple communities; overlapping nodes can have important routing/efficiency properties. Overlapping communities are also observed in human brain structural networks, making this relevant beyond social systems. See https://pmc.ncbi.nlm.nih.gov/articles/PMC3089616/
+5. **Brokerage:** nodes or modules that bridge otherwise separated groups can change the permeability of group boundaries. This suggests testing sparse bridge resources separately from ordinary within-group connectivity. See Stovel & Shaw (2012): https://www.annualreviews.org/content/journals/10.1146/annurev-soc-081309-150054
+6. **Context-sensitive continuity:** 2026 life-course work distinguishes stable core relationships from changing everyday interaction, warning against using current contact frequency as the sole proxy for long-term relational importance. See https://pmc.ncbi.nlm.nih.gov/articles/PMC12462710/
+
+Engineering abstractions:
+- **RL1 — relational budget:** every node/module has bounded communication/maintenance capacity; stronger or more important relations consume more budget.
+- **RL2 — soft layers:** relationship strength should be continuous where possible; hard layer boundaries are an experimental simplification.
+- **RL3 — churn without collapse:** allow individual routes to change while preserving higher-level organization.
+- **RL4 — multiplex channels:** the same pair may have multiple typed relations with different routing priorities and costs.
+- **RL5 — overlap:** allow modules to participate in multiple contexts instead of forcing a single tree membership.
+- **RL6 — brokerage budget:** explicitly reserve a small number of bridge routes between otherwise separated modules.
+- **RL7 — stable core + flexible periphery:** distinguish persistent high-value interfaces from rapidly changing low-priority routes.
+- **RL8 — context-specific interaction:** a relation important for one task need not be important for another task.
+
+These are hypotheses/engineering abstractions, not claims that human social organization is computationally optimal.
