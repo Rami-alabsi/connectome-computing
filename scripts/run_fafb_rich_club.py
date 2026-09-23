@@ -17,9 +17,12 @@ def load_edges(path):
     return seen
 
 def curve(edges, thresholds):
-    indeg={}; outdeg={}
+    indeg={}
+    outdeg={}
     for u,v in edges:
-        outdeg[u]=outdeg.get(u,0)+1; indeg[v]=indeg.get(v,0)+1
+        outdeg[u]=outdeg.get(u,0)+1
+        indeg[v]=indeg.get(v,0)+1
+    totaldeg={u:indeg.get(u,0)+outdeg.get(u,0) for u in set(indeg)|set(outdeg)}
     out=[]
     n=len(edges)
     for k in thresholds:
@@ -27,7 +30,9 @@ def curve(edges, thresholds):
         possible=len(rich)*(len(rich)-1)
         re=sum(1 for u,v in edges if u in rich and v in rich)
         density=re/possible if possible else 0.0
-        out.append({"threshold":k,"rich_nodes":len(rich),"rich_edges":re,"rich_density":density,"cross_fraction":sum(1 for u,v in edges if (u in rich) ^ (v in rich))/n if n else 0.0})
+        cross=sum(1 for u,v in edges if (u in rich) ^ (v in rich))
+        out.append({"threshold":k,"rich_nodes":len(rich),"rich_edges":re,
+                    "rich_density":density,"cross_fraction":cross/n if n else 0.0})
     return out
 
 def main():
