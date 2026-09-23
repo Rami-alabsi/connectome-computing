@@ -96,3 +96,16 @@ def test_routing_churn_is_task_local():
     results = run_rss_case(case, config)
     first_by_task = {r.task: r for r in results if r.context == 0}
     assert all(r.routing_churn == r.active_relations for r in first_by_task.values())
+
+
+def test_fixed_controls_are_structurally_distinct_from_dynamic_routing():
+    config = RSSSweepConfig(modules=12, contexts=3, sequence_length=3, max_active_relations=4)
+    cases = {c.name: c for c in default_rss_cases(config)}
+    b = run_rss_case(cases["B_fixed_hierarchy"], config)
+    c = run_rss_case(cases["C_dynamic_layered"], config)
+    e = run_rss_case(cases["E_fixed_overlapping"], config)
+    assert b != c
+    assert e != c
+    # Fixed controls must still consume the requested budget rather than
+    # silently shrinking their candidate pool.
+    assert all(r.active_relations == 4 for r in b + e)
