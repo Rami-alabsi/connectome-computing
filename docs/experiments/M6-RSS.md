@@ -20,6 +20,7 @@ behavior, brain physics, quantum gravity, or a literal fourth spatial dimension.
 | E | fixed overlapping | fixed | no |
 | F | random context-matched | random | no |
 | G | stable core + flexible periphery | state/context priority | no |
+| H | shuffled-context null | dynamic, wrong context priority | no |
 
 D's current collective operation is deliberately a **bounded group pooling
 surrogate**. It is not yet a general nonlinear higher-order interaction model.
@@ -39,6 +40,21 @@ prediction.
 For pair-sensitive tasks, the prediction is exact only when both target
 endpoints are actually transmitted.
 
+## Candidate-pool correction
+
+An earlier RSS implementation gave C/D the correct context group as the
+candidate set. At budgets large enough to cover that group, near-zero error
+could therefore arise from **candidate coverage alone**, not from routing
+intelligence.
+
+This has been corrected. C/D now rank the **full module candidate pool** under
+the same active-route budget, with the context group receiving priority. H uses
+a deterministic same-cardinality shuffled priority group while keeping the
+same full candidate pool and budget.
+
+This is the required first null for separating context-aware routing from
+budget-sized group coverage.
+
 ## Tasks
 
 - **global** — aggregate over all hidden modules;
@@ -48,7 +64,7 @@ endpoints are actually transmitted.
 
 ## Matched-resource protocol
 
-The runner now evaluates:
+The runner evaluates:
 
 - seeds: 0–4;
 - active relation budgets: 2, 4, 6, 8;
@@ -61,16 +77,18 @@ and collective-relation activation. No single scalar score is used.
 
 ## Controls
 
-E is a fixed-overlap control. It separates the effect of overlap itself from
-state-dependent routing.
+E is a fixed-overlap control. It separates overlap itself from state-dependent
+routing.
 
 F is a random context-dependent routing control with the same active-route
-budget. It tests whether any apparent benefit comes merely from route churn or
-context dependence.
+budget. It tests whether route churn alone explains an effect.
 
 G is a stable-core/flexible-periphery control. It tests whether a small
-persistent coordination core explains any benefit attributed to dynamic
-relational organization.
+persistent coordination core explains an apparent dynamic-routing benefit.
+
+H is the **shuffled-context null**. It preserves candidate-pool size, group
+cardinality, route budget and byte budget, but breaks the mapping between the
+current context and the prioritized group.
 
 Required future controls remain:
 
@@ -87,19 +105,23 @@ is lower. An effect must survive matched active-relation, transmitted-byte,
 parameter/interface and topology controls, and should be stable across seeds
 and budgets.
 
+The current benchmark is now ready for a fresh execution. Previous 6,720-row
+results must **not** be used as evidence for C/D because they were generated
+before the candidate-pool correction.
+
 CI success demonstrates implementation/test correctness only. It is not
 scientific validation.
 
 ## Prior-art boundary
 
 Dynamic routing, multipath routing, multilayer networks and higher-order
-networks are established fields. Recent work continues to study dynamic
-multilayer/higher-order switching and routing trade-offs. citeturn0search2turn0search3turn0search5
+networks are established fields. Recent work continues to study adaptive
+routing under resource constraints, so the benchmark does not treat dynamic
+routing itself as novel. citeturn0search0turn0search1
 
-Therefore the current research question is not whether dynamic routing or
-higher-order relations are novel. It is whether this particular combination of
+The research question remains whether this particular combination of
 resource-bounded effective interfaces, overlapping relational contexts, sparse
-coordination and (later) delayed path commitment yields an independently
+coordination and later delayed path commitment yields an independently
 measurable engineering trade-off.
 
 ## Biological gate
@@ -114,6 +136,7 @@ must not be presented as biological evidence.
 
 ## Current status
 
-The information-flow semantics, matched controls and multi-seed/multi-budget
-sweep are now implemented. The next gate is CI execution plus inspection of the
-generated CSV artifact. No benchmark advantage or novelty claim is made yet.
+The information-flow semantics, candidate-pool correction, shuffled-context
+null, matched controls and multi-seed/multi-budget runner are implemented.
+The next gate is CI execution plus inspection of the regenerated CSV artifact.
+No benchmark advantage or novelty claim is made yet.
