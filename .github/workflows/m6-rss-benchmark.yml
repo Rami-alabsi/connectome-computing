@@ -21,8 +21,15 @@ jobs:
         run: python -m pytest -q tests/test_rss_benchmark.py
       - name: Run benchmark
         run: python scripts/run_m6_rss.py
+      - name: Summarize seed-level uncertainty
+        run: python scripts/analyze_m6_rss.py
       - name: Upload results
         uses: actions/upload-artifact@v4
         with:
           name: m6-rss-results
           path: artifacts/m6-rss/results.csv
+      - name: Upload uncertainty summary
+        uses: actions/upload-artifact@v4
+        with:
+          name: m6-rss-summary
+          path: artifacts/m6-rss/summary.csv
