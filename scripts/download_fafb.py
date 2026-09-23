@@ -10,13 +10,19 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
+import urllib.parse
 import urllib.request
 from pathlib import Path
 
 BASE = "https://codex.flywire.ai/api/download_resource"
 
 def download(dataset: str, data_product: str, output: Path) -> None:
-    url = f"{BASE}?data_product={data_product}&dataset={dataset}"
+    token = os.environ.get("CODEX_API_TOKEN")
+    if not token:
+        raise RuntimeError("CODEX_API_TOKEN is required for Codex static downloads; set it from your Codex account.")
+    query = urllib.parse.urlencode({"data_product": data_product, "dataset": dataset, "api_token": token})
+    url = f"{BASE}?{query}"
     output.parent.mkdir(parents=True, exist_ok=True)
     request = urllib.request.Request(
         url,
