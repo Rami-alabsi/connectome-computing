@@ -2,7 +2,13 @@
 """Run the M6 RSS benchmark across matched communication budgets and seeds."""
 from __future__ import annotations
 import csv
+import sys
 from pathlib import Path
+
+# Allow direct execution from the repository checkout (including CI runners).
+ROOT = Path(__file__).resolve().parents[1]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
 from src.simulator.rss_benchmark import RSSSweepConfig, default_rss_cases, run_rss_case
 
 def main() -> None:
