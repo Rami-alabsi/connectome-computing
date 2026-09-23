@@ -21,6 +21,7 @@ behavior, brain physics, quantum gravity, or a literal fourth spatial dimension.
 | F | random context-matched | random | no |
 | G | stable core + flexible periphery | state/context priority | no |
 | H | shuffled-context null | dynamic, wrong context priority | no |
+| I | shuffled-collective null | same dynamic priority, wrong collective membership | bounded collective |
 
 D's current collective operation is deliberately a **bounded group pooling
 surrogate**. It is not yet a general nonlinear higher-order interaction model.
@@ -90,10 +91,16 @@ H is the **shuffled-context null**. It preserves candidate-pool size, group
 cardinality, route budget and byte budget, but breaks the mapping between the
 current context and the prioritized group.
 
+I is the **shuffled-collective null**. It keeps the dynamic route-selection
+mechanism and the same-size collective operation, but replaces the true
+context group used by the collective pooling operation with a deterministic
+same-cardinality shuffled group. This isolates the contribution of correct
+collective membership from the contribution of dynamic route priority.
+
 Required future controls remain:
 
 - parameter/interface-dimension matching;
-- shuffled collective-relation null;
+- shuffled collective-relation null — **implemented**;
 - sparse brokerage ablation;
 - explicit stable-core removal;
 - candidate-topology matching where appropriate.
@@ -136,7 +143,7 @@ must not be presented as biological evidence.
 
 ## Current status
 
-The information-flow semantics, candidate-pool correction, shuffled-context
-null, matched controls and multi-seed/multi-budget runner are implemented.
+The information-flow semantics, candidate-pool correction, shuffled-context null,
+shuffled-collective null, matched controls and multi-seed/multi-budget runner are implemented.
 The next gate is CI execution plus inspection of the regenerated CSV artifact.
 No benchmark advantage or novelty claim is made yet.
