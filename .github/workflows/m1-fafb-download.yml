@@ -1,0 +1,37 @@
+name: FAFB v783 download smoke test
+on:
+  push:
+    paths:
+      - 'scripts/download_fafb.py'
+      - '.github/workflows/m1-fafb-download.yml'
+  workflow_dispatch:
+jobs:
+  download:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Download FAFB v783 connection resource
+        run: python scripts/download_fafb.py
+      - name: Inspect downloaded resource
+        run: |
+          python - <<'PY'
+          import gzip
+          from pathlib import Path
+          p = Path("data/raw/fafb_v783/connections_princeton.csv.gz")
+          with gzip.open(p, "rt", encoding="utf-8", newline="") as f:
+              header = next(f).strip()
+              first = next(f).strip()
+          print("header:", header)
+          print("first_row:", first)
+          print("bytes:", p.stat().st_size)
+          PY
+      - name: Upload FAFB smoke-test artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: fafb-v783-connections-smoke
+          path: |
+            data/raw/fafb_v783/connections_princeton.csv.gz
+            data/raw/fafb_v783/connections_princeton.csv.gz.json
