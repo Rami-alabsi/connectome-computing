@@ -129,8 +129,11 @@ Do not interpret hierarchy depth until parent grouping is genuinely multilevel.
 The RSS workflow now emits a seed-level uncertainty summary (mean, sample SD and
 normal-approximation 95% CI) so timestep count cannot be mistaken for replication.
 A Codex static-download smoke-test workflow has also been added for the FAFB v783
-connection resource; execution is still pending and no downloaded-data result is
-being claimed until the workflow artifact is inspected.
+connection resource. It now streams the public `connections_princeton` resource,
+checks the header/first row, and validates the streamed node/pair counts against
+Codex's published FAFB reference (139,255 neurons; 3,732,460 directed connection
+pairs). The workflow has been pushed, but its artifact/result has not yet been
+inspected here, so no downloaded-data result is being claimed.
 
 CI success is implementation evidence only. Scientific claims require executed
 artifacts, matched-resource controls, ablations, multiple seeds and reproducible
