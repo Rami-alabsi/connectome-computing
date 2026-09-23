@@ -174,7 +174,7 @@ def run_rss_case(case: RSSCase, config: RSSSweepConfig) -> tuple[RSSResult, ...]
         raise ValueError("modules must be at least 3")
     states = {m: _state(m, config.state_dim, case.seed) for m in range(config.modules)}
     groups = _contexts(config.modules, config.contexts)
-    previous: tuple[int, ...] = ()
+    previous_by_task: dict[str, tuple[int, ...]] = {}
     results = []
     for t in range(config.sequence_length):
         context = t % config.contexts
@@ -182,8 +182,9 @@ def run_rss_case(case: RSSCase, config: RSSSweepConfig) -> tuple[RSSResult, ...]
             sources = _select_sources(case, states, groups, context, task)
             target = _target(states, task, context, groups)
             prediction = _predict(case, states, task, context, groups, sources)
+            previous = previous_by_task.get(task, ())
             churn = len(set(previous).symmetric_difference(sources))
-            previous = sources
+            previous_by_task[task] = sources
             ho = int(
                 case.mode in ("dynamic_higher_order", "shuffled_collective_null")
                 and task in ("context", "temporal")
