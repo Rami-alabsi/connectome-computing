@@ -128,7 +128,13 @@ def _select_sources(case: RSSCase, states: dict[int, State],
         width = max(1, int(math.sqrt(len(states))))
         ranked = sorted(candidates, key=lambda m: (m // width, m))
     elif case.mode == "fixed_overlap":
-        overlap_order = tuple(sorted({m for group in groups for m in group}))
+        # Persistent overlapping baseline: a fixed union of two context layers
+        # is preferred regardless of the current context. Remaining modules
+        # stay available as the fixed periphery.
+        fixed_union = set(groups[0]) | set(groups[1 % len(groups)])
+        overlap_order = tuple(sorted(fixed_union)) + tuple(
+            m for m in candidates if m not in fixed_union
+        )
         ranked = list(overlap_order)
     elif case.mode == "dynamic_layered":
         ranked = sorted(candidates, key=lambda m: (-(m in priority), -abs(states[m][0]), m))
