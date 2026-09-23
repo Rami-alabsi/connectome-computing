@@ -133,7 +133,7 @@ def _select_sources(case: RSSCase, states: dict[int, State],
         priority = _shuffled_priority_group(case, groups, context, len(states))
     if case.mode == "dynamic_layered":
         ranked = sorted(candidates, key=lambda m: (-(m in priority), -abs(states[m][0]), m))
-    elif case.mode == "dynamic_higher_order":
+    elif case.mode in ("dynamic_higher_order", "shuffled_collective_null"):
         ranked = sorted(candidates, key=lambda m: (-(m in priority), -abs(states[m][1]), m))
     elif case.mode == "flat_pairwise":
         ranked = sorted(candidates, key=lambda m: (-abs(states[m][0]), m))
@@ -159,8 +159,11 @@ def _predict(case: RSSCase, states: dict[int, State], task: Task,
         return 0.5 * (states[a][0] - states[b][0])
     group = set(groups[context % len(groups)])
     idx = 0 if task == "global" else (1 if task == "context" else 2)
-    if case.mode == "dynamic_higher_order" and task in ("context", "temporal"):
-        active_group = [m for m in sources if m in group]
+    if case.mode in ("dynamic_higher_order", "shuffled_collective_null") and task in ("context", "temporal"):
+        collective_group = group
+        if case.mode == "shuffled_collective_null":
+            collective_group = _shuffled_priority_group(case, groups, context, len(states))
+        active_group = [m for m in sources if m in collective_group]
         if len(active_group) >= 3 and case.max_higher_order > 0:
             return _mean([states[m][idx] for m in active_group])
     visible = [states[m][idx] for m in sources]
@@ -182,7 +185,7 @@ def run_rss_case(case: RSSCase, config: RSSSweepConfig) -> tuple[RSSResult, ...]
             churn = len(set(previous).symmetric_difference(sources))
             previous = sources
             ho = int(
-                case.mode == "dynamic_higher_order"
+                case.mode in ("dynamic_higher_order", "shuffled_collective_null")
                 and task in ("context", "temporal")
                 and len([m for m in sources if m in groups[context % len(groups)]]) >= 3
                 and case.max_higher_order > 0
@@ -207,4 +210,6 @@ def default_rss_cases(config: RSSSweepConfig) -> tuple[RSSCase, ...]:
         RSSCase("F_random_context_matched", "random_context", **common),
         RSSCase("G_stable_core_flexible_periphery", "stable_core", **common),
         RSSCase("H_shuffled_context_null", "shuffled_context", **common),
+        RSSCase("I_shuffled_collective_null", "shuffled_collective_null",
+                max_higher_order=config.max_higher_order, **common),
     )
