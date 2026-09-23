@@ -4,22 +4,30 @@
 
 **Stage: M6 — resource-constrained multiscale simulator + real-data validation**
 
+**Prototype-phase note:** the current implementation phase was built in a single intensive session. Treat the repository as a research prototype scaffold until real-data execution, matched controls, ablations and reproducible artifacts have been completed.
+
 Experimental spine:
 
 **biological evidence → structural abstraction → bounded resources → effective state → relational coordination → dynamics → benchmark → ablation → scaling**
 
-Biological structure is evidence used to generate falsifiable computational
-abstractions, not a specification to copy literally.
+Biological structure is evidence used to generate falsifiable computational abstractions, not a specification to copy literally.
 
-### Completed
+## Evidence state
 
-- [x] M0 Research foundation
-- [x] M1 FlyWire/Codex ingestion layer
-- [x] M2 structural graph analysis
-- [x] M2b motif/null-model foundation
-- [x] M3 biological annotation layer
+- Software scaffolding and unit tests exist for M1–M6 components.
+- Real FAFB v783 data have **not yet been executed through the ingestion/profile pipeline in this checkpoint**.
+- Therefore M1/M2 biological completion marks are implementation readiness, not validated connectome results.
+- No RSS performance result is currently accepted as scientific evidence.
+
+## Implemented prototype components
+
+- [x] M0 research foundation and scientific guardrails
+- [x] M1 FlyWire/Codex ingestion code
+- [x] M2 graph-analysis code
+- [x] M2b motif/null-model code
+- [x] M3 biological annotation code
 - [x] M4 architecture primitives
-- [x] M5 modular/sparse/hierarchical/spatial generators and validation
+- [x] M5 modular/sparse/hierarchical/spatial generators and validation code
 - [x] M5 capacity-triggered hierarchy prototype
 - [x] M6 effective-state interface and communication accounting
 - [x] M6 bounded higher-order coordination primitive
@@ -28,8 +36,9 @@ abstractions, not a specification to copy literally.
 - [x] M6 dynamic relational layering primitive
 - [x] M6 field-mediated relational layer prototype
 - [x] M6 controlled RSS benchmark implementation
-- [x] M6 RSS information-flow semantics corrected + unit tests strengthened
-- [x] M6 RSS matched-control matrix + multi-seed/multi-budget runner
+- [x] M6 RSS information-flow semantics correction
+- [x] M6 RSS matched-control runner
+- [x] M6 shuffled-context null implementation
 
 ## Active workstreams
 
@@ -41,7 +50,8 @@ constraints, long-range structure and multi-constraint interactions.
 
 Current public Codex identifies FAFB v783 as 139,255 neurons and 3,732,460
 directed connection pairs; BANC v888 is a newer 2026 brain-and-nerve-cord
-snapshot. citeturn0search0turn0search1
+snapshot. These published counts are reference checks, not yet a result from our
+local ingestion pipeline.
 
 This remains the main biological gate.
 
@@ -62,29 +72,39 @@ Current conditions:
 - D: dynamic layers + bounded collective pooling;
 - E: fixed overlap;
 - F: random context-matched routing;
-- G: stable core + flexible periphery.
+- G: stable core + flexible periphery;
+- H: shuffled-context null.
 
-The benchmark enforces:
+### 4. RSS semantic correction — critical
 
-**hidden source states → selected routes → visible source subset → prediction**
+The earlier C/D implementation gave the correct context group as the candidate
+pool. At budgets that covered that group, low error could arise from candidate
+coverage rather than context-aware routing.
 
-The runner now sweeps seeds 0–4 and active-relation budgets 2/4/6/8 with matched
-module count, state dimension, bytes per relation, contexts and sequence length.
+C/D now rank the **full candidate pool** under the same active-route budget,
+with the current context group receiving priority. H uses a deterministic
+same-cardinality shuffled priority group. This isolates contextual priority
+from simple group coverage.
 
-D is explicitly documented as a bounded collective-pooling surrogate, not a
-general nonlinear higher-order interaction model.
+**All previous 6,720-row RSS results generated before this correction are
+invalid for scientific interpretation and must not be reused as evidence.**
 
-### 4. Required next controls
+The runner is configured for seeds 0–4 and budgets 2/4/6/8 with matched module
+count, state dimension, bytes per relation, contexts and sequence length.
 
-Still required before scientific interpretation:
+D remains a bounded collective-pooling surrogate, not a general nonlinear
+higher-order interaction model.
 
+## Required controls before interpretation
+
+- shuffled-context null — **implemented**;
 - parameter/interface-dimension matching;
 - shuffled collective-relation null;
 - sparse brokerage ablation;
 - explicit stable-core removal;
 - candidate-topology matching where appropriate.
 
-### 5. Potential-path branch
+## Potential-path branch
 
 Future classical hypothesis:
 
@@ -94,7 +114,7 @@ Dynamic routing, candidate-path and multipath mechanisms already have substantia
 prior art. Therefore no novelty is assumed. The branch remains blocked until RSS
 controls and artifacts are validated.
 
-### 6. M6-COSMIC and multiscale branches
+## M6-COSMIC and multiscale branches
 
 Re-run M6-COSMIC after the bounded-state correction before interpreting scaling.
 Do not interpret hierarchy depth until parent grouping is genuinely multilevel.
@@ -109,20 +129,17 @@ analysis.
 
 ## Immediate sequence
 
-1. Inspect the new RSS CI run and CSV artifact.
-2. Fix any remaining semantic/test issues.
-3. Add the remaining null/ablation controls.
-4. Analyze the 5-seed × 4-budget matrix without a single aggregate score.
-5. Re-run M6-COSMIC.
-6. Complete FAFB v783 profiling.
-7. Reassess the potential-path branch using narrow prior-art search.
-8. Scale only after mechanisms survive controls.
+1. Execute the corrected RSS matrix and inspect the CSV artifact.
+2. Determine whether C/D retain any advantage against H and F at matched budgets.
+3. Add parameter/interface matching and the remaining ablations.
+4. Execute the real FAFB v783 ingestion/profile pipeline and compare its counts with the published reference counts.
+5. Re-run M6-COSMIC after the bounded-state correction.
+6. Only then reassess the potential-path branch.
+7. Scale only after mechanisms survive controls.
 
 ## Cross-domain rule
 
-Quantum information, holography, cosmic web and social-network analogies are
-hypothesis generators only. They never substitute for connectome evidence or
-matched non-biological controls.
+Quantum information, holography, cosmic web and social-network analogies are hypothesis generators only. They never substitute for connectome evidence or matched non-biological controls.
 
 ## Compass
 
