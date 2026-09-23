@@ -16,13 +16,21 @@ import urllib.request
 from pathlib import Path
 
 BASE = "https://codex.flywire.ai/api/download_resource"
+GCS_BASE = "https://storage.googleapis.com/flywire-data/codex/data"
 
 def download(dataset: str, data_product: str, output: Path) -> None:
     token = os.environ.get("CODEX_API_TOKEN")
-    if not token:
-        raise RuntimeError("CODEX_API_TOKEN is required for Codex static downloads; set it from your Codex account.")
-    query = urllib.parse.urlencode({"data_product": data_product, "dataset": dataset, "api_token": token})
-    url = f"{BASE}?{query}"
+    if token:
+        query = urllib.parse.urlencode({
+            "data_product": data_product,
+            "dataset": dataset,
+            "api_token": token,
+        })
+        url = f"{BASE}?{query}"
+    else:
+        # Pinned FAFB v783 public release bucket. Use the authenticated
+        # Codex API when a token is explicitly supplied.
+        url = f"{GCS_BASE}/{dataset}/783/{data_product}.csv.gz"
     output.parent.mkdir(parents=True, exist_ok=True)
     request = urllib.request.Request(
         url,
@@ -40,7 +48,7 @@ def download(dataset: str, data_product: str, output: Path) -> None:
         "data_product": data_product,
         "source_url": url,
         "output": str(output),
-        "note": "Codex static download; verify dataset/version metadata before scientific analysis.",
+        "note": "Pinned Codex/FlyWire static resource; verify dataset/version metadata before scientific analysis.",
     }
     output.with_suffix(output.suffix + ".json").write_text(
         json.dumps(metadata, indent=2) + "\n",
