@@ -102,6 +102,7 @@ higher-order interaction model.
 - shuffled-context null — **implemented**;
 - parameter/interface-dimension matching;
 - shuffled collective-relation null — **implemented**;
+- seed-level variance/95% CI summary — **implemented** (replication unit is seed, not timestep);
 - sparse brokerage ablation;
 - explicit stable-core removal;
 - candidate-topology matching where appropriate.
@@ -125,16 +126,22 @@ Do not interpret hierarchy depth until parent grouping is genuinely multilevel.
 
 **No benchmark advantage or novelty claim yet.**
 
+The RSS workflow now emits a seed-level uncertainty summary (mean, sample SD and
+normal-approximation 95% CI) so timestep count cannot be mistaken for replication.
+A Codex static-download smoke-test workflow has also been added for the FAFB v783
+connection resource; execution is still pending and no downloaded-data result is
+being claimed until the workflow artifact is inspected.
+
 CI success is implementation evidence only. Scientific claims require executed
 artifacts, matched-resource controls, ablations, multiple seeds and reproducible
 analysis.
 
 ## Immediate sequence
 
-1. Execute the corrected RSS matrix and inspect the CSV artifact.
+1. Re-run the corrected RSS matrix and inspect the CSV plus seed-level uncertainty summary.
 2. Determine whether C/D retain any advantage against H/F and whether D retains any advantage against I at matched budgets.
-3. Verify fixed-control regressions, then add parameter/interface matching and the remaining ablations.
-4. Execute the real FAFB v783 ingestion/profile pipeline and compare its counts with the published reference counts.
+3. Add sparse-brokerage and stable-core-removal ablations, then parameter/interface and topology matching.
+4. Execute the FAFB v783 download smoke test, then run the real ingestion/profile pipeline and compare its counts with the published reference counts.
 5. Re-run M6-COSMIC after the bounded-state correction.
 6. Only then reassess the potential-path branch.
 7. Scale only after mechanisms survive controls.
