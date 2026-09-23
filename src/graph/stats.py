@@ -24,9 +24,11 @@ def degree_statistics(path: str | Path) -> dict:
         for row in reader:
             s, t = row[source], row[target]
             nodes.update((s, t))
-            outdegree[s] += 1
-            indegree[t] += 1
-            pairs.add((s, t))
+            pair = (s, t)
+            if pair not in pairs:
+                pairs.add(pair)
+                outdegree[s] += 1
+                indegree[t] += 1
             if weight:
                 try:
                     weighted_edges += int(float(row[weight]))
@@ -49,4 +51,5 @@ def degree_statistics(path: str | Path) -> dict:
         "out_degree": summary(outdegree),
         "reciprocal_pair_fraction": (reciprocal_pairs / non_self_pairs) if non_self_pairs else 0.0,
         "weighted_synapse_total": weighted_edges if weight else None,
+        "degree_edge_semantics": "unique directed neuron pairs; connection-table rows are deduplicated by (source,target)",
     }
