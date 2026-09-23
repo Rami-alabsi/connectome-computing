@@ -17,13 +17,13 @@ def load_edges(path):
     return seen
 
 def curve(edges, thresholds):
-    deg={}
+    indeg={}; outdeg={}
     for u,v in edges:
-        deg[u]=deg.get(u,0)+1; deg[v]=deg.get(v,0)+1
+        outdeg[u]=outdeg.get(u,0)+1; indeg[v]=indeg.get(v,0)+1
     out=[]
     n=len(edges)
     for k in thresholds:
-        rich={u for u,d in deg.items() if d>=k}
+        rich={u for u,d in totaldeg.items() if d>=k}
         possible=len(rich)*(len(rich)-1)
         re=sum(1 for u,v in edges if u in rich and v in rich)
         density=re/possible if possible else 0.0
@@ -40,7 +40,8 @@ def main():
     edges=load_edges(Path(args.input))
     deg={}
     for u,v in edges: deg[u]=deg.get(u,0)+1; deg[v]=deg.get(v,0)+1
-    vals=sorted(deg.values())
+    totaldeg={u:indeg.get(u,0)+outdeg.get(u,0) for u in set(indeg)|set(outdeg)}
+    vals=sorted(totaldeg.values())
     thresholds=sorted(set(max(1,int(vals[int((len(vals)-1)*q)])) for q in (0.90,0.95,0.99,0.995)))
     observed=curve(edges,thresholds)
     null_curves=[]
@@ -56,6 +57,7 @@ def main():
         rows.append({**o,"null_mean_density":mean,"null_sd_density":sd,
                      "observed_to_null":o["rich_density"]/mean if mean else None})
     result={"dataset":"FAFB","version":"v783","unique_directed_pairs":len(edges),
+            "degree_definition":"total degree = in-degree + out-degree on unique directed pairs",
             "null_model":"directed degree-preserving edge swaps",
             "nulls":args.nulls,"successful_swaps_target":swaps,
             "thresholds":thresholds,"curve":rows}
