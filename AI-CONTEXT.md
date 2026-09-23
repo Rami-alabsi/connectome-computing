@@ -1,9 +1,19 @@
-Read AI-CONTEXT.md and docs/PROJECT-STATUS.md first. Continue from the current checkpoint. Do not restart the project, do not invent results, and update the checkpoint after changes.
+# AI Context
 
-Current stage: M5 — Synthetic Connectome Generator.
+**Single source of truth:** read `docs/PROJECT-STATUS.md` for the current project stage, completed work, active workstreams, scientific status, and next actions.
 
-Project path: M0 Foundation -> M1 FlyWire ingestion -> M2 Graph statistics -> M2b Motifs/null models -> M3 Biological context -> M4 Architecture primitives -> M5 Synthetic generator -> M6 Simulator -> M7 Controlled benchmarks -> M8 Scaling -> M9 Human-brain reference -> M10 Hardware -> M11 Scientific release.
+This file contains only persistent operating rules:
 
-Scientific rules: biological observations are evidence, not computer specifications; fly is not directly scaled into human brain; separate observed biology, synthetic structure, hypotheses, and validated results; every claimed advantage requires matched controls and ablations; record dataset/version, configuration, seed, metrics, and transformations; never invent results; keep large data out of Git; avoid O(N^3) on full connectomes; label sampling clearly; update docs/PROJECT-STATUS.md at milestone changes.
+- Do not restart the project or invent results.
+- Continue from the current checkpoint in `docs/PROJECT-STATUS.md`.
+- Biology is evidence, not specification.
+- Separate biological observations, synthetic structures, hypotheses, implementation validation, and scientific results.
+- Every claimed advantage requires matched controls and ablations.
+- Record dataset/version, configuration, seed, metrics, and transformations.
+- Never claim an experiment passed without an executed artifact or verified CI result.
+- Keep large biological data out of Git.
+- Avoid O(N^3) algorithms on full connectomes.
+- Label sampling and transformations clearly.
+- Update `docs/PROJECT-STATUS.md` when the project state changes.
 
-When helping: inspect this file, then docs/PROJECT-STATUS.md, then relevant source/tests; continue from CURRENT; make repository changes when access exists; report only verified results.
+Do not maintain an independent milestone checklist here; that caused stage drift.
