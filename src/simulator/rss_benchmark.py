@@ -110,15 +110,8 @@ def _candidate_sources(case: RSSCase, states: dict[int, State],
                        groups: tuple[tuple[int, ...], ...], context: int,
                        task: Task) -> tuple[int, ...]:
     modules = len(states)
-    if case.mode == "fixed_hierarchy":
-        width = max(1, int(math.sqrt(modules)))
-        parent = {m: m // width for m in states}
-        if task == "pair":
-            a, b = _pair_target(context, modules)
-            required = {a, b}
-            required |= {m for m in states if parent[m] == parent[a]}
-            return tuple(sorted(required))
-        return tuple(sorted(m for m in states if parent[m] == 0))
+    # Fixed baselines use the full candidate pool; their distinction is
+    # deterministic structural ordering rather than hidden candidate restriction.
     return tuple(range(modules))
 
 def _select_sources(case: RSSCase, states: dict[int, State],
@@ -131,7 +124,13 @@ def _select_sources(case: RSSCase, states: dict[int, State],
     priority = set(groups[context % len(groups)])
     if case.mode == "shuffled_context":
         priority = _shuffled_priority_group(case, groups, context, len(states))
-    if case.mode == "dynamic_layered":
+    if case.mode == "fixed_hierarchy":
+        width = max(1, int(math.sqrt(len(states))))
+        ranked = sorted(candidates, key=lambda m: (m // width, m))
+    elif case.mode == "fixed_overlap":
+        overlap_order = tuple(sorted({m for group in groups for m in group}))
+        ranked = list(overlap_order)
+    elif case.mode == "dynamic_layered":
         ranked = sorted(candidates, key=lambda m: (-(m in priority), -abs(states[m][0]), m))
     elif case.mode in ("dynamic_higher_order", "shuffled_collective_null"):
         ranked = sorted(candidates, key=lambda m: (-(m in priority), -abs(states[m][1]), m))
