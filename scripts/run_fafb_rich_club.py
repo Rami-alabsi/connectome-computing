@@ -1,0 +1,65 @@
+#!/usr/bin/env python3
+"""Estimate FAFB v783 rich-club enrichment against degree-preserving nulls."""
+from __future__ import annotations
+import argparse, csv, json, math, random
+from pathlib import Path
+from src.graph.connections import _open_csv, _pick, SOURCE_CANDIDATES, TARGET_CANDIDATES
+from src.graph.random_baseline import degree_preserving_randomization
+
+def load_edges(path):
+    seen=set()
+    with _open_csv(path) as fh:
+        reader=csv.DictReader(fh)
+        s=_pick(reader.fieldnames,SOURCE_CANDIDATES); t=_pick(reader.fieldnames,TARGET_CANDIDATES)
+        for row in reader:
+            u,v=row[s],row[t]
+            if u!=v: seen.add((u,v))
+    return seen
+
+def curve(edges, thresholds):
+    deg={}
+    for u,v in edges:
+        deg[u]=deg.get(u,0)+1; deg[v]=deg.get(v,0)+1
+    out=[]
+    n=len(edges)
+    for k in thresholds:
+        rich={u for u,d in deg.items() if d>=k}
+        possible=len(rich)*(len(rich)-1)
+        re=sum(1 for u,v in edges if u in rich and v in rich)
+        density=re/possible if possible else 0.0
+        out.append({"threshold":k,"rich_nodes":len(rich),"rich_edges":re,"rich_density":density,"cross_fraction":sum(1 for u,v in edges if (u in rich) ^ (v in rich))/n if n else 0.0})
+    return out
+
+def main():
+    ap=argparse.ArgumentParser()
+    ap.add_argument("--input",default="data/raw/fafb_v783/connections_princeton.csv.gz")
+    ap.add_argument("--output",default="artifacts/fafb-v783/rich-club.json")
+    ap.add_argument("--nulls",type=int,default=2)
+    ap.add_argument("--swaps-per-edge",type=float,default=1.0)
+    args=ap.parse_args()
+    edges=load_edges(Path(args.input))
+    deg={}
+    for u,v in edges: deg[u]=deg.get(u,0)+1; deg[v]=deg.get(v,0)+1
+    vals=sorted(deg.values())
+    thresholds=sorted(set(max(1,int(vals[int((len(vals)-1)*q)])) for q in (0.90,0.95,0.99,0.995)))
+    observed=curve(edges,thresholds)
+    null_curves=[]
+    swaps=max(1000,int(len(edges)*args.swaps_per_edge))
+    for seed in range(args.nulls):
+        null=degree_preserving_randomization(edges,swaps=swaps,seed=seed)
+        null_curves.append(curve(null,thresholds))
+    rows=[]
+    for i,o in enumerate(observed):
+        nd=[c[i]["rich_density"] for c in null_curves]
+        mean=sum(nd)/len(nd) if nd else 0.0
+        sd=(sum((x-mean)**2 for x in nd)/(len(nd)-1))**0.5 if len(nd)>1 else None
+        rows.append({**o,"null_mean_density":mean,"null_sd_density":sd,
+                     "observed_to_null":o["rich_density"]/mean if mean else None})
+    result={"dataset":"FAFB","version":"v783","unique_directed_pairs":len(edges),
+            "null_model":"directed degree-preserving edge swaps",
+            "nulls":args.nulls,"successful_swaps_target":swaps,
+            "thresholds":thresholds,"curve":rows}
+    out=Path(args.output); out.parent.mkdir(parents=True,exist_ok=True)
+    out.write_text(json.dumps(result,indent=2)+"\n",encoding="utf-8")
+    print(json.dumps(result,indent=2))
+if __name__=="__main__": main()
