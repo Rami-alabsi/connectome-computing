@@ -13,10 +13,6 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-      - name: Check Codex token availability
-        env:
-          CODEX_API_TOKEN: ${{ secrets.CODEX_API_TOKEN }}
-        run: test -n "$CODEX_API_TOKEN"
       - name: Download FAFB v783 connection resource
         env:
           CODEX_API_TOKEN: ${{ secrets.CODEX_API_TOKEN }}
