@@ -188,3 +188,41 @@ Accordingly, this project will not interpret either hierarchy depth or higher-or
 relations as intrinsically beneficial. The next scientific gate is to measure
 **when** a relation order is functionally irreducible under matched communication,
 interface and computation budgets.
+
+
+## Corrected control sweep result (2026-09-23)
+
+M6 RSS Run #19 completed successfully on commit `33b71fd48a078a46920d179141a25b8033c18c3e`.
+The artifact contains 8,640 rows; artifact SHA-256:
+`158de25af4d0fb42a720f76b5d1b29f897c88814743ff8a2e296cfaf31049c52`.
+
+The balanced fixed-overlap control changed its numerical profile as expected,
+confirming that the previous fixed-overlap result depended partly on its
+arbitrary Context-0/Context-1 union. The corrected control now uses
+context-membership count rather than context labels.
+
+The D-vs-I paired observation remains qualitatively present in this synthetic
+fixture:
+- budgets 2: D and I are identical;
+- budget 4: D is modestly lower-error than I on context and temporal tasks;
+- budgets 6 and 8: D and I remain identical on global and pair tasks, while D
+  reaches approximately zero error on context and temporal tasks and I does not.
+
+This does **not** establish a higher-order advantage. The zero errors arise from
+the current synthetic target construction plus bounded group pooling, and the
+global/pair equality shows that the collective operation is only exercised on
+selected task classes. The result therefore remains a hypothesis-generating
+observation.
+
+The next required gate is now explicit:
+1. replace the single deterministic task fixture with independently generated
+   task families;
+2. match interface dimension, pooling compute and transmitted representation;
+3. construct topology-matched collective nulls preserving overlap and
+   participation statistics;
+4. test paired seed effects and uncertainty rather than raw mean error only;
+5. test whether the observed D-vs-I separation survives when the collective
+   function is not simply the same mean used to define the target.
+
+Only if the separation survives those controls should it be compared with real
+connectome-derived structure.
