@@ -88,3 +88,11 @@ def test_shuffled_collective_null_is_deterministic_and_budgeted():
     assert run_rss_case(case, config) == results
     assert all(r.active_relations <= config.max_active_relations for r in results)
     assert any(r.higher_order_relations == 1 for r in results if r.task in ("context", "temporal"))
+
+
+def test_routing_churn_is_task_local():
+    config = RSSSweepConfig(modules=12, contexts=3, sequence_length=2, max_active_relations=4)
+    case = next(c for c in default_rss_cases(config) if c.name == "C_dynamic_layered")
+    results = run_rss_case(case, config)
+    first_by_task = {r.task: r for r in results if r.context == 0}
+    assert all(r.routing_churn == r.active_relations for r in first_by_task.values())
