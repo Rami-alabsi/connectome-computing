@@ -5,6 +5,8 @@ on:
       - 'src/simulator/**'
       - 'tests/test_rss_benchmark.py'
       - 'scripts/run_m6_rss.py'
+      - 'scripts/analyze_m6_rss.py'
+      - 'tests/test_analyze_m6_rss.py'
       - '.github/workflows/m6-rss-benchmark.yml'
   workflow_dispatch:
 jobs:
