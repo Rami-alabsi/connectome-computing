@@ -39,6 +39,7 @@ Biological structure is evidence used to generate falsifiable computational abst
 - [x] M6 RSS information-flow semantics correction
 - [x] M6 RSS matched-control runner
 - [x] M6 shuffled-context null implementation
+- [x] M6 shuffled-collective null implementation
 
 ## Active workstreams
 
@@ -99,7 +100,7 @@ higher-order interaction model.
 
 - shuffled-context null — **implemented**;
 - parameter/interface-dimension matching;
-- shuffled collective-relation null;
+- shuffled collective-relation null — **implemented**;
 - sparse brokerage ablation;
 - explicit stable-core removal;
 - candidate-topology matching where appropriate.
@@ -130,7 +131,7 @@ analysis.
 ## Immediate sequence
 
 1. Execute the corrected RSS matrix and inspect the CSV artifact.
-2. Determine whether C/D retain any advantage against H and F at matched budgets.
+2. Determine whether C/D retain any advantage against H/F and whether D retains any advantage against I at matched budgets.
 3. Add parameter/interface matching and the remaining ablations.
 4. Execute the real FAFB v783 ingestion/profile pipeline and compare its counts with the published reference counts.
 5. Re-run M6-COSMIC after the bounded-state correction.
