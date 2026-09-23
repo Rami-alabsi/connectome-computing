@@ -147,3 +147,10 @@ The information-flow semantics, candidate-pool correction, shuffled-context null
 shuffled-collective null, matched controls and multi-seed/multi-budget runner are implemented.
 The next gate is CI execution plus inspection of the regenerated CSV artifact.
 No benchmark advantage or novelty claim is made yet.
+
+
+## Corrected sweep execution record (2026-09-23)
+
+The corrected 9-condition sweep completed successfully in GitHub Actions Run #17 at commit `af62dc88b640fd7e25bab7780344f0d311c66b79`. The artifact contains 8,640 rows (5 seeds × 4 budgets × 9 conditions × 4 tasks × 12 timesteps). Artifact SHA-256: `337823ce9be4e89cf0c015448cc58a4a4dd5e44e3daff721c0fbdb00a391cca`.
+
+Initial inspection shows an important pattern: D (dynamic higher-order collective pooling) and I (shuffled-collective null) are identical on the global and pair tasks at all budgets, while D has lower error on context/temporal tasks at budgets 6 and 8. This is an implementation-level observation from the synthetic fixture, not yet a scientific claim. It also means the next gate should test whether the D-vs-I separation survives parameter/interface matching, multiple task generators, and topology-matched controls rather than treating the current result as evidence for higher-order superiority.
