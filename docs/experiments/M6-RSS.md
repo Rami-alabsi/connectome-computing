@@ -154,3 +154,37 @@ No benchmark advantage or novelty claim is made yet.
 The corrected 9-condition sweep completed successfully in GitHub Actions Run #17 at commit `af62dc88b640fd7e25bab7780344f0d311c66b79`. The artifact contains 8,640 rows (5 seeds × 4 budgets × 9 conditions × 4 tasks × 12 timesteps). Artifact SHA-256: `337823ce9be4e89cf0c015448cc58a4a4dd5e44e3daff721c0fbdb00a391cca`.
 
 Initial inspection shows an important pattern: D (dynamic higher-order collective pooling) and I (shuffled-collective null) are identical on the global and pair tasks at all budgets, while D has lower error on context/temporal tasks at budgets 6 and 8. This is an implementation-level observation from the synthetic fixture, not yet a scientific claim. It also means the next gate should test whether the D-vs-I separation survives parameter/interface matching, multiple task generators, and topology-matched controls rather than treating the current result as evidence for higher-order superiority.
+
+
+## Control refinement (2026-09-23)
+
+The fixed-overlap baseline was refined in commit `d42867e950f3a9ece4813dc33af61cba460070e0`.
+Its fixed route order now prioritizes modules by **context-membership count** and then
+stable module ID. This keeps the baseline explicitly overlapping while avoiding an
+arbitrary preference for the union of contexts 0 and 1.
+
+The regression suite was strengthened in commit `33b71fd48a078a46920d179141a25b8033c18c3e`:
+- fixed-overlap source sets must be identical across contexts;
+- shuffled-context null must preserve group cardinality while changing the
+  context-to-group mapping.
+
+This refinement matters because the benchmark is intended to distinguish overlap
+from adaptive context routing, not to give a fixed baseline an accidental
+context-specific advantage.
+
+## Updated prior-art gate (2026-09-23)
+
+Recent 2026 work reinforces a stricter interpretation of the RSS higher-order
+branch. Lucas et al. formalize **functional reducibility** of higher-order
+networks and report that some empirical systems retain essential higher-order
+information while others can be reduced to pairwise structure; they also find that
+no single simple structural metric explains reducibility. citeturn0search0
+
+Milisav et al. report that hierarchical modular reservoirs can improve memory and
+multitasking, but performance saturates rapidly with additional hierarchy and a
+third level rarely adds further improvement over the second. citeturn0search1
+
+Accordingly, this project will not interpret either hierarchy depth or higher-order
+relations as intrinsically beneficial. The next scientific gate is to measure
+**when** a relation order is functionally irreducible under matched communication,
+interface and computation budgets.
