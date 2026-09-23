@@ -60,3 +60,15 @@ def degree_sequence(edges):
         outdeg[u] = outdeg.get(u, 0) + 1
         indeg[v] = indeg.get(v, 0) + 1
     return indeg, outdeg
+
+
+def degree_preservation_report(original, randomized):
+    """Report exact in/out-degree preservation and edge-count checks."""
+    oi, oo = degree_sequence(original)
+    ri, ro = degree_sequence(randomized)
+    nodes = set(oi) | set(oo) | set(ri) | set(ro)
+    return {
+        "same_edge_count": len(set(original)) == len(set(randomized)),
+        "same_in_degree": all(oi.get(n, 0) == ri.get(n, 0) for n in nodes),
+        "same_out_degree": all(oo.get(n, 0) == ro.get(n, 0) for n in nodes),
+    }
