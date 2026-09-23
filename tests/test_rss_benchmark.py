@@ -63,3 +63,19 @@ def test_stable_core_control_always_has_core_candidate_sources():
     case = next(c for c in default_rss_cases(config) if c.name == "G_stable_core_flexible_periphery")
     results = run_rss_case(case, config)
     assert all(r.active_relations == 4 for r in results)
+
+
+def test_shuffled_context_null_preserves_group_size_but_changes_priority():
+    config = RSSSweepConfig(modules=12, contexts=3, sequence_length=6, max_active_relations=4)
+    case = next(c for c in default_rss_cases(config) if c.name == "H_shuffled_context_null")
+    results = run_rss_case(case, config)
+    assert all(r.active_relations == 4 for r in results)
+    assert run_rss_case(case, config) == results
+
+
+def test_dynamic_conditions_use_full_candidate_pool():
+    config = RSSSweepConfig(modules=12, contexts=3, sequence_length=1, max_active_relations=2)
+    for name in ("C_dynamic_layered", "D_dynamic_higher_order", "H_shuffled_context_null"):
+        case = next(c for c in default_rss_cases(config) if c.name == name)
+        results = run_rss_case(case, config)
+        assert all(r.active_relations == 2 for r in results)
