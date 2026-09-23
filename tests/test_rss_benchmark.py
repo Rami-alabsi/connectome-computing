@@ -79,3 +79,12 @@ def test_dynamic_conditions_use_full_candidate_pool():
         case = next(c for c in default_rss_cases(config) if c.name == name)
         results = run_rss_case(case, config)
         assert all(r.active_relations == 2 for r in results)
+
+
+def test_shuffled_collective_null_is_deterministic_and_budgeted():
+    config = RSSSweepConfig(modules=12, contexts=3, sequence_length=3, max_active_relations=5, max_higher_order=1)
+    case = next(c for c in default_rss_cases(config) if c.name == "I_shuffled_collective_null")
+    results = run_rss_case(case, config)
+    assert run_rss_case(case, config) == results
+    assert all(r.active_relations <= config.max_active_relations for r in results)
+    assert any(r.higher_order_relations == 1 for r in results if r.task in ("context", "temporal"))
