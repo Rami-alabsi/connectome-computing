@@ -50,3 +50,13 @@ def degree_preserving_randomization(
         successful += 1
 
     return current
+
+
+def degree_sequence(edges):
+    """Return directed in/out degree sequences for regression checks."""
+    indeg = {}
+    outdeg = {}
+    for u, v in edges:
+        outdeg[u] = outdeg.get(u, 0) + 1
+        indeg[v] = indeg.get(v, 0) + 1
+    return indeg, outdeg
