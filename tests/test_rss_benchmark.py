@@ -1,4 +1,5 @@
-from src.simulator.rss_benchmark import RSSSweepConfig, default_rss_cases, run_rss_case
+from src.simulator.rss_benchmark import (RSSSweepConfig, _contexts, _select_sources,
+    _shuffled_priority_group, default_rss_cases, run_rss_case)
 
 
 def test_all_rss_conditions_are_deterministic_and_budgeted():
@@ -47,9 +48,14 @@ def test_pair_task_requires_both_target_endpoints():
 def test_fixed_overlap_is_context_independent():
     config = RSSSweepConfig(modules=12, contexts=3, sequence_length=6, max_active_relations=4)
     case = next(c for c in default_rss_cases(config) if c.name == "E_fixed_overlapping")
-    results = run_rss_case(case, config)
-    routes = [(r.task, r.context, r.active_relations) for r in results]
-    assert all(count == 4 for _, _, count in routes)
+    states = {m: (float(m), float(m), float(m)) for m in range(config.modules)}
+    groups = _contexts(config.modules, config.contexts)
+    routes = [
+        _select_sources(case, states, groups, context, "context")
+        for context in range(config.contexts)
+    ]
+    assert len(set(routes)) == 1
+    assert len(routes[0]) == 4
 
 
 def test_random_context_control_is_deterministic():
@@ -109,3 +115,13 @@ def test_fixed_controls_are_structurally_distinct_from_dynamic_routing():
     # Fixed controls must still consume the requested budget rather than
     # silently shrinking their candidate pool.
     assert all(r.active_relations == 4 for r in b + e)
+
+
+def test_shuffled_context_null_breaks_context_membership_mapping():
+    config = RSSSweepConfig(modules=12, contexts=3, sequence_length=1, max_active_relations=4)
+    case = next(c for c in default_rss_cases(config) if c.name == "H_shuffled_context_null")
+    groups = _contexts(config.modules, config.contexts)
+    for context in range(config.contexts):
+        shuffled = _shuffled_priority_group(case, groups, context, config.modules)
+        assert len(shuffled) == len(groups[context])
+        assert shuffled != set(groups[context])
