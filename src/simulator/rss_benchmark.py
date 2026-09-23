@@ -1,8 +1,9 @@
 """Controlled Dynamic Relational State Space (RSS) benchmark.
 
-The benchmark is an information-flow test: predictions may use only source
-states represented by the active communication routes. This keeps topology,
-routing, interface budget, and task information separate from the target.
+Predictions may use only source states represented by active communication
+routes. Dynamic conditions rank the full candidate pool rather than restricting
+candidates to the correct context group; this prevents budget-sized group
+coverage from making context routing trivially successful.
 """
 from __future__ import annotations
 from dataclasses import dataclass
@@ -88,37 +89,36 @@ def _pair_target(context: int, modules: int) -> tuple[int, int]:
     b = (a * 5 + 3) % modules
     return a, b
 
+def _shuffled_priority_group(case: RSSCase,
+                             groups: tuple[tuple[int, ...], ...],
+                             context: int,
+                             modules: int) -> set[int]:
+    rng = random.Random(case.seed * 100003 + context * 1009 + 7919)
+    members = list(range(modules))
+    rng.shuffle(members)
+    target_size = len(groups[context % len(groups)])
+    original = set(groups[context % len(groups)])
+    chosen = set(members[:target_size])
+    if chosen == original and target_size < modules:
+        replacement = next(m for m in members if m not in original)
+        removed = next(m for m in sorted(chosen) if m in original)
+        chosen.remove(removed)
+        chosen.add(replacement)
+    return chosen
+
 def _candidate_sources(case: RSSCase, states: dict[int, State],
                        groups: tuple[tuple[int, ...], ...], context: int,
                        task: Task) -> tuple[int, ...]:
     modules = len(states)
-    group = groups[context % len(groups)]
-    if task == "pair":
-        a, b = _pair_target(context, modules)
-        required = {a, b}
-        if case.mode == "fixed_hierarchy":
-            width = max(1, int(math.sqrt(modules)))
-            parent = {m: m // width for m in states}
-            required |= {m for m in states if parent[m] == parent[a]}
-        elif case.mode in ("dynamic_layered", "dynamic_higher_order",
-                           "fixed_overlap", "random_context"):
-            required |= set(group)
-        elif case.mode == "stable_core":
-            required |= {0, 1, 2} | set(group)
-        else:
-            required |= set(range(modules))
-        return tuple(sorted(required))
     if case.mode == "fixed_hierarchy":
         width = max(1, int(math.sqrt(modules)))
         parent = {m: m // width for m in states}
+        if task == "pair":
+            a, b = _pair_target(context, modules)
+            required = {a, b}
+            required |= {m for m in states if parent[m] == parent[a]}
+            return tuple(sorted(required))
         return tuple(sorted(m for m in states if parent[m] == 0))
-    if case.mode in ("dynamic_layered", "dynamic_higher_order",
-                     "fixed_overlap"):
-        if case.mode == "fixed_overlap":
-            return tuple(sorted(set().union(*groups)))
-        return tuple(sorted(group))
-    if case.mode == "stable_core":
-        return tuple(sorted(set(group) | {0, 1, 2}))
     return tuple(range(modules))
 
 def _select_sources(case: RSSCase, states: dict[int, State],
@@ -129,15 +129,19 @@ def _select_sources(case: RSSCase, states: dict[int, State],
     if not candidates or budget <= 0:
         return ()
     priority = set(groups[context % len(groups)])
+    if case.mode == "shuffled_context":
+        priority = _shuffled_priority_group(case, groups, context, len(states))
     if case.mode == "dynamic_layered":
         ranked = sorted(candidates, key=lambda m: (-(m in priority), -abs(states[m][0]), m))
     elif case.mode == "dynamic_higher_order":
         ranked = sorted(candidates, key=lambda m: (-(m in priority), -abs(states[m][1]), m))
     elif case.mode == "flat_pairwise":
         ranked = sorted(candidates, key=lambda m: (-abs(states[m][0]), m))
-    elif case.mode == "random_context":
+    elif case.mode in ("random_context",):
         ranked = list(candidates)
         random.Random(case.seed * 100003 + context * 101 + len(task)).shuffle(ranked)
+    elif case.mode == "shuffled_context":
+        ranked = sorted(candidates, key=lambda m: (-(m in priority), m))
     elif case.mode == "stable_core":
         core = {0, 1, 2}
         ranked = sorted(candidates, key=lambda m: (-(m in core), -(m in priority), m))
@@ -202,4 +206,5 @@ def default_rss_cases(config: RSSSweepConfig) -> tuple[RSSCase, ...]:
         RSSCase("E_fixed_overlapping", "fixed_overlap", **common),
         RSSCase("F_random_context_matched", "random_context", **common),
         RSSCase("G_stable_core_flexible_periphery", "stable_core", **common),
+        RSSCase("H_shuffled_context_null", "shuffled_context", **common),
     )
