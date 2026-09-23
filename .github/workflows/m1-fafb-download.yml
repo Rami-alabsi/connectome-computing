@@ -28,6 +28,15 @@ jobs:
           print("first_row:", first)
           print("bytes:", p.stat().st_size)
           PY
+      - name: Compare streamed counts with Codex reference
+        run: |
+          python - <<'PY'
+          from src.graph.connections import summarize
+          result = summarize("data/raw/fafb_v783/connections_princeton.csv.gz")
+          print(result)
+          assert result["nodes"] == 139255, result
+          assert result["unique_directed_pairs"] == 3732460, result
+          PY
       - name: Upload FAFB smoke-test artifact
         uses: actions/upload-artifact@v4
         with:
