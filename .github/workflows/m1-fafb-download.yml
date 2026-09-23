@@ -46,7 +46,7 @@ jobs:
           assert result["multi_region_pair_rows"] == 1609986, result
           PY
       - name: Build FAFB structural profile
-        run: python scripts/run_fafb_profile.py
+        run: PYTHONPATH=. python scripts/run_fafb_profile.py
       - name: Upload FAFB smoke-test artifact
 
         uses: actions/upload-artifact@v4
