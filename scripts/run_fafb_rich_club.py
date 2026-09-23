@@ -4,7 +4,7 @@ from __future__ import annotations
 import argparse, csv, json, math, random
 from pathlib import Path
 from src.graph.connections import _open_csv, _pick, SOURCE_CANDIDATES, TARGET_CANDIDATES
-from src.graph.random_baseline import degree_preserving_randomization
+from src.graph.random_baseline import degree_preserving_randomization, degree_preservation_report
 
 def load_edges(path):
     seen=set()
@@ -50,9 +50,11 @@ def main():
     thresholds=sorted(set(max(1,int(vals[int((len(vals)-1)*q)])) for q in (0.90,0.95,0.99,0.995)))
     observed=curve(edges,thresholds)
     null_curves=[]
+    preservation=[]
     swaps=max(1000,int(len(edges)*args.swaps_per_edge))
     for seed in range(args.nulls):
         null=degree_preserving_randomization(edges,swaps=swaps,seed=seed)
+        preservation.append(degree_preservation_report(edges,null))
         null_curves.append(curve(null,thresholds))
     rows=[]
     for i,o in enumerate(observed):
@@ -65,7 +67,7 @@ def main():
             "degree_definition":"total degree = in-degree + out-degree on unique directed pairs",
             "null_model":"directed degree-preserving edge swaps",
             "nulls":args.nulls,"successful_swaps_target":swaps,
-            "thresholds":thresholds,"curve":rows}
+            "thresholds":thresholds,"degree_preservation":preservation,"curve":rows}
     out=Path(args.output); out.parent.mkdir(parents=True,exist_ok=True)
     out.write_text(json.dumps(result,indent=2)+"\n",encoding="utf-8")
     print(json.dumps(result,indent=2))
