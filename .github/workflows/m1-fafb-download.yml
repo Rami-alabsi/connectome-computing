@@ -36,8 +36,14 @@ jobs:
           from src.graph.connections import summarize
           result = summarize("data/raw/fafb_v783/connections_princeton.csv.gz")
           print(result)
-          assert result["nodes"] == 139255, result
+          # The published neuron count includes neurons with zero rows in the
+          # connection table. Therefore the connection-derived node count is
+          # expected to be smaller; the directed-pair count is the exact
+          # graph-level invariant available from this resource.
+          assert result["nodes"] == 138584, result
           assert result["unique_directed_pairs"] == 3732460, result
+          assert result["edge_rows"] == 5342446, result
+          assert result["multi_region_pair_rows"] == 1609986, result
           PY
       - name: Upload FAFB smoke-test artifact
         uses: actions/upload-artifact@v4
