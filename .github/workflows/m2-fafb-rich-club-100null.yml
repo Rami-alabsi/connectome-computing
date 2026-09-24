@@ -1,0 +1,100 @@
+name: FAFB v783 100-null CFG rich-club ensemble
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - "scripts/run_fafb_rich_club.py"
+      - "scripts/aggregate_fafb_rich_club_nulls.py"
+      - "src/graph/random_baseline.py"
+      - ".github/workflows/m2-fafb-rich-club-100null.yml"
+
+jobs:
+  prepare:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download FAFB v783 connection table
+        run: |
+          mkdir -p data/raw/fafb_v783
+          curl -L --fail --retry 3 --output data/raw/fafb_v783/connections_princeton.csv.gz             "https://storage.googleapis.com/flywire-data/codex/data/fafb/783/connections_princeton.csv.gz"
+      - name: Upload shared input
+        uses: actions/upload-artifact@v4
+        with:
+          name: fafb-v783-connections
+          path: data/raw/fafb_v783/connections_princeton.csv.gz
+          retention-days: 7
+
+  null:
+    needs: prepare
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      max-parallel: 10
+      matrix:
+        null_id: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9,
+                  10, 11, 12, 13, 14, 15, 16, 17, 18, 19,
+                  20, 21, 22, 23, 24, 25, 26, 27, 28, 29,
+                  30, 31, 32, 33, 34, 35, 36, 37, 38, 39,
+                  40, 41, 42, 43, 44, 45, 46, 47, 48, 49,
+                  50, 51, 52, 53, 54, 55, 56, 57, 58, 59,
+                  60, 61, 62, 63, 64, 65, 66, 67, 68, 69,
+                  70, 71, 72, 73, 74, 75, 76, 77, 78, 79,
+                  80, 81, 82, 83, 84, 85, 86, 87, 88, 89,
+                  90, 91, 92, 93, 94, 95, 96, 97, 98, 99]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Download shared FAFB input
+        uses: actions/download-artifact@v4
+        with:
+          name: fafb-v783-connections
+          path: data/raw/fafb_v783
+      - name: Run one deterministic CFG null
+        env:
+          PYTHONPATH: .
+        run: |
+          mkdir -p artifacts/fafb-v783/nulls
+          /usr/bin/time -v python scripts/run_fafb_rich_club.py \
+            --min-synapses 5 \
+            --nulls 1 \
+            --seed-offset ${{ matrix.null_id }} \
+            --swaps-per-edge 1.0 \
+            --threshold-min 20 \
+            --threshold-max 120 \
+            --threshold-step 1 \
+            --output artifacts/fafb-v783/nulls/null-${{ matrix.null_id }}.json
+      - name: Upload null artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: fafb-cfg-null-${{ matrix.null_id }}
+          path: artifacts/fafb-v783/nulls/null-${{ matrix.null_id }}.json
+          retention-days: 7
+
+  aggregate:
+    needs: null
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Download all null artifacts
+        uses: actions/download-artifact@v4
+        with:
+          pattern: fafb-cfg-null-*
+          path: artifacts/fafb-v783/nulls
+          merge-multiple: true
+      - name: Aggregate 100-null CFG ensemble
+        run: |
+          python scripts/aggregate_fafb_rich_club_nulls.py \
+            --input-dir artifacts/fafb-v783/nulls \
+            --expected-nulls 100 \
+            --output artifacts/fafb-v783/rich-club-100null.json
+      - name: Upload final ensemble
+        uses: actions/upload-artifact@v4
+        with:
+          name: fafb-v783-rich-club-100null
+          path: artifacts/fafb-v783/rich-club-100null.json
+          retention-days: 30
