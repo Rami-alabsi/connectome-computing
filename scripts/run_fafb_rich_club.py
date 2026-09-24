@@ -82,7 +82,6 @@ def main():
                      "observed_to_null":ratio,
                      "phi_norm":ratio,
                      "above_1pct":bool(ratio is not None and ratio > 1.01)})
-    ratios=[r["phi_norm"] for r in rows if r["phi_norm"] is not None]
     above=[r["threshold"] for r in rows if r["above_1pct"]]
     result={"dataset":"FAFB","version":"v783","unique_directed_pairs":len(edges),
             "degree_definition":"total degree = in-degree + out-degree on unique directed pairs",
