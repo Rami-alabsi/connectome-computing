@@ -101,7 +101,7 @@ Required future controls remain:
 
 - parameter/interface-dimension matching;
 - shuffled collective-relation null — **implemented**;
-- sparse brokerage ablation;
+- sparse brokerage ablation — **implemented**;
 - explicit stable-core removal;
 - candidate-topology matching where appropriate.
 
@@ -226,3 +226,17 @@ The next required gate is now explicit:
 
 Only if the separation survives those controls should it be compared with real
 connectome-derived structure.
+
+
+## Sparse brokerage ablation (2026-09-24)
+
+A new control, J_dynamic_layered_no_brokerage, was added. It uses the same full
+candidate pool, active-route budget, state ranking and byte budget as C, but
+removes multi-context overlap nodes from the context-priority set. The purpose
+is to test whether any context-routing effect depends on a small set of
+brokerage/overlap nodes rather than on dynamic routing alone.
+
+This is an ablation of the synthetic relational fixture, not a biological claim.
+The expected comparison is C versus J under identical seeds and budgets. No
+advantage is inferred until the regenerated sweep and uncertainty analysis are
+inspected.
