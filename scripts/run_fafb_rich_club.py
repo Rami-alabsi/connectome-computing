@@ -43,8 +43,11 @@ def main():
     ap.add_argument("--swaps-per-edge",type=float,default=1.0)
     args=ap.parse_args()
     edges=load_edges(Path(args.input))
-    deg={}
-    for u,v in edges: deg[u]=deg.get(u,0)+1; deg[v]=deg.get(v,0)+1
+    indeg={}
+    outdeg={}
+    for u,v in edges:
+        outdeg[u]=outdeg.get(u,0)+1
+        indeg[v]=indeg.get(v,0)+1
     totaldeg={u:indeg.get(u,0)+outdeg.get(u,0) for u in set(indeg)|set(outdeg)}
     vals=sorted(totaldeg.values())
     thresholds=sorted(set(max(1,int(vals[int((len(vals)-1)*q)])) for q in (0.90,0.95,0.99,0.995)))
