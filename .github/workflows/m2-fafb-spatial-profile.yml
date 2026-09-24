@@ -1,0 +1,27 @@
+name: M2 FAFB spatial profile
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - "scripts/run_fafb_spatial_profile.py"
+      - "src/graph/connections.py"
+      - ".github/workflows/m2-fafb-spatial-profile.yml"
+jobs:
+  analyze:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Download FAFB v783
+        run: |
+          mkdir -p data/raw/fafb_v783
+          curl -L --fail --retry 3 --output data/raw/fafb_v783/connections_princeton.csv.gz             "https://storage.googleapis.com/flywire-data/codex/data/fafb/783/connections_princeton.csv.gz"
+      - name: Run spatial profile
+        run: PYTHONPATH=. python scripts/run_fafb_spatial_profile.py
+      - name: Upload result
+        uses: actions/upload-artifact@v4
+        with:
+          name: fafb-v783-spatial-profile
+          path: artifacts/fafb-v783/spatial-profile.json
