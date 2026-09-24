@@ -18,6 +18,10 @@ Nulls: 2 for runtime benchmark only.
 Swaps per edge: 1.0.
 Thresholds: 20 through 120, step 1.
 
+## Critical data-table rule
+
+Codex documents that connection tables may contain multiple rows for the same neuron pair when synapses occur in multiple regions/neuropils. Therefore the 5-synapse connection threshold must be applied to the **sum of synapses across all rows for the same directed neuron pair**, not independently to each row. The runner now aggregates pair-level synapse counts before thresholding. This rule is tested in `tests/test_fafb_rich_club.py`.
+
 ## Acceptance criteria
 - input and five-synapse filtering verified;
 - unique directed pairs verified;
