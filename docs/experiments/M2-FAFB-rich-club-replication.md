@@ -1,6 +1,6 @@
 # M2 — FAFB Rich-Club Replication Record
 
-Status: IN PROGRESS — CFG benchmark gate
+Status: CFG gate CLOSED for the defined FAFB v783 method-aligned analysis path; neuropil/spatial controls remain OPEN
 Last updated: 2026-09-24
 
 ## Objective
@@ -36,6 +36,18 @@ Codex documents that connection tables may contain multiple rows for the same ne
 - final artifact and provenance inspected;
 - interpretation written only after artifact inspection.
 
+## Final 100-null CFG ensemble — 2026-09-24
+
+Run `35987597540` completed successfully on commit `f53f471de27f0c8cf58d496dcc0885ecfa6a8d4a`.
+
+Artifact: `fafb-v783-rich-club-100null` (ID `10807064530`), SHA-256 `5343abb81fe1cb1a19692e72c5b326fbed87814e99c1476a5bb303164954fae6`.
+
+Parameters: FAFB v783; pair-level synapse aggregation; minimum 5 synapses per directed pair; 100 independent deterministic CFG nulls; 3,732,460 successful swaps targeted per null; total-degree sweep 20–120.
+
+Validation: all 100 nulls reached the requested swap target and preserved edge count, in-degree and out-degree exactly. The observed `phi_norm > 1.01` interval is continuous from degree 27 through degree 120 in the tested sweep. Selected values are 1.015363 at degree 37, 1.047329 at degree 75, 1.056247 at degree 93, 1.057835 at degree 96 (peak), and 1.041215 at degree 120.
+
+Interpretation: this is a stable CFG-controlled rich-club enrichment pattern under the repository-defined FAFB v783 method. It is a **method-aligned replication/extension**, not an exact reproduction of Lin et al. because the published analysis used v630 and the repository implementation does not reproduce every detail of the paper's null construction. The next tests are therefore the neuropil-constrained/NPC-like and spatial/distance-constrained controls.
+
 ## Run history
 
 - **35962189226 — FAILED:** workflow syntax error; `/usr/bin/time` attempted to execute `PYTHONPATH=.` as a binary. No scientific computation ran.
@@ -45,11 +57,11 @@ Codex documents that connection tables may contain multiple rows for the same ne
 
 ### Scientific gate status
 
-**Gate A is OPEN, not closed.**
+**Gate A is CLOSED for the defined CFG/rich-club method-aligned path.**
 
-The successful 2-null benchmark proves that the real v783 rich-club execution path works and produces a degree-preserving null-controlled curve. It does not close the publication-aligned CFG gate because the final ensemble target is 100 nulls and swap realization quality still needs to be audited.
+The 100-null ensemble provides the required null count for this project protocol, and all nulls reached the requested swap target with exact edge-count/in-degree/out-degree preservation. The result is therefore sufficient to close the defined CFG gate. It does not close the broader biological control hierarchy: the paper's NPC comparison is a separate control, and the project must still test neuropil-constrained and spatial/distance-constrained explanations.
 
-The combined real-data anchor is now complete and its five JSON artifacts have been inspected. This closes the operational execution checkpoint, not the biological Gate A itself.
+The combined real-data anchor is operationally complete; its profile, reciprocity, spatial inventory, rich-club and conditional triad artifacts remain useful as baseline evidence.
 
 ## Expected artifact
 artifacts/fafb-v783/rich-club.json
@@ -158,4 +170,4 @@ Important interpretation constraint: the sampler selects a node with at least tw
 ### Gate decision
 **Gate A remains OPEN.**
 
-The combined anchor demonstrates that the real-data execution chain is operational and that the current CFG randomizer reaches its requested swap target with high realization efficiency. It does not replace the required 100-null CFG ensemble. The next controlled step is therefore the 100-null decision/run, with runtime and artifact provenance recorded explicitly.
+The combined anchor demonstrates that the real-data execution chain is operational and that the current CFG randomizer reaches its requested swap target with high realization efficiency. It does not replace the required 100-null CFG ensemble. The 100-null decision/run is now complete; provenance and validation are recorded above. The next controlled step is the neuropil-constrained/NPC-like null, followed by a spatial/distance-constrained null if the data support it.
