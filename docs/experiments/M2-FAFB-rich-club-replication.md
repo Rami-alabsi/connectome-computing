@@ -179,3 +179,10 @@ Important interpretation constraint: the sampler selects a node with at least tw
 **Gate A is CLOSED for the defined CFG/rich-club method-aligned path.**
 
 The combined anchor demonstrates that the real-data execution chain is operational and that the current CFG randomizer reaches its requested swap target with high realization efficiency. It does not replace the required 100-null CFG ensemble. The 100-null decision/run is now complete; provenance and validation are recorded above. The next controlled step is the neuropil-constrained/NPC-like null, followed by a spatial/distance-constrained null if the data support it.
+
+
+## Gate B audit note — 2026-09-24
+
+The NPC-like runner was hardened before scientific interpretation. FAFB v783 may contain multiple region-split rows for a single neuron pair, so the NPC graph now aggregates pair-level `syn_count` values before applying the publication-aligned 5-synapse threshold. This matches the CFG ingestion rule used elsewhere in the project. The workflow pins `--min-synapses 5`, and a regression test covers the aggregation/threshold behavior.
+
+This remains an **NPC-like v783 extension**. The dominant outgoing-synapse neuropil assignment follows the published NPC construction, but no exact v630 software/data reproduction is claimed. Gate B remains open until the artifact passes edge-count, in/out-degree, block-pair-count, swap-completion and curve-completeness checks.
