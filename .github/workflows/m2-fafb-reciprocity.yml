@@ -1,19 +1,23 @@
 name: M2 FAFB reciprocity
-
 on:
   workflow_dispatch:
-
+  push:
+    paths:
+      - "scripts/run_fafb_reciprocity.py"
+      - "src/graph/connections.py"
+      - ".github/workflows/m2-fafb-reciprocity.yml"
 jobs:
   analyze:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
       - name: Download FAFB v783
         run: |
           mkdir -p data/raw/fafb_v783
-          curl -L --fail --retry 3 -o data/raw/fafb_v783/connections_princeton.csv.gz \
-            https://storage.googleapis.com/flywire-data/codex/data/fafb/783/connections_princeton.csv.gz
+          curl -L --fail --retry 3 --output data/raw/fafb_v783/connections_princeton.csv.gz             "https://storage.googleapis.com/flywire-data/codex/data/fafb/783/connections_princeton.csv.gz"
       - name: Run reciprocity analysis
         run: PYTHONPATH=. python scripts/run_fafb_reciprocity.py
       - name: Upload result
