@@ -6,14 +6,20 @@ from pathlib import Path
 from src.graph.connections import _open_csv, _pick, SOURCE_CANDIDATES, TARGET_CANDIDATES
 from src.graph.random_baseline import degree_preserving_randomization, degree_preservation_report
 
-def load_edges(path):
+def load_edges(path, min_synapses=0):
     seen=set()
     with _open_csv(path) as fh:
         reader=csv.DictReader(fh)
         s=_pick(reader.fieldnames,SOURCE_CANDIDATES); t=_pick(reader.fieldnames,TARGET_CANDIDATES)
+        w=_pick(reader.fieldnames, ("syn_count","synapse_count","n_synapses","weight"))
         for row in reader:
             u,v=row[s],row[t]
-            if u!=v: seen.add((u,v))
+            try:
+                weight=float(row[w])
+            except (TypeError, ValueError):
+                weight=0.0
+            if u!=v and weight >= min_synapses:
+                seen.add((u,v))
     return seen
 
 def curve(edges, thresholds):
@@ -41,12 +47,14 @@ def main():
     ap.add_argument("--output",default="artifacts/fafb-v783/rich-club.json")
     ap.add_argument("--nulls",type=int,default=2)
     ap.add_argument("--swaps-per-edge",type=float,default=1.0)
+    ap.add_argument("--min-synapses",type=float,default=0,
+                    help="minimum synapses per neuron pair; 0 keeps all unique pairs")
     ap.add_argument("--thresholds",default="",help="comma-separated total-degree thresholds; overrides quantile thresholds")
     ap.add_argument("--threshold-min",type=int,default=None)
     ap.add_argument("--threshold-max",type=int,default=None)
     ap.add_argument("--threshold-step",type=int,default=1)
     args=ap.parse_args()
-    edges=load_edges(Path(args.input))
+    edges=load_edges(Path(args.input), args.min_synapses)
     indeg={}
     outdeg={}
     for u,v in edges:
@@ -85,6 +93,7 @@ def main():
     above=[r["threshold"] for r in rows if r["above_1pct"]]
     result={"dataset":"FAFB","version":"v783","unique_directed_pairs":len(edges),
             "degree_definition":"total degree = in-degree + out-degree on unique directed pairs",
+            "min_synapses_per_connection":args.min_synapses,
             "null_model":"directed degree-preserving edge swaps",
             "nulls":args.nulls,"successful_swaps_target":swaps,
             "thresholds":thresholds,"degree_preservation":preservation,"curve":rows,
