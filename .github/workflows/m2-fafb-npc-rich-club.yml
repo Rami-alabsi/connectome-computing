@@ -1,0 +1,28 @@
+name: M2 FAFB NPC rich club
+on:
+  push:
+    paths:
+      - "scripts/run_fafb_npc_rich_club.py"
+      - "src/graph/**"
+      - ".github/workflows/m2-fafb-npc-rich-club.yml"
+  workflow_dispatch:
+jobs:
+  npc-rich-club:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+      - name: Download FAFB v783 connections
+        run: python scripts/download_fafb.py --output data/raw/fafb_v783/connections_princeton.csv.gz
+      - name: Run NPC-constrained rich club
+        run: PYTHONPATH=. python scripts/run_fafb_npc_rich_club.py --nulls 8 --swaps-per-edge 1.0
+      - name: Upload result
+        uses: actions/upload-artifact@v4
+        with:
+          name: fafb-v783-npc-rich-club
+          path: artifacts/fafb-v783/rich-club-npc.json
