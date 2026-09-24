@@ -15,8 +15,10 @@ Biological structure is evidence used to generate falsifiable computational abst
 ## Evidence state
 
 - Software scaffolding and unit tests exist for M1–M6 components.
-- Real FAFB v783 data have **not yet been executed through the ingestion/profile pipeline in this checkpoint**.
-- Therefore M1/M2 biological completion marks are implementation readiness, not validated connectome results.
+- Real FAFB v783 data have now been **successfully executed through the publication-aligned rich-club runner** in GitHub Actions Run `35962522090` on commit `9138d7280b4ca5219ed2f56560569751a6aafe99`.
+- This is a real-data rich-club benchmark, not completion of the full ingestion/profile → reciprocity → motif → spatial chain. Those downstream biological gates remain open.
+- The benchmark used v783, pair-level synapse aggregation, a 5-synapse threshold, 2 CFG-style degree-preserving nulls, and a total-degree sweep 20–120. It preserved edge count and directed in/out-degree sequences for both nulls.
+- Therefore M1/M2 biological completion is now partially validated for this specific rich-club execution path, but the broader biological pipeline is still not validated.
 - No RSS performance result is currently accepted as scientific evidence.
 
 ## Implemented prototype components
@@ -40,12 +42,13 @@ Biological structure is evidence used to generate falsifiable computational abst
 - [x] M6 RSS matched-control runner
 - [x] M6 shuffled-context null implementation
 - [x] M6 shuffled-collective null implementation
+- [x] Publication-aligned FAFB v783 rich-club execution path
 
 ## Active workstreams
 
 ### 1. Real biological anchor
 
-Run FAFB v783 through a streaming profile pipeline and measure directed degree,
+The first real-data rich-club execution has now succeeded. The next step is to extend this to the complete streaming profile pipeline and measure directed degree,
 reciprocity, hubs/rich-club, motifs, hierarchy/modularity, spatial/contact
 constraints, long-range structure and multi-constraint interactions.
 
@@ -126,6 +129,22 @@ Do not interpret hierarchy depth until parent grouping is genuinely multilevel.
 
 **No benchmark advantage or novelty claim yet.**
 
+### FAFB v783 rich-club benchmark — 2026-09-24
+
+Run `35962522090` completed successfully. Artifact: `fafb-v783-rich-club-publication-benchmark`, SHA-256 `3054b154f18dfd6bae821d084bbd159f1c1d2d5ee13dd90e1ab7b65bd297aea1`.
+
+Measured execution:
+- 3,732,460 unique directed pairs after pair-level synapse aggregation and the 5-synapse threshold;
+- 2 degree-preserving nulls;
+- 3,732,460 target swaps per null;
+- wall time 16:11.20;
+- maximum resident set size 1,900,488 kB (~1.81 GiB);
+- exact edge-count, in-degree and out-degree preservation reported for both nulls.
+
+The observed-to-null curve crosses the repository's descriptive `phi_norm > 1.01` flag at degree 27, is still above that flag at degree 120, and reaches its maximum in the 20–120 sweep at degree 97. This is a **2-null benchmark observation**, not the final 100-null publication-aligned result, and must not be presented as a replication conclusion.
+
+The run also provides the first successful real-data execution of the rich-club path. Reciprocity, motif, spatial/profile execution and the full multi-analysis artifact chain remain open gates.
+
 The RSS workflow now emits a seed-level uncertainty summary (mean, sample SD and
 normal-approximation 95% CI) so timestep count cannot be mistaken for replication.
 A Codex static-download smoke-test workflow has also been added for the FAFB v783
@@ -141,7 +160,12 @@ analysis.
 
 ## Immediate sequence
 
-1. Re-run the corrected RSS matrix and inspect the CSV plus seed-level uncertainty summary.
+1. Keep the repaired rich-club test green; current main test run `35964684034` is successful.
+2. Add/verify swap-attempt and successful-swap accounting before the 100-null CFG run; the current artifact records the requested swap target but not the realized successful-swap count.
+3. Decide whether to optimize the pure-Python CFG implementation before scaling from 2 to 100 nulls; the measured 16:11 for 2 nulls implies roughly 13.5 hours at strictly linear scaling, so this should be measured/optimized rather than assumed.
+4. Run the publication-grade CFG ensemble only after the null randomization accounting is explicit.
+5. Extend the real FAFB execution to the complete streaming profile pipeline: download → profile → rich-club → reciprocity → motif → spatial.
+6. Re-run the corrected RSS matrix and inspect the CSV plus seed-level uncertainty summary.
 2. Determine whether C/D retain any advantage against H/F and whether D retains any advantage against I at matched budgets.
 3. Add sparse-brokerage and stable-core-removal ablations, then parameter/interface and topology matching.
 4. Execute the FAFB v783 download smoke test, then run the real ingestion/profile pipeline and compare its counts with the published reference counts.
