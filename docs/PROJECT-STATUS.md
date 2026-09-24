@@ -2,7 +2,7 @@
 
 ## Current position
 
-**Stage: M5 → M6 — synthetic connectome validation + real-data biological gate closure**
+**Stage: M5 → M6 — synthetic connectome validation + FAFB CFG gate closed; downstream biological controls active**
 
 **Prototype-phase note:** the current implementation phase was built in a single intensive session. Treat the repository as a research prototype scaffold until real-data execution, matched controls, ablations and reproducible artifacts have been completed.
 
@@ -18,7 +18,7 @@ Biological structure is evidence used to generate falsifiable computational abst
 - Real FAFB v783 data have now been **successfully executed through the publication-aligned rich-club runner** in GitHub Actions Run `35962522090` on commit `9138d7280b4ca5219ed2f56560569751a6aafe99`.
 - This is a real-data rich-club benchmark, not completion of the full ingestion/profile → reciprocity → motif → spatial chain. Those downstream biological gates remain open.
 - The benchmark used v783, pair-level synapse aggregation, a 5-synapse threshold, 2 CFG-style degree-preserving nulls, and a total-degree sweep 20–120. It preserved edge count and directed in/out-degree sequences for both nulls.
-- Therefore M1/M2 biological completion is now partially validated for this specific rich-club execution path, but the broader biological pipeline is still not validated.
+- Therefore the FAFB v783 CFG rich-club gate is now closed for this defined analysis path. This is a method-aligned v783 replication/extension, not an exact reproduction of every detail of Lin et al. 2024. The broader biological control hierarchy remains open.
 - No RSS performance result is currently accepted as scientific evidence.
 
 ## Implemented prototype components
@@ -49,7 +49,7 @@ Biological structure is evidence used to generate falsifiable computational abst
 
 ### 1. Real biological anchor
 
-The first real-data rich-club execution has now succeeded. The next step is to extend this to the complete streaming profile pipeline and measure directed degree,
+The 100-null FAFB v783 CFG ensemble has now completed successfully. The next step is to extend the biological control hierarchy beyond degree-preserving nulls and measure directed degree,
 reciprocity, hubs/rich-club, motifs, hierarchy/modularity, spatial/contact
 constraints, long-range structure and multi-constraint interactions.
 
@@ -58,7 +58,7 @@ directed connection pairs; BANC v888 is a newer 2026 brain-and-nerve-cord
 snapshot. These published counts are reference checks, not yet a result from our
 local ingestion pipeline.
 
-This remains the main biological gate.
+This closes the defined CFG/rich-club gate. The next biological gates are neuropil-constrained and spatial/distance-constrained controls.
 
 ### 2. Dynamic Relational State Space (RSS)
 
@@ -144,6 +144,22 @@ Measured execution:
 
 The observed-to-null curve crosses the repository's descriptive `phi_norm > 1.01` flag at degree 27, is still above that flag at degree 120, and reaches its maximum in the 20–120 sweep at degree 97. This is a **2-null benchmark observation**, not the final 100-null publication-aligned result, and must not be presented as a replication conclusion.
 
+### FAFB v783 100-null CFG ensemble — 2026-09-24
+
+Run `35987597540` completed successfully on commit `f53f471de27f0c8cf58d496dcc0885ecfa6a8d4a`. Final artifact: `fafb-v783-rich-club-100null`, artifact ID `10807064530`, SHA-256 `5343abb81fe1cb1a19692e72c5b326fbed87814e99c1476a5bb303164954fae6`.
+
+Measured validation:
+- 100 deterministic CFG nulls;
+- 3,732,460 requested and successful swaps per null;
+- all 100 nulls fully reached the target;
+- all 100 preserved edge count, in-degree and out-degree exactly;
+- pair-level aggregation and 5-synapse threshold retained;
+- `phi_norm > 1.01` is present continuously from degree 27 through 120 in the tested 20–120 sweep;
+- `phi_norm` at degree 37 is 1.015363; at degree 75 is 1.047329; at degree 93 is 1.056247; and the sweep maximum is 1.057835 at degree 96;
+- degree 120 remains enriched at `phi_norm = 1.041215`.
+
+These values establish a stable CFG-controlled rich-club enrichment pattern under the repository's defined v783 method. They do **not** establish an exact reproduction of Lin et al. 2024 because the dataset version is v783 rather than v630 and the project's null implementation is degree-preserving edge swapping rather than the paper's exact null construction. The result therefore closes the defined CFG gate as a method-aligned replication/extension while leaving neuropil- and spatially constrained explanations open.
+
 The run also provides the first successful end-to-end real-data anchor across structural profile, reciprocity, spatial/neuropil inventory, rich-club, and directed-triad sampling. These artifacts are now inspected. They establish an executed multi-analysis anchor, but they do not by themselves close the CFG publication-alignment gate or justify biological generalization.
 
 The RSS workflow now emits a seed-level uncertainty summary (mean, sample SD and
@@ -166,15 +182,15 @@ analysis.
 1. **Real-data rich-club benchmark:** completed successfully on Run `35962522090`.
 2. **Artifact inspection:** completed at the implementation/runtime level; the benchmark artifact is recorded above. It is still a 2-null benchmark and therefore is not a publication-grade replication.
 3. **Swap-quality audit:** verify realized successful swaps, attempts, and target completion in the next artifact. The runner now records these fields.
-4. **100-null decision:** after swap-quality audit and runtime review, either optimize the randomizer or run the 100-null CFG ensemble. Do not extrapolate the 2-null curve into a final biological conclusion.
+4. **100-null CFG ensemble:** completed successfully on Run `35987597540`; all 100 nulls reached the target and passed exact degree/edge-count preservation.
 5. **Full real-data anchor:** Run `35984738032` completed successfully. All five artifacts were produced and inspected: `profile.json`, `reciprocity.json`, `spatial-profile.json`, `rich-club.json`, and `motif-sample.json`.
 6. The anchor reports 138,584 nodes in the connection table and 3,732,460 unique directed pairs after pair-level deduplication; reciprocity is 0.1661585; the spatial inventory contains 79 neuropil labels and 1,002,488 multi-region unique pairs (26.8586%); and the directed-triad sample preserves exact degree/edge-count invariants in both generated nulls.
 7. The rich-club nulls both reached the full target of 3,732,460 successful swaps. Null 0 required 3,764,742 attempts; null 1 required 3,764,495 attempts, so the realized swap rate was >99.4% in both runs. This removes the previously open concern about failure to reach the requested swap target for the 2-null benchmark.
-8. The combined anchor still does **not** close Gate A: the rich-club ensemble remains 2 nulls, and the spatial artifact is explicitly descriptive rather than a spatially constrained null. The next decision is therefore a controlled 100-null CFG run, or a documented randomizer optimization if needed for reproducible runtime.
+8. The 100-null CFG ensemble now closes the defined degree-preserving rich-club gate. The spatial artifact remains descriptive rather than a spatially constrained null, so the broader biological control hierarchy remains open.
 
 ### Biological Gates B/C
 
-9. After Gate A is closed, compare against the neuropil-constrained/NPC-like null.
+9. With the CFG gate closed, compare against the neuropil-constrained/NPC-like null.
 10. Only after that, define and execute a genuine spatial/distance-constrained null if the required spatial data are available.
 
 ### RSS / M6
