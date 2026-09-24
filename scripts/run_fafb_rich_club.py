@@ -78,10 +78,12 @@ def main():
     observed=curve(edges,thresholds)
     null_curves=[]
     preservation=[]
+    swap_stats=[]
     swaps=max(1000,int(len(edges)*args.swaps_per_edge))
     for seed in range(args.nulls):
-        null=degree_preserving_randomization(edges,swaps=swaps,seed=seed)
+        null, stats=degree_preserving_randomization(edges,swaps=swaps,seed=seed,return_stats=True)
         preservation.append(degree_preservation_report(edges,null))
+        swap_stats.append({"seed":seed,**stats})
         null_curves.append(curve(null,thresholds))
     rows=[]
     for i,o in enumerate(observed):
@@ -98,7 +100,7 @@ def main():
             "degree_definition":"total degree = in-degree + out-degree on unique directed pairs",
             "min_synapses_per_connection":args.min_synapses,
             "null_model":"directed degree-preserving edge swaps",
-            "nulls":args.nulls,"successful_swaps_target":swaps,
+            "nulls":args.nulls,"successful_swaps_target":swaps,"swap_stats":swap_stats,
             "thresholds":thresholds,"degree_preservation":preservation,"curve":rows,
             "rich_club_criterion":"phi_norm > 1.01",
             "onset_threshold":min(above) if above else None,
