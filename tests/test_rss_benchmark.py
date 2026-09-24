@@ -125,3 +125,18 @@ def test_shuffled_context_null_breaks_context_membership_mapping():
         shuffled = _shuffled_priority_group(case, groups, context, config.modules)
         assert len(shuffled) == len(groups[context])
         assert shuffled != set(groups[context])
+
+
+def test_brokerage_ablation_preserves_budget_but_removes_overlap_priority():
+    config = RSSSweepConfig(modules=12, contexts=3, sequence_length=3, max_active_relations=4)
+    cases = {c.name: c for c in default_rss_cases(config)}
+    with_brokerage = cases["C_dynamic_layered"]
+    without_brokerage = cases["J_dynamic_layered_no_brokerage"]
+    groups = _contexts(config.modules, config.contexts)
+    states = {m: (float(m), float(m), float(m)) for m in range(12)}
+    overlap_nodes = {m for m in range(12) if sum(m in g for g in groups) > 1}
+    for context in range(config.contexts):
+        a = set(_select_sources(with_brokerage, states, groups, context, "context"))
+        b = set(_select_sources(without_brokerage, states, groups, context, "context"))
+        assert len(a) == len(b) == 4
+        assert not (b & overlap_nodes)
