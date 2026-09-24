@@ -162,7 +162,8 @@ analysis.
 
 1. Keep the repaired rich-club test green; current main test run `35964684034` is successful.
 2. Add/verify swap-attempt and successful-swap accounting before the 100-null CFG run; the current artifact records the requested swap target but not the realized successful-swap count.
-3. Decide whether to optimize the pure-Python CFG implementation before scaling from 2 to 100 nulls; the measured 16:11 for 2 nulls implies roughly 13.5 hours at strictly linear scaling, so this should be measured/optimized rather than assumed.
+3. The CFG implementation now records requested swaps, realized successful swaps, attempts, and whether the target was fully reached. Verify these fields in the next artifact before scaling to 100 nulls.
+4. Decide whether to optimize the pure-Python CFG implementation before scaling from 2 to 100 nulls; the measured 16:11 for 2 nulls implies roughly 13.5 hours at strictly linear scaling, so this should be measured/optimized rather than assumed.
 4. Run the publication-grade CFG ensemble only after the null randomization accounting is explicit.
 5. Extend the real FAFB execution to the complete streaming profile pipeline: download → profile → rich-club → reciprocity → motif → spatial.
 6. Re-run the corrected RSS matrix and inspect the CSV plus seed-level uncertainty summary.
@@ -170,8 +171,8 @@ analysis.
 3. Add sparse-brokerage and stable-core-removal ablations, then parameter/interface and topology matching.
 4. Execute the FAFB v783 download smoke test, then run the real ingestion/profile pipeline and compare its counts with the published reference counts.
 5. Re-run M6-COSMIC after the bounded-state correction.
-6. Only then reassess the potential-path branch.
-7. Scale only after mechanisms survive controls.
+7. Only then reassess the potential-path branch.
+8. Scale only after mechanisms survive controls.
 
 ## Cross-domain rule
 
