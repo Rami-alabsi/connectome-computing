@@ -41,6 +41,10 @@ def main():
     ap.add_argument("--output",default="artifacts/fafb-v783/rich-club.json")
     ap.add_argument("--nulls",type=int,default=2)
     ap.add_argument("--swaps-per-edge",type=float,default=1.0)
+    ap.add_argument("--thresholds",default="",help="comma-separated total-degree thresholds; overrides quantile thresholds")
+    ap.add_argument("--threshold-min",type=int,default=None)
+    ap.add_argument("--threshold-max",type=int,default=None)
+    ap.add_argument("--threshold-step",type=int,default=1)
     args=ap.parse_args()
     edges=load_edges(Path(args.input))
     indeg={}
@@ -50,7 +54,16 @@ def main():
         indeg[v]=indeg.get(v,0)+1
     totaldeg={u:indeg.get(u,0)+outdeg.get(u,0) for u in set(indeg)|set(outdeg)}
     vals=sorted(totaldeg.values())
-    thresholds=sorted(set(max(1,int(vals[int((len(vals)-1)*q)])) for q in (0.90,0.95,0.99,0.995)))
+    if args.thresholds:
+        thresholds=sorted({int(x.strip()) for x in args.thresholds.split(",") if x.strip()})
+    elif args.threshold_min is not None and args.threshold_max is not None:
+        if args.threshold_step <= 0 or args.threshold_min > args.threshold_max:
+            raise ValueError("invalid threshold range")
+        thresholds=list(range(args.threshold_min,args.threshold_max+1,args.threshold_step))
+    else:
+        thresholds=sorted(set(max(1,int(vals[int((len(vals)-1)*q)])) for q in (0.90,0.95,0.99,0.995)))
+    if not thresholds:
+        raise ValueError("at least one threshold is required")
     observed=curve(edges,thresholds)
     null_curves=[]
     preservation=[]
