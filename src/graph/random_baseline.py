@@ -15,7 +15,8 @@ def degree_preserving_randomization(
     *,
     swaps: int | None = None,
     seed: int = 0,
-) -> set[tuple[str, str]]:
+    return_stats: bool = False,
+):
     current = {(u, v) for u, v in edges if u != v}
     if len(current) < 2:
         return current
@@ -49,6 +50,14 @@ def degree_preserving_randomization(
         edge_list[i], edge_list[j] = new1, new2
         successful += 1
 
+    if return_stats:
+        return current, {
+            "requested_swaps": swaps,
+            "successful_swaps": successful,
+            "attempts": attempts,
+            "max_attempts": max_attempts,
+            "fully_reached_target": successful >= swaps,
+        }
     return current
 
 
