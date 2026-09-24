@@ -18,6 +18,36 @@ def load(path):
     for u,v in edges: adj[u].add(v)
     return edges,adj
 
+
+TRIAD_REPRESENTATIVES = {
+    "003": (), "012": ((0,1),), "102": ((0,1),(1,0)),
+    "021D": ((1,0),(1,2)), "021U": ((0,1),(2,1)), "021C": ((0,1),(1,2)),
+    "111D": ((0,1),(1,0),(2,1)), "111U": ((0,1),(1,0),(1,2)),
+    "030T": ((0,1),(1,2),(0,2)), "030C": ((1,0),(2,1),(0,2)),
+    "201": ((0,1),(1,0),(1,2),(2,1)),
+    "120D": ((1,0),(1,2),(0,2),(2,0)),
+    "120U": ((0,1),(2,1),(0,2),(2,0)),
+    "120C": ((0,1),(1,2),(0,2),(2,0)),
+    "210": ((0,1),(1,0),(1,2),(2,1),(0,2)),
+    "300": ((0,1),(1,0),(0,2),(2,0),(1,2),(2,1)),
+}
+def _sig_pairs(pairs):
+    order=((0,1),(1,0),(0,2),(2,0),(1,2),(2,1))
+    return sum(1<<i for i,p in enumerate(order) if p in pairs)
+TRIAD_SIGNATURE_TO_LABEL={}
+for _label,_pairs in TRIAD_REPRESENTATIVES.items():
+    _sigs=[]
+    for _perm in ((0,1,2),(0,2,1),(1,0,2),(1,2,0),(2,0,1),(2,1,0)):
+        _mapped={(_perm.index(u),_perm.index(v)) for u,v in _pairs}
+        _sigs.append(_sig_pairs(_mapped))
+    TRIAD_SIGNATURE_TO_LABEL[min(_sigs)]=_label
+def canonical_triad_class(a,b,c,edges):
+    nodes=(a,b,c); sigs=[]
+    for perm in ((0,1,2),(0,2,1),(1,0,2),(1,2,0),(2,0,1),(2,1,0)):
+        ordered=tuple(nodes[i] for i in perm)
+        sigs.append(signature(*ordered,edges))
+    return TRIAD_SIGNATURE_TO_LABEL[min(sigs)]
+
 def signature(a,b,c,e):
     return sum(1<<i for i,p in enumerate(((a,b),(b,a),(a,c),(c,a),(b,c),(c,b))) if p in e)
 
@@ -29,7 +59,7 @@ def sample(edges,adj,n,seed):
         if len(adj[a])<2: continue
         b,c=rng.sample(tuple(adj[a]),2)
         if len({a,b,c})<3: continue
-        counts[signature(a,b,c,edges)] += 1; accepted += 1
+        counts[canonical_triad_class(a,b,c,edges)] += 1; accepted += 1
     return counts,accepted
 
 def main():
