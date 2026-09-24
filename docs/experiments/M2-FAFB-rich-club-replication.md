@@ -37,8 +37,19 @@ Codex documents that connection tables may contain multiple rows for the same ne
 - interpretation written only after artifact inspection.
 
 ## Run history
-Run 35962189226: failed before scientific computation because /usr/bin/time attempted to execute PYTHONPATH=. as a binary. This was a workflow syntax error.
-Run 35962219553: corrected benchmark; last observed status was queued. Retrieve current status and artifact before interpretation.
+
+- **35962189226 — FAILED:** workflow syntax error; `/usr/bin/time` attempted to execute `PYTHONPATH=.` as a binary. No scientific computation ran.
+- **35962219553 — SUPERSEDED:** corrected benchmark workflow from the pre-aggregation implementation. Do not use as scientific evidence.
+- **35962522090 — SUCCESS:** first successful real-data publication-aligned v783 rich-club benchmark on commit `9138d7280b4ca5219ed2f56560569751a6aafe99`. Artifact `fafb-v783-rich-club-publication-benchmark`, ID `10792907968`.
+- **Current combined anchor — Run 35984738032:** in progress. Download, structural profile, reciprocity, and spatial/neuropil inventory have completed successfully; rich-club is running; motif and artifact upload are pending.
+
+### Scientific gate status
+
+**Gate A is OPEN, not closed.**
+
+The successful 2-null benchmark proves that the real v783 rich-club execution path works and produces a degree-preserving null-controlled curve. It does not close the publication-aligned CFG gate because the final ensemble target is 100 nulls and swap realization quality still needs to be audited.
+
+The combined real-data anchor is the next operational checkpoint. Its successful downstream artifacts must be inspected before declaring the broader biological pipeline executed.
 
 ## Expected artifact
 artifacts/fafb-v783/rich-club.json
