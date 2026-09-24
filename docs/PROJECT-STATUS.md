@@ -130,7 +130,7 @@ Do not interpret hierarchy depth until parent grouping is genuinely multilevel.
 
 **No benchmark advantage or novelty claim yet.**
 
-### FAFB v783 rich-club benchmark — 2026-09-24
+### FAFB v783 real-data anchor — 2026-09-24
 
 Run `35962522090` completed successfully. Artifact: `fafb-v783-rich-club-publication-benchmark`, SHA-256 `3054b154f18dfd6bae821d084bbd159f1c1d2d5ee13dd90e1ab7b65bd297aea1`.
 
@@ -144,7 +144,7 @@ Measured execution:
 
 The observed-to-null curve crosses the repository's descriptive `phi_norm > 1.01` flag at degree 27, is still above that flag at degree 120, and reaches its maximum in the 20–120 sweep at degree 97. This is a **2-null benchmark observation**, not the final 100-null publication-aligned result, and must not be presented as a replication conclusion.
 
-The run also provides the first successful real-data execution of the rich-club path. Reciprocity, motif, spatial/profile execution and the full multi-analysis artifact chain remain open gates.
+The run also provides the first successful end-to-end real-data anchor across structural profile, reciprocity, spatial/neuropil inventory, rich-club, and directed-triad sampling. These artifacts are now inspected. They establish an executed multi-analysis anchor, but they do not by themselves close the CFG publication-alignment gate or justify biological generalization.
 
 The RSS workflow now emits a seed-level uncertainty summary (mean, sample SD and
 normal-approximation 95% CI) so timestep count cannot be mistaken for replication.
@@ -167,27 +167,37 @@ analysis.
 2. **Artifact inspection:** completed at the implementation/runtime level; the benchmark artifact is recorded above. It is still a 2-null benchmark and therefore is not a publication-grade replication.
 3. **Swap-quality audit:** verify realized successful swaps, attempts, and target completion in the next artifact. The runner now records these fields.
 4. **100-null decision:** after swap-quality audit and runtime review, either optimize the randomizer or run the 100-null CFG ensemble. Do not extrapolate the 2-null curve into a final biological conclusion.
-5. **Full real-data anchor:** Run `35984738032` is currently executing the combined v783 pipeline. At the current checkpoint, download, structural profile, reciprocity, and spatial/neuropil inventory have succeeded; rich-club is still running; motif and artifact upload are pending.
-6. When the combined run finishes, inspect every artifact before updating biological status.
+5. **Full real-data anchor:** Run `35984738032` completed successfully. All five artifacts were produced and inspected: `profile.json`, `reciprocity.json`, `spatial-profile.json`, `rich-club.json`, and `motif-sample.json`.
+6. The anchor reports 138,584 nodes in the connection table and 3,732,460 unique directed pairs after pair-level deduplication; reciprocity is 0.1661585; the spatial inventory contains 79 neuropil labels and 1,002,488 multi-region unique pairs (26.8586%); and the directed-triad sample preserves exact degree/edge-count invariants in both generated nulls.
+7. The rich-club nulls both reached the full target of 3,732,460 successful swaps. Null 0 required 3,764,742 attempts; null 1 required 3,764,495 attempts, so the realized swap rate was >99.4% in both runs. This removes the previously open concern about failure to reach the requested swap target for the 2-null benchmark.
+8. The combined anchor still does **not** close Gate A: the rich-club ensemble remains 2 nulls, and the spatial artifact is explicitly descriptive rather than a spatially constrained null. The next decision is therefore a controlled 100-null CFG run, or a documented randomizer optimization if needed for reproducible runtime.
 
 ### Biological Gates B/C
 
-7. After Gate A is closed, compare against the neuropil-constrained/NPC-like null.
-8. Only after that, define and execute a genuine spatial/distance-constrained null if the required spatial data are available.
+9. After Gate A is closed, compare against the neuropil-constrained/NPC-like null.
+10. Only after that, define and execute a genuine spatial/distance-constrained null if the required spatial data are available.
 
 ### RSS / M6
 
-9. Keep RSS/M6 architecture interpretation frozen while the biological Gate A remains open.
-10. Sparse brokerage ablation is already completed and documented as task- and budget-dependent; do not re-list it as an upcoming control.
-11. Re-run M6-COSMIC only after the bounded-state correction, independently of the FAFB Gate A interpretation.
+11. Keep RSS/M6 architecture interpretation frozen while the biological Gate A remains open.
+12. Sparse brokerage ablation is already completed and documented as task- and budget-dependent; do not re-list it as an upcoming control.
+13. Re-run M6-COSMIC only after the bounded-state correction, independently of the FAFB Gate A interpretation.
 
 ### Documentation rule
 
-12. Whenever a scientific gate changes state, update `docs/PROJECT-STATUS.md` and the relevant experiment record in the same change window. `AI-CONTEXT.md` remains the pointer to this file; it is not an independent status source.
+14. Whenever a scientific gate changes state, update `docs/PROJECT-STATUS.md` and the relevant experiment record in the same change window. `AI-CONTEXT.md` remains the pointer to this file; it is not an independent status source.
 
 ## Cross-domain rule
 
 Quantum information, holography, cosmic web and social-network analogies are hypothesis generators only. They never substitute for connectome evidence or matched non-biological controls.
+
+### Real-data anchor artifact notes
+
+- `profile.json`: degree metrics are explicitly based on unique directed neuron pairs, not raw region-split rows; weighted synapse total is 50,666,648.
+- `reciprocity.json`: 620,180 reciprocal directed edges across 102,757 nodes with reciprocal edges; reciprocity probability 0.1661585.
+- `spatial-profile.json`: 5,342,446 raw connection-table rows collapse to 3,732,460 unique directed pairs; 26.8586% of unique pairs occur across multiple regional rows. The artifact explicitly makes no spatially constrained-null claim.
+- `motif-sample.json`: one-million attempted samples produced 981,356 accepted observed wedges; the two degree-preserving nulls accepted 981,162 and 981,539. Their exact edge-count/in-degree/out-degree invariants passed. Because the sampler conditions on an outgoing two-neighbor wedge, these counts are a conditional triad-signature profile, not an unrestricted triad census.
+- `rich-club.json`: both CFG nulls fully reached the requested 3,732,460 swaps. The 20–120 sweep has `phi_norm` from 1.0044 to 1.0580; the repository's descriptive >1.01 flag begins at degree 27 and remains above it through degree 120. Peak is degree 96 in this run. This remains a 2-null benchmark observation.
 
 ## Compass
 
