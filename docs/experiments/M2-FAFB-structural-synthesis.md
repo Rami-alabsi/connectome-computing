@@ -72,3 +72,15 @@ At this stage the project can claim:
 > The software now has a real-data FAFB v783 validation path that separates raw connection rows from unique directed neuron-pair structure and provides reproducible null-model analyses for degree, rich-club organization, reciprocity and directed triad composition.
 
 It cannot yet claim that FAFB has a uniquely advantageous architecture, that a rich-club backbone is enriched under all definitions, that any particular motif causes computational performance, or that the proposed connectome-inspired architecture is superior to non-biological baselines.
+
+## Rich-club replication gate (2026-09-24)
+
+The rich-club runner now accepts explicit total-degree thresholds in addition to its exploratory quantile thresholds. This is required for a faithful comparison with published FAFB analysis, which evaluates the rich-club coefficient across degree thresholds and reports a rich-club regime beginning around total degree 37 under its CFG normalization. The published analysis also evaluates the NPC normalization using 100 null samples. This project will treat that published threshold/normalization as a replication target, not as a premise about the biological meaning of the rich club. citeturn0search0
+
+The current CI path remains an 8-null reproducibility gate. A publication-aligned run should use explicit thresholds (rather than the current 90/95/99/99.5% quantiles) and a substantially larger null ensemble before any comparison is interpreted. Because the current Python swap implementation is much less optimized than the graph-tool implementation used in the publication, runtime must be measured before committing the 100-null run to ordinary push CI.
+
+This separates two questions:
+1. **Implementation gate:** do our directed swaps preserve edge count, in-degree, out-degree and, for NPC, neuropil block counts exactly?
+2. **Replication gate:** does the observed rich-club curve reproduce the published CFG/NPC pattern under the same degree definition and thresholding convention?
+
+Until the second gate is run and its artifact inspected, the project should not describe the current rich-club result as a replication or biological confirmation.
