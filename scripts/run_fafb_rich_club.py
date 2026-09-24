@@ -49,6 +49,8 @@ def main():
     ap.add_argument("--input",default="data/raw/fafb_v783/connections_princeton.csv.gz")
     ap.add_argument("--output",default="artifacts/fafb-v783/rich-club.json")
     ap.add_argument("--nulls",type=int,default=2)
+    ap.add_argument("--seed-offset",type=int,default=0,
+                    help="offset applied to null seeds; preserves independent per-null RNG streams")
     ap.add_argument("--swaps-per-edge",type=float,default=1.0)
     ap.add_argument("--min-synapses",type=float,default=0,
                     help="minimum synapses per neuron pair; 0 keeps all unique pairs")
@@ -80,7 +82,8 @@ def main():
     preservation=[]
     swap_stats=[]
     swaps=max(1000,int(len(edges)*args.swaps_per_edge))
-    for seed in range(args.nulls):
+    for local_seed in range(args.nulls):
+        seed = args.seed_offset + local_seed
         null, stats=degree_preserving_randomization(edges,swaps=swaps,seed=seed,return_stats=True)
         preservation.append(degree_preservation_report(edges,null))
         swap_stats.append({"seed":seed,**stats})
