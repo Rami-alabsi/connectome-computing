@@ -41,7 +41,7 @@ Codex documents that connection tables may contain multiple rows for the same ne
 - **35962189226 — FAILED:** workflow syntax error; `/usr/bin/time` attempted to execute `PYTHONPATH=.` as a binary. No scientific computation ran.
 - **35962219553 — SUPERSEDED:** corrected benchmark workflow from the pre-aggregation implementation. Do not use as scientific evidence.
 - **35962522090 — SUCCESS:** first successful real-data publication-aligned v783 rich-club benchmark on commit `9138d7280b4ca5219ed2f56560569751a6aafe99`. Artifact `fafb-v783-rich-club-publication-benchmark`, ID `10792907968`.
-- **Current combined anchor — Run 35984738032:** in progress. Download, structural profile, reciprocity, and spatial/neuropil inventory have completed successfully; rich-club is running; motif and artifact upload are pending.
+- **Current combined anchor — Run 35984738032 — SUCCESS:** completed successfully on commit `285f7746c123f50f35558bb84718ef78dfa0b756`. All profile, reciprocity, spatial, rich-club, motif, and artifact-upload steps succeeded. Artifact `fafb-v783-real-data-anchor`, ID `10802343443`, SHA-256 `41f65e07f11cd0445db2339598a722a8ea2db06f24e08faee26f8c2f3755f2b6`.
 
 ### Scientific gate status
 
@@ -49,7 +49,7 @@ Codex documents that connection tables may contain multiple rows for the same ne
 
 The successful 2-null benchmark proves that the real v783 rich-club execution path works and produces a degree-preserving null-controlled curve. It does not close the publication-aligned CFG gate because the final ensemble target is 100 nulls and swap realization quality still needs to be audited.
 
-The combined real-data anchor is the next operational checkpoint. Its successful downstream artifacts must be inspected before declaring the broader biological pipeline executed.
+The combined real-data anchor is now complete and its five JSON artifacts have been inspected. This closes the operational execution checkpoint, not the biological Gate A itself.
 
 ## Expected artifact
 artifacts/fafb-v783/rich-club.json
@@ -102,3 +102,60 @@ Benchmark evidence only. This establishes that the real v783 rich-club path exec
 The measured runtime suggests approximately 13.5 hours for 100 nulls under naive linear scaling. This is only a planning estimate; actual scaling must be measured. Before the 100-null run, record realized successful swaps and failed attempts so the null-randomization quality is auditable.
 
 The result also does not close the broader FAFB biological gate. Reciprocity, motif, spatial/contact and complete profile artifacts still require real-data execution.
+
+## Combined real-data anchor inspection — Run 35984738032
+
+The end-to-end FAFB v783 anchor completed successfully.
+
+### Profile
+- nodes in connection table: 138,584
+- unique directed pairs: 3,732,460
+- maximum in-degree: 6,261
+- maximum out-degree: 6,523
+- mean in/out degree in the degree-profile summary: 26.9328
+- weighted synapse total: 50,666,648
+- degree semantics: unique directed neuron pairs after pair-level deduplication
+
+### Reciprocity
+- reciprocal directed edge count: 620,180
+- nodes with reciprocal edges: 102,757
+- reciprocity probability: 0.1661585121
+
+### Spatial / neuropil inventory
+- raw rows: 5,342,446
+- unique directed pairs: 3,732,460
+- unique pairs represented in multiple regional rows: 1,002,488
+- multi-region pair fraction: 0.2685864015
+- neuropil labels observed: 79
+- status: descriptive inventory only; no spatially constrained null is claimed
+
+### Rich-club
+Both 2 CFG nulls reached the full target:
+- target/requested swaps per null: 3,732,460
+- null 0: 3,764,742 attempts; 3,732,460 successful
+- null 1: 3,764,495 attempts; 3,732,460 successful
+- both nulls preserved edge count, in-degree and out-degree exactly
+
+For the 20–120 sweep:
+- degree 27: phi_norm ≈ 1.010002
+- degree 37: phi_norm ≈ 1.015287
+- degree 75: phi_norm ≈ 1.047477
+- peak: degree 96, phi_norm ≈ 1.057996
+- degree 120: phi_norm ≈ 1.041405
+- descriptive criterion phi_norm > 1.01: first at 27 and still true at 120
+
+This is still a **2-null benchmark observation**, not the final 100-null publication-aligned result.
+
+### Directed triad sample
+The sampler attempted 1,000,000 wedge samples:
+- observed accepted: 981,356
+- null 0 accepted: 981,162
+- null 1 accepted: 981,539
+- both nulls preserved edge count and directed in/out-degree exactly
+
+Important interpretation constraint: the sampler selects a node with at least two outgoing neighbors and samples two of those neighbors. Therefore this artifact is a **conditional directed triad-signature profile**, not an unrestricted triad census. Its signature definition explicitly documents this as a transparent six-bit signature rather than a general isomorphism-class census.
+
+### Gate decision
+**Gate A remains OPEN.**
+
+The combined anchor demonstrates that the real-data execution chain is operational and that the current CFG randomizer reaches its requested swap target with high realization efficiency. It does not replace the required 100-null CFG ensemble. The next controlled step is therefore the 100-null decision/run, with runtime and artifact provenance recorded explicitly.
