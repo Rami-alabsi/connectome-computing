@@ -20,7 +20,7 @@ jobs:
       - name: Download FAFB v783 connections
         run: python scripts/download_fafb.py --output data/raw/fafb_v783/connections_princeton.csv.gz
       - name: Run NPC-constrained rich club
-        run: PYTHONPATH=. python scripts/run_fafb_npc_rich_club.py --nulls 8 --swaps-per-edge 1.0 --threshold-min 20 --threshold-max 120 --threshold-step 1
+        run: PYTHONPATH=. python scripts/run_fafb_npc_rich_club.py --nulls 8 --swaps-per-edge 1.0 --min-synapses 5 --threshold-min 20 --threshold-max 120 --threshold-step 1
       - name: Upload result
         uses: actions/upload-artifact@v4
         with:
