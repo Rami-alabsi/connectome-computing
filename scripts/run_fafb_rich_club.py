@@ -77,13 +77,22 @@ def main():
         nd=[c[i]["rich_density"] for c in null_curves]
         mean=sum(nd)/len(nd) if nd else 0.0
         sd=(sum((x-mean)**2 for x in nd)/(len(nd)-1))**0.5 if len(nd)>1 else None
+        ratio=o["rich_density"]/mean if mean else None
         rows.append({**o,"null_mean_density":mean,"null_sd_density":sd,
-                     "observed_to_null":o["rich_density"]/mean if mean else None})
+                     "observed_to_null":ratio,
+                     "phi_norm":ratio,
+                     "above_1pct":bool(ratio is not None and ratio > 1.01)})
+    ratios=[r["phi_norm"] for r in rows if r["phi_norm"] is not None]
+    above=[r["threshold"] for r in rows if r["above_1pct"]]
     result={"dataset":"FAFB","version":"v783","unique_directed_pairs":len(edges),
             "degree_definition":"total degree = in-degree + out-degree on unique directed pairs",
             "null_model":"directed degree-preserving edge swaps",
             "nulls":args.nulls,"successful_swaps_target":swaps,
-            "thresholds":thresholds,"degree_preservation":preservation,"curve":rows}
+            "thresholds":thresholds,"degree_preservation":preservation,"curve":rows,
+            "rich_club_criterion":"phi_norm > 1.01",
+            "onset_threshold":min(above) if above else None,
+            "offset_threshold":max(above) if above else None,
+            "peak_threshold":max(rows,key=lambda r: r["phi_norm"] if r["phi_norm"] is not None else float("-inf"))["threshold"] if rows else None}
     out=Path(args.output); out.parent.mkdir(parents=True,exist_ok=True)
     out.write_text(json.dumps(result,indent=2)+"\n",encoding="utf-8")
     print(json.dumps(result,indent=2))
