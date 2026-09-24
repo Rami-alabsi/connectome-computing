@@ -101,7 +101,7 @@ connectome-computing/
 
 **Stage: M5 → M6 — synthetic connectome validation + real-data biological gate closure**
 
-Current blocking gate: **FAFB v783 biological Gate A (CFG/rich-club) is open.** A real-data 2-null rich-club benchmark has completed successfully, but this is not yet a publication-grade replication. The next checkpoints are swap-quality audit, the 100-null CFG decision, and inspection of the combined real-data anchor pipeline.
+Current blocking gate: **FAFB v783 biological Gate A (CFG/rich-club) is open.** The combined real-data anchor Run `35984738032` has now completed successfully and all five artifacts have been inspected. The 2-null rich-club benchmark reached the full requested swap target with exact degree/edge-count preservation, but it is still not a publication-grade 100-null replication. The next checkpoint is the controlled 100-null CFG decision/run.
 
 Operational status and scientific decisions are maintained in `docs/PROJECT-STATUS.md`; the research protocol and AI handoff rules are in `docs/RESEARCH_PROTOCOL.md`.
 
