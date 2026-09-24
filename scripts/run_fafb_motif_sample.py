@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Sample directed 3-node motif signatures in FAFB and compare degree-preserving nulls."""
+"""Sample canonical directed 3-node triad classes in FAFB and compare degree-preserving nulls."""
 from __future__ import annotations
 import argparse,csv,json,random
 from collections import Counter,defaultdict
