@@ -220,6 +220,12 @@ Quantum information, holography, cosmic web and social-network analogies are hyp
 **evidence → abstraction → falsifiable prediction → matched control → implementation → execution → ablation → scaling → prior-art recheck**
 
 
+## Gate B — NPC-like control execution hardening (2026-09-24)
+
+Before interpreting Gate B, the NPC runner was audited again for data-model consistency. A material issue was corrected: the v783 connection table can contain multiple region rows for the same neuron pair. The NPC graph now aggregates pair-level synapse counts before applying the 5-synapse threshold, matching the project's publication-aligned CFG ingestion rule. The workflow explicitly pins `--min-synapses 5`, and a regression test covers this aggregation/threshold behavior.
+
+The NPC result remains explicitly **NPC-like**, not an exact reproduction of the Lin et al. v630 software/data snapshot. Dominant outgoing-synapse neuropil assignment remains the documented block-definition choice. Gate B stays OPEN until the produced artifact is independently inspected for exact edge count, exact in/out degree, exact source-block→target-block counts, full swap realization, and the complete 20–120 curve.
+
 ## Gate B — NPC-like control preparation (2026-09-24)
 
 The repository NPC implementation has been audited against Lin et al. Methods. The published NPC is a degree-corrected stochastic block model: each neuron is assigned to one of 78 neuropil blocks according to the neuropil with the most outgoing synapses; rewiring preserves degree sequences and inter-/intra-neuropil connection probabilities. The project implementation uses the same construction logic on FAFB v783, so it should be described as an **NPC-like v783 extension**, not as an exact v630 reproduction.
