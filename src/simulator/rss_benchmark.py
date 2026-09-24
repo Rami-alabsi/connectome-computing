@@ -139,8 +139,16 @@ def _select_sources(case: RSSCase, states: dict[int, State],
             for m in candidates
         }
         ranked = sorted(candidates, key=lambda m: (-membership[m], m))
-    elif case.mode == "dynamic_layered":
-        ranked = sorted(candidates, key=lambda m: (-(m in priority), -abs(states[m][0]), m))
+    elif case.mode in ("dynamic_layered", "dynamic_layered_no_brokerage"):
+        membership = {m: sum(m in group for group in groups) for m in candidates}
+        if case.mode == "dynamic_layered_no_brokerage":
+            # Remove overlap/broker nodes from the context-priority set while
+            # preserving the same candidate pool and active-route budget.
+            priority = {m for m in priority if membership[m] == 1}
+        ranked = sorted(
+            candidates,
+            key=lambda m: (-(m in priority), -abs(states[m][0]), m),
+        )
     elif case.mode in ("dynamic_higher_order", "shuffled_collective_null"):
         ranked = sorted(candidates, key=lambda m: (-(m in priority), -abs(states[m][1]), m))
     elif case.mode == "flat_pairwise":
@@ -213,6 +221,7 @@ def default_rss_cases(config: RSSSweepConfig) -> tuple[RSSCase, ...]:
         RSSCase("A_flat_pairwise", "flat_pairwise", **common),
         RSSCase("B_fixed_hierarchy", "fixed_hierarchy", **common),
         RSSCase("C_dynamic_layered", "dynamic_layered", **common),
+        RSSCase("J_dynamic_layered_no_brokerage", "dynamic_layered_no_brokerage", **common),
         RSSCase("D_dynamic_higher_order", "dynamic_higher_order",
                 max_higher_order=config.max_higher_order, **common),
         RSSCase("E_fixed_overlapping", "fixed_overlap", **common),
