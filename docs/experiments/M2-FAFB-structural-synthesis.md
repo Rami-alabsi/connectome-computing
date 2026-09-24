@@ -75,6 +75,11 @@ It cannot yet claim that FAFB has a uniquely advantageous architecture, that a r
 
 ## Rich-club replication gate (2026-09-24)
 
+The replication target has two important version/method differences that must remain explicit. Lin et al. analysed the **v630** snapshot and applied a **5-synapse minimum connection threshold**; this project currently ingests **FAFB v783**. Therefore, even when the code uses the published rich-club formula, threshold criterion and 100-null normalization, the result is a **method-aligned replication on v783**, not an exact dataset-version replication of the paper. citeturn1search0
+
+The runner now supports `--min-synapses 5`, explicit degree thresholds/ranges, and reports `phi_norm`, the `phi_norm > 1.01` criterion, onset/offset and peak thresholds. The default remains unthresholded so existing exploratory runs are not silently changed. A publication-aligned v783 run should explicitly use `--min-synapses 5` and a documented threshold sweep.
+
+
 The rich-club runner now accepts explicit total-degree thresholds in addition to its exploratory quantile thresholds. This is required for a faithful comparison with published FAFB analysis, which evaluates the rich-club coefficient across degree thresholds and reports a rich-club regime beginning around total degree 37 under its CFG normalization. The published analysis also evaluates the NPC normalization using 100 null samples. This project will treat that published threshold/normalization as a replication target, not as a premise about the biological meaning of the rich club. citeturn0search0
 
 The current CI path remains an 8-null reproducibility gate. A publication-aligned run should use explicit thresholds (rather than the current 90/95/99/99.5% quantiles) and a substantially larger null ensemble before any comparison is interpreted. Because the current Python swap implementation is much less optimized than the graph-tool implementation used in the publication, runtime must be measured before committing the 100-null run to ordinary push CI.
