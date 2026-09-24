@@ -240,3 +240,18 @@ This is an ablation of the synthetic relational fixture, not a biological claim.
 The expected comparison is C versus J under identical seeds and budgets. No
 advantage is inferred until the regenerated sweep and uncertainty analysis are
 inspected.
+
+
+### Sparse brokerage ablation — Run #23 result (2026-09-24)
+
+The regenerated sweep includes **J_dynamic_layered_no_brokerage** under the same five seeds, budgets, candidate pool, and byte budget as C. The CI workflow completed successfully and produced 8,640 result rows.
+
+The seed-level summary shows that removing overlap/broker nodes changes error differently by task and budget rather than producing a uniform effect. For example, C minus J mean seed error differences were:
+- budget 2: context +0.312, global +0.052, pair 0.000, temporal -0.225;
+- budget 4: context -0.091, global +0.091, pair -0.075, temporal -0.161;
+- budget 6: context -0.002, global -0.079, pair -0.075, temporal -0.129;
+- budget 8: context -0.056, global -0.032, pair -0.075, temporal -0.026.
+
+These are descriptive paired differences, not an overall ranking. They indicate that the contribution of overlap/brokerage is **task- and budget-dependent** in this synthetic fixture. The result does not establish a general brokerage advantage.
+
+The current experiment is also limited by the synthetic task generator and five seeds. The next gate is therefore to preserve the same resource accounting while introducing independent task generators and a topology-matched brokerage null before making a mechanistic claim.
