@@ -99,9 +99,9 @@ connectome-computing/
 
 ## Status
 
-**Stage: M5 → M6 — synthetic connectome validation + real-data biological gate closure**
+**Stage: M5 → M6 — synthetic connectome validation + FAFB CFG gate closed; downstream biological controls active**
 
-Current blocking gate: **FAFB v783 biological Gate A (CFG/rich-club) is open.** The combined real-data anchor Run `35984738032` has now completed successfully and all five artifacts have been inspected. The 2-null rich-club benchmark reached the full requested swap target with exact degree/edge-count preservation, but it is still not a publication-grade 100-null replication. The next checkpoint is the controlled 100-null CFG decision/run.
+The defined FAFB v783 CFG/rich-club gate is now closed after Run `35987597540`: 100 CFG nulls, 3,732,460 successful swaps per null, exact edge-count/in-degree/out-degree preservation, and a continuous descriptive `phi_norm > 1.01` interval from degree 27 through 120, peaking at 1.057835 at degree 96. This is a method-aligned v783 replication/extension, not an exact reproduction of Lin et al. 2024. The next biological controls are neuropil-constrained/NPC-like and then spatial/distance-constrained nulls.
 
 Operational status and scientific decisions are maintained in `docs/PROJECT-STATUS.md`; the research protocol and AI handoff rules are in `docs/RESEARCH_PROTOCOL.md`.
 
