@@ -169,3 +169,18 @@ Engineering abstractions:
 - **RL8 — context-specific interaction:** a relation important for one task need not be important for another task.
 
 These are hypotheses/engineering abstractions, not claims that human social organization is computationally optimal.
+
+
+## 2026-09-24 refresh: spatial-control rule
+
+**New design rule:** Before interpreting any residual rich-club or architectural signal after CFG and NPC-like controls, test whether the signal survives an explicit geometric null.
+
+Rationale:
+1. Péntek & Ercsey-Ravasz (2025) show that EDR can explain many Drosophila neuropil-projectome properties and use it as a null for separating geometric inevitabilities from potentially functional structure.
+2. Cross-species connectome work (2025) indicates that degree/topology and spatial constraints capture different aspects of neural organization and that combined constraints can be necessary.
+3. Therefore Gate C should not be a single arbitrary distance-preserving shuffle. It should compare at least:
+   - C1: spatial/EDR-constrained null
+   - C2: topology + spatial combined null where feasible
+   - observed vs CFG vs NPC-like vs spatial/combined controls on the same metric grid.
+
+**Status:** design requirement only; implementation pending completion and audit of Gate B.
