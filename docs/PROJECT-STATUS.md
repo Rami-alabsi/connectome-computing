@@ -2,7 +2,7 @@
 
 ## Current position
 
-**Stage: M6 — resource-constrained multiscale simulator + real-data validation**
+**Stage: M5 → M6 — synthetic connectome validation + real-data biological gate closure**
 
 **Prototype-phase note:** the current implementation phase was built in a single intensive session. Treat the repository as a research prototype scaffold until real-data execution, matched controls, ablations and reproducible artifacts have been completed.
 
@@ -40,6 +40,7 @@ Biological structure is evidence used to generate falsifiable computational abst
 - [x] M6 controlled RSS benchmark implementation
 - [x] M6 RSS information-flow semantics correction
 - [x] M6 RSS matched-control runner
+- [x] Sparse brokerage ablation (documented as non-general/task- and budget-dependent)
 - [x] M6 shuffled-context null implementation
 - [x] M6 shuffled-collective null implementation
 - [x] Publication-aligned FAFB v783 rich-club execution path
@@ -160,19 +161,29 @@ analysis.
 
 ## Immediate sequence
 
-1. Keep the repaired rich-club test green; current main test run `35964684034` is successful.
-2. Add/verify swap-attempt and successful-swap accounting before the 100-null CFG run; the current artifact records the requested swap target but not the realized successful-swap count.
-3. The CFG implementation now records requested swaps, realized successful swaps, attempts, and whether the target was fully reached. Verify these fields in the next artifact before scaling to 100 nulls.
-4. Decide whether to optimize the pure-Python CFG implementation before scaling from 2 to 100 nulls; the measured 16:11 for 2 nulls implies roughly 13.5 hours at strictly linear scaling, so this should be measured/optimized rather than assumed.
-4. Run the publication-grade CFG ensemble only after the null randomization accounting is explicit.
-5. Extend the real FAFB execution to the complete streaming profile pipeline: download → profile → rich-club → reciprocity → motif → spatial.
-6. Re-run the corrected RSS matrix and inspect the CSV plus seed-level uncertainty summary.
-2. Determine whether C/D retain any advantage against H/F and whether D retains any advantage against I at matched budgets.
-3. Add sparse-brokerage and stable-core-removal ablations, then parameter/interface and topology matching.
-4. Execute the FAFB v783 download smoke test, then run the real ingestion/profile pipeline and compare its counts with the published reference counts.
-5. Re-run M6-COSMIC after the bounded-state correction.
-7. Only then reassess the potential-path branch.
-8. Scale only after mechanisms survive controls.
+### Biological Gate A — CFG / FAFB v783
+
+1. **Real-data rich-club benchmark:** completed successfully on Run `35962522090`.
+2. **Artifact inspection:** completed at the implementation/runtime level; the benchmark artifact is recorded above. It is still a 2-null benchmark and therefore is not a publication-grade replication.
+3. **Swap-quality audit:** verify realized successful swaps, attempts, and target completion in the next artifact. The runner now records these fields.
+4. **100-null decision:** after swap-quality audit and runtime review, either optimize the randomizer or run the 100-null CFG ensemble. Do not extrapolate the 2-null curve into a final biological conclusion.
+5. **Full real-data anchor:** Run `35984738032` is currently executing the combined v783 pipeline. At the current checkpoint, download, structural profile, reciprocity, and spatial/neuropil inventory have succeeded; rich-club is still running; motif and artifact upload are pending.
+6. When the combined run finishes, inspect every artifact before updating biological status.
+
+### Biological Gates B/C
+
+7. After Gate A is closed, compare against the neuropil-constrained/NPC-like null.
+8. Only after that, define and execute a genuine spatial/distance-constrained null if the required spatial data are available.
+
+### RSS / M6
+
+9. Keep RSS/M6 architecture interpretation frozen while the biological Gate A remains open.
+10. Sparse brokerage ablation is already completed and documented as task- and budget-dependent; do not re-list it as an upcoming control.
+11. Re-run M6-COSMIC only after the bounded-state correction, independently of the FAFB Gate A interpretation.
+
+### Documentation rule
+
+12. Whenever a scientific gate changes state, update `docs/PROJECT-STATUS.md` and the relevant experiment record in the same change window. `AI-CONTEXT.md` remains the pointer to this file; it is not an independent status source.
 
 ## Cross-domain rule
 
