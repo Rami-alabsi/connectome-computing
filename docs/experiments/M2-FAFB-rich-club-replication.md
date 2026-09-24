@@ -63,6 +63,14 @@ The 100-null ensemble provides the required null count for this project protocol
 
 The combined real-data anchor is operationally complete; its profile, reciprocity, spatial inventory, rich-club and conditional triad artifacts remain useful as baseline evidence.
 
+## Gate B — NPC-like control preparation
+
+The repository already contains an NPC-constrained implementation in `scripts/run_fafb_npc_rich_club.py`. An audit against the published Methods confirms the key construction: each neuron is assigned to one of the neuropil blocks using the neuropil with the most outgoing synapses, while degree sequences and inter-/intra-block edge counts are preserved during rewiring. This is the published NPC construction at the model-definition level, but the project implementation remains an **NPC-like v783 extension**, not an exact reproduction of the paper's v630 dataset/software snapshot. citeturn3search3
+
+The benchmark has now been aligned to the same explicit total-degree sweep used for the CFG gate: degrees 20–120, step 1. The workflow currently uses 8 nulls as an execution/implementation benchmark. No NPC scientific conclusion is recorded until the artifact is inspected for complete swap realization, exact degree preservation, exact block-pair preservation, and the resulting rich-club curve.
+
+The connection-table `neuropil` field is a synapse-location field. This does not conflict with the published NPC definition because the NPC neuron block is assigned from the neuropil receiving the neuron's outgoing synapses, rather than by soma location. citeturn3search0turn3search2
+
 ## Expected artifact
 artifacts/fafb-v783/rich-club.json
 
@@ -168,6 +176,6 @@ The sampler attempted 1,000,000 wedge samples:
 Important interpretation constraint: the sampler selects a node with at least two outgoing neighbors and samples two of those neighbors. Therefore this artifact is a **conditional directed triad-signature profile**, not an unrestricted triad census. Its signature definition explicitly documents this as a transparent six-bit signature rather than a general isomorphism-class census.
 
 ### Gate decision
-**Gate A remains OPEN.**
+**Gate A is CLOSED for the defined CFG/rich-club method-aligned path.**
 
 The combined anchor demonstrates that the real-data execution chain is operational and that the current CFG randomizer reaches its requested swap target with high realization efficiency. It does not replace the required 100-null CFG ensemble. The 100-null decision/run is now complete; provenance and validation are recorded above. The next controlled step is the neuropil-constrained/NPC-like null, followed by a spatial/distance-constrained null if the data support it.
