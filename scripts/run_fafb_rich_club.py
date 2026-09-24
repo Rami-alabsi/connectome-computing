@@ -7,20 +7,23 @@ from src.graph.connections import _open_csv, _pick, SOURCE_CANDIDATES, TARGET_CA
 from src.graph.random_baseline import degree_preserving_randomization, degree_preservation_report
 
 def load_edges(path, min_synapses=0):
-    seen=set()
+    """Load unique directed pairs after aggregating synapses across region rows."""
+    pair_synapses={}
     with _open_csv(path) as fh:
         reader=csv.DictReader(fh)
-        s=_pick(reader.fieldnames,SOURCE_CANDIDATES); t=_pick(reader.fieldnames,TARGET_CANDIDATES)
+        s=_pick(reader.fieldnames,SOURCE_CANDIDATES)
+        t=_pick(reader.fieldnames,TARGET_CANDIDATES)
         w=_pick(reader.fieldnames, ("syn_count","synapse_count","n_synapses","weight"))
         for row in reader:
             u,v=row[s],row[t]
+            if u==v:
+                continue
             try:
                 weight=float(row[w])
             except (TypeError, ValueError):
                 weight=0.0
-            if u!=v and weight >= min_synapses:
-                seen.add((u,v))
-    return seen
+            pair_synapses[(u,v)] = pair_synapses.get((u,v), 0.0) + weight
+    return {pair for pair,total in pair_synapses.items() if total >= min_synapses}
 
 def curve(edges, thresholds):
     indeg={}
