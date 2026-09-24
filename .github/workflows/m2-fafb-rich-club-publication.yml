@@ -22,8 +22,10 @@ jobs:
           curl -L --fail --retry 3 --output data/raw/fafb_v783/connections_princeton.csv.gz \
             "https://storage.googleapis.com/flywire-data/codex/data/fafb/783/connections_princeton.csv.gz"
       - name: Run publication-aligned benchmark
+        env:
+          PYTHONPATH: .
         run: |
-          /usr/bin/time -v PYTHONPATH=. python scripts/run_fafb_rich_club.py \
+          /usr/bin/time -v python scripts/run_fafb_rich_club.py \
             --min-synapses 5 \
             --nulls 2 \
             --swaps-per-edge 1.0 \
