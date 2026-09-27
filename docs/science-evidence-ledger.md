@@ -116,3 +116,15 @@ The 2024 Lin et al. rich-club result remains the primary direct prior-art anchor
 
 **Decision:** these literature updates sharpen but do not reorder the current
 project. Gate B remains the immediate unfinished scientific gate.
+
+
+## 2026-09-27 targeted literature refresh — new practical evidence
+
+| Finding | Evidence status | Project use | Required validation |
+|---|---|---|---|
+| A 2026 Nature study analyzes distributed control circuits across a fly brain-and-cord connectome, extending connectome organization beyond isolated brain topology | Established for the cited dataset/analysis | keep distributed control and pathway-level organization as future observables; do not equate distributed control with a computational primitive | brain-only vs brain-and-cord matched analyses if the project later expands scope |
+| A 2026 connectome-constrained whole-brain model fitted to spontaneous calcium recordings identifies a compact neuropil core and sparse inhibitory hub ensemble sustaining modeled resting-state dynamics | Promising model-constrained evidence; preprint | strengthens the requirement for an explicit structure-to-dynamics bridge after structural null controls | independent activity validation, perturbation and matched structural controls |
+| A 2025 peer-reviewed reservoir study finds Drosophila connectome topology and synaptic weights can improve overfitting resilience in studied time-series tasks, with hybrid topology/weight controls | Established for the studied reservoir benchmark | confirms that topology/weights-to-task mapping is already prior art; useful as a future baseline for any computational primitive | matched-resource baselines, topology-only, weight-only and randomized controls |
+| 2024–2025 rich-club work remains the direct prior-art anchor for CFG/NPC interpretation | Established | preserves the current Gate A→B→C control order | complete NPC ensemble before changing gate state |
+
+**Current decision:** no reordering of the scientific pipeline. The immediate blocker remains completion and inspection of the NPC 100-null ensemble.
