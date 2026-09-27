@@ -299,3 +299,40 @@ literature-backed EDR candidate where the data semantics permit it, plus a
 combined topology+spatial condition. It also strengthens the prohibition on
 calling a surviving structural feature "functional" without an explicit
 validated dynamics/task bridge.
+
+
+## 2026-09-27 targeted practical-literature refresh — distributed control and computation
+
+### L7 — Brain-and-cord scope is a distinct structural question
+**Source:** 2026 Nature, *Distributed control circuits across a brain-and-cord connectome*.
+
+The study analyzes distributed control circuits across a fruit-fly brain-and-cord connectome. This is relevant because it demonstrates that connectome-derived organizational questions are being extended beyond the isolated brain toward distributed control across nervous-system compartments.
+
+**Project consequence:** if the project later expands beyond the current FAFB brain dataset, brain-only and brain-and-cord analyses must remain explicitly separated. No architectural claim should silently combine the two scopes.
+
+**Evidence class:** OBSERVED / ANALYSIS.
+
+### L8 — The strongest current structure-to-function bridge uses fitted dynamics
+**Source:** Wang et al., bioRxiv 2026, *Connectome-constrained modeling identifies neurons and synapses that sustain spontaneous activity in Drosophila*.
+
+The study fits a whole-brain dynamical model to spontaneous calcium recordings while constraining the model with the FlyWire connectome, then performs in-silico perturbations. It reports a compact neuropil core and sparse inhibitory hub ensemble associated with modeled resting-state dynamics.
+
+**Project consequence:** a structural feature surviving CFG/NPC/spatial controls should still be treated as structural evidence until a separate validated dynamics/task experiment connects it to computation.
+
+**Evidence class:** PROMISING / MODEL-CONSTRAINED PREPRINT.
+
+### L9 — Connectome reservoir computation is already a practical benchmark
+**Source:** Costi et al., *Biomimetics* 10(5), 341 (2025), DOI 10.3390/biomimetics10050341.
+
+The peer-reviewed study builds echo-state reservoirs from Drosophila connectome topology and weights and uses topology/weight randomization controls. It reports improved overfitting resilience in the studied time-series tasks and evaluates both reduced and full-connectome reservoirs.
+
+**Project consequence:** any later computational primitive must benchmark against connectome-reservoir prior art and must isolate whether any advantage comes from topology, weights, selection, or training procedure.
+
+**Evidence class:** ESTABLISHED PRIOR ART FOR THE STUDIED TASKS.
+
+### L10 — Current scope remains unchanged
+The new literature strengthens, but does not reorder, the current pipeline:
+
+**Finish NPC 100-null → inspect full artifact → decide Gate B → design Gate C → only then derive a computational primitive.**
+
+Brain-and-cord studies, fitted whole-brain dynamics, and reservoir computing are downstream evidence/benchmark context; none substitutes for the unfinished NPC control.
