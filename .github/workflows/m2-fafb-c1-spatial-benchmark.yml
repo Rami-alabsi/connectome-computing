@@ -1,17 +1,17 @@
 name: FAFB v783 Gate C1 spatial swap feasibility benchmark
 on:
-  push:
-    paths:
-      - .github/workflows/m2-fafb-c1-spatial-benchmark.yml
   workflow_dispatch:
+    inputs:
+      c0_run_id:
+        description: "Authoritative C0 workflow run ID"
+        required: true
+        type: string
   workflow_run:
     workflows: ["FAFB v783 Gate C0 Princeton arbor spatial preflight"]
     types: [completed]
 permissions:
   actions: read
   contents: read
-env:
-  C0_RUN_ID: "36318477728"
 jobs:
   benchmark:
     if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
@@ -30,7 +30,7 @@ jobs:
         with:
           github-token: ${{ github.token }}
           repository: ${{ github.repository }}
-          run-id: ${{ github.event_name == 'workflow_run' && github.event.workflow_run.id || env.C0_RUN_ID }}
+          run-id: ${{ github.event_name == 'workflow_run' && github.event.workflow_run.id || inputs.c0_run_id }}
           name: fafb-v783-gate-c0-princeton-arbor-spatial-preflight
           path: data/raw/fafb_v783/c0-artifact
 
