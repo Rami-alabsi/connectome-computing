@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+##!/usr/bin/env python3
 """Sample canonical directed 3-node triad classes in FAFB and compare degree-preserving nulls."""
 from __future__ import annotations
 import argparse,csv,json,random
@@ -13,28 +13,7 @@ def load(path):
     for u,v in edges:
         adj[u].add(v)
     return edges,adj
-!/usr/bin/env python3
-"""Sample canonical directed 3-node triad classes in FAFB and compare degree-preserving nulls."""
-from __future__ import annotations
-import argparse,csv,json,random
-from collections import Counter,defaultdict
-from pathlib import Path
-from src.graph.connections import aggregate_pair_synapses
-from src.graph.random_baseline import degree_preserving_randomization,degree_preservation_report
-
-def load(path):
-    edges=set()
-    with _open_csv(path) as fh:
-        r=csv.DictReader(fh); s=_pick(r.fieldnames,SOURCE_CANDIDATES); t=_pick(r.fieldnames,TARGET_CANDIDATES)
-        for row in r:
-            u,v=row[s],row[t]
-            if u!=v: edges.add((u,v))
-    adj=defaultdict(set)
-    for u,v in edges: adj[u].add(v)
-    return edges,adj
-
-
-TRIAD_REPRESENTATIVES = {
+\n\nTRIAD_REPRESENTATIVES = {
     "003": (), "012": ((0,1),), "102": ((0,1),(1,0)),
     "021D": ((1,0),(1,2)), "021U": ((0,1),(2,1)), "021C": ((0,1),(1,2)),
     "111D": ((0,1),(1,0),(2,1)), "111U": ((0,1),(1,0),(1,2)),
