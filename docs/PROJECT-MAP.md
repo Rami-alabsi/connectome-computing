@@ -72,7 +72,7 @@ The complete 100-null ensemble was executed and inspected. An 8-null benchmark p
 - peak approximately 1.0152 at degree 58;
 - high-degree values fell below 1.
 
-This is directional benchmark evidence only. It does NOT close Gate B.
+The 8-null run was directional benchmark evidence only and did not close Gate B.
 
 The final 100-null ensemble:
 - workflow run: 36295429519;
