@@ -7,13 +7,12 @@ from scripts.run_fafb_arbor_spatial_preflight import load_arbor_centroids, resol
 
 def test_resolve_synapse_coordinate_xyz_schema():
     fields = [
-        "pre_pt_root_id", "post_pt_root_id",
-        "pre_x", "pre_y", "pre_z", "post_x", "post_y", "post_z",
+        "pre_root_id", "post_root_id", "x", "y", "z",
     ]
     schema = resolve_schema(fields)
-    assert schema["mode"] == "xyz"
-    assert schema["pre_root"] == "pre_pt_root_id"
-    assert schema["post_root"] == "post_pt_root_id"
+    assert schema["mode"] == "synapse_xyz"
+    assert schema["pre_root"] == "pre_root_id"
+    assert schema["post_root"] == "post_root_id"
 
 
 def test_resolve_synapse_coordinate_position_schema(tmp_path):
@@ -26,9 +25,10 @@ def test_resolve_synapse_coordinate_position_schema(tmp_path):
     with gzip.open(path, "wt", newline="") as fh:
         fh.write(raw)
 
-    schema, rows, malformed, outgoing, incoming, out_centroids, in_centroids = load_arbor_centroids(path)
-    assert schema["mode"] == "position"
+    schema, columns, rows, malformed, outgoing, incoming, out_centroids, in_centroids = load_arbor_centroids(path)
+    assert schema["mode"] == "synapse_xyz"
+    assert columns == ["pre_root_id", "post_root_id", "x", "y", "z"]
     assert rows == 2
     assert malformed == 0
     assert out_centroids["1"] == (2.0, 3.0, 4.0)
-    assert in_centroids["2"] == (5.0, 6.0, 7.0)
+    assert in_centroids["2"] == (2.0, 3.0, 4.0)
