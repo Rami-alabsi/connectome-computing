@@ -1,0 +1,32 @@
+name: FAFB v783 Gate C0 Princeton arbor spatial preflight
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - "scripts/run_fafb_princeton_arbor_spatial_preflight.py"
+      - "src/graph/connections.py"
+      - ".github/workflows/m2-fafb-princeton-arbor-spatial-preflight.yml"
+jobs:
+  preflight:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: "3.11"}
+      - name: Download connections
+        run: |
+          mkdir -p data/raw/fafb_v783
+          curl -L --fail --retry 3 --retry-all-errors -o data/raw/fafb_v783/connections_princeton.csv.gz "https://storage.googleapis.com/flywire-data/codex/data/fafb/783/connections_princeton.csv.gz"
+      - name: Download Princeton synapse table
+        run: |
+          curl -L --fail --retry 3 --retry-all-errors -o data/raw/fafb_v783/fafb_v783_princeton_synapse_table.csv.gz "https://storage.googleapis.com/flywire-data/codex/data/fafb/783/fafb_v783_princeton_synapse_table.csv.gz"
+      - name: Run C0
+        env: {PYTHONPATH: .}
+        run: |
+          /usr/bin/time -v python scripts/run_fafb_princeton_arbor_spatial_preflight.py --min-synapses 5 --edge-sample 100000 --nonedge-sample 100000 --seed 20260927
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: fafb-v783-gate-c0-princeton-arbor-spatial-preflight
+          path: artifacts/fafb-v783/princeton-arbor-spatial-preflight.json
