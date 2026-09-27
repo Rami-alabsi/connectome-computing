@@ -91,7 +91,19 @@ Every large analysis artifact should record repository commit SHA, dataset/versi
 11. Continue from the first unfinished gate rather than jumping to M6.
 
 ## Current blocking gate
-Gate B — 100-null FAFB v783 NPC-like / neuropil-constrained rich-club ensemble. Gate A is closed for the defined CFG v783 method-aligned path.
+Gate C — spatial/distance-constrained null design and preflight. Gate A is closed for the defined CFG v783 method-aligned path. Gate B is closed for the defined 100-null FAFB v783 NPC-like benchmark; the broader biological control hierarchy remains open.
+
+### Gate B closure record — 2026-09-27
+The completed 100-null NPC-like ensemble (workflow 36295429519, artifact 10925776875) used FAFB v783, 3,732,460 unique directed pairs, a 5-synapse pair-level threshold, 100 deterministic nulls, exact in/out-degree preservation, exact source-neuropil→target-neuropil block-count preservation, and full swap realization. The descriptive phi_norm > 1.01 span was degrees 41–69 with peak 1.015171 at degree 57. This closes only the defined v783 NPC-like benchmark.
+
+### Gate C pre-registration principle
+Gate C is not one null. It is a hierarchy:
+1. Spatial-only sensitivity: estimate how much of the observed wiring/rich-club profile is explained by distance alone.
+2. Degree + spatial control: preserve the directed in/out degree sequences while imposing the empirical spatial wiring constraint.
+3. NPC + spatial control, if computationally feasible: retain the Gate B source-block→target-block constraints while adding spatial conditioning.
+4. EDR/projectome sensitivity: use the published EDR formulation only as a sensitivity/control at its appropriate projectome/neuropil level, not as a direct neuron-level replacement for the NPC model.
+
+The primary Gate C comparison must be selected before execution and must specify the distance definition, spatial coordinate source, edge threshold, constraints, randomization algorithm, invariants, number of nulls, seed policy, and failure criteria.
 
 ## Decision log — 2026-09-24
 - explicit rich-club threshold controls added;
