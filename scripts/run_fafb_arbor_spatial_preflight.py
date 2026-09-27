@@ -27,12 +27,9 @@ from src.graph.connections import aggregate_pair_synapses
 ALIASES = {
     "pre_root": ["pre_root_id", "pre_pt_root_id", "pre"],
     "post_root": ["post_root_id", "post_pt_root_id", "post"],
-    "pre_x": ["pre_x", "pre_pt_x"],
-    "pre_y": ["pre_y", "pre_pt_y"],
-    "pre_z": ["pre_z", "pre_pt_z"],
-    "post_x": ["post_x", "post_pt_x"],
-    "post_y": ["post_y", "post_pt_y"],
-    "post_z": ["post_z", "post_pt_z"],
+    "x": ["x", "syn_x"],
+    "y": ["y", "syn_y"],
+    "z": ["z", "syn_z"],
     "pre_position": ["pre_pt_position", "pre_position"],
     "post_position": ["post_pt_position", "post_position"],
 }
@@ -65,9 +62,9 @@ def resolve_schema(fieldnames):
     f = set(fieldnames or [])
     pre_root = pick(f, ALIASES["pre_root"])
     post_root = pick(f, ALIASES["post_root"])
-    explicit = all(pick(f, ALIASES[k]) for k in ("pre_x", "pre_y", "pre_z", "post_x", "post_y", "post_z"))
+    xyz = all(pick(f, ALIASES[k]) for k in ("x", "y", "z"))
     paired = pick(f, ALIASES["pre_position"]) and pick(f, ALIASES["post_position"])
-    if not pre_root or not post_root or not (explicit or paired):
+    if not pre_root or not post_root or not (xyz or paired):
         raise ValueError(
             "Unsupported synapse-coordinate schema. Required pre/post root IDs "
             "plus either pre/post XYZ columns or pre/post position columns. "
@@ -76,11 +73,9 @@ def resolve_schema(fieldnames):
     return {
         "pre_root": pre_root,
         "post_root": post_root,
-        "mode": "xyz" if explicit else "position",
-        "pre_position": pick(f, ALIASES["pre_position"]),
-        "post_position": pick(f, ALIASES["post_position"]),
-        "pre_xyz": [pick(f, ALIASES[k]) for k in ("pre_x", "pre_y", "pre_z")],
-        "post_xyz": [pick(f, ALIASES[k]) for k in ("post_x", "post_y", "post_z")],
+        "mode": "synapse_xyz" if xyz else "position",
+        "x": pick(f, ALIASES["x"]), "y": pick(f, ALIASES["y"]), "z": pick(f, ALIASES["z"]),
+        "pre_position": pick(f, ALIASES["pre_position"]), "post_position": pick(f, ALIASES["post_position"]),
     }
 
 
@@ -101,20 +96,23 @@ def load_arbor_centroids(path: Path):
 
     with gzip.open(path, "rt", newline="") as fh:
         reader = csv.DictReader(fh)
-        schema = resolve_schema(reader.fieldnames)
+        columns = list(reader.fieldnames or [])
+        schema = resolve_schema(columns)
+        current_pre = None
+        current_post = None
         for row in reader:
             rows += 1
             try:
-                pre = row[schema["pre_root"]]
-                post = row[schema["post_root"]]
-                if schema["mode"] == "xyz":
-                    pre_point = tuple(float(row[c]) for c in schema["pre_xyz"])
-                    post_point = tuple(float(row[c]) for c in schema["post_xyz"])
+                if row[schema["pre_root"]].strip(): current_pre = row[schema["pre_root"]].strip()
+                if row[schema["post_root"]].strip(): current_post = row[schema["post_root"]].strip()
+                if not current_pre or not current_post: raise ValueError("coordinate row precedes pair header")
+                if schema["mode"] == "synapse_xyz":
+                    point = tuple(float(row[schema[k]]) for k in ("x","y","z"))
+                    add_point(outgoing, current_pre, point)
+                    add_point(incoming, current_post, point)
                 else:
-                    pre_point = parse_position(row[schema["pre_position"]])
-                    post_point = parse_position(row[schema["post_position"]])
-                add_point(outgoing, pre, pre_point)
-                add_point(incoming, post, post_point)
+                    add_point(outgoing, current_pre, parse_position(row[schema["pre_position"]]))
+                    add_point(incoming, current_post, parse_position(row[schema["post_position"]]))
             except (KeyError, TypeError, ValueError):
                 malformed += 1
 
@@ -126,7 +124,7 @@ def load_arbor_centroids(path: Path):
         rid: (v[0] / v[3], v[1] / v[3], v[2] / v[3])
         for rid, v in incoming.items() if v[3]
     }
-    return schema, rows, malformed, outgoing, incoming, out_centroids, in_centroids
+    return schema, columns, rows, malformed, outgoing, incoming, out_centroids, in_centroids
 
 
 def distance(a, b):
@@ -184,7 +182,7 @@ def main():
     cpath = Path(args.synapse_coordinates)
     epath = Path(args.connections)
 
-    schema, syn_rows, malformed, outgoing_raw, incoming_raw, out_centroids, in_centroids = load_arbor_centroids(cpath)
+    schema, columns, syn_rows, malformed, outgoing_raw, incoming_raw, out_centroids, in_centroids = load_arbor_centroids(cpath)
     edges = aggregate_pair_synapses(epath, min_synapses=args.min_synapses)
     graph_nodes = {u for u, _ in edges} | {v for _, v in edges}
 
@@ -238,7 +236,7 @@ def main():
             "min_synapses": args.min_synapses,
         },
         "synapse_coordinate_schema": {
-            "observed_columns": list(schema.values()),
+            "observed_columns": columns,
             "resolved_fields": schema,
             "coordinate_units": "FAFB voxel coordinates",
             "voxel_size_nm": [4, 4, 40],
