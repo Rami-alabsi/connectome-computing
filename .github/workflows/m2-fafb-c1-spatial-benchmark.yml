@@ -23,28 +23,18 @@ jobs:
           mkdir -p data/raw/fafb_v783 artifacts/fafb-v783
           curl -L --fail --retry 3 --retry-all-errors -o data/raw/fafb_v783/connections_princeton.csv.gz "https://storage.googleapis.com/flywire-data/codex/data/fafb/783/connections_princeton.csv.gz"
       - name: Download latest validated C0 centroid artifact
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          python - <<'PY'
-          import json,os,urllib.request,zipfile,io
-          repo=os.environ["GITHUB_REPOSITORY"]; token=os.environ["GH_TOKEN"]
-          url=f"https://api.github.com/repos/{repo}/actions/artifacts?per_page=100"
-          req=urllib.request.Request(url,headers={"Authorization":f"Bearer {token}","Accept":"application/vnd.github+json"})
-          data=json.load(urllib.request.urlopen(req))
-          xs=[x for x in data["artifacts"] if x["name"]=="fafb-v783-gate-c0-princeton-arbor-spatial-preflight" and not x["expired"]]
-          if not xs: raise SystemExit("No validated C0 centroid artifact found")
-          x=max(xs,key=lambda z:z["created_at"])
-          req=urllib.request.Request(x["archive_download_url"],headers={"Authorization":f"Bearer {token}","Accept":"application/vnd.github+json"})
-          blob=urllib.request.urlopen(req).read()
-          with zipfile.ZipFile(io.BytesIO(blob)) as z:
-              z.extract("arbor-centroids.csv.gz","data/raw/fafb_v783")
-          print("using C0 artifact",x["id"],x["created_at"])
-          PY
+        uses: actions/download-artifact@v4
+        with:
+          github-token: ${{ github.token }}
+          repository: ${{ github.repository }}
+          run-id: 36315995364
+          artifact-ids: 10930278435
+          path: data/raw/fafb_v783/c0-artifact
+
       - name: Run feasibility benchmark
         env: {PYTHONPATH: .}
         run: |
-          python scripts/run_fafb_spatial_swap_benchmark.py             --connections data/raw/fafb_v783/connections_princeton.csv.gz             --centroids data/raw/fafb_v783/arbor-centroids.csv.gz             --attempts 100000 --seed 20260927             --output artifacts/fafb-v783/c1-spatial-swap-benchmark.json
+          python scripts/run_fafb_spatial_swap_benchmark.py             --connections data/raw/fafb_v783/connections_princeton.csv.gz             --centroids data/raw/fafb_v783/c0-artifact/arbor-centroids.csv.gz             --attempts 100000 --seed 20260927             --output artifacts/fafb-v783/c1-spatial-swap-benchmark.json
       - uses: actions/upload-artifact@v4
         with:
           name: fafb-v783-gate-c1-spatial-swap-benchmark
