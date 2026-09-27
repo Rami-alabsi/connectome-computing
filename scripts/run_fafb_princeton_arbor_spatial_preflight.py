@@ -38,6 +38,7 @@ def main():
     ap.add_argument("--connections",default="data/raw/fafb_v783/connections_princeton.csv.gz")
     ap.add_argument("--synapse-table",default="data/raw/fafb_v783/fafb_v783_princeton_synapse_table.csv.gz")
     ap.add_argument("--output",default="artifacts/fafb-v783/princeton-arbor-spatial-preflight.json")
+    ap.add_argument("--centroids-output",default="artifacts/fafb-v783/arbor-centroids.csv.gz")
     ap.add_argument("--min-synapses",type=int,default=5)
     ap.add_argument("--edge-sample",type=int,default=100000)
     ap.add_argument("--nonedge-sample",type=int,default=100000)
@@ -77,6 +78,14 @@ def main():
         if pair in eset or pair in nes:continue
         nes.add(pair);ne.append(pair)
     nd=[dist(out[u],inc[v]) for u,v in ne if u in out and v in inc]
+    centroids_path=Path(a.centroids_output)
+    centroids_path.parent.mkdir(parents=True,exist_ok=True)
+    with gzip.open(centroids_path,"wt",newline="") as cf:
+        w=csv.writer(cf)
+        w.writerow(["root_id","out_x","out_y","out_z","out_synapses","in_x","in_y","in_z","in_synapses"])
+        for rid in sorted(nodes):
+            o=sums_out[rid]; i=sums_in[rid]
+            w.writerow([rid,o[0]/o[3],o[1]/o[3],o[2]/o[3],int(o[3]),i[0]/i[3],i[1]/i[3],i[2]/i[3],int(i[3])])
     result={
       "dataset":"FAFB","version":"v783",
       "purpose":"Gate C0 arbor-aware spatial preflight using Princeton synapse table; no spatial null or scientific conclusion",
