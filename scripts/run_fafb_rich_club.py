@@ -9,7 +9,7 @@ from src.graph.random_baseline import degree_preserving_randomization, degree_pr
 def load_edges(path, min_synapses=0):
     """Load unique directed pairs using the shared pair-level aggregation boundary."""
     return set(aggregate_pair_synapses(path, min_synapses=min_synapses))
-\ndef curve(edges, thresholds):
+def curve(edges, thresholds):
     indeg={}
     outdeg={}
     for u,v in edges:
