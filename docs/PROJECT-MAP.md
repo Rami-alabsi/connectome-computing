@@ -61,44 +61,51 @@ analysis used v630 and its own null-generation implementation.
 
 ### Gate B — NPC-like / neuropil-constrained rich-club
 
-**OPEN.**
+**CLOSED** for the defined 100-null FAFB v783 NPC-like benchmark.
 
-The complete 100-null ensemble was executed and inspected. An 8-null benchmark preceded it and showed a much smaller residual than CFG:
+- workflow run: `36295429519`;
+- artifact: `10925776875`;
+- 100/100 nulls completed;
 - 3,732,460 pairs;
-- exact degree preservation;
-- exact source-neuropil -> target-neuropil block-count preservation;
+- exact edge count, in-degree, out-degree and source-block→target-block preservation;
 - all requested swaps reached;
-- phi_norm > 1.01 only over an intermediate range in the 8-null benchmark;
-- peak approximately 1.0152 at degree 58;
-- high-degree values fell below 1.
+- descriptive `phi_norm > 1.01` spans degrees 41–69;
+- peak `phi_norm = 1.015171` at degree 57.
 
-The 8-null run was directional benchmark evidence only and did not close Gate B.
-
-The final 100-null ensemble:
-- workflow run: 36295429519;
-- source commit: bbd0fa1ea2b5c4ef06788808e20597bebb0483bf;
-- 100/100 null jobs succeeded;
-- aggregate artifact: fafb-v783-rich-club-npc-100null, artifact 10925776875;
-- exact degree and source-block -> target-block preservation passed;
-- all requested swaps were reached.
-
-Descriptive >1.01 enrichment spans degrees 41–69 and peaks at degree 57 with
-phi_norm = 1.015171, versus CFG peak 1.057835 at degree 96. This is a matched-null
-comparison, not a formal significance test and not evidence by itself for a distinct
-biological mechanism.
+This is a matched-null benchmark, not a formal significance test or a claim of a
+distinct biological mechanism. It is an NPC-like v783 extension, not an exact
+v630 reproduction.
 
 ### Gate C — spatial/distance-constrained null
 
-**NOT STARTED / OPEN.**
+**C0 CLOSED for data-definition/coverage; C1 OPEN.**
 
-Gate C must use an actual spatial/distance model. Neuropil labels alone are not
-a distance null. The current literature review points to EDR and combined
-topology+spatial constraints as important candidate controls.
+The authoritative C0 uses the full FAFB v783 Princeton synapse table
+`fafb_v783_princeton_synapse_table.csv.gz` (~2.7 GB compressed).
 
-Do not jump to Gate C before Gate B is resolved unless an implementation
-dependency requires preparatory work.
+Authoritative C0:
+- workflow run: `36315995364`;
+- artifact: `10930278435`;
+- synapse-table rows: 80,215,790;
+- graph: 138,584 nodes / 3,732,460 unique directed pairs;
+- malformed rows: 0;
+- outgoing and incoming arbor-centroid coverage: 100%;
+- 100,000 observed-edge and 100,000 non-edge distance samples;
+- observed-edge median: 481,001 nm;
+- non-edge median: 2,281,970 nm;
+- distance = anisotropic Euclidean source-outgoing-centroid → target-incoming-centroid using 4/4/40 nm voxel scaling.
 
----
+A secondary lightweight C0 from `synapse_coordinates.csv.gz` is retained only as a
+sensitivity/data-product comparison; it had 86.86% both-centroid node coverage and an
+observed-edge median of 464,205 nm.
+
+The first C1 feasibility run (`36317314664`, artifact `10930429115`) consumed that
+secondary lightweight C0 artifact, not the authoritative Princeton C0. It is therefore
+**SUPERSEDED for the primary C1 decision**. Its covered-subgraph invariants are retained
+as historical execution evidence only.
+
+The next C1 run must consume the Princeton C0 centroid artifact and establish full
+covered-edge feasibility before any spatial rich-club ensemble.
 
 ## 3. Critical ingestion rule
 
