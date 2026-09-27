@@ -193,3 +193,35 @@ Primary literature:
 Data-access note: Codex exposes marked neuron coordinates as a downloadable
 FAFB v783 product. The underlying FlyWire data remain subject to their own
 licensing terms.
+
+
+## Gate C0 final result — 2026-09-27
+
+The arbor-aware C0 preflight was executed against the FAFB v783 Princeton synapse table, not the lighter `synapse_coordinates.csv.gz` product. The full Princeton table contains 80,215,790 rows and exposes separate pre-site and post-site coordinates plus the root-ID suffix fields `pre_root_id_720575940` and `post_root_id_720575940`. Root IDs were normalized to canonical 64-bit strings by restoring the `720575940` prefix.
+
+The resulting source/target proxies are:
+- outgoing centroid = mean of all outgoing synapse pre-site coordinates for the neuron;
+- incoming centroid = mean of all incoming synapse post-site coordinates for the neuron;
+- distance = anisotropic Euclidean distance using FAFB voxel scaling 4,4,40 nm.
+
+Execution checks:
+- graph nodes: 138,584;
+- unique directed pairs after the existing pair aggregation + 5-synapse threshold: 3,732,460;
+- outgoing centroid coverage: 100%;
+- incoming centroid coverage: 100%;
+- both-centroid coverage: 100%;
+- malformed synapse rows: 0;
+- edge distance sample: 100,000 unique graph edges;
+- nonedge distance sample: 100,000 unique nonedges;
+- observed edge distance median: 481,001 nm (~481 µm);
+- sampled nonedge distance median: 2,282,542 nm (~2.28 mm).
+
+This closes the **data-definition/coverage portion of C0**. It does not establish a spatial null result and does not by itself alter the CFG/NPC rich-club conclusions.
+
+### C1 pre-registration direction
+
+The primary C1 candidate will preserve the full directed in-degree and out-degree sequence while imposing a spatial constraint at the level of the validated arbor-aware distance. A benchmark must first establish whether a hard distance-binned edge-swap ensemble is computationally reachable without materially distorting the degree sequence or failing to produce enough accepted swaps. The proposed hard constraint preserves the multiset of coarse distance bins across each accepted two-edge swap; this is deliberately stronger than an unconstrained CFG and is intended as a sensitivity/control, not as a claim about the biological generative mechanism.
+
+The distance bins will be fixed before the C1 benchmark and reported with the exact swap acceptance/failure diagnostics. No rich-club interpretation will be published from C1 unless the ensemble passes its pre-registered invariants and reaches the requested null count.
+
+Lin et al. (2024) provide the direct biological precedent for defining pairwise distance from outgoing and incoming synapse-derived arbor proxies; their NND analysis also shows that spatial information changes network null expectations. Salova & Kovács (2025) provide independent support for treating topology and spatial constraints jointly rather than treating either degree or distance alone as sufficient.
