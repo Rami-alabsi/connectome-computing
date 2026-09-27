@@ -1,9 +1,13 @@
-"""Streaming utilities for Codex connection tables.
+"""Utilities for reading and normalizing Codex connection tables.
+
 Codex connection exports can contain multiple rows for the same neuron pair when
-synapses occur in different regions. This module preserves those rows.
+synapses occur in different regions. Pair-level aggregation is centralized here
+so every downstream experiment applies connection thresholds consistently.
 """
 from __future__ import annotations
-import csv, gzip
+
+import csv
+import gzip
 from collections import Counter
 from pathlib import Path
 from typing import Iterable, Iterator, Mapping, TextIO
@@ -12,9 +16,11 @@ SOURCE_CANDIDATES = ("pre_root_id", "pre_root", "presynaptic_root_id", "source_r
 TARGET_CANDIDATES = ("post_root_id", "post_root", "postsynaptic_root_id", "target_root_id")
 WEIGHT_CANDIDATES = ("syn_count", "synapse_count", "n_synapses", "weight")
 
+
 def _open_csv(path: str | Path) -> TextIO:
     p = Path(path)
     return gzip.open(p, "rt", encoding="utf-8", newline="") if p.suffix == ".gz" else p.open("r", encoding="utf-8", newline="")
+
 
 def _pick(fieldnames: Iterable[str], candidates: Iterable[str]) -> str:
     fields = set(fieldnames)
@@ -23,12 +29,47 @@ def _pick(fieldnames: Iterable[str], candidates: Iterable[str]) -> str:
             return name
     raise ValueError(f"None of {tuple(candidates)} found in columns: {sorted(fields)}")
 
+
 def iter_connections(path: str | Path) -> Iterator[Mapping[str, str]]:
     with _open_csv(path) as fh:
         reader = csv.DictReader(fh)
         if not reader.fieldnames:
             raise ValueError("Connection file has no CSV header")
         yield from reader
+
+
+def aggregate_pair_synapses(
+    path: str | Path,
+    min_synapses: float = 0,
+    *,
+    exclude_self_loops: bool = True,
+) -> Counter[tuple[str, str]]:
+    """Aggregate region-split rows to directed neuron-pair synapse totals.
+
+    All rows for a directed pair are summed first; only then is min_synapses
+    applied. This is the shared threshold boundary for connectome experiments.
+    """
+    pair_synapses: Counter[tuple[str, str]] = Counter()
+    with _open_csv(path) as fh:
+        reader = csv.DictReader(fh)
+        if not reader.fieldnames:
+            raise ValueError("Connection file has no CSV header")
+        source = _pick(reader.fieldnames, SOURCE_CANDIDATES)
+        target = _pick(reader.fieldnames, TARGET_CANDIDATES)
+        weight = _pick(reader.fieldnames, WEIGHT_CANDIDATES)
+        for row in reader:
+            u, v = row[source], row[target]
+            if exclude_self_loops and u == v:
+                continue
+            try:
+                value = float(row[weight])
+            except (TypeError, ValueError):
+                value = 0.0
+            pair_synapses[(u, v)] += value
+    if min_synapses <= 0:
+        return pair_synapses
+    return Counter(pair for pair, total in pair_synapses.items() if total >= min_synapses)
+
 
 def summarize(path: str | Path) -> dict:
     nodes: set[str] = set()
