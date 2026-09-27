@@ -184,3 +184,118 @@ Rationale:
    - observed vs CFG vs NPC-like vs spatial/combined controls on the same metric grid.
 
 **Status:** design requirement only; implementation pending completion and audit of Gate B.
+
+## 2026-09-27 literature refresh — Gate B/C and computational relevance
+
+### L1 — Spatial constraints are not a cosmetic control
+**Source:** Salova & Kovács, *Network Neuroscience* 9(1), 181–206 (2025), DOI 10.1162/netn_a_00428.
+
+The study compares fly, mouse and human connectomes and reports that spatial
+constraints alone do not recover broad topological structure, while degree
+sequence alone does not recover spatial structure. Combined maximum-entropy
+models using topology and physical constraints reproduce additional properties
+such as graphlets and weight-related structure.
+
+**Project consequence:** Gate C must not be implemented as a single generic
+"distance randomization" and then treated as a complete explanation. We should
+separate:
+1. topology-only CFG;
+2. spatial/distance-only control where meaningful;
+3. topology + spatial combined control;
+4. observed network;
+and compare the same rich-club metric grid across them.
+
+**Evidence class:** NULL-CONTROLLED / CROSS-SPECIES.
+
+### L2 — EDR is a literature-backed candidate for the Drosophila spatial null
+**Source:** Péntek & Ercsey-Ravasz, *Network Neuroscience* 9(3), 869–895 (2025), DOI 10.1162/netn_a_00455.
+
+The study revisits the exponential distance rule and reports that an EDR-based
+model explains numerous binary and weighted properties of the Drosophila
+neuropil projectome. It explicitly presents EDR as a useful null model for
+separating geometric consequences from properties of functional interest.
+
+**Project consequence:** EDR should be evaluated as one candidate Gate C null,
+but its level is important: the published analysis is primarily a neuropil /
+projectome model, whereas our current rich-club question is neuron-level.
+Therefore we must not silently substitute projectome EDR for a neuron-level
+spatial null. We need explicit distance semantics first.
+
+**Evidence class:** OBSERVED / NULL-CONTROLLED in the cited study.
+
+### L3 — Structure-to-function needs an explicit dynamical bridge
+**Source:** Wang et al., bioRxiv 2026, *Connectome-constrained modeling identifies
+neurons and synapses that sustain spontaneous activity in Drosophila*.
+
+The work fits a whole-brain dynamical model to spontaneous calcium activity while
+constraining it with the FlyWire connectome, then uses perturbations to identify
+candidate hubs and synapses sustaining resting dynamics. The important
+methodological point for this project is that wiring is a constraint on the
+model, while activity is an independently validated target.
+
+**Project consequence:** even if a structural feature survives Gate A–C, it must
+not be described as functionally important until an explicit activity/task model
+or benchmark establishes the bridge.
+
+**Evidence class:** PROMISING / MODEL-CONSTRAINED PREPRINT.
+
+### L4 — Network structure can affect modeled fly activity, but this is not yet
+an architecture specification
+**Source:** Zhang et al., *Fundamental Research* 6(3), 1859–1868 (2026),
+DOI 10.1016/j.fmre.2025.01.017.
+
+The study reports that simplified neuronal activation models built on real
+Drosophila network structure reproduce activation patterns across several
+neuronal dynamics models, and reports a distinction between network distance
+and physical distance in the studied activation patterns.
+
+**Project consequence:** network distance is a useful candidate metric for a
+future structure-to-dynamics branch, but it should remain separate from Gate C's
+physical-distance null. Physical distance and graph distance answer different
+questions.
+
+**Evidence class:** ESTABLISHED FOR THE STUDIED MODEL / HYPOTHESIS FOR OUR USE.
+
+### L5 — Whole-connectome computation is already prior art
+**Sources:** Wang et al., *Neuromorphic Simulation of Drosophila melanogaster
+Brain Connectome on Loihi 2* (2025); Yu et al., *Biological Processing Units*
+(2025); Drosophila connectome reservoir-computing work (2025).
+
+These studies demonstrate that full or partial fly connectomes can already be
+mapped to neuromorphic hardware, fixed recurrent processing units, or reservoir
+computing systems, with task-level benchmarks.
+
+**Project consequence:** "connectome-derived computation" is not itself a
+novelty claim. Any eventual project novelty must be narrower and evidence-based,
+for example a validated structural constraint, abstraction, generator,
+runtime, scaling law, or resource/performance advantage not already demonstrated
+by close prior art.
+
+**Evidence class:** ESTABLISHED PRIOR ART.
+
+### L6 — A recent fly study directly reinforces the separation between topology
+and dynamics
+**Source:** Lin & Murthy, *Nature Methods* (2025), "Linking structure and
+function: biological insights from fly connectomes."
+
+The review emphasizes that connectomes provide a structural foundation for
+linking wiring to neural activity and behavior, while connectome-based models
+remain a route to testing structure-function relationships.
+
+**Project consequence:** keep the evidence ladder explicit: structural
+observation -> null-controlled residual -> dynamical validation -> computational
+benchmark. Do not collapse these into one claim.
+
+**Evidence class:** REVIEW / CONTEXT.
+
+### Literature decision for the current project
+The new literature does **not** change the immediate order:
+
+**Finish NPC 100-null -> decide Gate B -> design Gate C -> only then derive a
+computational primitive.**
+
+It does sharpen Gate C substantially: the spatial branch should include a
+literature-backed EDR candidate where the data semantics permit it, plus a
+combined topology+spatial condition. It also strengthens the prohibition on
+calling a surviving structural feature "functional" without an explicit
+validated dynamics/task bridge.
