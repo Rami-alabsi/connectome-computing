@@ -26,9 +26,9 @@ def test_resolve_synapse_coordinate_position_schema(tmp_path):
         fh.write(raw)
 
     schema, columns, rows, malformed, outgoing, incoming, out_centroids, in_centroids = load_arbor_centroids(path)
-    assert schema["mode"] == "synapse_xyz"
-    assert columns == ["pre_root_id", "post_root_id", "x", "y", "z"]
+    assert schema["mode"] == "position"
+    assert columns == ["pre_root_id", "post_root_id", "pre_pt_position", "post_pt_position"]
     assert rows == 2
     assert malformed == 0
     assert out_centroids["1"] == (2.0, 3.0, 4.0)
-    assert in_centroids["2"] == (2.0, 3.0, 4.0)
+    assert in_centroids["2"] == (5.0, 6.0, 7.0)
