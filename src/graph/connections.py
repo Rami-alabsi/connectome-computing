@@ -68,7 +68,7 @@ def aggregate_pair_synapses(
             pair_synapses[(u, v)] += value
     if min_synapses <= 0:
         return pair_synapses
-    return Counter(pair for pair, total in pair_synapses.items() if total >= min_synapses)
+    return Counter({pair: total for pair, total in pair_synapses.items() if total >= min_synapses})
 
 
 def summarize(path: str | Path) -> dict:
