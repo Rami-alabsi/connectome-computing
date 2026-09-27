@@ -195,6 +195,24 @@ FAFB v783 product. The underlying FlyWire data remain subject to their own
 licensing terms.
 
 
+## Gate C0 product audit — authoritative source
+
+The project tested two FAFB v783 spatial products. The primary source is the full
+Princeton synapse table `fafb_v783_princeton_synapse_table.csv.gz` (~2.7 GB compressed):
+80,215,790 rows, separate pre/post coordinates, and 100% graph-node arbor-centroid
+coverage. The lighter `synapse_coordinates.csv.gz` product remains a secondary
+sensitivity comparison and produced 86.86% both-centroid coverage.
+
+Authoritative C0:
+- workflow run `36315995364`;
+- artifact `10930278435`;
+- synapse-table SHA-256 `780a0ebd9320847b9fce2b05056b3d57a56da097549dae7847b8e55c488f1e29`;
+- connection-table SHA-256 `445f996bf6c4b1803b9ba186189138a3061ff8623aa94c0abcf38af30a5bd48b`.
+
+The later C1 feasibility run consumed the lighter C0 centroid artifact and is explicitly
+superseded for the primary path. The C1 workflow has been redirected to consume the
+Princeton C0 artifact.
+
 ## Gate C0 final result — 2026-09-27
 
 The arbor-aware C0 preflight was executed against the FAFB v783 Princeton synapse table, not the lighter `synapse_coordinates.csv.gz` product. The full Princeton table contains 80,215,790 rows and exposes separate pre-site and post-site coordinates plus the root-ID suffix fields `pre_root_id_720575940` and `post_root_id_720575940`. Root IDs were normalized to canonical 64-bit strings by restoring the `720575940` prefix.
