@@ -13,7 +13,8 @@ import hashlib
 import json
 import math
 import random
-from collections import Counter
+from collections import Counter, defaultdict
+from statistics import median
 from pathlib import Path
 
 from src.graph.connections import aggregate_pair_synapses
@@ -28,9 +29,8 @@ def sha256(path: Path) -> str:
 
 
 def load_coordinates(path: Path):
-    coords = {}
+    positions = defaultdict(list)
     rows = 0
-    duplicate_rows = 0
     with gzip.open(path, "rt", newline="") as fh:
         reader = csv.DictReader(fh)
         required = {"root_id", "position"}
@@ -39,15 +39,23 @@ def load_coordinates(path: Path):
         for row in reader:
             rows += 1
             rid = row["root_id"]
-            if rid in coords:
-                duplicate_rows += 1
-                continue
             raw = row["position"].strip().strip("[]")
             parts = raw.split()
             if len(parts) != 3:
                 raise ValueError(f"invalid position for root_id={rid}: {row['position']}")
-            coords[rid] = tuple(float(x) for x in parts)
-    return coords, rows, duplicate_rows
+            positions[rid].append(tuple(float(x) for x in parts))
+
+    # A root_id can have multiple stable point/supervoxel positions. The raw
+    # coordinates file therefore cannot be treated as a one-row-per-neuron
+    # table. Use a deterministic component-wise median as the first-pass
+    # neuron-position proxy; this is NOT a soma coordinate.
+    coords = {
+        rid: tuple(median(axis) for axis in zip(*points))
+        for rid, points in positions.items()
+    }
+    multiplicities = [len(points) for points in positions.values()]
+    duplicate_rows = rows - len(positions)
+    return coords, rows, duplicate_rows, multiplicities
 
 
 def distance(a, b):
@@ -104,7 +112,7 @@ def main():
 
     cpath = Path(args.coordinates)
     epath = Path(args.connections)
-    coords, coordinate_rows, duplicate_rows = load_coordinates(cpath)
+    coords, coordinate_rows, duplicate_rows, coordinate_multiplicities = load_coordinates(cpath)
 
     edges = aggregate_pair_synapses(epath, min_synapses=args.min_synapses)
     graph_nodes = {u for u, _ in edges} | {v for _, v in edges}
@@ -116,14 +124,21 @@ def main():
 
     nodes = list(graph_nodes)
     nonedges = []
+    nonedge_set = set()
     attempts = 0
     max_attempts = max(1000, args.nonedge_sample * 50)
-    while len(nonedges) < min(args.nonedge_sample, len(nodes) * max(0, len(nodes) - 1) - len(edges)) and attempts < max_attempts:
+    target_nonedges = min(
+        args.nonedge_sample,
+        len(nodes) * max(0, len(nodes) - 1) - len(edges),
+    )
+    while len(nonedges) < target_nonedges and attempts < max_attempts:
         attempts += 1
         u, v = rng.sample(nodes, 2)
-        if (u, v) in edge_set:
+        pair = (u, v)
+        if pair in edge_set or pair in nonedge_set:
             continue
-        nonedges.append((u, v))
+        nonedge_set.add(pair)
+        nonedges.append(pair)
 
     edge_distances = [
         distance(coords[u], coords[v])
@@ -153,11 +168,16 @@ def main():
             "position_units": "FAFB voxel coordinates",
             "voxel_size_nm": [4, 4, 40],
             "distance_metric": "anisotropic Euclidean distance in nm",
+            "position_reduction": "component-wise median across all positions for each root_id",
+            "position_semantics": "supervoxel/stable-point position proxy; not a soma coordinate",
         },
         "coordinate_inventory": {
             "rows": coordinate_rows,
             "unique_root_ids": len(coords),
-            "duplicate_rows_ignored": duplicate_rows,
+            "duplicate_rows_collapsed": duplicate_rows,
+            "roots_with_multiple_positions": sum(n > 1 for n in coordinate_multiplicities),
+            "max_positions_per_root": max(coordinate_multiplicities, default=0),
+            "median_positions_per_root": median(coordinate_multiplicities) if coordinate_multiplicities else 0,
         },
         "graph_inventory": {
             "unique_directed_pairs": len(edges),
@@ -187,7 +207,7 @@ def main():
             "edr": "projectome/neuropil sensitivity control; not a neuron-level NPC replacement",
         },
         "missing_coordinate_policy": "pairs with missing endpoint coordinates are excluded from distance summaries and counted through coverage metrics",
-        "duplicate_coordinate_policy": "keep first row per root_id and report duplicate rows",
+        "duplicate_coordinate_policy": "collapse all rows for each root_id using component-wise median; report multiplicity instead of silently keeping the first row",
         "scientific_conclusion": None,
     }
 
