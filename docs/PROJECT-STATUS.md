@@ -220,6 +220,21 @@ Quantum information, holography, cosmic web and social-network analogies are hyp
 **evidence → abstraction → falsifiable prediction → matched control → implementation → execution → ablation → scaling → prior-art recheck**
 
 
+
+### Gate B first real-data benchmark
+
+Run 36057032102 completed successfully on the corrected NPC runner. Artifact ID 10836101656; SHA-256 6b3181090608f453ad2fa38ed642d18c1b1efb93aebfc592a90a7f24a5dd354a.
+
+- 8 deterministic NPC-like nulls;
+- 3,732,460 successful swaps per null;
+- exact edge-count, in-degree and out-degree preservation;
+- exact preservation of 3,648 source-block -> target-block edge counts per null;
+- phi_norm > 1.01 only across degrees 41–69 in this benchmark;
+- peak phi_norm 1.015193 at degree 58;
+- phi_norm falls below 1 by degree 93 and is 0.990386 at degree 96.
+
+Interpretation status: Gate B remains OPEN. The first real-data NPC benchmark shows a substantial reduction of the CFG enrichment, with a smaller intermediate-degree residual. This is null-controlled benchmark evidence, not a formal significance result and not evidence for an additional topology-specific mechanism. A larger NPC ensemble is required before closure/rejection of Gate B.
+
 ## Gate B — NPC-like control execution hardening (2026-09-24)
 
 Before interpreting Gate B, the NPC runner was audited again for data-model consistency. A material issue was corrected: the v783 connection table can contain multiple region rows for the same neuron pair. The NPC graph now aggregates pair-level synapse counts before applying the 5-synapse threshold, matching the project's publication-aligned CFG ingestion rule. The workflow explicitly pins `--min-synapses 5`, and a regression test covers this aggregation/threshold behavior.
