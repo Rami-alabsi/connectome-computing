@@ -256,7 +256,7 @@ blocking gate.
 ### Current gate state
 
 - Gate A — FAFB v783 CFG/rich-club: **CLOSED** for the defined method-aligned path.
-- Gate B — FAFB v783 NPC-like/neuropil-constrained rich-club: **OPEN**.
+- Gate B — FAFB v783 NPC-like/neuropil-constrained rich-club: **CLOSED** for the defined 100-null v783 benchmark; broader biological control remains open.
 - Gate C — spatial/distance-constrained null: **OPEN; not started**.
 - Computational architecture interpretation remains downstream of the biological
   control hierarchy.
@@ -302,6 +302,32 @@ so any commercial distribution must keep third-party data licensing separate fro
 our original software and algorithms.
 
 
+### Gate B — 100-null NPC ensemble completed — 2026-09-27
+
+The 100-null NPC-like ensemble has now completed successfully.
+
+- workflow run: `36295429519`;
+- source commit: `bbd0fa1ea2b5c4ef06788808e20597bebb0483bf`;
+- 100/100 NPC null jobs completed successfully; no failed null job;
+- aggregate job completed successfully;
+- final artifact: `fafb-v783-rich-club-npc-100null`, artifact ID `10925776875`;
+- 100 source null artifacts are recorded in the aggregate;
+- dataset/version: FAFB v783;
+- unique directed pairs: 3,732,460;
+- threshold: 5 aggregated synapses per directed neuron pair;
+- degree and block-preservation checks: all passed;
+- descriptive rich-club criterion: `phi_norm > 1.01`;
+- descriptive onset: degree 41;
+- descriptive offset: degree 69;
+- peak: degree 57, `phi_norm = 1.015171`;
+- selected values: degree 37 = 1.008936; degree 58 = 1.015154; degree 75 = 1.006069; degree 93 = 0.993676; degree 96 = 0.990313; degree 120 = 0.975243.
+
+Compared with the 100-null CFG ensemble, the NPC-like constraint substantially reduces the rich-club enrichment: the CFG peak was 1.057835 at degree 96, while the NPC-like peak is 1.015171 at degree 57. The descriptive >1.01 span contracts from degrees 27–120 under CFG to 41–69 under NPC. This is a matched-null comparison, not a formal significance test and not evidence by itself for a distinct biological mechanism.
+
+The result closes the **defined NPC-like v783 Gate B benchmark**: the complete 100-null execution and all specified invariants have been validated. It does **not** close the broader biological-control question: the NPC implementation is a v783 NPC-like extension, not an exact v630 reproduction, and spatial/distance constraints remain untested.
+
+Immediate next step: design Gate C as a genuine spatial/distance-constrained control before any computational architecture interpretation.
+
 ### Literature checkpoint — 2026-09-27
 
 A targeted practical-literature refresh was completed while Gate B is running. New
@@ -318,7 +344,6 @@ evidence was recorded in the science ledger and design-rules document:
   topology/weight randomization controls.
 
 These findings do not change the immediate order:
-**complete NPC 100-null -> inspect artifact -> decide Gate B -> design Gate C -> computational abstraction**.
+**complete NPC 100-null -> inspect artifact -> close defined Gate B -> design Gate C -> computational abstraction**.
 
-The current workflow remains the sole source for Gate B completion state until its
-aggregate artifact exists and is independently inspected.
+The completed aggregate artifact is now the source of record for the defined Gate B benchmark.
