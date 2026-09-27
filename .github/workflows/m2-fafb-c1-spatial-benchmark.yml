@@ -2,7 +2,7 @@ name: FAFB v783 Gate C1 spatial swap feasibility benchmark
 on:
   workflow_dispatch:
   workflow_run:
-    workflows: ["FAFB v783 Gate C0 arbor-aware spatial preflight"]
+    workflows: ["FAFB v783 Gate C0 Princeton arbor spatial preflight"]
     types: [completed]
 permissions:
   actions: read
@@ -26,7 +26,7 @@ jobs:
           github-token: ${{ github.token }}
           repository: ${{ github.repository }}
           run-id: ${{ github.event.workflow_run.id }}
-          name: fafb-v783-gate-c0-arbor-spatial-preflight
+          name: fafb-v783-gate-c0-princeton-arbor-spatial-preflight
           path: data/raw/fafb_v783/c0-artifact
 
       - name: Run feasibility benchmark
