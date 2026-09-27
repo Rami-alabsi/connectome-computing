@@ -99,11 +99,11 @@ connectome-computing/
 
 ## Status
 
-**Stage: M5 → M6 — FAFB CFG gate closed; Gate B NPC-like control active**
+**Stage: M5 → M6 — FAFB CFG and defined NPC-like gates closed; Gate C spatial control active**
 
 Gate A is closed for the defined FAFB v783 method-aligned CFG/rich-club path after Run `35987597540`: 100 CFG nulls, 3,732,460 successful swaps per null, exact edge-count/in-degree/out-degree preservation, and descriptive `phi_norm > 1.01` continuously from degree 27 through 120, peaking at 1.057835 at degree 96. This is a method-aligned v783 replication/extension, not an exact reproduction of Lin et al. 2024.
 
-Gate B is now the active biological control. The first 8-null NPC-like benchmark completed and reduced the CFG enrichment substantially; a 100-null NPC ensemble is currently running under GitHub Actions and must be inspected before any Gate B conclusion. Gate C will address genuine spatial/distance constraints only after Gate B.
+Gate B is closed for the defined 100-null FAFB v783 NPC-like benchmark. The complete ensemble preserved degree and source-neuropil→target-neuropil block counts, and reduced the descriptive rich-club enrichment from the CFG peak of 1.057835 to an NPC-like peak of 1.015171. This is a v783 extension, not an exact v630 reproduction, and the comparison is not a formal significance test. Gate C now addresses genuine spatial/distance constraints before any computational architecture interpretation.
 
 The master project compass is `docs/PROJECT-MAP.md`. Operational status and scientific decisions are maintained in `docs/PROJECT-STATUS.md`; the research protocol and AI handoff rules are in `docs/RESEARCH_PROTOCOL.md`.
 
