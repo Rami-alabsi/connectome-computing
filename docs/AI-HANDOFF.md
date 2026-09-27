@@ -1,0 +1,100 @@
+# AI HANDOFF — Connectome Computing
+
+Purpose: operational compass for any future AI agent. Use Current State first; verify every referenced run/artifact before accepting a result.
+
+## 1. Current State — 2026-09-27
+Stage: M5 → M6. FAFB v783 structural analysis is in the spatial-control phase.
+
+### Gate A — CLOSED
+- Defined FAFB v783 CFG benchmark; 100 nulls.
+- 3,732,460 accepted directed pairs; exact edge count and in/out-degree preservation.
+- phi_norm peak ≈ 1.057835 at degree 96.
+- Not an exact reproduction of Lin et al. v630; defined v783 implementation.
+
+### Gate B — CLOSED
+- Defined 100-null v783 NPC-like benchmark; workflow 36295429519; artifact 10925776875.
+- 100/100 nulls; exact degree and source-block→target-block preservation.
+- phi_norm peak ≈ 1.015171 at degree 57; descriptive >1.01 span 41–69.
+- NPC-like v783 extension, not exact v630 reproduction and not a formal significance test.
+
+### Gate C — ACTIVE
+C0 is CLOSED at data-definition/coverage level.
+Authoritative input: fafb_v783_princeton_synapse_table.csv.gz (~2.7 GB compressed).
+Authoritative workflow: 36315995364. Authoritative artifact: 10930278435.
+- 80,215,790 synapse-table rows.
+- 138,584 graph nodes; 3,732,460 unique directed pairs after pair aggregation and 5-synapse threshold.
+- 0 malformed rows.
+- 100% outgoing, incoming, and both-centroid graph-node coverage.
+- 100,000 observed-edge and 100,000 sampled non-edge distances.
+- Observed-edge median ≈ 481.001 µm; non-edge median ≈ 2.282 mm.
+- Distance uses 4/4/40 nm anisotropic voxel scaling.
+- Source position = mean outgoing synapse pre-site coordinates; target position = mean incoming synapse post-site coordinates.
+- Synapse-derived arbor proxy, not axon length, dendrite length, or soma distance.
+- C0 produces no spatial-null conclusion.
+
+Secondary lightweight C0: synapse_coordinates.csv.gz. It produced 34,156,320 rows and 86.86% both-centroid coverage; observed-edge median ≈464.205 µm. Retain only as sensitivity/data-product comparison.
+
+## 2. Critical provenance correction
+C1 feasibility run 36317314664 / artifact 10930429115 consumed the lightweight C0 centroid artifact. Its covered-subgraph invariants are historical evidence only and it is SUPERSEDED for the primary scientific path. Do not quote its 95.78% edge coverage as the authoritative C1 result.
+The C1 workflow has been redirected to consume the artifact produced by the Princeton C0 workflow. A fresh C0 run is required to materialize an unambiguous C0→C1 artifact chain.
+
+## 3. C1 definition
+Current candidate: FAFB v783 frozen-edge, hard-binned arbor-distance, degree-preserving spatial sensitivity null.
+- Full graph remains 3,732,460 directed edges.
+- Only covered edges are eligible for rewiring; uncovered edges remain frozen.
+- Directed double-edge swap: (a,b),(c,d) → (a,d),(c,b).
+- Reject self-loops, duplicate edges, and conflicts with frozen edges.
+- Preserve the multiset of coarse arbor-distance bins.
+- Verify full edge count, in-degree, out-degree, frozen-edge set, and distance-bin histogram.
+This is a defined sensitivity/null extension, not the true spatial null, not an exact Lin et al. NND implementation, and not the Salova & Kovács model.
+
+## 4. Required next sequence
+1. Produce a fresh authoritative C0 run from the Princeton 2.7GB table.
+2. Let corrected C1 automatically consume that exact C0 artifact.
+3. Run full covered-edge swap feasibility before any spatial rich-club ensemble.
+4. If full-target feasibility succeeds with all invariants, start with 4–8 spatial nulls.
+5. Inspect runtime and stability; only then consider scaling to 16/100 if justified.
+6. Compute spatial rich-club curve only after null generation is validated.
+7. Compare observed vs CFG vs NPC-like vs spatial; later, if tractable, NPC + spatial.
+8. Do not claim architecture or novelty from structural enrichment alone; functional/computational validation remains downstream.
+
+## 5. Scientific labels
+- OBSERVED: directly measured from FAFB.
+- NULL-CONTROLLED: survives a specified null comparison.
+- EXTENSION: project-defined model/control not directly reproduced from literature.
+- HYPOTHESIS: interpretation to be tested.
+Biology is evidence, not specification.
+
+## 6. Key prior-art anchors
+- Lin et al., Nature 2024: whole-brain Drosophila network statistics; CFG/NPC controls; arbor-aware distance based on incoming/outgoing synapse positions.
+- Lin & Murthy, Nature Methods 2025: structure→function bridge.
+- Salova & Kovács, Network Neuroscience 2025: combined topology + spatial constraints; supports spatial sensitivity controls, while our hard-bin swap is an extension.
+- Péntek & Ercsey-Ravasz, Network Neuroscience 2025: exponential distance rule projectome model; later sensitivity, not neuron-level replacement.
+- Zhang et al., Fundamental Research 2026: network structure/function modeling; downstream structure→dynamics evidence.
+
+## 7. Implementation contracts
+- Graph source: FAFB v783 connections_princeton.csv.gz.
+- Shared parser: src/graph/connections.py.
+- Pair aggregation happens BEFORE min_synapses=5.
+- Authoritative C0 script: scripts/run_fafb_princeton_arbor_spatial_preflight.py.
+- Authoritative C0 workflow: .github/workflows/m2-fafb-princeton-arbor-spatial-preflight.yml.
+- C0 outputs: princeton-arbor-spatial-preflight.json and arbor-centroids.csv.gz.
+- C1 script: scripts/run_fafb_spatial_swap_benchmark.py.
+- C1 workflow: .github/workflows/m2-fafb-c1-spatial-benchmark.yml.
+- C1 must consume the triggering C0 artifact; never substitute a stale artifact ID manually.
+
+## 8. Historical runs
+- CFG 100-null final: run 35987597540, artifact 10807064530.
+- NPC 100-null final: run 36295429519, artifact 10925776875.
+- Lightweight C0: run 36317178168; secondary only.
+- Lightweight-C0 C1: run 36317314664, artifact 10930429115; SUPERSEDED.
+- Princeton C0: run 36315995364, artifact 10930278435; authoritative C0.
+
+## 9. Documentation rule
+Whenever a gate advances, update PROJECT-STATUS.md, PROJECT-MAP.md, GATE-C-SPATIAL-DESIGN.md, science-evidence-ledger.md, and this AI-HANDOFF.md. For every accepted result record commit SHA, workflow run, artifact ID, input filenames/checksums, parameters, seed, invariants, what it does NOT prove, and next gate.
+
+## 10. Stop conditions
+Stop and document if schema changes, pair count changes unexpectedly, root-ID normalization changes, artifact provenance is ambiguous, degree/edge/frozen-edge/bin invariants fail, target swaps cannot be reached, a null definition changes materially, or literature conflicts with a novelty/mechanism claim.
+
+## 11. One-line compass
+Gate A CLOSED → Gate B CLOSED → authoritative Gate C0 CLOSED → corrected Princeton-based C1 feasibility OPEN → spatial null ensemble → cross-null comparison → functional/computational validation → architectural abstraction.
