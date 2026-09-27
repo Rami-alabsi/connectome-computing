@@ -114,8 +114,7 @@ The 2024 Lin et al. rich-club result remains the primary direct prior-art anchor
 | Full/partial Drosophila connectomes have already been used in reservoir computing, fixed recurrent processing units and neuromorphic hardware | Established prior art | prevents overclaiming computational novelty | targeted prior-art search before architecture/IP claims |
 | Recent fly-connectome reviews emphasize linking wiring to activity and behavior through explicit models | Review/context | reinforces evidence ladder | structural null -> dynamics -> task validation |
 
-**Decision:** these literature updates sharpen but do not reorder the current
-project. Gate B remains the immediate unfinished scientific gate.
+**Decision:** these literature updates sharpen but do not reorder the project. Gate B is closed for the defined 100-null NPC-like v783 benchmark; Gate C is the active biological control stage.
 
 
 ## 2026-09-27 targeted literature refresh — new practical evidence
@@ -171,6 +170,39 @@ The preflight must report coordinate coverage, schema, anisotropic voxel scaling
 checksums, sampled edge/non-edge distances, and missing-coordinate policy before
 any spatial randomization. It is explicitly non-conclusive.
 
+
+## 2026-09-27 — C0 product comparison audit
+
+Two FAFB v783 spatial products were executed and must not be conflated.
+
+1. **Princeton synapse table:** `fafb_v783_princeton_synapse_table.csv.gz` (~2.7 GB
+   compressed), 80,215,790 rows, separate pre-site/post-site coordinates, and 100%
+   both-centroid graph-node coverage.
+2. **Lighter synapse-coordinate product:** `synapse_coordinates.csv.gz`,
+   34,156,320 rows in the executed path and 86.86% both-centroid coverage.
+
+Both use the same v783 connection graph (3,732,460 unique directed pairs after
+pair aggregation and the 5-synapse threshold). The full Princeton table is the
+source of record for Gate C0 because it preserves separate pre/post coordinates
+and provides complete graph-node coverage.
+
+Distance comparison:
+
+| Metric | Princeton table | Lighter coordinate table |
+|---|---:|---:|
+| Both-centroid node coverage | 100.00% | 86.86% |
+| Observed-edge median | 481.001 µm | 464.205 µm |
+| Observed-edge mean | 653.902 µm | 674.468 µm |
+| Observed-edge q95 | 1.785 mm | 1.973 mm |
+| Sampled non-edge median | 2.282 mm | 2.257 mm |
+| Sampled non-edge mean | 2.529 mm | 2.523 mm |
+
+The products are qualitatively consistent about observed edges being substantially
+closer than sampled non-edges, but their numerical distributions are not identical.
+The Princeton table is authoritative for Gate C0.
+
+The later C1 feasibility run that consumed the lighter centroid artifact is historical
+and superseded for the primary C1 path; it does not invalidate the Princeton C0 result.
 
 ## 2026-09-27 — Gate C0 arbor-aware spatial preflight
 
