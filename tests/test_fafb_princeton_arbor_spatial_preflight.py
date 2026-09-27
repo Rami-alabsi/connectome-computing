@@ -2,8 +2,8 @@ import gzip
 from scripts.run_fafb_princeton_arbor_spatial_preflight import root_id
 
 def test_root_id_expansion():
-    assert root_id("610757204") == 720575940610757204
-    assert root_id("720575940610757204") == 720575940610757204
+    assert root_id("610757204") == "720575940610757204"
+    assert root_id("720575940610757204") == "720575940610757204"
 
 def test_schema_probe_fixture(tmp_path):
     p=tmp_path/"s.csv.gz"
@@ -13,4 +13,4 @@ def test_schema_probe_fixture(tmp_path):
     with gzip.open(p,"rt") as f:
         header=f.readline().strip().split(",")
     assert "pre_x" in header and "post_x" in header
-    assert root_id("620797269")==720575940620797269
+    assert root_id("620797269")=="720575940620797269"
