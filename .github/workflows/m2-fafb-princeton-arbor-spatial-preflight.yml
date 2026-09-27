@@ -1,4 +1,5 @@
 name: FAFB v783 Gate C0 Princeton arbor spatial preflight
+# Authoritative C0 source; push trigger retained to materialize a fresh provenance chain.
 on:
   workflow_dispatch:
   push:
