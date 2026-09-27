@@ -9,7 +9,51 @@ import random
 from collections import Counter, defaultdict
 from pathlib import Path
 
-from src.graph.connections import _open_csv, _pick, SOURCE_CANDIDATES, TARGET_CANDIDATES
+from src.graph.connections import _open_csv, _pick, SOURCE_CANDIDATES, TARGET_CANDIDATES, aggregate_pair_synapses
+
+
+def load_graph(path, min_synapses=5):
+    """Load pairs via the shared aggregation boundary and derive neuropil blocks."""
+    accepted = set(aggregate_pair_synapses(path, min_synapses=min_synapses))
+
+    outgoing = defaultdict(Counter)
+    with _open_csv(path) as fh:
+        reader = csv.DictReader(fh)
+        if not reader.fieldnames:
+            raise ValueError("Connection file has no CSV header")
+        s = _pick(reader.fieldnames, SOURCE_CANDIDATES)
+        t = _pick(reader.fieldnames, TARGET_CANDIDATES)
+        if "neuropil" not in reader.fieldnames:
+            raise ValueError("input must contain neuropil")
+        for row in reader:
+            u, v = row[s], row[t]
+            if (u, v) not in accepted:
+                continue
+            try:
+                w = int(row["syn_count"])
+            except (KeyError, TypeError, ValueError):
+                w = 1
+            outgoing[u][row["neuropil"]] += w
+
+    accepted_sources = {u for u, _ in accepted}
+    blocks = {
+        u: counts.most_common(1)[0][0]
+        for u, counts in outgoing.items()
+        if u in accepted_sources and counts
+    }
+    return accepted, blocks
+#!/usr/bin/env python3
+"""FAFB v783 rich-club null constrained by degree and dominant outgoing neuropil."""
+from __future__ import annotations
+
+import argparse
+import csv
+import json
+import random
+from collections import Counter, defaultdict
+from pathlib import Path
+
+from src.graph.connections import _open_csv, _pick, SOURCE_CANDIDATES, TARGET_CANDIDATES, aggregate_pair_synapses
 
 
 def load_graph(path, min_synapses=5):
