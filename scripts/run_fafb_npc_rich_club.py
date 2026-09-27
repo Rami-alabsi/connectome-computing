@@ -42,7 +42,7 @@ def load_graph(path, min_synapses=5):
         if u in accepted_sources and counts
     }
     return accepted, blocks
-\ndef constrained_randomization(edges, blocks, swaps, seed):
+def constrained_randomization(edges, blocks, swaps, seed):
     current = set(edges)
     edge_list = list(current)
     rng = random.Random(seed)
