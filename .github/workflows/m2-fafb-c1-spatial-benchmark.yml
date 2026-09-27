@@ -1,9 +1,11 @@
 name: FAFB v783 Gate C1 spatial swap feasibility benchmark
 on:
   workflow_dispatch:
-  workflow_run:
-    workflows: ["FAFB v783 Gate C0 Princeton arbor spatial preflight"]
-    types: [completed]
+  push:
+    paths:
+      - ".github/workflows/m2-fafb-c1-spatial-benchmark.yml"
+      - "scripts/run_fafb_spatial_swap_benchmark.py"
+      - "src/graph/connections.py"
 permissions:
   actions: read
   contents: read
