@@ -185,6 +185,10 @@ def main():
     schema, columns, syn_rows, malformed, outgoing_raw, incoming_raw, out_centroids, in_centroids = load_arbor_centroids(cpath)
     edges = aggregate_pair_synapses(epath, min_synapses=args.min_synapses)
     graph_nodes = {u for u, _ in edges} | {v for _, v in edges}
+    degree = Counter()
+    for u, v in edges:
+        degree[u] += 1
+        degree[v] += 1
 
     out_covered = graph_nodes & out_centroids.keys()
     in_covered = graph_nodes & in_centroids.keys()
@@ -224,6 +228,13 @@ def main():
     ]
 
     bins = [0, 50, 100, 200, 500, 1000, 2000, 5000, 10000, 20000, 50000, 100000, 200000]
+    covered_degree = [degree[n] for n in both_covered]
+    missing_degree = [degree[n] for n in graph_nodes - both_covered]
+    degree_coverage = {}
+    for lo, hi in [(0,9),(10,19),(20,36),(37,74),(75,92),(93,149),(150,999999)]:
+        total = sum(1 for n in graph_nodes if lo <= degree[n] <= hi)
+        covered = sum(1 for n in both_covered if lo <= degree[n] <= hi)
+        degree_coverage[f"{lo}-{hi}"] = {"nodes": total, "both_centroid_nodes": covered, "coverage": covered/total if total else None}
     result = {
         "dataset": "FAFB",
         "version": "v783",
@@ -259,6 +270,8 @@ def main():
             "outgoing_centroid_coverage": len(out_covered) / len(graph_nodes) if graph_nodes else 0.0,
             "incoming_centroid_coverage": len(in_covered) / len(graph_nodes) if graph_nodes else 0.0,
             "both_centroid_coverage": len(both_covered) / len(graph_nodes) if graph_nodes else 0.0,
+            "both_centroid_degree_summary": {"covered_median_degree": median(covered_degree) if covered_degree else None, "missing_median_degree": median(missing_degree) if missing_degree else None, "covered_max_degree": max(covered_degree) if covered_degree else None, "missing_max_degree": max(missing_degree) if missing_degree else None},
+            "both_centroid_coverage_by_total_degree": degree_coverage,
         },
         "centroid_semantics": {
             "source_position": "mean of outgoing synapse pre-site coordinates",
