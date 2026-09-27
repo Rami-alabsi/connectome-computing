@@ -63,8 +63,7 @@ analysis used v630 and its own null-generation implementation.
 
 **OPEN.**
 
-An 8-null real-data benchmark completed successfully and showed a much smaller
-residual than CFG:
+The complete 100-null ensemble was executed and inspected. An 8-null benchmark preceded it and showed a much smaller residual than CFG:
 - 3,732,460 pairs;
 - exact degree preservation;
 - exact source-neuropil -> target-neuropil block-count preservation;
@@ -75,15 +74,18 @@ residual than CFG:
 
 This is directional benchmark evidence only. It does NOT close Gate B.
 
-A 100-null NPC ensemble is currently running under GitHub Actions:
+The final 100-null ensemble:
 - workflow run: 36295429519;
-- commit: bbd0fa1ea2b5c4ef06788808e20597bebb0483bf;
-- prepare job succeeded;
-- NPC null jobs are running/queued;
-- aggregate job has not yet run.
+- source commit: bbd0fa1ea2b5c4ef06788808e20597bebb0483bf;
+- 100/100 null jobs succeeded;
+- aggregate artifact: fafb-v783-rich-club-npc-100null, artifact 10925776875;
+- exact degree and source-block -> target-block preservation passed;
+- all requested swaps were reached.
 
-Do not interpret the 100-null NPC result until the complete workflow and final
-artifact have been inspected.
+Descriptive >1.01 enrichment spans degrees 41–69 and peaks at degree 57 with
+phi_norm = 1.015171, versus CFG peak 1.057835 at degree 96. This is a matched-null
+comparison, not a formal significance test and not evidence by itself for a distinct
+biological mechanism.
 
 ### Gate C — spatial/distance-constrained null
 
@@ -141,7 +143,7 @@ appeared independently in the NPC path.
 - 100-null CFG ensemble;
 - NPC-like rich-club null;
 - NPC 8-null benchmark;
-- NPC 100-null ensemble in progress;
+- NPC 100-null ensemble;
 - conditional directed-triad sampler.
 
 Important: the motif artifact is a conditional triad-signature sample, not a
@@ -177,7 +179,7 @@ surviving pattern into a computational primitive.
 
 **Gate B**
   -> NPC-like neuropil constraint
-  -> OPEN; 100-null ensemble running
+  -> CLOSED for the defined 100-null v783 benchmark
 
 **Gate C**
   -> genuine spatial/distance null
@@ -307,10 +309,12 @@ The next scientific decision is not “invent the architecture”.
 
 It is:
 
-**Does the apparent CFG rich-club signal survive a properly matched
-neuropil-constrained null?**
+**Does the residual structure survive a genuine spatial/distance-constrained
+control while retaining the appropriate topological constraints?**
 
-Only after that answer is established should the project move to the spatial
-control and then to computational abstraction.
+Gate C must first establish the available neuron-level spatial data, define the
+distance semantics, and pre-register the null hierarchy before large execution.
+Only a residual effect that survives the relevant spatial controls can become a
+candidate computational constraint.
 
 This ordering is the project's compass.
