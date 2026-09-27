@@ -3,7 +3,18 @@
 from __future__ import annotations
 import argparse, csv, json, math, random
 from pathlib import Path
-from src.graph.connections import _open_csv, _pick, SOURCE_CANDIDATES, TARGET_CANDIDATES
+from src.graph.connections import aggregate_pair_synapses
+from src.graph.random_baseline import degree_preserving_randomization, degree_preservation_report
+
+def load_edges(path, min_synapses=0):
+    """Load unique directed pairs using the shared pair-level aggregation boundary."""
+    return set(aggregate_pair_synapses(path, min_synapses=min_synapses))
+#!/usr/bin/env python3
+"""Estimate FAFB v783 rich-club enrichment against degree-preserving nulls."""
+from __future__ import annotations
+import argparse, csv, json, math, random
+from pathlib import Path
+from src.graph.connections import aggregate_pair_synapses
 from src.graph.random_baseline import degree_preserving_randomization, degree_preservation_report
 
 def load_edges(path, min_synapses=0):
