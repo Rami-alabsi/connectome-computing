@@ -4,7 +4,22 @@ from __future__ import annotations
 import argparse,csv,json,random
 from collections import Counter,defaultdict
 from pathlib import Path
-from src.graph.connections import _open_csv,_pick,SOURCE_CANDIDATES,TARGET_CANDIDATES
+from src.graph.connections import aggregate_pair_synapses
+from src.graph.random_baseline import degree_preserving_randomization,degree_preservation_report
+
+def load(path):
+    edges=set(aggregate_pair_synapses(path))
+    adj=defaultdict(set)
+    for u,v in edges:
+        adj[u].add(v)
+    return edges,adj
+!/usr/bin/env python3
+"""Sample canonical directed 3-node triad classes in FAFB and compare degree-preserving nulls."""
+from __future__ import annotations
+import argparse,csv,json,random
+from collections import Counter,defaultdict
+from pathlib import Path
+from src.graph.connections import aggregate_pair_synapses
 from src.graph.random_baseline import degree_preserving_randomization,degree_preservation_report
 
 def load(path):
