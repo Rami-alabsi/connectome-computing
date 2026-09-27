@@ -36,3 +36,21 @@ The CI workflow runs eight deterministic null seeds and records:
 - observed/null rich-club density at the same degree thresholds.
 
 No biological conclusion is made from the implementation until the artifact is inspected.
+
+## First real-data NPC benchmark — 2026-09-24
+
+The corrected NPC workflow completed successfully on FAFB v783 in Run 36057032102, commit 01f65ed4f9202c24f44f3d6ec3504a5615f404c9. Artifact ID: 10836101656; SHA-256: 6b3181090608f453ad2fa38ed642d18c1b1efb93aebfc592a90a7f24a5dd354a.
+
+Execution checks passed for all 8 deterministic nulls:
+
+- 3,732,460 unique directed pairs after the 5-synapse pair-level threshold;
+- 3,732,460 successful swaps per null;
+- exact edge-count, in-degree and out-degree preservation for every null;
+- exact preservation of all 3,648 observed source-neuropil -> target-neuropil block counts for every null;
+- all nulls reached the requested swap target.
+
+The descriptive phi_norm > 1.01 region is much narrower than under the 100-null CFG ensemble: degrees 41–69 in this 8-null benchmark. The peak is phi_norm = 1.015193 at degree 58. Selected values are 1.010429 at degree 42, 1.013592 at degree 50, 1.015193 at degree 58, 1.006117 at degree 75, 0.993733 at degree 93, and 0.990386 at degree 96.
+
+This is NOT yet Gate B closure. Eight nulls are an execution/benchmark ensemble, and phi_norm > 1.01 is a descriptive repository criterion rather than a formal significance test. The result is nevertheless directionally informative: much of the CFG rich-club enrichment is removed by the neuropil-constrained null, while a smaller intermediate-degree residual remains. A larger NPC ensemble is required before deciding whether that residual is stable or null variability.
+
+The artifact should therefore be recorded as OBSERVED / NULL-CONTROLLED benchmark evidence, not as evidence for an additional topology-specific mechanism.
