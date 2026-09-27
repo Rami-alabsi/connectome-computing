@@ -170,3 +170,16 @@ The repository now contains:
 The preflight must report coordinate coverage, schema, anisotropic voxel scaling,
 checksums, sampled edge/non-edge distances, and missing-coordinate policy before
 any spatial randomization. It is explicitly non-conclusive.
+
+
+## 2026-09-27 — Gate C0 arbor-aware spatial preflight
+
+**Evidence status:** OBSERVED / execution-valid preflight; no spatial-null inference.
+
+- FAFB v783 Princeton synapse table: 80,215,790 rows; separate pre-site and post-site coordinates; canonical root IDs reconstructed from the documented `720575940` header suffix convention.
+- Arbor proxy definition: outgoing centroid = mean outgoing synapse pre-site; incoming centroid = mean incoming synapse post-site; anisotropic 4/4/40 nm Euclidean distance.
+- Coverage: 138,584/138,584 graph nodes have both centroids (100%); malformed rows = 0.
+- Distance samples: 100,000 observed edges and 100,000 unique nonedges. Observed-edge median = 481,001 nm; nonedge median = 2,282,542 nm.
+- Interpretation: this validates the spatial data path and shows a strong descriptive edge/nonedge distance separation, but does not establish a mechanism or a rich-club residual after spatial control.
+
+**Prior-art anchor:** Lin et al. (Nature 2024) explicitly defined neuron pair distances using average outgoing synapse positions as an axonal-arbor proxy and average incoming synapse positions as a dendritic-arbor proxy, then compared connectivity as a function of distance. Salova & Kovács (Network Neuroscience 2025) show that degree and spatial constraints jointly capture connectome structure better than either constraint alone. cite-style-not-stored
