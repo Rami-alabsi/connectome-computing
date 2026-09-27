@@ -1,4 +1,4 @@
-##!/usr/bin/env python3
+#!//usr/bin/env python3
 """Sample canonical directed 3-node triad classes in FAFB and compare degree-preserving nulls."""
 from __future__ import annotations
 import argparse,csv,json,random
@@ -13,7 +13,9 @@ def load(path):
     for u,v in edges:
         adj[u].add(v)
     return edges,adj
-\n\nTRIAD_REPRESENTATIVES = {
+
+
+TRIAD_REPRESENTATIVES = {
     "003": (), "012": ((0,1),), "102": ((0,1),(1,0)),
     "021D": ((1,0),(1,2)), "021U": ((0,1),(2,1)), "021C": ((0,1),(1,2)),
     "111D": ((0,1),(1,0),(2,1)), "111U": ((0,1),(1,0),(1,2)),
