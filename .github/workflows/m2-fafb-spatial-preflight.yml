@@ -6,6 +6,7 @@ on:
     paths:
       - "scripts/run_fafb_spatial_preflight.py"
       - "src/graph/connections.py"
+      - "scripts/run_fafb_arbor_spatial_preflight.py"
       - ".github/workflows/m2-fafb-spatial-preflight.yml"
 
 jobs:
