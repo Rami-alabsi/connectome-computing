@@ -305,6 +305,12 @@ def main():
 
     out = Path(args.output)
     out.parent.mkdir(parents=True, exist_ok=True)
+    centroid_path = out.with_name("arbor-centroids.csv.gz")
+    with gzip.open(centroid_path, "wt", newline="") as fh:
+        writer = csv.writer(fh)
+        writer.writerow(["root_id","out_x","out_y","out_z","in_x","in_y","in_z"])
+        for rid in sorted(both_covered):
+            writer.writerow([rid,*out_centroids[rid],*in_centroids[rid]])
     out.write_text(json.dumps(result, indent=2, sort_keys=True) + "\n", encoding="utf-8")
     print(json.dumps(result, indent=2, sort_keys=True))
 
