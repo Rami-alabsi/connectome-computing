@@ -34,7 +34,7 @@ jobs:
       - name: Run feasibility benchmark
         env: {PYTHONPATH: .}
         run: |
-          python scripts/run_fafb_spatial_swap_benchmark.py             --connections data/raw/fafb_v783/connections_princeton.csv.gz             --centroids data/raw/fafb_v783/c0-artifact/arbor-centroids.csv.gz             --attempts 100000 --seed 20260927             --output artifacts/fafb-v783/c1-spatial-swap-benchmark.json
+          python scripts/run_fafb_spatial_swap_benchmark.py             --connections data/raw/fafb_v783/connections_princeton.csv.gz             --centroids "$(find data/raw/fafb_v783 -name arbor-centroids.csv.gz -print -quit)"             --attempts 100000 --seed 20260927             --output artifacts/fafb-v783/c1-spatial-swap-benchmark.json
       - uses: actions/upload-artifact@v4
         with:
           name: fafb-v783-gate-c1-spatial-swap-benchmark
