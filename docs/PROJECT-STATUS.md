@@ -2,7 +2,7 @@
 
 ## Current position
 
-**Stage: M5 → M6 — synthetic connectome validation + FAFB CFG gate closed; downstream biological controls active**
+**Stage: M5 → M6 — FAFB CFG and defined NPC-like gates closed; Gate C spatial control preflight active**
 
 **Prototype-phase note:** the current implementation phase was built in a single intensive session. Treat the repository as a research prototype scaffold until real-data execution, matched controls, ablations and reproducible artifacts have been completed.
 
@@ -190,8 +190,8 @@ analysis.
 
 ### Biological Gates B/C
 
-9. With the CFG gate closed, compare against the neuropil-constrained/NPC-like null.
-10. Only after that, define and execute a genuine spatial/distance-constrained null if the required spatial data are available.
+9. Gate B is closed for the defined 100-null v783 NPC-like benchmark; retain its result as the matched-null source of record.
+10. Define and preflight a genuine spatial/distance-constrained null; do not execute a large ensemble until coordinate coverage, units, and invariants are verified.
 
 ### RSS / M6
 
@@ -261,21 +261,22 @@ blocking gate.
 - Computational architecture interpretation remains downstream of the biological
   control hierarchy.
 
-### Current Gate B execution
+### Current Gate C execution
 
-The first 8-null NPC benchmark completed successfully and showed a substantially
-smaller residual than the CFG null. This was benchmark evidence only and did not
-close Gate B.
+Gate B is closed for the defined 100-null v783 NPC-like benchmark. The complete
+artifact was retrieved and inspected; the broader biological-control question
+remains open because the implementation is an NPC-like v783 extension.
 
-A 100-null NPC ensemble is currently in progress:
-- workflow run: `36295429519`;
-- commit: `bbd0fa1ea2b5c4ef06788808e20597bebb0483bf`;
-- prepare job: successful;
-- null jobs: running/queued at the time of this update;
-- final aggregate artifact: not yet available.
+Gate C is now in design/preflight:
+- coordinate source: FAFB v783 `coordinates.csv.gz`;
+- primary first-pass distance: anisotropic Euclidean node-position distance;
+- first preflight: `scripts/run_fafb_spatial_preflight.py`;
+- workflow: `.github/workflows/m2-fafb-spatial-preflight.yml`;
+- no Gate C scientific result exists yet.
 
-No Gate B conclusion should be written until the complete ensemble artifact is
-retrieved and inspected.
+The preflight must be completed before any spatial randomization. It records
+coordinate checksum/schema, node coverage, voxel scaling, sampled edge/non-edge
+distances, and the declared null hierarchy.
 
 ### Implementation integrity
 
@@ -347,3 +348,5 @@ These findings do not change the immediate order:
 **complete NPC 100-null -> inspect artifact -> close defined Gate B -> design Gate C -> computational abstraction**.
 
 The completed aggregate artifact is now the source of record for the defined Gate B benchmark.
+
+The Gate C design/preflight artifact is now the source of record for the next biological-control stage; it contains no scientific Gate C conclusion.
