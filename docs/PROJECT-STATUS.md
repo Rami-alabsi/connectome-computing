@@ -246,3 +246,57 @@ The NPC result remains explicitly **NPC-like**, not an exact reproduction of the
 The repository NPC implementation has been audited against Lin et al. Methods. The published NPC is a degree-corrected stochastic block model: each neuron is assigned to one of 78 neuropil blocks according to the neuropil with the most outgoing synapses; rewiring preserves degree sequences and inter-/intra-neuropil connection probabilities. The project implementation uses the same construction logic on FAFB v783, so it should be described as an **NPC-like v783 extension**, not as an exact v630 reproduction.
 
 The NPC workflow has been aligned to the CFG benchmark's explicit total-degree sweep (20–120, step 1). The current 8-null workflow is an implementation benchmark only. Gate B remains OPEN pending artifact inspection and, if warranted, a larger null ensemble. Required invariants are: exact edge count, exact in-degree, exact out-degree, exact source-block→target-block edge counts, full swap realization, and complete 20–120 rich-club curve.
+
+## State synchronization — 2026-09-27
+
+The master handoff compass is now recorded in `docs/PROJECT-MAP.md`. This section
+supersedes older statements in this file that still described CFG as the immediate
+blocking gate.
+
+### Current gate state
+
+- Gate A — FAFB v783 CFG/rich-club: **CLOSED** for the defined method-aligned path.
+- Gate B — FAFB v783 NPC-like/neuropil-constrained rich-club: **OPEN**.
+- Gate C — spatial/distance-constrained null: **OPEN; not started**.
+- Computational architecture interpretation remains downstream of the biological
+  control hierarchy.
+
+### Current Gate B execution
+
+The first 8-null NPC benchmark completed successfully and showed a substantially
+smaller residual than the CFG null. This was benchmark evidence only and did not
+close Gate B.
+
+A 100-null NPC ensemble is currently in progress:
+- workflow run: `36295429519`;
+- commit: `bbd0fa1ea2b5c4ef06788808e20597bebb0483bf`;
+- prepare job: successful;
+- null jobs: running/queued at the time of this update;
+- final aggregate artifact: not yet available.
+
+No Gate B conclusion should be written until the complete ensemble artifact is
+retrieved and inspected.
+
+### Implementation integrity
+
+The pair-level synapse aggregation boundary has been centralized in
+`src/graph/connections.py` and reused by CFG, NPC and motif loaders. The
+aggregation/threshold boundary is covered by a regression test. The latest Python
+CI run on commit `bbd0fa1ea2b5c4ef06788808e20597bebb0483bf` completed successfully.
+
+### Documentation rule
+
+Every substantive experiment must record provenance, parameters, invariants,
+artifact/checksum, interpretation and limitations. Failed or superseded runs are
+retained in the history. New AI agents should read `docs/RESEARCH_PROTOCOL.md`
+and `docs/PROJECT-MAP.md` before changing the pipeline.
+
+### Commercialization status
+
+Commercialization is a downstream possibility, not an established result. The
+project currently has no demonstrated benchmark advantage, patentability result,
+or product-market validation. The potential commercial path is based on a future
+measurable technical advantage or reusable software/IP rather than on the biological
+connectome itself. FlyWire's public FAFB v783 data are released under CC BY-NC 4.0,
+so any commercial distribution must keep third-party data licensing separate from
+our original software and algorithms.
