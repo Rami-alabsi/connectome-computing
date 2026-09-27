@@ -257,7 +257,7 @@ blocking gate.
 
 - Gate A — FAFB v783 CFG/rich-club: **CLOSED** for the defined method-aligned path.
 - Gate B — FAFB v783 NPC-like/neuropil-constrained rich-club: **CLOSED** for the defined 100-null v783 benchmark; broader biological control remains open.
-- Gate C — spatial/distance-constrained null: **OPEN; not started**.
+- Gate C — spatial/distance-constrained null: **OPEN; preflight active, no scientific result yet**.
 - Computational architecture interpretation remains downstream of the biological
   control hierarchy.
 
