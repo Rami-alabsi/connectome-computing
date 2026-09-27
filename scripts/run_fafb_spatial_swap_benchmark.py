@@ -49,11 +49,12 @@ def main():
     a=ap.parse_args()
     outc,inc=load_centroids(Path(a.centroids))
     edges_counter=aggregate_pair_synapses(a.connections,min_synapses=5)
-    edges=list(edges_counter)
+    full_edges=list(edges_counter)
+    full_nodes={u for u,v in full_edges}|{v for u,v in full_edges}
+    edges=[(u,v) for u,v in full_edges if u in outc and v in inc]
     edge_set=set(edges)
     nodes={u for u,v in edges}|{v for u,v in edges}
-    if not nodes <= outc.keys() or not nodes <= inc.keys():
-        raise RuntimeError("centroid coverage incomplete for graph nodes")
+    dropped_edges=len(full_edges)-len(edges)
     rng=random.Random(a.seed)
     edge_bins=[dbin(distance(outc[u],inc[v])) for u,v in edges]
     initial_bins=Counter(edge_bins)
@@ -81,14 +82,14 @@ def main():
       "purpose":"Gate C1 hard spatial degree-preserving swap feasibility benchmark; no rich-club inference",
       "method":{"swap":"(a,b),(c,d)->(a,d),(c,b)","hard_constraint":"multiset of coarse arbor-distance bins preserved per accepted swap",
         "distance_bins_nm":list(BINS_NM),"distance":"anisotropic Euclidean from outgoing centroid of source to incoming centroid of target"},
-      "network":{"nodes":len(nodes),"edges":len(edges),"min_synapses":5},
+      "network":{"full_nodes":len(full_nodes),"full_edges":len(full_edges),"covered_nodes":len(nodes),"covered_edges":len(edges),"dropped_edges_for_coverage":dropped_edges,"node_coverage":len(nodes)/len(full_nodes) if full_nodes else 0.0,"edge_coverage":len(edges)/len(full_edges) if full_edges else 0.0,"min_synapses":5},
       "benchmark":{"seed":a.seed,"attempts":a.attempts,"accepted":accepted,"invalid_or_duplicate":invalid,
         "distance_bin_rejected":bin_reject,"acceptance_rate":accepted/a.attempts if a.attempts else 0.0,
         "edge_count_preserved":len(edges)==len(edge_set),
         "in_degree_preserved":indeg0==indeg1,"out_degree_preserved":outdeg0==outdeg1,
         "distance_bin_histogram_preserved":initial_bins==Counter(edge_bins)},
       "scientific_conclusion":None,
-      "next_step":"If acceptance and invariants pass, scale to a small null ensemble; otherwise redesign the spatial null before interpreting rich-club residuals."
+      "next_step":"Covered-subgraph feasibility only; a full-graph spatial null requires a validated coverage strategy and this benchmark is not a rich-club result."
     }
     Path(a.output).parent.mkdir(parents=True,exist_ok=True)
     Path(a.output).write_text(json.dumps(result,indent=2,sort_keys=True)+"\n")
