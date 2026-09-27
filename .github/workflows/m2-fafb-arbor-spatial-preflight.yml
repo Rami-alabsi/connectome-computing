@@ -5,6 +5,7 @@ on:
   push:
     paths:
       - "scripts/run_fafb_arbor_spatial_preflight.py"
+      - "scripts/run_fafb_spatial_swap_benchmark.py"
       - "src/graph/connections.py"
       - ".github/workflows/m2-fafb-arbor-spatial-preflight.yml"
 
