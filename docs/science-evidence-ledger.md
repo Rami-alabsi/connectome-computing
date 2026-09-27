@@ -128,3 +128,45 @@ project. Gate B remains the immediate unfinished scientific gate.
 | 2024–2025 rich-club work remains the direct prior-art anchor for CFG/NPC interpretation | Established | preserves the current Gate A→B→C control order | complete NPC ensemble before changing gate state |
 
 **Current decision:** no reordering of the scientific pipeline. The immediate blocker remains completion and inspection of the NPC 100-null ensemble.
+
+
+## 2026-09-27 Gate C literature/preflight checkpoint
+
+### EVIDENCE — neuron-level spatial data are available for FAFB v783
+Codex documents a downloadable Marked Neuron Coordinates product for FAFB v783.
+The current public snapshot is v783 with 139,255 neurons and 3,732,460 connections.
+The coordinate product is a separate input from the connection table and must be
+version-pinned and checksummed before use.
+
+**Project use:** use the coordinate product only for a first node-position spatial
+null. Do not call the coordinate position an axon length, arbor length, or
+synapse coordinate.
+
+### EVIDENCE — distance-only is insufficient as the sole biological control
+Salova & Kovács (2025) show across fly, mouse and human connectomes that spatial
+constraints alone do not reproduce broad topology such as the degree sequence,
+while degree alone does not reproduce spatial structure. Their combined
+maximum-entropy models use both topology and spatial constraints.
+
+**Project use:** Gate C requires a degree+spatial control after the spatial
+inventory. A distance-only model is a sensitivity control, not the final
+degree-sensitive test.
+
+### EVIDENCE — EDR is useful but has a level mismatch
+Péntek & Ercsey-Ravasz (2025) show that an exponential distance rule can explain
+many properties of the Drosophila projectome and explicitly use EDR as a null for
+geometry-driven effects.
+
+**Project use:** include EDR as a projectome/neuropil sensitivity control. Do not
+replace the neuron-level NPC rich-club null with EDR without demonstrating the
+level conversion.
+
+### Gate C decision
+The repository now contains:
+- docs/GATE-C-SPATIAL-DESIGN.md;
+- scripts/run_fafb_spatial_preflight.py;
+- .github/workflows/m2-fafb-spatial-preflight.yml.
+
+The preflight must report coordinate coverage, schema, anisotropic voxel scaling,
+checksums, sampled edge/non-edge distances, and missing-coordinate policy before
+any spatial randomization. It is explicitly non-conclusive.
