@@ -42,63 +42,7 @@ def load_graph(path, min_synapses=5):
         if u in accepted_sources and counts
     }
     return accepted, blocks
-#!/usr/bin/env python3
-"""FAFB v783 rich-club null constrained by degree and dominant outgoing neuropil."""
-from __future__ import annotations
-
-import argparse
-import csv
-import json
-import random
-from collections import Counter, defaultdict
-from pathlib import Path
-
-from src.graph.connections import _open_csv, _pick, SOURCE_CANDIDATES, TARGET_CANDIDATES, aggregate_pair_synapses
-
-
-def load_graph(path, min_synapses=5):
-    """Load unique directed pairs after pair-level synapse aggregation.
-
-    FAFB connection exports can split one neuron pair across multiple
-    neuropil/region rows. The publication-aligned threshold is therefore
-    applied after summing synapse counts for each directed neuron pair.
-    Dominant outgoing-neuropil blocks are then computed from accepted pairs.
-    """
-    pair_synapses = Counter()
-    outgoing = defaultdict(Counter)
-
-    with _open_csv(path) as fh:
-        reader = csv.DictReader(fh)
-        s = _pick(reader.fieldnames, SOURCE_CANDIDATES)
-        t = _pick(reader.fieldnames, TARGET_CANDIDATES)
-        if "neuropil" not in reader.fieldnames:
-            raise ValueError("input must contain neuropil")
-
-        for row in reader:
-            u, v = row[s], row[t]
-            if u == v:
-                continue
-            try:
-                w = int(row["syn_count"])
-            except (KeyError, TypeError, ValueError):
-                w = 1
-            pair_synapses[(u, v)] += w
-            outgoing[u][row["neuropil"]] += w
-
-    accepted = {
-        (u, v) for (u, v), total in pair_synapses.items()
-        if total >= min_synapses
-    }
-    accepted_sources = {u for u, _ in accepted}
-    blocks = {
-        u: counts.most_common(1)[0][0]
-        for u, counts in outgoing.items()
-        if u in accepted_sources and counts
-    }
-    return accepted, blocks
-
-
-def constrained_randomization(edges, blocks, swaps, seed):
+\ndef constrained_randomization(edges, blocks, swaps, seed):
     current = set(edges)
     edge_list = list(current)
     rng = random.Random(seed)
