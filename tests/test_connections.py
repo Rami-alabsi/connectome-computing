@@ -16,3 +16,21 @@ def test_summarize_connection_fixture(tmp_path: Path) -> None:
     assert result["unique_directed_pairs"] == 2
     assert result["multi_region_pair_rows"] == 1
     assert result["total_synapses"] == 9
+
+
+def test_aggregate_pair_synapses_applies_threshold_after_aggregation(tmp_path: Path) -> None:
+    from src.graph.connections import aggregate_pair_synapses
+
+    p = tmp_path / "connections.csv"
+    p.write_text(
+        "pre_root_id,post_root_id,syn_count,region\n"
+        "1,2,3,AL\n"
+        "1,2,3,MB\n"
+        "1,3,4,AL\n"
+        "2,3,5,LO\n",
+        encoding="utf-8",
+    )
+    assert aggregate_pair_synapses(p, min_synapses=5) == {
+        ("1", "2"): 6.0,
+        ("2", "3"): 5.0,
+    }
