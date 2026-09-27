@@ -99,11 +99,13 @@ connectome-computing/
 
 ## Status
 
-**Stage: M5 → M6 — synthetic connectome validation + FAFB CFG gate closed; downstream biological controls active**
+**Stage: M5 → M6 — FAFB CFG gate closed; Gate B NPC-like control active**
 
-The defined FAFB v783 CFG/rich-club gate is now closed after Run `35987597540`: 100 CFG nulls, 3,732,460 successful swaps per null, exact edge-count/in-degree/out-degree preservation, and a continuous descriptive `phi_norm > 1.01` interval from degree 27 through 120, peaking at 1.057835 at degree 96. This is a method-aligned v783 replication/extension, not an exact reproduction of Lin et al. 2024. The next biological controls are neuropil-constrained/NPC-like and then spatial/distance-constrained nulls.
+Gate A is closed for the defined FAFB v783 method-aligned CFG/rich-club path after Run `35987597540`: 100 CFG nulls, 3,732,460 successful swaps per null, exact edge-count/in-degree/out-degree preservation, and descriptive `phi_norm > 1.01` continuously from degree 27 through 120, peaking at 1.057835 at degree 96. This is a method-aligned v783 replication/extension, not an exact reproduction of Lin et al. 2024.
 
-Operational status and scientific decisions are maintained in `docs/PROJECT-STATUS.md`; the research protocol and AI handoff rules are in `docs/RESEARCH_PROTOCOL.md`.
+Gate B is now the active biological control. The first 8-null NPC-like benchmark completed and reduced the CFG enrichment substantially; a 100-null NPC ensemble is currently running under GitHub Actions and must be inspected before any Gate B conclusion. Gate C will address genuine spatial/distance constraints only after Gate B.
+
+The master project compass is `docs/PROJECT-MAP.md`. Operational status and scientific decisions are maintained in `docs/PROJECT-STATUS.md`; the research protocol and AI handoff rules are in `docs/RESEARCH_PROTOCOL.md`.
 
 ## References
 
