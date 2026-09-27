@@ -1,0 +1,18 @@
+name: FAFB v783 Princeton synapse-table schema preflight
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - ".github/workflows/m2-fafb-princeton-synapse-schema.yml"
+
+jobs:
+  schema:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Fetch compressed prefix only
+        run: |
+          set -euo pipefail
+          url="https://storage.googleapis.com/flywire-data/codex/data/fafb/783/fafb_v783_princeton_synapse_table.csv.gz"
+          curl -L --fail --retry 3 --retry-all-errors --range 0-131071             --output /tmp/princeton-prefix.gz "$url"
+          gzip -dc /tmp/princeton-prefix.gz | head -n 5 || true
