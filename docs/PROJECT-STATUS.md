@@ -263,20 +263,31 @@ blocking gate.
 
 ### Current Gate C execution
 
-Gate B is closed for the defined 100-null v783 NPC-like benchmark. The complete
-artifact was retrieved and inspected; the broader biological-control question
-remains open because the implementation is an NPC-like v783 extension.
+Gate B is closed for the defined 100-null v783 NPC-like benchmark.
 
-Gate C is now in design/preflight:
-- coordinate source: FAFB v783 `coordinates.csv.gz`;
-- primary first-pass distance: anisotropic Euclidean node-position distance;
-- first preflight: `scripts/run_fafb_spatial_preflight.py`;
-- workflow: `.github/workflows/m2-fafb-spatial-preflight.yml`;
-- no Gate C scientific result exists yet.
+Gate C0 is complete at the authoritative data-definition/coverage level using the
+full FAFB v783 Princeton synapse table:
+- workflow: `.github/workflows/m2-fafb-princeton-arbor-spatial-preflight.yml`;
+- run: `36315995364`;
+- artifact: `10930278435`;
+- 80,215,790 synapse-table rows;
+- 138,584 graph nodes and 3,732,460 accepted directed pairs;
+- 100% outgoing/incoming/both-centroid node coverage;
+- observed-edge median arbor distance 481,001 nm;
+- sampled non-edge median 2,281,970 nm;
+- no scientific spatial-null conclusion yet.
 
-The preflight must be completed before any spatial randomization. It records
-coordinate checksum/schema, node coverage, voxel scaling, sampled edge/non-edge
-distances, and the declared null hierarchy.
+The lighter `synapse_coordinates.csv.gz` path is retained only as a secondary
+sensitivity/data-product comparison. Its 86.86% both-centroid coverage is not the
+authoritative Gate C0.
+
+A later C1 feasibility run consumed the lighter C0 centroid artifact. Run
+`36317314664` / artifact `10930429115` is therefore **superseded** for primary
+Gate C1 purposes. Its covered-subgraph invariants remain historical execution
+evidence only.
+
+The C1 workflow is now redirected to consume the authoritative Princeton C0 artifact.
+No spatial rich-club ensemble has been accepted yet.
 
 ### Implementation integrity
 
