@@ -300,3 +300,25 @@ measurable technical advantage or reusable software/IP rather than on the biolog
 connectome itself. FlyWire's public FAFB v783 data are released under CC BY-NC 4.0,
 so any commercial distribution must keep third-party data licensing separate from
 our original software and algorithms.
+
+
+### Literature checkpoint — 2026-09-27
+
+A targeted practical-literature refresh was completed while Gate B is running. New
+evidence was recorded in the science ledger and design-rules document:
+
+- A 2026 Nature brain-and-cord connectome study reports distributed, parallelized,
+  embodied control modules linked by ascending/descending circuits. This is kept
+  as a future scope/observable, not as an architecture specification.
+- A 2026 connectome-constrained whole-brain dynamics preprint links FlyWire wiring
+  to spontaneous activity through a fitted dynamical model and perturbation tests,
+  reinforcing the structural-vs-functional evidence boundary.
+- A 2025 peer-reviewed reservoir study provides direct computational prior art for
+  using Drosophila topology and synaptic weights in task benchmarks, including
+  topology/weight randomization controls.
+
+These findings do not change the immediate order:
+**complete NPC 100-null -> inspect artifact -> decide Gate B -> design Gate C -> computational abstraction**.
+
+The current workflow remains the sole source for Gate B completion state until its
+aggregate artifact exists and is independently inspected.
