@@ -56,9 +56,21 @@ Before any null is executed, record:
 - whether the coordinate is soma/marked-neuron position or another point;
 - duplicate-root handling rule.
 
-The first Gate C implementation should use the documented neuron coordinate
-product as a node-position distance. It must not be described as axon length,
-arbor distance, or synapse-to-synapse physical distance.
+The first Gate C preflight used the documented coordinate product as a node-position
+proxy, but its raw table contains multiple positions per root_id. The corrected
+preflight therefore collapses all positions per root_id by component-wise median
+for diagnostics only. This is reproducible, but it is not yet the preferred
+biological distance definition for the primary C0/C1 analysis.
+
+The preferred next C0 distance definition is an arbor-aware source/target
+definition if the v783 synapse-coordinate product can support it: outgoing
+synapse centroid for the presynaptic neuron and incoming synapse centroid for
+the postsynaptic neuron. This follows the relevant whole-brain Drosophila
+prior-art approach more closely than a generic neuron-position proxy. It must
+still be labeled as a synapse-derived arbor proxy, not axon length.
+
+The existing node-position proxy must not be described as axon length, arbor
+distance, or synapse-to-synapse physical distance.
 
 For coordinates [x,y,z] in FAFB voxel units, preserve the anisotropic voxel
 scale (4, 4, 40 nm) when calculating Euclidean distances. Do not calculate
@@ -172,6 +184,7 @@ rather than treating 101 thresholds as independent tests.
 Primary dataset: FlyWire FAFB v783.
 
 Primary literature:
+- Lin et al., Nature 634, 153–165 (2024), DOI 10.1038/s41586-024-07968-y.
 - Salova & Kovács, Network Neuroscience 9(1), 181–206 (2025),
   DOI 10.1162/netn_a_00428.
 - Péntek & Ercsey-Ravasz, Network Neuroscience 9(3), 869–895 (2025),
