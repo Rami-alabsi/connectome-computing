@@ -17,9 +17,9 @@ def sha256(p):
 def root_id(raw):
     s=str(raw).strip()
     if not s:return None
-    if s.startswith(PREFIX): return int(s)
-    if len(s)<=9: return int(PREFIX+s.zfill(9))
-    return int(s)
+    if s.startswith(PREFIX): return s
+    if len(s)<=9: return PREFIX+s.zfill(9)
+    return s
 
 def dist(a,b):
     dx=(a[0]-b[0])*4.0; dy=(a[1]-b[1])*4.0; dz=(a[2]-b[2])*40.0
