@@ -55,6 +55,15 @@ def main():
     edge_set=set(edges)
     nodes={u for u,v in edges}|{v for u,v in edges}
     dropped_edges=len(full_edges)-len(edges)
+    degree_all=Counter()
+    for u,v in full_edges:
+        degree_all[u]+=1; degree_all[v]+=1
+    dropped_by_threshold={}
+    dropped_set=set(full_edges)-set(edges)
+    for threshold in (37,75,93,120):
+        total_rc=sum(1 for u,v in full_edges if degree_all[u]>=threshold and degree_all[v]>=threshold)
+        dropped_rc=sum(1 for u,v in dropped_set if degree_all[u]>=threshold and degree_all[v]>=threshold)
+        dropped_by_threshold[str(threshold)]={"total_observed_rich_edges":total_rc,"dropped_rich_edges":dropped_rc,"fraction_dropped":dropped_rc/total_rc if total_rc else None}
     rng=random.Random(a.seed)
     edge_bins=[dbin(distance(outc[u],inc[v])) for u,v in edges]
     initial_bins=Counter(edge_bins)
@@ -82,7 +91,7 @@ def main():
       "purpose":"Gate C1 hard spatial degree-preserving swap feasibility benchmark; no rich-club inference",
       "method":{"swap":"(a,b),(c,d)->(a,d),(c,b)","hard_constraint":"multiset of coarse arbor-distance bins preserved per accepted swap",
         "distance_bins_nm":list(BINS_NM),"distance":"anisotropic Euclidean from outgoing centroid of source to incoming centroid of target"},
-      "network":{"full_nodes":len(full_nodes),"full_edges":len(full_edges),"covered_nodes":len(nodes),"covered_edges":len(edges),"dropped_edges_for_coverage":dropped_edges,"node_coverage":len(nodes)/len(full_nodes) if full_nodes else 0.0,"edge_coverage":len(edges)/len(full_edges) if full_edges else 0.0,"min_synapses":5},
+      "network":{"full_nodes":len(full_nodes),"full_edges":len(full_edges),"covered_nodes":len(nodes),"covered_edges":len(edges),"dropped_edges_for_coverage":dropped_edges,"node_coverage":len(nodes)/len(full_nodes) if full_nodes else 0.0,"edge_coverage":len(edges)/len(full_edges) if full_edges else 0.0,"dropped_edges_by_rich_threshold":dropped_by_threshold,"min_synapses":5},
       "benchmark":{"seed":a.seed,"attempts":a.attempts,"accepted":accepted,"invalid_or_duplicate":invalid,
         "distance_bin_rejected":bin_reject,"acceptance_rate":accepted/a.attempts if a.attempts else 0.0,
         "edge_count_preserved":len(edges)==len(edge_set),
