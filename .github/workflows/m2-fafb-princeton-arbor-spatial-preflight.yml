@@ -29,4 +29,6 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: fafb-v783-gate-c0-princeton-arbor-spatial-preflight
-          path: artifacts/fafb-v783/princeton-arbor-spatial-preflight.json
+          path: |
+            artifacts/fafb-v783/princeton-arbor-spatial-preflight.json
+            artifacts/fafb-v783/arbor-centroids.csv.gz
