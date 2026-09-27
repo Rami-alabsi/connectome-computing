@@ -1,0 +1,43 @@
+name: FAFB v783 root-ID normalization diagnostic
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - ".github/workflows/m2-fafb-root-id-diagnostic.yml"
+jobs:
+  diag:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download connections and synapse prefix
+        run: |
+          mkdir -p /tmp/fafb
+          curl -L --fail --retry 3 --retry-all-errors -o /tmp/fafb/connections.csv.gz "https://storage.googleapis.com/flywire-data/codex/data/fafb/783/connections_princeton.csv.gz"
+          curl -L --fail --retry 3 --retry-all-errors --range 0-524287 -o /tmp/fafb/syn-prefix.gz "https://storage.googleapis.com/flywire-data/codex/data/fafb/783/fafb_v783_princeton_synapse_table.csv.gz"
+      - name: Compare candidate ID mappings
+        run: |
+          python - <<'PY'
+          import csv,gzip
+          roots=set()
+          with gzip.open('/tmp/fafb/connections.csv.gz','rt',newline='') as f:
+              r=csv.DictReader(f)
+              for row in r:
+                  roots.add(int(row['pre_root_id'])); roots.add(int(row['post_root_id']))
+          print("graph roots",len(roots), "sample", list(roots)[:10])
+          with gzip.open('/tmp/fafb/syn-prefix.gz','rt',newline='') as f:
+              r=csv.DictReader(f)
+              vals=[]
+              for row in r:
+                  vals += [row['pre_root_id_720575940'],row['post_root_id_720575940']]
+                  if len(vals)>=200: break
+          vals={v for v in vals if v}
+          print("syn raw sample", sorted(vals)[:10])
+          for name,fn in {
+              "raw":lambda s:int(s),
+              "prefix":lambda s:int("720575940"+s.zfill(9)),
+              "offset":lambda s:720575940000000000+int(s),
+              "prefix_int":lambda s:720575940*10**9+int(s),
+          }.items():
+              mapped={fn(s) for s in vals}
+              print(name, "intersection", len(mapped & roots), "mapped_sample", list(mapped)[:3])
+          PY
