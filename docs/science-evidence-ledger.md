@@ -102,3 +102,17 @@ FlyWire's current publication index includes 2026 work on visual pathways, behav
 
 ### REVIEW NOTE — rich-club interpretation remains conservative
 The 2024 Lin et al. rich-club result remains the primary direct prior-art anchor for Gate A/B. The 2025–2026 literature above does not invalidate the project's CFG→NPC-like→spatial control hierarchy; instead it strengthens the need to test geometry and activity separately.
+
+## 2026-09-27 literature refresh
+
+| Finding | Evidence status | Project use | Required validation |
+|---|---|---|---|
+| Combined spatial and topological constraints improve prediction of connectome structure across fly, mouse and human | Established in the cited 2025 study | Gate C combined null design | observed vs CFG vs spatial vs combined; held-out structural metrics |
+| EDR explains numerous binary/weighted properties of the Drosophila neuropil projectome and is proposed as a null model | Established in the cited 2025 study | candidate spatial Gate C null | verify distance semantics and neuron-level applicability before implementation |
+| Fly connectome-constrained whole-brain dynamics can identify candidate cells/synapses associated with spontaneous activity when fitted to recordings | Promising; 2026 preprint | future structure-to-dynamics bridge | independent activity validation and perturbation/ablation |
+| Simplified dynamics on real Drosophila network structure can reproduce studied activation patterns, with network distance differing from physical distance | Established for the cited model | keep graph-distance and physical-distance controls conceptually separate | matched dynamical models and controlled rewiring |
+| Full/partial Drosophila connectomes have already been used in reservoir computing, fixed recurrent processing units and neuromorphic hardware | Established prior art | prevents overclaiming computational novelty | targeted prior-art search before architecture/IP claims |
+| Recent fly-connectome reviews emphasize linking wiring to activity and behavior through explicit models | Review/context | reinforces evidence ladder | structural null -> dynamics -> task validation |
+
+**Decision:** these literature updates sharpen but do not reorder the current
+project. Gate B remains the immediate unfinished scientific gate.
