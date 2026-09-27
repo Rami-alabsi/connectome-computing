@@ -84,13 +84,14 @@ Every large analysis artifact should record repository commit SHA, dataset/versi
 5. Inspect exact current code before proposing changes.
 6. Verify workflow status and artifacts.
 7. Search primary literature before modifying a publication-aligned method.
+12. For every substantive stage, perform a targeted literature refresh and record only findings that change, constrain, validate, or explicitly rule out a project decision.
 8. Separate published facts from project measurements.
 9. Never claim an artifact was inspected unless it was actually retrieved.
 10. Never call a newer-snapshot extension an exact replication.
 11. Continue from the first unfinished gate rather than jumping to M6.
 
 ## Current blocking gate
-CFG publication-aligned runtime/replication benchmark.
+Gate B — 100-null FAFB v783 NPC-like / neuropil-constrained rich-club ensemble. Gate A is closed for the defined CFG v783 method-aligned path.
 
 ## Decision log — 2026-09-24
 - explicit rich-club threshold controls added;
