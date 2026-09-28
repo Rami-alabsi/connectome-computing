@@ -284,3 +284,34 @@ The C2 pilot must preserve:
 - no self-loops or duplicate directed pairs.
 
 The pilot reports acceptance and invariant status only; it must not be interpreted as a rich-club result.
+
+
+## 2026-09-28 — C2 feasibility and sampler decision
+
+The 8-null spatial stability result is validated before entering C2.
+
+C2 feasibility uses:
+- full FAFB v783 graph after pair aggregation and min_synapses=5;
+- authoritative Princeton arbor centroids with 100% edge coverage;
+- exact directed in-degree and out-degree preservation;
+- exact source-neuropil -> target-neuropil block-pair preservation on the constrained portion;
+- frozen treatment for 9,869 edges lacking complete dominant NPC block assignment;
+- exact preservation of the coarse arbor-distance-bin histogram;
+- no self-loops or duplicate directed pairs.
+
+Two pilot kernels were tested:
+1. baseline random edge-pair proposal: 1.168% acceptance;
+2. block-pair-stratified proposal: 9.789% acceptance.
+
+The second kernel is a proposal optimization, not a relaxation of the C2 constraints. Nevertheless, its simple runtime extrapolation remains ~8 h/null on the current Python runner, so no ensemble is authorized yet.
+
+### Next engineering gate
+
+Benchmark a faster implementation of the same proposal kernel or an exactly equivalent sampler. The optimization must preserve the same state constraints and must be validated on:
+- exact invariants;
+- accepted-swap count;
+- reproducible seed behavior;
+- proposal symmetry / stationary-ensemble justification;
+- full-target completion on a small graph before full FAFB execution.
+
+Only after that gate passes should a C2 ensemble be launched.
