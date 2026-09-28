@@ -12,8 +12,7 @@ biological observation → controlled null model → surviving structural constr
 Connectivity alone is not treated as proof of function.
 
 ## Current stage
-M5 → M6: synthetic connectome validation and effective-state interface prototyping.
-The immediate blocking gate is closure of the FAFB rich-club replication/validation sequence.
+C2 joint biological-control stage: FAFB v783 CFG and defined NPC-like gates are closed; spatial-null stability is validated; the corrected joint NPC-like + arbor-distance C2 sampler has passed a 1,000,000-attempt feasibility benchmark. The immediate blocking gate is a full C2 null and independent-seed ensemble before any biological interpretation.
 
 ## Dataset provenance
 Primary current dataset: FlyWire FAFB, Female Adult Fly Brain, snapshot v783.
@@ -91,7 +90,7 @@ Every large analysis artifact should record repository commit SHA, dataset/versi
 11. Continue from the first unfinished gate rather than jumping to M6.
 
 ## Current blocking gate
-Gate C — spatial/distance-constrained null design and preflight. Gate A is closed for the defined CFG v783 method-aligned path. Gate B is closed for the defined 100-null FAFB v783 NPC-like benchmark; the broader biological control hierarchy remains open.
+C2 — joint NPC-like + spatial null. C0 data-definition/coverage is closed; the expanded 8-realization spatial hard-binned null is stable; the corrected C2 proposal kernel has passed a 1M-attempt feasibility benchmark. The next required scientific artifact is one full C2 null reaching 3,732,460 accepted swaps, followed by independent seeds and mixing diagnostics. No rich-club interpretation is permitted from the C2 pilot alone.
 
 ### Gate B closure record — 2026-09-27
 The completed 100-null NPC-like ensemble (workflow 36295429519, artifact 10925776875) used FAFB v783, 3,732,460 unique directed pairs, a 5-synapse pair-level threshold, 100 deterministic nulls, exact in/out-degree preservation, exact source-neuropil→target-neuropil block-count preservation, and full swap realization. The descriptive phi_norm > 1.01 span was degrees 41–69 with peak 1.015171 at degree 57. This closes only the defined v783 NPC-like benchmark.
@@ -128,3 +127,10 @@ The primary Gate C comparison must be selected before execution and must specify
 - no replication label when method or dataset materially differs;
 - no architecture claim merely because a biological pattern is visually striking;
 - preserve failed runs and explain their cause.
+
+## 2026-09-28 research-continuity rule
+The project now has two parallel but explicitly separated tracks:
+1. Confirmatory spine: close the predeclared biological null hierarchy before making structural claims.
+2. Discovery watch: preserve and escalate unexpected observations only through artifact verification, independent rerun, stronger nulls, alternative explanations, locked follow-up, and held-out or external validation.
+
+The existence of an anomaly never authorizes a post-hoc threshold, mechanism claim, or novelty claim.
