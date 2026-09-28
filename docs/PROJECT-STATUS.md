@@ -253,13 +253,19 @@ The master handoff compass is now recorded in `docs/PROJECT-MAP.md`. This sectio
 supersedes older statements in this file that still described CFG as the immediate
 blocking gate.
 
-### Current gate state
+### Current authoritative gate state — 2026-09-28
+
+This section supersedes older Gate C wording below in this historical status file.
 
 - Gate A — FAFB v783 CFG/rich-club: **CLOSED** for the defined method-aligned path.
-- Gate B — FAFB v783 NPC-like/neuropil-constrained rich-club: **CLOSED** for the defined 100-null v783 benchmark; broader biological control remains open.
-- Gate C — spatial/distance-constrained null: **OPEN; preflight active, no scientific result yet**.
-- Computational architecture interpretation remains downstream of the biological
-  control hierarchy.
+- Gate B — FAFB v783 NPC-like/neuropil-constrained rich-club: **CLOSED** for the defined 100-null v783 benchmark.
+- Gate C0 — authoritative Princeton spatial data definition/coverage: **CLOSED**.
+- Gate C1 — spatial-null feasibility: **CLOSED**.
+- Spatial 4-null: **VALIDATED**.
+- Spatial 8-null: **STABLE** across the expanded seed ensemble.
+- C2 — joint NPC-like + arbor-distance-bin feasibility: **OPEN for runtime/sampler optimization**.
+- Computational architecture interpretation remains downstream of the biological control hierarchy.
+- No Gate C closure is claimed until the joint C2 control is executable at the required ensemble scale and the stronger spatial/max-entropy controls are addressed.
 
 ### Current Gate C execution
 
@@ -288,6 +294,52 @@ evidence only.
 
 The C1 workflow is now redirected to consume the authoritative Princeton C0 artifact.
 No spatial rich-club ensemble has been accepted yet.
+
+### C2 — joint NPC-like + arbor-distance-bin control — runtime/sampler optimization (2026-09-28)
+
+The current C2 constraint surface is:
+- exact directed edge count;
+- exact in-degree sequence;
+- exact out-degree sequence;
+- exact source-block → target-block edge counts for edges with complete dominant-block assignment;
+- exact global arbor-distance-bin histogram;
+- no self-loops;
+- no duplicate directed edges;
+- edges lacking a complete dominant NPC-like block assignment remain frozen, not removed.
+
+Authoritative feasibility baseline:
+- Run 36396525136;
+- seed 20260935;
+- 100,000 attempts;
+- 1,168 accepted swaps (1.168%);
+- ~78.1 s runtime;
+- exact invariants passed;
+- linear extrapolation was ~69.3 h/null.
+
+Block-pair-stratified proposal kernel:
+- commit 8fd9f6ad8ca6765a5ed1d60d602ff131a86a7f1c;
+- 100,000 attempts;
+- 9,789 accepted swaps (9.789%);
+- block rejection 0;
+- ~86.6 s;
+- exact invariants passed;
+- linear extrapolation ~9.2 h/null.
+
+Bucket-key lookup optimization:
+- commit d12c4ca05310f6ab41fca94237afcd2c461c98af;
+- 100,000 attempts;
+- 9,789 accepted swaps (9.789%);
+- ~55.2 s;
+- exact invariants passed;
+- linear extrapolation ~5.85 h/null.
+
+The 100k pilots are feasibility/runtime evidence only. They are not null replicates and must not be aggregated as scientific ensemble samples.
+
+The next authorized experiment is a 1,000,000-attempt feasibility benchmark, same seed 20260935, same constraint surface, with checkpoints every 100,000 attempts. The benchmark workflow was prepared in commit a2ec1dfdaa0f721da94230892c2c7a2428e27a21; the sampler was instrumented for acceptance/time checkpoints in commit e650ad8e849cc19b33f63fde861f485eee759cdb.
+
+Execution status at this documentation update: prepared but not executed. No 1M result is claimed.
+
+Do not launch the full C2 null ensemble until this benchmark establishes whether the acceptance rate remains sufficiently stable over 1M attempts. Do not change the primary constraint surface by adding joint block-pair × distance-bin preservation; that would be a separately documented stronger sensitivity null.
 
 ### Implementation integrity
 
