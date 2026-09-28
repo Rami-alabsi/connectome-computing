@@ -210,3 +210,40 @@ Corrected C2 pilot:
 - status: running at this checkpoint
 
 Do not interpret the failed pilot's 9,869 figure as biological evidence. It is an implementation coverage diagnostic.
+
+
+## 2026-09-28 LIVE — C2 feasibility validated; runtime optimization is now the active gate
+
+Spatial 8-null stability is validated:
+- Run `36386665317`
+- 8/8 nulls reached 3,732,460 successful swaps
+- >1.01 interval = 51–71
+- peak degree = 62
+- peak phi_norm = 1.0120821
+- original 4-null re-aggregation reproduces peak 62 / 1.0121585.
+
+C2 joint NPC-like + arbor-distance feasibility has now been executed successfully.
+
+Baseline corrected kernel:
+- Run `36396525136`
+- 100k attempts
+- 1,168 accepted = 1.168%
+- 9,869 edges frozen because complete NPC block assignment is unavailable
+- all invariants passed
+- artifact `10958119130`.
+
+Optimized kernel:
+- Run `36396805573`
+- commit `8fd9f6ad8ca6765a5ed1d60d602ff131a86a7f1c`
+- 100k attempts
+- 9,789 accepted = **9.789%**
+- fixed block-pair-stratified proposal; exact distance-bin acceptance
+- all invariants passed
+- artifact `10958720816`.
+
+The optimized kernel is still estimated at ~8 h per full null on the current Python runner. **Do not launch the ensemble yet.** First benchmark a faster implementation of the same constraint set. Preserve the distinction between proposal-kernel optimization and null-model definition.
+
+No C2 rich-club curve or scientific mechanism inference is allowed from the pilot.
+
+Updated compass:
+Gate A CLOSED → Gate B CLOSED → C0 CLOSED → C1 CLOSED → spatial 8-null STABLE → C2 FEASIBILITY CLOSED → **C2 RUNTIME/SAMPLER OPTIMIZATION OPEN** → C2 ensemble → stronger spatial model → structure→function → computational abstraction.
