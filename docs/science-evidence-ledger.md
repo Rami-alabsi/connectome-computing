@@ -279,3 +279,12 @@ Gate C1 feasibility is CLOSED. The first spatial ensemble is VALIDATED but Gate 
 Next experiment: 8-null spatial stability expansion. If stable, perform a 100,000-attempt C2 NPC+spatial feasibility pilot before designing a full combined ensemble.
 
 Runtime record: four-null spatial ensemble ~21 minutes wall-clock; estimated 8-null ~40–45 minutes and 16-null ~80–90 minutes with four-way parallelism. Estimates are planning values, not guaranteed execution times.
+
+
+## 2026-09-28 — Stability experiment active
+
+Run 36386665317 is the pre-registered 8-null stability expansion of the validated spatial sensitivity ensemble.
+
+No scientific interpretation is permitted from partial jobs. Acceptance requires 8/8 target completion and all edge-count, in-degree, out-degree and distance-bin invariants.
+
+Expected runtime: approximately 40–45 minutes wall-clock using four-way parallelism, based on the completed 4-null run.
