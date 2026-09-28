@@ -66,6 +66,7 @@ def main():
     edge_bins=[dbin(distance_nm(outc[u],inc[v])) for u,v in edge_list]
     initial_bins=Counter(edge_bins); initial_blocks=block_counts(edge_list,blocks)
     initial_in,initial_out=degree_maps(edge_list)
+    constrained_edges=[e for e in edge_list if e[0] in blocks and e[1] in blocks]
     rng=random.Random(args.seed)
     accepted=invalid=block_reject=distance_reject=0
     for _ in range(args.attempts):
@@ -76,6 +77,8 @@ def main():
         p1,p2=(a,d),(c,b)
         if p1 in edge_set or p2 in edge_set or p1==p2:
             invalid+=1; continue
+        if a not in blocks or b not in blocks or c not in blocks or d not in blocks:
+            block_reject+=1; continue
         old_block=sorted(((blocks[a],blocks[b]),(blocks[c],blocks[d])))
         new_block=sorted(((blocks[a],blocks[d]),(blocks[c],blocks[b])))
         if old_block!=new_block:
