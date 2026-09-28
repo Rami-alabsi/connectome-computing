@@ -570,6 +570,31 @@ Do not launch a full C2 ensemble yet. The next engineering step is to benchmark 
 
 No rich-club curve, significance claim, mechanism claim, or architectural inference is attached to either C2 pilot.
 
+## 2026-09-28 — C2 1M benchmark dispatch failed before execution; syntax repaired
+
+The manually dispatched 1,000,000-attempt C2 benchmark was **not scientifically executed**.
+
+- workflow run: `36401960078`
+- head commit at dispatch: `ef8dd440556470f33f7d848b24808b977527fdb3`
+- C0 source run: `36318477728`
+- the 65.2 MB compressed Princeton graph download succeeded;
+- the authoritative C0 artifact download succeeded (artifact `10931780910`, SHA-256 `7265e20db3721f6b438a93227180eb0d8b0d3ad3fd9894bcbbe4a14a81dd5f36`);
+- execution stopped at the Python parser before any C2 sampling;
+- no 1M acceptance trajectory, runtime, or null result exists from this run.
+
+The immediate cause was a literal `\\n` embedded in `run_fafb_npc_spatial_feasibility.py`. The file has now been repaired and checkpoint instrumentation is active.
+
+CI guardrails added:
+- `python -m compileall -q scripts src tests` before test execution;
+- `python -m pytest --collect-only -q` before the full pytest suite;
+- C2 runs perform both checks **before** downloading the large graph/C0 artifact.
+
+A first CI run after adding the guardrail (`36406934053`) correctly caught a remaining output-string syntax defect before tests ran. The subsequent source repair is now on `main`; the next push-triggered test run must be green before treating the C2 workflow as executable.
+
+**Next authorized C2 action:** after the current test CI passes, manually dispatch the same 1M benchmark again with `c0_run_id=36318477728` and `attempts=1000000`. Do not aggregate or interpret run `36401960078` as a scientific experiment.
+
+**Parallel work authorized without waiting for C2:** compute FAFB structural bridge observables (neuropil participation, cross-module bridge proxies, rich-club overlap, degree-based integrator/broadcaster proxies, and arbor-distance cost) without making any RSS mechanism claim.
+
 ## Current compass
 
 Gate A CLOSED → Gate B CLOSED → C0 CLOSED → C1 feasibility CLOSED → spatial 8-null stability VALIDATED → **C2 joint-constraint feasibility VALIDATED but runtime optimization OPEN** → C2 full ensemble only after sampler/runtime validation → stronger spatial model / structure→function → computational abstraction.
