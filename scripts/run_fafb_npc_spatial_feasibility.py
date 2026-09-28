@@ -43,7 +43,9 @@ def load_graph(path,min_synapses):
     return accepted,blocks
 
 def block_counts(edges,blocks):
-    return Counter((blocks[u],blocks[v]) for u,v in edges)
+    # Edges with no dominant block assignment are frozen and excluded from the
+    # NPC block-pair constraint; they remain in the full graph and degree maps.
+    return Counter((blocks[u],blocks[v]) for u,v in edges if u in blocks and v in blocks)
 
 def degree_maps(edges):
     ins,outs=Counter(),Counter()
@@ -60,13 +62,20 @@ def main():
     edges=list(aggregate_pair_synapses(args.connections,min_synapses=args.min_synapses))
     blocks=load_graph(Path(args.connections),args.min_synapses)[1]
     if len(blocks)==0: raise ValueError("no block assignments")
-    missing=[e for e in edges if e[0] not in outc or e[1] not in inc or e[0] not in blocks or e[1] not in blocks]
-    if missing: raise ValueError(f"coverage incomplete: {len(missing)} edges")
+
+    # Arbor centroids are required for every graph edge because distance bins
+    # are a global constraint. Missing NPC blocks are not a data-coverage
+    # failure: those edges are deliberately frozen for C2.
+    missing_centroid=[e for e in edges if e[0] not in outc or e[1] not in inc]
+    if missing_centroid:
+        raise ValueError(f"arbor-centroid coverage incomplete: {len(missing_centroid)} edges")
+
     edge_list=list(edges); edge_set=set(edges)
     edge_bins=[dbin(distance_nm(outc[u],inc[v])) for u,v in edge_list]
     initial_bins=Counter(edge_bins); initial_blocks=block_counts(edge_list,blocks)
     initial_in,initial_out=degree_maps(edge_list)
-    constrained_edges=[e for e in edge_list if e[0] in blocks and e[1] in blocks]
+    frozen_block_edges=sum(1 for u,v in edge_list if u not in blocks or v not in blocks)
+
     rng=random.Random(args.seed)
     accepted=invalid=block_reject=distance_reject=0
     for _ in range(args.attempts):
@@ -77,6 +86,8 @@ def main():
         p1,p2=(a,d),(c,b)
         if p1 in edge_set or p2 in edge_set or p1==p2:
             invalid+=1; continue
+        # Any edge endpoint without a dominant NPC block is frozen: it can
+        # remain in the graph but cannot participate in a constrained swap.
         if a not in blocks or b not in blocks or c not in blocks or d not in blocks:
             block_reject+=1; continue
         old_block=sorted(((blocks[a],blocks[b]),(blocks[c],blocks[d])))
@@ -90,6 +101,7 @@ def main():
         edge_set.remove((a,b)); edge_set.remove((c,d)); edge_set.add(p1); edge_set.add(p2)
         edge_list[i],edge_list[j]=p1,p2; edge_bins[i],edge_bins[j]=new_bin
         accepted+=1
+
     final_in,final_out=degree_maps(edge_list)
     preservation={
         "same_edge_count":len(edge_set)==len(edges),
@@ -106,14 +118,20 @@ def main():
         "acceptance_rate":accepted/args.attempts if args.attempts else 0.0,
         "invalid_or_duplicate":invalid,"block_rejected":block_reject,"distance_bin_rejected":distance_reject,
         "unique_directed_pairs":len(edges),"block_count_pairs":len(initial_blocks),
+        "frozen_edges_without_complete_block_assignment":frozen_block_edges,
         "distance_bins_nm":list(BINS_NM),"preservation":preservation,
         "all_invariants_preserved":all(preservation.values()),
         "scientific_conclusion":None,
         "interpretation":"feasibility only; no rich-club inference",
-        "limitations":["NPC-like block definition follows project implementation","coarse arbor-distance bins are preserved","pilot acceptance does not establish biological mechanism"],
+        "limitations":[
+            "NPC-like block definition follows project implementation",
+            "edges without complete dominant block assignment are frozen and excluded from the block-pair constraint",
+            "coarse arbor-distance bins are preserved",
+            "pilot acceptance does not establish biological mechanism",
+        ],
     }
     Path(args.output).parent.mkdir(parents=True,exist_ok=True)
     Path(args.output).write_text(json.dumps(result,indent=2,sort_keys=True)+"\n")
     print(json.dumps(result,indent=2))
-# C2 pilot bootstrap validation.
+
 if __name__=="__main__": main()
