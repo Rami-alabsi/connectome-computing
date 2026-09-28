@@ -107,7 +107,7 @@ def main():
     rng = random.Random(args.seed)
     swaps = max(1000, int(len(edge_list) * args.swaps_per_edge))
     successful = attempts = invalid = bin_reject = 0
-    max_attempts = max(100, swaps * 20)
+    max_attempts = max(100, swaps * 40)
 
     while successful < swaps and attempts < max_attempts:
         attempts += 1
@@ -167,7 +167,7 @@ def main():
             "invalid_or_duplicate": invalid,
             "distance_bin_rejected": bin_reject,
             "acceptance_rate": successful / attempts if attempts else 0.0,
-            "max_attempts": max_attempts,
+            "max_attempts": max_attempts,\n            "attempt_budget_multiplier": 40,
         },
         "preservation": preservation,
         "thresholds": thresholds,
