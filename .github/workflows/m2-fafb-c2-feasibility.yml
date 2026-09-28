@@ -8,9 +8,14 @@ on:
         required: true
         type: string
       attempts:
-        description: "Number of proposal attempts for the feasibility benchmark"
+        description: "Maximum proposal attempts; ignored as stop condition when target_accepted is reached"
         required: true
         default: "1000000"
+        type: string
+      target_accepted:
+        description: "Stop after this many accepted swaps; use 3732460 for the full C2 null"
+        required: true
+        default: "3732460"
         type: string
 
 permissions:
@@ -20,7 +25,7 @@ permissions:
 jobs:
   feasibility:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 180
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -48,7 +53,7 @@ jobs:
         env:
           PYTHONPATH: .
         run: |
-          python scripts/run_fafb_npc_spatial_feasibility.py --connections data/raw/fafb_v783/connections_princeton.csv.gz --centroids "$(find data/raw/fafb_v783/c0-artifact -name arbor-centroids.csv.gz -print -quit)" --seed 20260935 --attempts ${{ inputs.attempts }} --min-synapses 5 --output artifacts/fafb-v783/c2-feasibility-${{ inputs.attempts }}.json
+          python scripts/run_fafb_npc_spatial_feasibility.py --connections data/raw/fafb_v783/connections_princeton.csv.gz --centroids "$(find data/raw/fafb_v783/c0-artifact -name arbor-centroids.csv.gz -print -quit)" --seed 20260935 --attempts ${{ inputs.attempts }} --target-accepted ${{ inputs.target_accepted }} --min-synapses 5 --output artifacts/fafb-v783/c2-feasibility-${{ inputs.attempts }}.json
       - uses: actions/upload-artifact@v4
         with:
           name: fafb-v783-c2-feasibility-${{ inputs.attempts }}
