@@ -1,18 +1,12 @@
 name: FAFB v783 C2 NPC-spatial feasibility pilot
 
 on:
-  push:
-    paths:
-      - .github/workflows/m2-fafb-c2-feasibility.yml
   workflow_dispatch:
     inputs:
       c0_run_id:
         description: "Authoritative C0 workflow run ID"
         required: true
         type: string
-
-env:
-  BOOTSTRAP_C0_RUN_ID: "36318477728"
 
 permissions:
   actions: read
@@ -36,7 +30,7 @@ jobs:
         with:
           github-token: ${{ github.token }}
           repository: ${{ github.repository }}
-          run-id: ${{ github.event_name == 'push' && env.BOOTSTRAP_C0_RUN_ID || inputs.c0_run_id }}
+          run-id: ${{ inputs.c0_run_id }}
           name: fafb-v783-gate-c0-princeton-arbor-spatial-preflight
           path: data/raw/fafb_v783/c0-artifact
       - name: Run 100k feasibility pilot
