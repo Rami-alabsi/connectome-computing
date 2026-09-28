@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# Bootstrap trigger: validated C1 -> four-null ensemble handoff.\n"""Run one FAFB v783 hard-binned arbor-spatial rich-club null.
+"""Run one FAFB v783 hard-binned arbor-spatial rich-club null.
 
 This is a project-defined sensitivity null: directed degree-preserving swaps
 must preserve the multiset of coarse arbor-distance bins.
