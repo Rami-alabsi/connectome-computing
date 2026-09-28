@@ -356,3 +356,18 @@ The spatial result is a project-defined hard-binned arbor-distance sensitivity n
 **Compass now:** Gate A CLOSED → Gate B CLOSED → authoritative C0 CLOSED → C1 feasibility CLOSED → spatial 4-null validated → 8-null stability → C2 feasibility pilot → possible NPC+spatial ensemble → functional validation → computational abstraction.
 
 See docs/GATE-C-COMPARISON-2026-09-28.md for the complete audit, runtime estimates, terminology and literature checkpoint.
+
+
+## 2026-09-28 — Spatial stability closed as a sub-gate
+
+Spatial 8-null stability is now validated:
+- >1.01 interval remains 51–71.
+- peak remains degree 62.
+- peak phi_norm = 1.0120821 versus 1.0121585 in the 4-null ensemble.
+- all 8 nulls preserve edge count, in-degree, out-degree and distance-bin histogram.
+
+This closes the **spatial ensemble stability sub-gate**, but not Gate C overall.
+
+C2 feasibility is active: NPC-like block-pair preservation + coarse arbor-distance-bin preservation. The pilot is 100,000 attempts and is feasibility-only.
+
+**Updated compass:** Gate A CLOSED → Gate B CLOSED → C0 CLOSED → C1 feasibility CLOSED → spatial stability CLOSED → C2 feasibility RUNNING → possible C2 ensemble → stronger spatial model / maximum-entropy sensitivity → functional validation → computational abstraction.
