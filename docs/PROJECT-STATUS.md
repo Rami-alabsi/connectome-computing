@@ -456,3 +456,19 @@ C2 feasibility pilot is now active:
 - expected runtime: usually a few minutes after the ~2.7 GB graph download; hard timeout 20 minutes.
 
 The C2 workflow is now manual-dispatch-only after its temporary bootstrap launch.
+
+
+## 2026-09-28 — C2 pilot correction and rerun
+
+The first C2 pilot (run 36393368885) stopped before sampling because the pilot incorrectly required every accepted graph edge to have an NPC block assignment. It found 9,869 such edges. This was an implementation/coverage issue, not a scientific result.
+
+The C2 pilot was corrected to match the existing NPC-like implementation semantics: edges whose endpoints lack a dominant outgoing-neuropil block are frozen and cannot participate in NPC-constrained swaps; centroid coverage remains mandatory and is complete.
+
+Corrected pilot run: 36394370209
+- 100,000 attempts
+- seed 20260935
+- authoritative C0: 36318477728
+- currently running at the time of this update
+- no scientific interpretation permitted until completion.
+
+The temporary push bootstrap used to launch this corrected pilot has already been removed; the workflow is manual-dispatch-only.
