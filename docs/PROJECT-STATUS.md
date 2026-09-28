@@ -361,3 +361,27 @@ These findings do not change the immediate order:
 The completed aggregate artifact is now the source of record for the defined Gate B benchmark.
 
 The Gate C design/preflight artifact is now the source of record for the next biological-control stage; it contains no scientific Gate C conclusion.
+
+
+## 2026-09-28 — Gate C1 Princeton feasibility CLOSED
+
+The authoritative Princeton-based Gate C1 feasibility benchmark has now completed successfully.
+
+- Workflow run: `36320329317`
+- Commit: `ad1005f4974048957b05e8eb21697fd495816fac`
+- Artifact: `10932471526`
+- Artifact SHA-256: `efa3b9837ece2920e37fde31383ea0e40f4787d5d1da6da61fc897850882ea45`
+- C0 source run: `36318477728`
+- C0 artifact: `10931780910`
+- C0 artifact SHA-256: `7265e20db3721f6b438a93227180eb0d0b8d3ad3fd9894bcbbe4a14a81dd5f36`
+- 3,732,460/3,732,460 directed edges covered; node coverage 100%.
+- 100,000 swap attempts produced 4,156 accepted swaps (4.156% acceptance).
+- Distance-bin histogram preserved exactly.
+- Edge count, in-degree and out-degree preserved exactly.
+- No observed rich-club edges were dropped at thresholds 37, 75, 93 or 120.
+- Distance definition: anisotropic Euclidean distance from outgoing source arbor-proxy centroid to incoming target arbor-proxy centroid, with 4/4/40 nm scaling.
+- This closes the **feasibility sub-gate**, not Gate C as a whole.
+
+The lightweight-C0 C1 run `36317314664` remains superseded. The Princeton result is now the primary C1 feasibility evidence.
+
+A four-null spatial rich-club ensemble has been launched from the same authoritative C0 artifact (Run `36378473388`, bootstrap commit `e15e635c46bca67692abebc0e6931c6953902aa5`). It is not yet accepted as scientific evidence; each null must reach 3,732,460 swaps and pass all invariants before aggregation.
