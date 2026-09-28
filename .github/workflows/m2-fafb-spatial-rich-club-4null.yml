@@ -1,9 +1,6 @@
 name: FAFB v783 Gate C spatial rich-club null ensemble
 
 on:
-  push:
-    paths:
-      - scripts/run_fafb_spatial_rich_club.py
   workflow_dispatch:
     inputs:
       c0_run_id:
@@ -21,9 +18,6 @@ on:
 permissions:
   actions: read
   contents: read
-
-env:
-  BOOTSTRAP_C0_RUN_ID: "36318477728"
 
 jobs:
   spatial-null:
@@ -50,7 +44,7 @@ jobs:
         with:
           github-token: ${{ github.token }}
           repository: ${{ github.repository }}
-          run-id: ${{ github.event_name == 'push' && env.BOOTSTRAP_C0_RUN_ID || inputs.c0_run_id }}
+          run-id: ${{ inputs.c0_run_id }}
           name: fafb-v783-gate-c0-princeton-arbor-spatial-preflight
           path: data/raw/fafb_v783/c0-artifact
 
