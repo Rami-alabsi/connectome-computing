@@ -521,3 +521,13 @@ No rich-club curve, significance claim, mechanism claim, or architectural infere
 ## Current compass
 
 Gate A CLOSED → Gate B CLOSED → C0 CLOSED → C1 feasibility CLOSED → spatial 8-null stability VALIDATED → **C2 joint-constraint feasibility VALIDATED but runtime optimization OPEN** → C2 full ensemble only after sampler/runtime validation → stronger spatial model / structure→function → computational abstraction.
+
+
+### C2 runtime refinement — latest optimized commit benchmark
+
+The follow-up code fix `d12c4ca05310f6ab41fca94237afcd2c461c98af` removed per-attempt bucket-key lookup overhead. Run `36396814001` executed that corrected optimized kernel with the same seed and 100,000 attempts:
+- accepted swaps: 9,789 (9.789%);
+- all invariants passed;
+- pilot step runtime: approximately **55.2 s**.
+
+This is now the preferred runtime benchmark for the current Python proposal kernel. Simple linear extrapolation is approximately 6 hours per full null, still too large for the present workflow and not an acceptable reason to relax constraints. The next gate remains faster exact implementation/sampler validation.
