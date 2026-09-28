@@ -176,3 +176,22 @@ Run 36386665317 is the planned spatial stability expansion.
 Do not interpret partial jobs. Accept the aggregate only if all eight nulls reach target and preserve edge count, in-degree, out-degree and distance-bin histogram.
 
 The 8-null workflow is manual-dispatch-only in the repository after a temporary push bootstrap was removed immediately after launch.
+
+
+## 2026-09-28 LIVE — Gate C stability and C2
+
+Spatial 8-null stability is validated:
+- run 36386665317
+- 8/8 valid
+- >1.01 = degrees 51–71
+- peak degree = 62
+- peak phi_norm = 1.0120821
+
+The original 4-null aggregate was independently re-aggregated from its four null artifacts and reproduced peak degree 62 / phi_norm 1.0121585.
+
+C2 feasibility pilot is active as run 36393368885:
+- 100,000 attempts
+- NPC-like block-pair + arbor-distance-bin preservation
+- no rich-club interpretation
+
+After the pilot, do not immediately launch a full C2 ensemble. First assess acceptance rate and whether the move set is sufficiently ergodic/connected for a meaningful null.
