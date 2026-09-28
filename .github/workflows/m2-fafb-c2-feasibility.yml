@@ -1,4 +1,4 @@
-name: FAFB v783 C2 NPC-spatial feasibility pilot
+name: FAFB v783 C2 NPC-spatial feasibility benchmark
 
 on:
   workflow_dispatch:
@@ -6,6 +6,11 @@ on:
       c0_run_id:
         description: "Authoritative C0 workflow run ID"
         required: true
+        type: string
+      attempts:
+        description: "Number of proposal attempts for the feasibility benchmark"
+        required: true
+        default: "1000000"
         type: string
 
 permissions:
@@ -15,7 +20,7 @@ permissions:
 jobs:
   feasibility:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -33,13 +38,13 @@ jobs:
           run-id: ${{ inputs.c0_run_id }}
           name: fafb-v783-gate-c0-princeton-arbor-spatial-preflight
           path: data/raw/fafb_v783/c0-artifact
-      - name: Run 100k feasibility pilot
+      - name: Run C2 feasibility benchmark
         env:
           PYTHONPATH: .
         run: |
-          python scripts/run_fafb_npc_spatial_feasibility.py --connections data/raw/fafb_v783/connections_princeton.csv.gz --centroids "$(find data/raw/fafb_v783/c0-artifact -name arbor-centroids.csv.gz -print -quit)" --seed 20260935 --attempts 100000 --min-synapses 5 --output artifacts/fafb-v783/c2-feasibility-100k.json
+          python scripts/run_fafb_npc_spatial_feasibility.py --connections data/raw/fafb_v783/connections_princeton.csv.gz --centroids "$(find data/raw/fafb_v783/c0-artifact -name arbor-centroids.csv.gz -print -quit)" --seed 20260935 --attempts ${{ inputs.attempts }} --min-synapses 5 --output artifacts/fafb-v783/c2-feasibility-${{ inputs.attempts }}.json
       - uses: actions/upload-artifact@v4
         with:
-          name: fafb-v783-c2-feasibility-100k
-          path: artifacts/fafb-v783/c2-feasibility-100k.json
+          name: fafb-v783-c2-feasibility-${{ inputs.attempts }}
+          path: artifacts/fafb-v783/c2-feasibility-${{ inputs.attempts }}.json
           retention-days: 90
