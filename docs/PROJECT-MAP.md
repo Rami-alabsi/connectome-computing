@@ -337,3 +337,22 @@ Authoritative chain:
 C1 measured 100% graph/node coverage, 4,156 accepted swaps in 100,000 attempts, exact edge/in/out-degree preservation, and exact coarse arbor-distance-bin preservation. Rich-edge coverage at thresholds 37/75/93/120 was 100%.
 
 The next controlled experiment is the four-null spatial rich-club ensemble. Do not interpret the C1 feasibility benchmark itself as a rich-club result.
+
+
+## 2026-09-28 — Gate C first spatial ensemble checkpoint
+
+The authoritative spatial path has now progressed beyond C1 feasibility.
+
+**Gate C state:** C0 CLOSED → C1 feasibility CLOSED → first 4-null spatial rich-club ensemble VALIDATED → Gate C overall remains OPEN for ensemble stability and stronger spatial-model comparison.
+
+Cross-null audit:
+- CFG 100-null: peak phi_norm 1.057835 at degree 96; descriptive >1.01 span 27–120.
+- NPC-like 100-null: peak 1.015171 at degree 57; descriptive >1.01 span 41–69.
+- Spatial 4-null: peak 1.012159 at degree 62; descriptive >1.01 span 51–71.
+- The observed curve is identical across the three aggregates, so the attenuation comes from the null constraints.
+
+The spatial result is a project-defined hard-binned arbor-distance sensitivity null, not an exact Lin NND reproduction and not a Salova & Kovács maximum-entropy model.
+
+**Compass now:** Gate A CLOSED → Gate B CLOSED → authoritative C0 CLOSED → C1 feasibility CLOSED → spatial 4-null validated → 8-null stability → C2 feasibility pilot → possible NPC+spatial ensemble → functional validation → computational abstraction.
+
+See docs/GATE-C-COMPARISON-2026-09-28.md for the complete audit, runtime estimates, terminology and literature checkpoint.
