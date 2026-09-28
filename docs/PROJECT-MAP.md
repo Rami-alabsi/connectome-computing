@@ -325,3 +325,15 @@ Only a residual effect that survives the relevant spatial controls can become a
 candidate computational constraint.
 
 This ordering is the project's compass.
+
+
+## 2026-09-28 — Gate C1 feasibility checkpoint
+
+**Gate C1 feasibility: CLOSED for the authoritative Princeton path. Gate C remains ACTIVE pending the spatial null ensemble.**
+
+Authoritative chain:
+`C0 Run 36318477728 → artifact 10931780910 → C1 Run 36320329317 → artifact 10932471526`.
+
+C1 measured 100% graph/node coverage, 4,156 accepted swaps in 100,000 attempts, exact edge/in/out-degree preservation, and exact coarse arbor-distance-bin preservation. Rich-edge coverage at thresholds 37/75/93/120 was 100%.
+
+The next controlled experiment is the four-null spatial rich-club ensemble. Do not interpret the C1 feasibility benchmark itself as a rich-club result.
