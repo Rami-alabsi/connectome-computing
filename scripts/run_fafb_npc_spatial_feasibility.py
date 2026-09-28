@@ -71,14 +71,14 @@ def build_block_buckets(edge_list,blocks):
         m=len(buckets[key])
         total += m*(m-1)//2
         cumulative.append(total)
-    return buckets, cumulative, total
+    return buckets, keys, cumulative, total
 
-def choose_bucket_pair(rng,buckets,cumulative,total):
+def choose_bucket_pair(rng,buckets,keys,cumulative,total):
     if total <= 0:
         raise ValueError("no eligible block-pair has at least two edges")
     r=rng.randrange(total)
     k=bisect.bisect_right(cumulative,r)
-    key=list(buckets)[k]
+    key=keys[k]
     ix=buckets[key]
     m=len(ix)
     x=rng.randrange(m)
@@ -109,12 +109,12 @@ def main():
     initial_bins=Counter(edge_bins); initial_blocks=block_counts(edge_list,blocks)
     initial_in,initial_out=degree_maps(edge_list)
     frozen_block_edges=sum(1 for u,v in edge_list if u not in blocks or v not in blocks)
-    buckets,cumulative,total_pair_choices=build_block_buckets(edge_list,blocks)
+    buckets,bucket_keys,cumulative,total_pair_choices=build_block_buckets(edge_list,blocks)
 
     rng=random.Random(args.seed)
     accepted=invalid=block_reject=distance_reject=0
     for _ in range(args.attempts):
-        i,j=choose_bucket_pair(rng,buckets,cumulative,total_pair_choices)
+        i,j=choose_bucket_pair(rng,buckets,bucket_keys,cumulative,total_pair_choices)
         a,b=edge_list[i]; c,d=edge_list[j]
         if a==d or c==b or a==c or b==d:
             invalid+=1; continue
