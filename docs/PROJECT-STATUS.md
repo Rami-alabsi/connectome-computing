@@ -2,7 +2,7 @@
 
 ## Current position
 
-**Stage: M5 → M6 — FAFB CFG/NPC controls closed; Gate C spatial stability validated; C2 runtime/sampler optimization open**
+**Stage: C2 — FAFB CFG/NPC controls closed; spatial 8-null stability validated; C2 full-null execution OPEN**
 
 **Prototype-phase note:** the current implementation phase was built in a single intensive session. Treat the repository as a research prototype scaffold until real-data execution, matched controls, ablations and reproducible artifacts have been completed.
 
@@ -644,3 +644,27 @@ The Actions log contains an internal checkpoint-timing anomaly: the emitted JSON
 
 **Decision:** the previous Python-runtime blocker is substantially reduced. Do not weaken the C2 constraints. The next authorized experiment is a full C2 null to the existing target of 3,732,460 successful swaps, followed by multiple independent seeds if that run reaches the target with exact invariants. The stronger spatial/max-entropy sensitivity remains downstream of this joint-control result.
 
+
+
+## Master audit — 2026-09-28
+
+This repository was re-audited against current GitHub state, executed workflow records, primary literature, recent connectome-computing prior art, and the project's own provenance rules. The scientific route remains coherent, but several navigation documents had stale Gate-C wording; they are now being synchronized to the C2 state.
+
+### Verified current state
+- Gate A CFG: CLOSED for the defined FAFB v783 method-aligned path.
+- Gate B NPC-like: CLOSED for the defined 100-null v783 benchmark.
+- C0 spatial data definition/coverage: CLOSED.
+- Spatial 8-null stability: VALIDATED as an ensemble-stability observation, not a significance claim.
+- C2 1M feasibility: SUCCESSFUL; exact joint invariants preserved.
+- C2 full biological null: NOT YET EXECUTED; this is the current blocking artifact.
+- Python test workflow run 36397212756: SUCCESS.
+- C2 feasibility workflow run 36412132062: SUCCESS; artifact 10964334557.
+
+### External prior-art constraint
+A September 2026 preprint, FlyCNS, uses the Drosophila brain-and-nerve-cord connectome as a weak prior for communication allocation in embodied control under restricted communication. This materially narrows future novelty claims around connectome-informed communication/routing. A granted US patent, US12050991B1, also covers connectomics-based neural architecture search constrained by connectivity and motifs. Broad claims in either area must therefore be treated as prior art.
+
+### Commercial route
+Potential commercial value remains possible through software/tooling, architecture/IP licensing, specialized communication-constrained inference/control, or scientific infrastructure. None is currently a business result. Commercialization remains evidence-gated: measurable technical advantage, clean data/provenance rights, targeted freedom-to-operate review, and reproducible benchmarks are prerequisites.
+
+### Discovery priority
+Do not optimize the project only to confirm rich-club enrichment. Current discovery candidates are spatial-null narrow variance/constraint geometry, C2 acceptance structure, and any qualitative change in the residual under joint NPC+spatial constraints. Unexpected results remain hypotheses until independently controlled.
