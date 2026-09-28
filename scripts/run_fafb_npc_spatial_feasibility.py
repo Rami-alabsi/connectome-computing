@@ -90,7 +90,7 @@ def main():
     ap=argparse.ArgumentParser()
     ap.add_argument("--connections",required=True); ap.add_argument("--centroids",required=True)
     ap.add_argument("--output",required=True); ap.add_argument("--seed",type=int,default=20260935)
-    ap.add_argument("--attempts",type=int,default=100000); ap.add_argument("--min-synapses",type=int,default=5)
+    ap.add_argument("--attempts",type=int,default=100000); ap.add_argument("--target-accepted",type=int,default=0); ap.add_argument("--min-synapses",type=int,default=5)
     ap.add_argument("--checkpoint-every",type=int,default=100000)
     args=ap.parse_args()
     outc,inc=load_centroids(Path(args.centroids))
@@ -119,7 +119,9 @@ def main():
     accepted=invalid=block_reject=distance_reject=0
     checkpoints=[]
     start_time=time.perf_counter()
-    for attempt in range(1,args.attempts+1):
+    attempt=0
+    while attempt < args.attempts and (args.target_accepted <= 0 or accepted < args.target_accepted):
+        attempt += 1
         i,j=choose_bucket_pair(rng,buckets,bucket_keys,cumulative,total_pair_choices)
         a,b=edge_list[i]; c,d=edge_list[j]
         if a==d or c==b or a==c or b==d:
@@ -165,15 +167,16 @@ def main():
     result={
         "dataset":"FAFB","version":"v783","purpose":"C2 NPC-like + arbor-distance feasibility pilot",
         "proposal_kernel":"block-pair-stratified degree-preserving swap proposal; exact distance-bin acceptance check",
-        "attempts":args.attempts,"seed":args.seed,"accepted_swaps":accepted,
+        "attempts":attempt,"target_accepted":args.target_accepted,"seed":args.seed,"accepted_swaps":accepted,
         "checkpoint_every":args.checkpoint_every,"checkpoints":checkpoints,
-        "acceptance_rate":accepted/args.attempts if args.attempts else 0.0,
+        "acceptance_rate":accepted/attempt if attempt else 0.0,
         "invalid_or_duplicate":invalid,"block_rejected":block_reject,"distance_bin_rejected":distance_reject,
         "unique_directed_pairs":len(edges),"block_count_pairs":len(initial_blocks),
         "eligible_block_pair_classes":len(buckets),"eligible_pair_choices":total_pair_choices,
         "frozen_edges_without_complete_block_assignment":frozen_block_edges,
         "distance_bins_nm":list(BINS_NM),"preservation":preservation,
         "all_invariants_preserved":all(preservation.values()),
+        "target_reached": (args.target_accepted <= 0 or accepted >= args.target_accepted),
         "scientific_conclusion":None,
         "interpretation":"feasibility only; no rich-club inference",
         "limitations":[
