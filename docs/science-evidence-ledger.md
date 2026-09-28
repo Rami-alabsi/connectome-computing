@@ -320,3 +320,31 @@ The pilot is 100,000 attempts and must be interpreted only through acceptance an
 **Evidence label:** EXECUTION / FEASIBILITY ONLY.
 
 No scientific result is assigned to either the failed or corrected pilot until the corrected run completes.
+
+
+## 2026-09-28 — C2 joint-constraint feasibility
+
+### EXECUTION EVIDENCE — baseline corrected C2 kernel
+Run `36396525136`, artifact `10958119130`, FAFB v783, seed `20260935`.
+
+The 100,000-attempt pilot accepted 1,168 swaps (1.168%) while preserving exact edge count, in-degree, out-degree, NPC block-pair counts, coarse arbor-distance-bin histogram, no self-loops and no duplicate directed edges. 9,869 edges lacking complete NPC block assignment were frozen and retained in the full graph.
+
+**Evidence label:** EXECUTION-VALID / FEASIBILITY ONLY.
+
+### EXECUTION EVIDENCE — block-pair-stratified C2 kernel
+Run `36396805573`, artifact `10958720816`, commit `8fd9f6ad8ca6765a5ed1d60d602ff131a86a7f1c`.
+
+The optimized proposal samples candidate edge pairs within fixed source-neuropil -> target-neuropil block classes and retains exact distance-bin acceptance. The pilot accepted 9,789/100,000 swaps (9.789%) and preserved all declared invariants.
+
+This improves proposal efficiency without changing the declared constraint set. It does **not** establish a rich-club result, significance, mechanism, or function.
+
+**Runtime consequence:** simple extrapolation from the pilot still implies roughly 8 h per full null on the current Python runner. A faster implementation is required before ensemble execution.
+
+### LITERATURE UPDATE — EDR remains a distinct cross-level control
+Péntek & Ercsey-Ravasz (Network Neuroscience 2025, DOI 10.1162/netn_a_00455) explicitly treat the exponential distance rule as a useful null at the Drosophila neuropil/projectome level, including prediction of several binary and weighted projectome properties. This supports retaining EDR as a later projectome-level sensitivity control, not replacing the current neuron-level C2 null. citeturn2search0turn2search1
+
+### LITERATURE UPDATE — current structure→function bridge
+Li et al. (bioRxiv 2026) fit a FlyWire v783 connectome-constrained whole-brain model to spontaneous calcium activity and use perturbations to identify a compact neuropil core and sparse hub ensemble associated with resting-state dynamics. This is model-dependent preprint evidence and belongs downstream of structural null controls. citeturn2search4
+
+### LITERATURE UPDATE — newer connectome scope
+A 2026 Nature study reports a brain-and-ventral-nerve-cord fly connectome, expanding the biological scope beyond the FAFB brain-only v783 reference. This is not a replacement dataset for the current Gate C sequence; it is a future cross-dataset generalization opportunity. citeturn2search2
