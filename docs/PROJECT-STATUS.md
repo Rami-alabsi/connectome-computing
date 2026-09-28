@@ -385,3 +385,32 @@ The authoritative Princeton-based Gate C1 feasibility benchmark has now complete
 The lightweight-C0 C1 run `36317314664` remains superseded. The Princeton result is now the primary C1 feasibility evidence.
 
 A four-null spatial rich-club ensemble has been launched from the same authoritative C0 artifact (Run `36378473388`, bootstrap commit `e15e635c46bca67692abebc0e6931c6953902aa5`). It is not yet accepted as scientific evidence; each null must reach 3,732,460 swaps and pass all invariants before aggregation.
+
+
+## 2026-09-28 — Gate C spatial ensemble first result validated
+
+The first authoritative Princeton-based spatial rich-club ensemble has completed and passed the comparison audit.
+
+- Workflow run: 36381489805
+- Commit: 6eb894d6e0b0cdf8d25cf3151fb0103e4f54b403
+- Aggregate artifact: 10952943175
+- Aggregate SHA-256: d3749483435b6b49cd1b3594748376355fa0dcd492f4734acb9f73088d60b2f4
+- Nulls: 4; seeds 20260927–20260930
+- 3,732,460 directed pairs; min_synapses=5 after pair aggregation
+- Degree sweep: 20–120, step 1
+- All nulls reached 3,732,460 successful swaps and preserved edge count, exact in-degree, exact out-degree and the complete coarse arbor-distance-bin histogram.
+- Spatial acceptance rate was about 3.37% per null.
+- Descriptive >1.01 interval: degrees 51–71.
+- Peak: degree 62, phi_norm = 1.0121585.
+
+A direct artifact audit against the 100-null CFG and 100-null NPC-like aggregates found that the observed rich-club curve is identical across all three families: same 3,732,460 directed pairs, same 5-synapse threshold, same 20–120 grid, and same observed rich-node/edge/density curve. Therefore the attenuation in phi_norm is attributable to the null constraints rather than a change in the observed graph.
+
+Current interpretation: the rich-club profile retains a small residual enrichment under this project-defined degree-preserving, coarse arbor-distance-constrained null. This does not establish a spatial mechanism, statistical significance, computational function, or architectural novelty.
+
+Runtime record: the four-null ensemble took about 21 minutes wall-clock with four null jobs in parallel. Estimated 8-null runtime is 40–45 minutes; 16-null runtime is 80–90 minutes. These are planning estimates only.
+
+**Next decision:** expand the spatial ensemble to 8 nulls for stability before attempting the more expensive combined NPC + spatial control. C2 should first receive a 100,000-attempt feasibility pilot; no rich-club interpretation should be taken from that pilot.
+
+### 2026-09-28 literature refresh
+
+A fresh literature check was completed. Salova & Kovács (Network Neuroscience, 2025) support treating topology and spatial constraints jointly rather than assuming either alone is sufficient. Lin & Murthy (Nature Methods, 2025) reinforce the structure→function bridge. Zhang et al. (Fundamental Research, 2026) provide a structure-constrained Drosophila dynamics study, while Li et al. (bioRxiv, 2026) provide a recent FlyWire-v783 whole-brain spontaneous-activity modeling preprint. These sources reinforce the project order but do not change the current Gate C decision. 
