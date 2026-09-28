@@ -124,3 +124,40 @@ Do not accept the ensemble until every null reaches target and all preservation 
 
 ### Updated compass
 Gate A CLOSED → Gate B CLOSED → authoritative C0 CLOSED → C1 feasibility CLOSED → four-null spatial ensemble RUNNING → validated spatial comparison → later combined constraints / functional validation.
+
+
+## 2026-09-28 LIVE STATE — spatial ensemble first result validated
+
+The first authoritative Princeton-based spatial rich-club ensemble has completed successfully.
+
+- Workflow: 36381489805
+- Commit: 6eb894d6e0b0cdf8d25cf3151fb0103e4f54b403
+- Aggregate artifact: 10952943175
+- Aggregate SHA-256: d3749483435b6b49cd1b3594748376355fa0dcd492f4734acb9f73088d60b2f4
+- Seeds: 20260927–20260930
+- Null count: 4
+- All four reached 3,732,460 successful swaps and passed all invariants.
+- Spatial acceptance: about 3.37%.
+- Descriptive >1.01: 51–71.
+- Peak: degree 62, phi_norm 1.0121585.
+
+Cross-null audit against CFG 100-null and NPC-like 100-null confirms the observed curve is identical across the three families. The differences are therefore null-model effects, not different observed graphs.
+
+Do not call this a mechanism or significance result. The model is a project-defined hard-binned arbor-distance sensitivity null.
+
+### Runtime rule
+
+Record an estimate before every large run. Current empirical anchor:
+- 4 spatial nulls: ~21 min wall-clock.
+- 8 spatial nulls: estimated 40–45 min.
+- 16 spatial nulls: estimated 80–90 min.
+- C2 100k-attempt pilot: runtime not yet known; estimate only after implementation benchmark.
+
+### Next sequence
+
+1. Expand spatial ensemble from 4 to 8 nulls for stability.
+2. If stable, run a 100,000-attempt C2 NPC+spatial feasibility pilot.
+3. Only if C2 is computationally feasible and invariants hold, design the combined ensemble.
+4. Continue literature refresh before any new scientific interpretation.
+
+The workflow .github/workflows/m2-fafb-spatial-rich-club-4null.yml is now manual-dispatch only. The earlier push-bootstrap trigger was removed after the validated run so future code changes cannot silently launch a costly scientific ensemble.
