@@ -348,3 +348,12 @@ Li et al. (bioRxiv 2026) fit a FlyWire v783 connectome-constrained whole-brain m
 
 ### LITERATURE UPDATE — newer connectome scope
 A 2026 Nature study reports a brain-and-ventral-nerve-cord fly connectome, expanding the biological scope beyond the FAFB brain-only v783 reference. This is not a replacement dataset for the current Gate C sequence; it is a future cross-dataset generalization opportunity. citeturn2search2
+
+
+### EXECUTION UPDATE — latest C2 optimized-kernel benchmark
+
+Run `36396814001`, commit `d12c4ca05310f6ab41fca94237afcd2c461c98af`, repeated the block-pair-stratified C2 pilot after a bucket-key lookup optimization. Acceptance remained 9.789%; all declared invariants remained exact; computation time was approximately 55.2 s for 100,000 attempts.
+
+**Evidence label:** EXECUTION-VALID / FEASIBILITY ONLY.
+
+**Project consequence:** the current Python kernel is still too slow for a full 3,732,460-successful-swap null by simple extrapolation (~6 h). Runtime optimization remains an engineering gate, not a scientific failure.
