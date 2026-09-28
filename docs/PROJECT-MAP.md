@@ -389,3 +389,15 @@ C2 pilot results are feasibility evidence only; no rich-club inference is permit
 ### C2 runtime benchmark refinement
 
 Run `36396814001` on commit `d12c4ca05310f6ab41fca94237afcd2c461c98af` repeats the optimized block-pair-stratified C2 pilot after removing a per-attempt bucket lookup overhead. Acceptance remains 9.789% and all invariants remain exact. The pilot step is ~55.2 s, implying roughly 6 h for a full null by linear extrapolation. This is still too slow for the current workflow, so C2 remains at the runtime/sampler optimization gate.
+
+
+## 2026-09-28 — RSS structural bridge
+
+The structural-to-RSS bridge is documented in docs/RSS-STRUCTURAL-BRIDGE-2026-09-28.md and recorded in the science evidence ledger.
+
+Current evidence boundary:
+- C has a structural substrate in hierarchical modular and parallel pathway organization, but dynamic/context priority is not proven.
+- D has motif/convergence substrate, but bounded collective pooling is not uniquely implied.
+- J has the clearest direct substrate because integrator/broadcaster and bottleneck-spanning rich-club populations are explicit connectomic observables; the exact v783 broker overlap still needs to be computed.
+
+No C/D/J mechanism is inferred from the Gate-C rich-club residual itself.
