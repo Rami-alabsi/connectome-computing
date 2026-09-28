@@ -357,3 +357,16 @@ Run `36396814001`, commit `d12c4ca05310f6ab41fca94237afcd2c461c98af`, repeated t
 **Evidence label:** EXECUTION-VALID / FEASIBILITY ONLY.
 
 **Project consequence:** the current Python kernel is still too slow for a full 3,732,460-successful-swap null by simple extrapolation (~6 h). Runtime optimization remains an engineering gate, not a scientific failure.
+
+
+## 2026-09-28 RSS structural-bridge checkpoint
+
+| Finding | Evidence status | Project use | Required validation |
+|---|---|---|---|
+| FAFB/Drosophila connectome contains hierarchical modular organization and layered/parallel pathways | Established in prior connectomic analyses; 2026 visual-pathway work adds shallow parallel pathway evidence | Candidate structural substrate for RSS C | matched context-priority routing against topology/candidate controls |
+| FAFB contains rich-club integrator/broadcaster populations and bridge-like neurons spanning anatomical bottlenecks | Established for the v630 analysis; current v783 project has not yet recomputed the exact bridge overlap | Candidate structural substrate for RSS J | recompute broker/bridge/participation measures directly on authoritative v783 and perform matched removal |
+| Fly connectome contains recurrent/reciprocal three-node motifs and convergence/divergence patterns | Established | Candidate substrate for bounded collective coordination (RSS D) | test D against motif/degree/candidate-topology matched controls |
+| Connectome-constrained FlyWire-v783 dynamics can identify a compact neuropil core and sparse inhibitory hubs associated with resting activity | Promising, model-dependent 2026 preprint | Structure→dynamics bridge only; not a structural proof of D or J | independent activity validation and structural ablations |
+| Combined NPC-like + spatial constraint remains the unresolved structural control | Open | Determines whether the surviving residual is robust to joint mesoscale + geometry constraints | exact C2 ensemble after sampler validation |
+
+**Bridge rule:** static connectome evidence may motivate C/D/J hypotheses, but it does not establish dynamic routing, bounded pooling, brokerage benefit, causality, or computational advantage. See docs/RSS-STRUCTURAL-BRIDGE-2026-09-28.md.
