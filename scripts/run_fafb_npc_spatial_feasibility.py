@@ -90,7 +90,8 @@ def main():
     ap=argparse.ArgumentParser()
     ap.add_argument("--connections",required=True); ap.add_argument("--centroids",required=True)
     ap.add_argument("--output",required=True); ap.add_argument("--seed",type=int,default=20260935)
-    ap.add_argument("--attempts",type=int,default=100000); ap.add_argument("--min-synapses",type=int,default=5)\n    ap.add_argument("--checkpoint-every",type=int,default=100000)
+    ap.add_argument("--attempts",type=int,default=100000); ap.add_argument("--min-synapses",type=int,default=5)
+    ap.add_argument("--checkpoint-every",type=int,default=100000)
     args=ap.parse_args()
     outc,inc=load_centroids(Path(args.centroids))
     edges=list(aggregate_pair_synapses(args.connections,min_synapses=args.min_synapses))
@@ -111,9 +112,14 @@ def main():
     frozen_block_edges=sum(1 for u,v in edge_list if u not in blocks or v not in blocks)
     buckets,bucket_keys,cumulative,total_pair_choices=build_block_buckets(edge_list,blocks)
 
+    if args.checkpoint_every <= 0:
+        raise ValueError("--checkpoint-every must be > 0")
+
     rng=random.Random(args.seed)
     accepted=invalid=block_reject=distance_reject=0
-    for _ in range(args.attempts):
+    checkpoints=[]
+    start_time=time.perf_counter()
+    for attempt in range(1,args.attempts+1):
         i,j=choose_bucket_pair(rng,buckets,bucket_keys,cumulative,total_pair_choices)
         a,b=edge_list[i]; c,d=edge_list[j]
         if a==d or c==b or a==c or b==d:
@@ -133,6 +139,19 @@ def main():
         edge_list[i],edge_list[j]=p1,p2; edge_bins[i],edge_bins[j]=new_bin
         accepted+=1
 
+        if attempt % args.checkpoint_every == 0 or attempt == args.attempts:
+            elapsed=time.perf_counter()-start_time
+            checkpoints.append({
+                "attempts":attempt,
+                "accepted_swaps":accepted,
+                "acceptance_rate":accepted/attempt if attempt else 0.0,
+                "invalid_or_duplicate":invalid,
+                "block_rejected":block_reject,
+                "distance_bin_rejected":distance_reject,
+                "elapsed_seconds":elapsed,
+                "attempts_per_second":attempt/elapsed if elapsed > 0 else None,
+            })
+
     final_in,final_out=degree_maps(edge_list)
     preservation={
         "same_edge_count":len(edge_set)==len(edges),
@@ -146,7 +165,8 @@ def main():
     result={
         "dataset":"FAFB","version":"v783","purpose":"C2 NPC-like + arbor-distance feasibility pilot",
         "proposal_kernel":"block-pair-stratified degree-preserving swap proposal; exact distance-bin acceptance check",
-        "attempts":args.attempts,"seed":args.seed,"accepted_swaps":accepted,\n        "checkpoint_every":args.checkpoint_every,"checkpoints":checkpoints,
+        "attempts":args.attempts,"seed":args.seed,"accepted_swaps":accepted,
+        "checkpoint_every":args.checkpoint_every,"checkpoints":checkpoints,
         "acceptance_rate":accepted/args.attempts if args.attempts else 0.0,
         "invalid_or_duplicate":invalid,"block_rejected":block_reject,"distance_bin_rejected":distance_reject,
         "unique_directed_pairs":len(edges),"block_count_pairs":len(initial_blocks),
@@ -165,7 +185,8 @@ def main():
         ],
     }
     Path(args.output).parent.mkdir(parents=True,exist_ok=True)
-    Path(args.output).write_text(json.dumps(result,indent=2,sort_keys=True)+"\n")
+    Path(args.output).write_text(json.dumps(result,indent=2,sort_keys=True)+"
+")
     print(json.dumps(result,indent=2))
 
 if __name__=="__main__": main()
