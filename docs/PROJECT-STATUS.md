@@ -431,3 +431,28 @@ The planned stability expansion has been launched.
 - The workflow was temporarily bootstrapped by push only to launch this explicit run, then immediately restored to manual-dispatch-only. No future code push will automatically launch the ensemble.
 
 Scientific interpretation is blocked until all 8 nulls reach target and all invariants pass.
+
+
+## 2026-09-28 — 8-null spatial stability validated; C2 pilot active
+
+The 8-null spatial stability ensemble completed successfully.
+
+- Workflow: 36386665317
+- Nulls: 8; seeds 20260927–20260934
+- All 8 reached 3,732,460 successful swaps
+- All invariants preserved
+- Descriptive >1.01 interval: degrees 51–71
+- Peak: degree 62, phi_norm = 1.0120821
+- 4-null comparison: peak 1.0121585 at degree 62, same 51–71 interval
+- Re-aggregation of the original four null artifacts reproduces the original peak 1.0121585 exactly.
+
+This is a stability result, not a significance test.
+
+C2 feasibility pilot is now active:
+- Run: 36393368885
+- 100,000 attempted swaps
+- combines NPC-like block-pair preservation with arbor-distance-bin preservation
+- no rich-club curve is interpreted from this pilot
+- expected runtime: usually a few minutes after the ~2.7 GB graph download; hard timeout 20 minutes.
+
+The C2 workflow is now manual-dispatch-only after its temporary bootstrap launch.
