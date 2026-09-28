@@ -195,3 +195,18 @@ C2 feasibility pilot is active as run 36393368885:
 - no rich-club interpretation
 
 After the pilot, do not immediately launch a full C2 ensemble. First assess acceptance rate and whether the move set is sufficiently ergodic/connected for a meaningful null.
+
+
+## 2026-09-28 — C2 correction live state
+
+C2 first attempt 36393368885 was invalid as a scientific feasibility test because the implementation incorrectly required block assignments on every edge. It stopped with 9,869 edges lacking NPC blocks.
+
+The code was corrected to freeze those edges, matching the existing NPC-like implementation semantics. Centroid coverage remains mandatory and is complete.
+
+Corrected C2 pilot:
+- run 36394370209
+- 100,000 attempts
+- seed 20260935
+- status: running at this checkpoint
+
+Do not interpret the failed pilot's 9,869 figure as biological evidence. It is an implementation coverage diagnostic.
