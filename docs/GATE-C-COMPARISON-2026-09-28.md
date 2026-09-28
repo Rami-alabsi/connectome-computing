@@ -202,6 +202,25 @@ Run 36393368885 is testing a combined null move set that preserves:
 The pilot uses 100,000 attempted swaps and reports feasibility only. No rich-club interpretation is allowed.
 
 
+## 2026-09-28 — Spatial 8-null standardized-residual audit
+
+The existing 8 spatial null artifacts from Run `36386665317` were re-aggregated without generating any new null graph. For each degree, the aggregator now records the null mean, sample SD, normalized observed/null ratio, and the descriptive standardized residual:
+
+`(observed rich-club density - null mean density) / null SD density`.
+
+Key values:
+- degree 62: `phi_norm = 1.012082112699241`, null SD = `1.9387922455161827e-07`, standardized residual = **88.6667**;
+- degree 57: `phi_norm = 1.011612176027949`, standardized residual = **68.3294**;
+- degree 71: `phi_norm = 1.0100282904400153`, standardized residual = **38.5167**;
+- degree 93: `phi_norm = 1.0029680243648245`, standardized residual = **6.8186**;
+- degree 120: `phi_norm = 0.9776608134065369`, standardized residual = **-32.1668**.
+
+The maximum absolute standardized residual occurs at degree 32 (139.49), where `phi_norm` is only 1.00772 and therefore below the project's descriptive 1.01 line.
+
+**Interpretation rule:** these standardized residuals quantify separation from the eight realized null samples; they are **not p-values, not formal significance tests, and not evidence that the null ensemble has converged to a population variance estimate**. The very small null SDs make the standardized residual numerically large. This is precisely why ensemble size, sampler mixing and null-model choice must remain separate from any significance claim.
+
+The result does answer the immediate feasibility question: the spatial residual is not simply an artifact of visible null-to-null amplitude noise in these eight samples. C2 therefore remains scientifically justified because the unresolved question is the **joint** NPC + spatial constraint, not whether either constraint alone can attenuate CFG enrichment.
+
 ## 2026-09-28 — C2 feasibility result and runtime decision
 
 The corrected C2 feasibility pilot was executed against the authoritative Princeton C0 artifact.
