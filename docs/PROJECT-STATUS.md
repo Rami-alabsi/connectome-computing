@@ -608,3 +608,39 @@ The follow-up code fix `d12c4ca05310f6ab41fca94237afcd2c461c98af` removed per-at
 - pilot step runtime: approximately **55.2 s**.
 
 This is now the preferred runtime benchmark for the current Python proposal kernel. Simple linear extrapolation is approximately 5.85 hours (about 6 hours) per full null, still too large for the present workflow and not an acceptable reason to relax constraints. The next gate remains faster exact implementation/sampler validation.
+
+
+## 2026-09-28 — C2 1M feasibility benchmark completed
+
+The repaired C2 workflow was manually dispatched and completed successfully:
+
+- workflow run: `36412132062`;
+- run number: 13;
+- commit: `ef6784d3d0c81fb5deff92b8cf0abca4f985c2bc`;
+- authoritative C0 source run: `36318477728`;
+- attempts: **1,000,000**;
+- seed: **20260935**;
+- accepted swaps: **94,751**;
+- acceptance rate: **9.4751%**;
+- invalid/duplicate/self-loop proposals: **38,055**;
+- block rejections: **0**;
+- distance-bin rejections: **867,194**;
+- unique directed pairs: **3,732,460**;
+- block-pair classes: **3,648**;
+- eligible pair choices: **213,055,629,164**;
+- frozen edges without complete block assignment: **9,869**;
+- all declared invariants: **true**;
+- artifact: `fafb-v783-c2-feasibility-1000000`, ID `10964334557`;
+- uploaded artifact SHA-256: `59542077648956b8922746e10c585d7ed46aa554beed8ed5a44f419e5da4c15d`;
+- wall-clock workflow sampling interval from the Actions log: approximately **90.86 s**.
+
+The benchmark therefore closes the **C2 move-set feasibility/runtime calibration checkpoint**: one million proposals can now be executed successfully on the authoritative C0 graph while preserving the exact joint constraint surface.
+
+A useful provisional throughput calculation is approximately 9.475% accepted proposals in this 1M pilot. If that rate remained constant, reaching 3,732,460 successful swaps would require about 39.4 million attempts, or roughly 1 hour of sampler time at the observed wall-clock rate. This is **only a linear feasibility estimate**; acceptance may change as the chain moves, so it is not a runtime guarantee for a full null.
+
+The Actions log contains an internal checkpoint-timing anomaly: the emitted JSON reports a single checkpoint at 400,000 attempts with 3.86 s elapsed despite `checkpoint_every=100000`, which is inconsistent with the final wall-clock interval. Therefore checkpoint-derived throughput is not used for scientific/runtime conclusions; the 90.86 s wall-clock interval and final counts are retained as the reliable execution evidence.
+
+**Scientific interpretation remains feasibility-only.** This run did not generate a rich-club curve, did not generate a full C2 null ensemble, and does not support a significance, mechanism, or computational-architecture claim.
+
+**Decision:** the previous Python-runtime blocker is substantially reduced. Do not weaken the C2 constraints. The next authorized experiment is a full C2 null to the existing target of 3,732,460 successful swaps, followed by multiple independent seeds if that run reaches the target with exact invariants. The stronger spatial/max-entropy sensitivity remains downstream of this joint-control result.
+
