@@ -1,0 +1,85 @@
+name: FAFB v783 Gate C spatial rich-club null ensemble
+
+on:
+  workflow_dispatch:
+    inputs:
+      c0_run_id:
+        description: "Authoritative C0 workflow run ID"
+        required: true
+        type: string
+      null_count:
+        description: "Number of spatial nulls (supported: 4)"
+        required: true
+        default: "4"
+        type: choice
+        options:
+          - "4"
+
+permissions:
+  actions: read
+  contents: read
+
+jobs:
+  spatial-null:
+    strategy:
+      fail-fast: false
+      max-parallel: 4
+      matrix:
+        null_id: [0, 1, 2, 3]
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Download graph
+        run: |
+          mkdir -p data/raw/fafb_v783 artifacts/fafb-v783
+          curl -L --fail --retry 3 --retry-all-errors             -o data/raw/fafb_v783/connections_princeton.csv.gz             "https://storage.googleapis.com/flywire-data/codex/data/fafb/783/connections_princeton.csv.gz"
+
+      - name: Download authoritative C0 artifact
+        uses: actions/download-artifact@v4
+        with:
+          github-token: ${{ github.token }}
+          repository: ${{ github.repository }}
+          run-id: ${{ inputs.c0_run_id }}
+          name: fafb-v783-gate-c0-princeton-arbor-spatial-preflight
+          path: data/raw/fafb_v783/c0-artifact
+
+      - name: Run spatial null
+        env:
+          PYTHONPATH: .
+        run: |
+          python scripts/run_fafb_spatial_rich_club.py             --connections data/raw/fafb_v783/connections_princeton.csv.gz             --centroids "$(find data/raw/fafb_v783/c0-artifact -name arbor-centroids.csv.gz -print -quit)"             --seed $((20260927 + ${{ matrix.null_id }}))             --swaps-per-edge 1.0             --min-synapses 5             --threshold-min 20             --threshold-max 120             --threshold-step 1             --output "artifacts/fafb-v783/spatial-null-${{ matrix.null_id }}.json"
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: fafb-v783-spatial-null-${{ matrix.null_id }}
+          path: artifacts/fafb-v783/spatial-null-${{ matrix.null_id }}.json
+          retention-days: 30
+
+  aggregate:
+    needs: spatial-null
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Download spatial null artifacts
+        uses: actions/download-artifact@v4
+        with:
+          pattern: fafb-v783-spatial-null-*
+          path: artifacts/nulls
+          merge-multiple: true
+      - name: Aggregate validated nulls
+        run: |
+          python scripts/aggregate_fafb_spatial_rich_club_nulls.py             --inputs artifacts/nulls/spatial-null-0.json                      artifacts/nulls/spatial-null-1.json                      artifacts/nulls/spatial-null-2.json                      artifacts/nulls/spatial-null-3.json             --output artifacts/fafb-v783/spatial-rich-club-4null.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: fafb-v783-spatial-rich-club-4null
+          path: artifacts/fafb-v783/spatial-rich-club-4null.json
+          retention-days: 90
