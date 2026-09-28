@@ -39,6 +39,7 @@ def main():
             "above_1pct": bool(ratio is not None and ratio > 1.01),
         })
     above = [r["threshold"] for r in rows if r["above_1pct"]]
+    peak = max(rows, key=lambda r: r["phi_norm"] if r["phi_norm"] is not None else float("-inf"))
     result = {
         "dataset": "FAFB",
         "version": "v783",
@@ -57,7 +58,9 @@ def main():
         "rich_club_criterion": "phi_norm > 1.01 (descriptive only)",
         "onset_threshold": min(above) if above else None,
         "offset_threshold": max(above) if above else None,
-        "peak_threshold": max(rows, key=lambda r: r["phi_norm"] if r["phi_norm"] is not None else float("-inf"))["threshold"] if rows else None,
+        "peak_threshold": peak["threshold"] if rows else None,
+        "peak_phi_norm": peak["phi_norm"] if rows else None,
+        "source_null_artifacts": [p for p in args.inputs],
         "scientific_conclusion": None,
         "interpretation_rule": "This ensemble is a project-defined spatial sensitivity control; compare with CFG and NPC-like results without treating it as a mechanistic or exact literature reproduction.",
     }
