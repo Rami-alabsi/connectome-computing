@@ -170,3 +170,33 @@ English terminology remains in code, filenames and formal scientific identifiers
 - Gate C overall — OPEN pending ensemble stability and stronger spatial-model comparison.
 - C2 NPC + spatial — NOT STARTED.
 - Functional/computational validation — downstream.
+
+
+## 8-null stability update
+
+The 8-null spatial ensemble (run 36386665317) completed with all 8 nulls valid.
+
+- onset >1.01: 51
+- offset >1.01: 71
+- peak threshold: 62
+- peak phi_norm: 1.012082112699241
+- all invariants preserved
+- successful swaps/null: 3,732,460
+- acceptance rates across seeds: approximately 3.368%–3.374%
+
+The 4-null result was independently re-aggregated from its four original null artifacts after the aggregator metadata update; it reproduced peak degree 62 and peak phi_norm 1.0121585259506658, with onset 51 and offset 71.
+
+Thus the main qualitative spatial result is stable when expanding from 4 to 8 nulls: the >1.01 interval remains 51–71 and the peak remains at degree 62. The peak amplitude changes by about 0.0000764.
+
+This strengthens the claim of ensemble stability for this project-defined null, but does not provide a formal significance test or establish a biological mechanism.
+
+## C2 feasibility pilot active
+
+Run 36393368885 is testing a combined null move set that preserves:
+- directed in-degree;
+- directed out-degree;
+- source-neuropil → target-neuropil block counts;
+- coarse arbor-distance-bin histogram;
+- no self-loops or duplicate directed pairs.
+
+The pilot uses 100,000 attempted swaps and reports feasibility only. No rich-club interpretation is allowed.
