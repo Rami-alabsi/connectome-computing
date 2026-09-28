@@ -98,3 +98,29 @@ Stop and document if schema changes, pair count changes unexpectedly, root-ID no
 
 ## 11. One-line compass
 Gate A CLOSED → Gate B CLOSED → authoritative Gate C0 CLOSED → corrected Princeton-based C1 feasibility OPEN → spatial null ensemble → cross-null comparison → functional/computational validation → architectural abstraction.
+
+## 2026-09-28 LIVE STATE — C1 feasibility passed; ensemble running
+
+### Gate C1 feasibility — CLOSED
+Authoritative provenance chain:
+- C0 Run `36318477728`
+- C0 artifact `10931780910`, SHA-256 `7265e20db3721f6b438a93227180eb0d0b8d3ad3fd9894bcbbe4a14a81dd5f36`
+- C1 Run `36320329317`
+- C1 artifact `10932471526`, SHA-256 `efa3b9837ece2920e37fde31383ea0e40f4787d5d1da6da61fc897850882ea45`
+- Commit `ad1005f4974048957b05e8eb21697fd495816fac`
+
+C1 result:
+- 3,732,460/3,732,460 edges covered; 100% node coverage.
+- 4,156 accepted swaps / 100,000 attempts.
+- Exact edge count, in-degree, out-degree and coarse distance-bin preservation.
+- Zero rich-edge exclusions at thresholds 37, 75, 93, 120.
+
+### Current active run
+Four-null spatial rich-club ensemble: Run `36378473388`, bootstrap commit `e15e635c46bca67692abebc0e6931c6953902aa5`.
+Seeds: 20260927, 20260928, 20260929, 20260930.
+Each null targets 3,732,460 successful swaps and sweeps total degree 20–120.
+
+Do not accept the ensemble until every null reaches target and all preservation invariants pass. Do not call the resulting curve mechanistic evidence. The spatial null is a project-defined hard-bin sensitivity control, not exact Lin NND and not Salova & Kovács.
+
+### Updated compass
+Gate A CLOSED → Gate B CLOSED → authoritative C0 CLOSED → C1 feasibility CLOSED → four-null spatial ensemble RUNNING → validated spatial comparison → later combined constraints / functional validation.
