@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """C2 feasibility pilot: NPC-like block preservation + arbor-distance-bin preservation."""
 from __future__ import annotations
-import argparse, csv, gzip, json, math, random, bisect
+import argparse, csv, gzip, json, math, random, bisect, time
 from collections import Counter, defaultdict
 from pathlib import Path
 from src.graph.connections import _open_csv, _pick, SOURCE_CANDIDATES, TARGET_CANDIDATES, aggregate_pair_synapses
@@ -90,7 +90,7 @@ def main():
     ap=argparse.ArgumentParser()
     ap.add_argument("--connections",required=True); ap.add_argument("--centroids",required=True)
     ap.add_argument("--output",required=True); ap.add_argument("--seed",type=int,default=20260935)
-    ap.add_argument("--attempts",type=int,default=100000); ap.add_argument("--min-synapses",type=int,default=5)
+    ap.add_argument("--attempts",type=int,default=100000); ap.add_argument("--min-synapses",type=int,default=5)\n    ap.add_argument("--checkpoint-every",type=int,default=100000)
     args=ap.parse_args()
     outc,inc=load_centroids(Path(args.centroids))
     edges=list(aggregate_pair_synapses(args.connections,min_synapses=args.min_synapses))
@@ -146,7 +146,7 @@ def main():
     result={
         "dataset":"FAFB","version":"v783","purpose":"C2 NPC-like + arbor-distance feasibility pilot",
         "proposal_kernel":"block-pair-stratified degree-preserving swap proposal; exact distance-bin acceptance check",
-        "attempts":args.attempts,"seed":args.seed,"accepted_swaps":accepted,
+        "attempts":args.attempts,"seed":args.seed,"accepted_swaps":accepted,\n        "checkpoint_every":args.checkpoint_every,"checkpoints":checkpoints,
         "acceptance_rate":accepted/args.attempts if args.attempts else 0.0,
         "invalid_or_duplicate":invalid,"block_rejected":block_reject,"distance_bin_rejected":distance_reject,
         "unique_directed_pairs":len(edges),"block_count_pairs":len(initial_blocks),
