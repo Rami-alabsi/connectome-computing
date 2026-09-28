@@ -401,3 +401,26 @@ Current evidence boundary:
 - J has the clearest direct substrate because integrator/broadcaster and bottleneck-spanning rich-club populations are explicit connectomic observables; the exact v783 broker overlap still needs to be computed.
 
 No C/D/J mechanism is inferred from the Gate-C rich-club residual itself.
+
+
+## 2026-09-28 — C2 1M feasibility benchmark completed
+
+The repaired joint NPC-like + arbor-distance-bin sampler completed a **1,000,000-attempt benchmark** on the authoritative FAFB v783 C0 input.
+
+- Run: `36412132062`
+- Commit: `ef6784d3d0c81fb5deff92b8cf0abca4f985c2bc`
+- Seed: `20260935`
+- Accepted swaps: **94,751 (9.4751%)**
+- Invalid/duplicate/self-loop: **38,055**
+- Block rejection: **0**
+- Distance-bin rejection: **867,194**
+- Frozen incomplete-block edges: **9,869**
+- All invariants: **PASS**
+- Artifact: `10964334557`
+- Artifact SHA-256: `59542077648956b8922746e10c585d7ed46aa554beed8ed5a44f419e5da4c15d`
+
+This is **feasibility evidence only**, not a rich-club null result. A linear estimate from the pilot acceptance rate gives about 39.4M attempts / roughly 1 hour of sampler time for 3,732,460 successful swaps, but acceptance can change during a full chain.
+
+The earlier ~6 h/null estimate from the 100k benchmark is therefore superseded as the current calibration point.
+
+**Compass:** Gate A CLOSED → Gate B CLOSED → C0 CLOSED → C1 feasibility CLOSED → spatial 8-null stability VALIDATED → **C2 joint-constraint feasibility VALIDATED** → C2 full null execution OPEN → stronger spatial/max-entropy controls → Gate C closure → structure→function → RSS C/D/J hypothesis testing → matched ablations → computational abstraction → benchmark → scaling.
