@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """C2 feasibility pilot: NPC-like block preservation + arbor-distance-bin preservation."""
 from __future__ import annotations
-import argparse, csv, gzip, json, math, random
+import argparse, csv, gzip, json, math, random, bisect
 from collections import Counter, defaultdict
 from pathlib import Path
 from src.graph.connections import _open_csv, _pick, SOURCE_CANDIDATES, TARGET_CANDIDATES, aggregate_pair_synapses
@@ -52,6 +52,40 @@ def degree_maps(edges):
     for u,v in edges: outs[u]+=1; ins[v]+=1
     return ins,outs
 
+def build_block_buckets(edge_list,blocks):
+    """Index eligible edges by fixed source-block -> target-block class.
+
+    Accepted swaps stay within the selected class, so class sizes remain fixed.
+    Sampling pairs from these classes removes proposal attempts that can never
+    satisfy the NPC block constraint without changing the constrained state
+    space. The distance-bin condition is still checked exactly.
+    """
+    buckets=defaultdict(list)
+    for idx,(u,v) in enumerate(edge_list):
+        if u in blocks and v in blocks:
+            buckets[(blocks[u],blocks[v])].append(idx)
+    eligible_pairs=sum(len(ix)*(len(ix)-1)//2 for ix in buckets.values())
+    keys=list(buckets)
+    cumulative=[]; total=0
+    for key in keys:
+        m=len(buckets[key])
+        total += m*(m-1)//2
+        cumulative.append(total)
+    return buckets, cumulative, total
+
+def choose_bucket_pair(rng,buckets,cumulative,total):
+    if total <= 0:
+        raise ValueError("no eligible block-pair has at least two edges")
+    r=rng.randrange(total)
+    k=bisect.bisect_right(cumulative,r)
+    key=list(buckets)[k]
+    ix=buckets[key]
+    m=len(ix)
+    x=rng.randrange(m)
+    y=rng.randrange(m-1)
+    if y >= x: y += 1
+    return ix[x],ix[y]
+
 def main():
     ap=argparse.ArgumentParser()
     ap.add_argument("--connections",required=True); ap.add_argument("--centroids",required=True)
@@ -75,24 +109,21 @@ def main():
     initial_bins=Counter(edge_bins); initial_blocks=block_counts(edge_list,blocks)
     initial_in,initial_out=degree_maps(edge_list)
     frozen_block_edges=sum(1 for u,v in edge_list if u not in blocks or v not in blocks)
+    buckets,cumulative,total_pair_choices=build_block_buckets(edge_list,blocks)
 
     rng=random.Random(args.seed)
     accepted=invalid=block_reject=distance_reject=0
     for _ in range(args.attempts):
-        i,j=rng.sample(range(len(edge_list)),2)
+        i,j=choose_bucket_pair(rng,buckets,cumulative,total_pair_choices)
         a,b=edge_list[i]; c,d=edge_list[j]
         if a==d or c==b or a==c or b==d:
             invalid+=1; continue
         p1,p2=(a,d),(c,b)
         if p1 in edge_set or p2 in edge_set or p1==p2:
             invalid+=1; continue
-        # Any edge endpoint without a dominant NPC block is frozen: it can
-        # remain in the graph but cannot participate in a constrained swap.
-        if a not in blocks or b not in blocks or c not in blocks or d not in blocks:
-            block_reject+=1; continue
-        old_block=sorted(((blocks[a],blocks[b]),(blocks[c],blocks[d])))
-        new_block=sorted(((blocks[a],blocks[d]),(blocks[c],blocks[b])))
-        if old_block!=new_block:
+        # The proposal kernel already samples within one source-block -> target-
+        # block class. Keep the explicit check as a defensive invariant.
+        if blocks.get(a) != blocks.get(c) or blocks.get(b) != blocks.get(d):
             block_reject+=1; continue
         old_bin=sorted((edge_bins[i],edge_bins[j]))
         new_bin=sorted((dbin(distance_nm(outc[a],inc[d])),dbin(distance_nm(outc[c],inc[b]))))
@@ -114,10 +145,12 @@ def main():
     }
     result={
         "dataset":"FAFB","version":"v783","purpose":"C2 NPC-like + arbor-distance feasibility pilot",
+        "proposal_kernel":"block-pair-stratified degree-preserving swap proposal; exact distance-bin acceptance check",
         "attempts":args.attempts,"seed":args.seed,"accepted_swaps":accepted,
         "acceptance_rate":accepted/args.attempts if args.attempts else 0.0,
         "invalid_or_duplicate":invalid,"block_rejected":block_reject,"distance_bin_rejected":distance_reject,
         "unique_directed_pairs":len(edges),"block_count_pairs":len(initial_blocks),
+        "eligible_block_pair_classes":len(buckets),"eligible_pair_choices":total_pair_choices,
         "frozen_edges_without_complete_block_assignment":frozen_block_edges,
         "distance_bins_nm":list(BINS_NM),"preservation":preservation,
         "all_invariants_preserved":all(preservation.values()),
@@ -126,6 +159,7 @@ def main():
         "limitations":[
             "NPC-like block definition follows project implementation",
             "edges without complete dominant block assignment are frozen and excluded from the block-pair constraint",
+            "proposal is stratified by fixed block-pair class; distance bins remain an exact acceptance constraint",
             "coarse arbor-distance bins are preserved",
             "pilot acceptance does not establish biological mechanism",
         ],
