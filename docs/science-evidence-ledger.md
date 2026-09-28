@@ -305,3 +305,18 @@ The 8-null ensemble confirms the same descriptive >1.01 interval (degrees 51–7
 Run 36393368885 tests whether NPC-like neuropil block constraints and the coarse arbor-distance constraint can be jointly enforced by a degree-preserving directed edge-swap move set.
 
 The pilot is 100,000 attempts and must be interpreted only through acceptance and invariant preservation.
+
+
+## 2026-09-28 — C2 pilot correction
+
+**Failed pilot:** run 36393368885 stopped before sampling because the implementation treated 9,869 edges lacking an NPC block assignment as a fatal coverage error.
+
+**Diagnosis:** this was inconsistent with the existing NPC-like implementation, which already treats nodes without a dominant outgoing-neuropil block as unavailable for constrained swaps. Such edges can remain frozen while preserving global degree sequences; block-pair preservation applies to the constrained portion.
+
+**Correction:** the pilot now freezes NPC-unassigned edges, requires complete arbor-centroid coverage, and reports the size of the constrained and frozen portions explicitly.
+
+**Corrected run:** 36394370209, 100,000 attempts, seed 20260935. At this checkpoint it is still running.
+
+**Evidence label:** EXECUTION / FEASIBILITY ONLY.
+
+No scientific result is assigned to either the failed or corrected pilot until the corrected run completes.
