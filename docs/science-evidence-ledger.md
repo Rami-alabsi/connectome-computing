@@ -288,3 +288,20 @@ Run 36386665317 is the pre-registered 8-null stability expansion of the validate
 No scientific interpretation is permitted from partial jobs. Acceptance requires 8/8 target completion and all edge-count, in-degree, out-degree and distance-bin invariants.
 
 Expected runtime: approximately 40–45 minutes wall-clock using four-way parallelism, based on the completed 4-null run.
+
+
+## 2026-09-28 — 8-null spatial stability result
+
+**Evidence label:** NULL-CONTROLLED / STABILITY.
+
+The 8-null ensemble confirms the same descriptive >1.01 interval (degrees 51–71) and same peak threshold (62) observed in the first 4-null ensemble. Peak phi_norm changed from 1.0121585 (4-null) to 1.0120821 (8-null).
+
+**What this supports:** stability of the observed qualitative result under additional random seeds for the same project-defined spatial null.
+
+**What this does not support:** statistical significance, spatial causality, biological mechanism, or exact reproduction of a literature spatial model.
+
+## 2026-09-28 — C2 feasibility pilot
+
+Run 36393368885 tests whether NPC-like neuropil block constraints and the coarse arbor-distance constraint can be jointly enforced by a degree-preserving directed edge-swap move set.
+
+The pilot is 100,000 attempts and must be interpreted only through acceptance and invariant preservation.
