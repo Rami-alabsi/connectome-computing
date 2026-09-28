@@ -472,3 +472,52 @@ Corrected pilot run: 36394370209
 - no scientific interpretation permitted until completion.
 
 The temporary push bootstrap used to launch this corrected pilot has already been removed; the workflow is manual-dispatch-only.
+
+
+## 2026-09-28 — C2 feasibility pilot completed; first kernel rejected on runtime grounds
+
+The corrected frozen-edge C2 pilot completed successfully in Run `36396525136` after the original implementation failure. The pilot used the authoritative Princeton C0 artifact `36318477728`, FAFB v783, seed `20260935`, and 100,000 attempted swaps.
+
+Baseline global-pair proposal result:
+- accepted swaps: 1,168 / 100,000
+- acceptance rate: 1.168%
+- frozen edges without complete NPC block assignment: 9,869
+- exact edge count, in-degree, out-degree, NPC block-pair counts, distance-bin histogram, no-self-loop and no-duplicate invariants: all passed
+- artifact: `10958119130`
+- artifact SHA-256: `2e840e102cfddcccc7da3baa8b051543be63fadfd0c4dafd9ca319e4e4921a0a`
+- execution time of the 100k pilot step: approximately 78.1 s.
+
+This established joint-constraint feasibility but made a full 3,732,460-successful-swap null impractical with the original proposal kernel: a stationary extrapolation is roughly 319.6 million attempts, about 69 hours per null on the observed runner rate. Therefore no full C2 null was launched.
+
+## 2026-09-28 — C2 proposal-kernel optimization pilot
+
+The C2 implementation was then optimized without changing the declared constraints. The proposal is now stratified by fixed source-neuropil -> target-neuropil block-pair class; distance-bin preservation remains an exact acceptance condition. This removes proposal attempts that can never satisfy the NPC block constraint while retaining the global distance-bin constraint.
+
+Optimized pilot Run `36396805573`:
+- commit: `8fd9f6ad8ca6765a5ed1d60d602ff131a86a7f1c`
+- seed: `20260935`
+- attempts: 100,000
+- accepted swaps: 9,789
+- acceptance rate: **9.789%**
+- block rejections: 0
+- distance-bin rejections: 86,453
+- invalid/duplicate/self-loop rejections: 3,758
+- 3,732,460 unique directed pairs
+- 3,648 block-pair classes
+- 9,869 frozen edges without complete block assignment
+- all seven invariants passed
+- artifact: `10958720816`
+- artifact SHA-256: `9d831b88f75c919b8161608b1b603506173b57590b41f22b2fb2773dd33c6681`
+- pilot step runtime: approximately 86.6 s.
+
+The optimized kernel improves acceptance by about 8.4x versus the baseline pilot. A naive stationary extrapolation is still about 8.1 hours per full null, so **C2 is feasible as a move set but not yet operationally efficient enough for an ensemble on the current Python runner**.
+
+### Decision
+
+Do not launch a full C2 ensemble yet. The next engineering step is to benchmark a faster implementation of the same proposal kernel (or a rigorously equivalent exact sampler) before committing to multi-null execution. The scientific constraint set must not be weakened merely to obtain a shorter runtime.
+
+No rich-club curve, significance claim, mechanism claim, or architectural inference is attached to either C2 pilot.
+
+## Current compass
+
+Gate A CLOSED → Gate B CLOSED → C0 CLOSED → C1 feasibility CLOSED → spatial 8-null stability VALIDATED → **C2 joint-constraint feasibility VALIDATED but runtime optimization OPEN** → C2 full ensemble only after sampler/runtime validation → stronger spatial model / structure→function → computational abstraction.
