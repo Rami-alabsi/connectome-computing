@@ -2,7 +2,9 @@
 # Bootstrap trigger: validated C1 -> four-null ensemble handoff.\n"""Run one FAFB v783 hard-binned arbor-spatial rich-club null.
 
 This is a project-defined sensitivity null: directed degree-preserving swaps
-must preserve the multiset of coarse arbor-distance bins. It is not an exact
+must preserve the multiset of coarse arbor-distance bins.
+
+Bootstrap run uses authoritative Princeton C0 artifact 10931780910. It is not an exact
 reproduction of Lin et al.'s NND model and does not itself establish mechanism.
 """
 from __future__ import annotations
