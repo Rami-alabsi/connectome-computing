@@ -7,6 +7,8 @@ on:
         description: "Authoritative C0 workflow run ID"
         required: true
         type: string
+  push:
+    branches: [main]
 
 permissions:
   actions: read
@@ -24,20 +26,20 @@ jobs:
       - name: Download graph
         run: |
           mkdir -p data/raw/fafb_v783 artifacts/fafb-v783
-          curl -L --fail --retry 3 --retry-all-errors             -o data/raw/fafb_v783/connections_princeton.csv.gz             "https://storage.googleapis.com/flywire-data/codex/data/fafb/783/connections_princeton.csv.gz"
+          curl -L --fail --retry 3 --retry-all-errors -o data/raw/fafb_v783/connections_princeton.csv.gz "https://storage.googleapis.com/flywire-data/codex/data/fafb/783/connections_princeton.csv.gz"
       - name: Download authoritative C0 artifact
         uses: actions/download-artifact@v4
         with:
           github-token: ${{ github.token }}
           repository: ${{ github.repository }}
-          run-id: ${{ inputs.c0_run_id }}
+          run-id: ${{ inputs.c0_run_id || '36318477728' }}
           name: fafb-v783-gate-c0-princeton-arbor-spatial-preflight
           path: data/raw/fafb_v783/c0-artifact
       - name: Run 100k feasibility pilot
         env:
           PYTHONPATH: .
         run: |
-          python scripts/run_fafb_npc_spatial_feasibility.py             --connections data/raw/fafb_v783/connections_princeton.csv.gz             --centroids "$(find data/raw/fafb_v783/c0-artifact -name arbor-centroids.csv.gz -print -quit)"             --seed 20260935             --attempts 100000             --min-synapses 5             --output artifacts/fafb-v783/c2-feasibility-100k.json
+          python scripts/run_fafb_npc_spatial_feasibility.py --connections data/raw/fafb_v783/connections_princeton.csv.gz --centroids "$(find data/raw/fafb_v783/c0-artifact -name arbor-centroids.csv.gz -print -quit)" --seed 20260935 --attempts 100000 --min-synapses 5 --output artifacts/fafb-v783/c2-feasibility-100k.json
       - uses: actions/upload-artifact@v4
         with:
           name: fafb-v783-c2-feasibility-100k
