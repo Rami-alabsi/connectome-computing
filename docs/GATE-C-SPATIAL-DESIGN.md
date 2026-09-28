@@ -262,3 +262,25 @@ The Princeton arbor-distance path passed the feasibility gate.
 **Decision:** the hard-binned arbor-distance swap is computationally feasible on the complete authoritative graph. It is still a project-defined spatial sensitivity null, not an exact implementation of Lin et al.'s NND model and not the Salova & Kovács maximum-entropy model.
 
 **Next:** run four independent spatial rich-club nulls (seeds 20260927–20260930), each targeting one successful swap per edge, then aggregate only if all four pass invariants and full target completion.
+
+
+## 2026-09-28 — First spatial ensemble result and next control
+
+The authoritative Princeton C0 and C1 feasibility path has produced the first validated spatial rich-club ensemble.
+
+Run 36381489805 used four independent seeds (20260927–20260930), one successful swap per directed edge, 20–120 degree sweep, and exact preservation of edge count, in-degree, out-degree and the coarse arbor-distance-bin histogram. All four nulls reached the full 3,732,460-swap target.
+
+Result: descriptive phi_norm > 1.01 from degree 51 through 71; peak at degree 62 with phi_norm 1.0121585.
+
+This is a project-defined hard-binned spatial sensitivity control. It is not exact Lin NND, not a maximum-entropy spatial model, and not evidence that spatial distance is the biological mechanism.
+
+The next planned step is an 8-null stability expansion. Expected wall-clock time is approximately 40–45 minutes with four-way parallelism, based on the completed 4-null run (~21 minutes). If stability is adequate, proceed to a 100,000-attempt C2 NPC+spatial feasibility pilot before any full combined ensemble.
+
+The C2 pilot must preserve:
+- exact in-degree;
+- exact out-degree;
+- source-neuropil → target-neuropil block counts;
+- declared arbor-distance constraint;
+- no self-loops or duplicate directed pairs.
+
+The pilot reports acceptance and invariant status only; it must not be interpreted as a rich-club result.
