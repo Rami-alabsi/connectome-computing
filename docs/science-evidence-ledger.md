@@ -227,3 +227,55 @@ The complete FAFB v783 graph (3,732,460 directed pairs after pair aggregation an
 **Provenance:** C0 Run 36318477728 / artifact 10931780910 / SHA-256 7265e20db3721f6b438a93227180eb0d0b8d3ad3fd9894bcbbe4a14a81dd5f36; C1 Run 36320329317 / artifact 10932471526 / SHA-256 efa3b9837ece2920e37fde31383ea0e40f4787d5d1da6da61fc897850882ea45.
 
 **Project consequence:** C1 feasibility is closed. The spatial rich-club null ensemble is now the active biological control. This result does not establish a spatial mechanism, significance, novelty, or computational function.
+
+
+## 2026-09-28 — Gate C spatial ensemble / cross-null checkpoint
+
+### EVIDENCE — first authoritative spatial rich-club ensemble completed
+
+**Source:** FAFB v783, Princeton arbor-aware C0 artifact; workflow 36381489805; commit 6eb894d6e0b0cdf8d25cf3151fb0103e4f54b403; aggregate artifact 10952943175.
+
+Four independent spatial nulls all reached 3,732,460 successful directed edge swaps and preserved edge count, exact in/out-degree sequences and the complete coarse arbor-distance-bin histogram. The spatial null uses the outgoing presynaptic arbor-proxy centroid to incoming postsynaptic arbor-proxy centroid, anisotropic 4/4/40 nm scaling, and exact preservation of the multiset of coarse distance bins.
+
+The ensemble gives a descriptive phi_norm > 1.01 interval of degrees 51–71 and a peak at degree 62 with phi_norm = 1.0121585.
+
+**Evidence label:** NULL-CONTROLLED / EXTENSION.
+
+**What this supports:** a small residual rich-club enrichment remains under the project's defined degree + coarse arbor-distance constraint.
+
+**What this does not support:** a spatial mechanism, formal statistical significance, biological causality, computational function, architecture novelty, or exact reproduction of Lin et al.'s NND model.
+
+### EVIDENCE — cross-null observed-graph audit
+
+CFG 100-null, NPC-like 100-null and spatial 4-null artifacts all use 3,732,460 unique directed pairs, a 5-synapse threshold after pair aggregation, and the same 20–120 degree grid. Their observed rich-club curves have identical threshold, rich-node, rich-edge and observed-density values.
+
+The peak phi_norm values are:
+- CFG: 1.057835 at degree 96;
+- NPC-like: 1.015171 at degree 57;
+- Spatial: 1.012159 at degree 62.
+
+**Interpretation:** the attenuation across CFG → NPC-like → spatial is attributable to increasingly constrained null ensembles within the defined implementations, not to a change in the observed graph.
+
+**Evidence label:** NULL-CONTROLLED / COMPARATIVE.
+
+### LITERATURE — spatial + topology remain separate explanatory constraints
+
+Salova & Kovács (Network Neuroscience, 2025) report that spatial constraints alone do not reproduce broad connectome topology and degree alone does not reproduce spatial structure; combined maximum-entropy models capture additional properties beyond the supplied constraints. citeturn0search0
+
+**Project use:** the current hard-binned spatial null is a sensitivity extension. A future maximum-entropy distance model should be treated as a distinct model family rather than retroactively redefining this result.
+
+### LITERATURE — structure→function bridge remains downstream
+
+Lin & Murthy (Nature Methods, 2025) emphasize that connectomes connect circuit architecture to neural activity and behavior and motivate biologically realistic functional models. citeturn0search3
+
+Zhang et al. (Fundamental Research, 2026) report structure-constrained Drosophila activation modeling, while Li et al. (bioRxiv, 2026) report FlyWire-v783-constrained whole-brain spontaneous-activity modeling. citeturn0search1turn0search4
+
+**Project use:** these studies justify a future structure→dynamics validation stage but do not replace the current null hierarchy.
+
+### DECISION
+
+Gate C1 feasibility is CLOSED. The first spatial ensemble is VALIDATED but Gate C overall remains OPEN.
+
+Next experiment: 8-null spatial stability expansion. If stable, perform a 100,000-attempt C2 NPC+spatial feasibility pilot before designing a full combined ensemble.
+
+Runtime record: four-null spatial ensemble ~21 minutes wall-clock; estimated 8-null ~40–45 minutes and 16-null ~80–90 minutes with four-way parallelism. Estimates are planning values, not guaranteed execution times.
