@@ -161,3 +161,18 @@ Record an estimate before every large run. Current empirical anchor:
 4. Continue literature refresh before any new scientific interpretation.
 
 The workflow .github/workflows/m2-fafb-spatial-rich-club-4null.yml is now manual-dispatch only. The earlier push-bootstrap trigger was removed after the validated run so future code changes cannot silently launch a costly scientific ensemble.
+
+
+## 2026-09-28 LIVE — 8-null stability run active
+
+Run 36386665317 is the planned spatial stability expansion.
+
+- Seeds: 20260927–20260934
+- Target: 3,732,460 successful swaps/null
+- Four-way parallelism
+- Expected wall-clock: ~40–45 minutes
+- Authoritative C0: run 36318477728
+
+Do not interpret partial jobs. Accept the aggregate only if all eight nulls reach target and preserve edge count, in-degree, out-degree and distance-bin histogram.
+
+The 8-null workflow is manual-dispatch-only in the repository after a temporary push bootstrap was removed immediately after launch.
