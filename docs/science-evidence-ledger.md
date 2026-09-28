@@ -215,3 +215,15 @@ and superseded for the primary C1 path; it does not invalidate the Princeton C0 
 - Interpretation: this validates the spatial data path and shows a strong descriptive edge/nonedge distance separation, but does not establish a mechanism or a rich-club residual after spatial control.
 
 **Prior-art anchor:** Lin et al. (Nature 2024, DOI 10.1038/s41586-024-07968-y) explicitly defined neuron pair distances using average outgoing synapse positions as an axonal-arbor proxy and average incoming synapse positions as a dendritic-arbor proxy, then compared connectivity as a function of distance. Salova & Kovács (Network Neuroscience 2025, DOI 10.1162/netn_a_00428) show that degree and spatial constraints jointly capture connectome structure better than either constraint alone.
+
+
+## 2026-09-28 — Gate C1 feasibility evidence
+
+### EVIDENCE — authoritative Princeton spatial swap feasibility passed
+**Status:** EXECUTION-VALID / FEASIBILITY, not a rich-club result.
+
+The complete FAFB v783 graph (3,732,460 directed pairs after pair aggregation and the 5-synapse threshold) has 100% node and edge coverage under the authoritative Princeton arbor-proxy centroids. A 100,000-attempt hard-binned directed swap benchmark accepted 4,156 swaps (4.156%) while preserving edge count, exact in/out-degree sequences and the complete coarse distance-bin histogram. No edges in the tested rich-club sets at degree thresholds 37, 75, 93 or 120 were excluded.
+
+**Provenance:** C0 Run 36318477728 / artifact 10931780910 / SHA-256 7265e20db3721f6b438a93227180eb0d0b8d3ad3fd9894bcbbe4a14a81dd5f36; C1 Run 36320329317 / artifact 10932471526 / SHA-256 efa3b9837ece2920e37fde31383ea0e40f4787d5d1da6da61fc897850882ea45.
+
+**Project consequence:** C1 feasibility is closed. The spatial rich-club null ensemble is now the active biological control. This result does not establish a spatial mechanism, significance, novelty, or computational function.
