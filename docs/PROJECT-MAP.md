@@ -384,3 +384,8 @@ The 9,869 edges lacking complete NPC block assignment are frozen, not removed fr
 A full C2 null is **not yet launched** because the current Python implementation extrapolates to roughly 8 hours per 3,732,460-successful-swap null. This is a computational feasibility issue, not a scientific failure. The next task is runtime/sampler optimization while preserving the exact constraint set and documenting the proposal kernel.
 
 C2 pilot results are feasibility evidence only; no rich-club inference is permitted.
+
+
+### C2 runtime benchmark refinement
+
+Run `36396814001` on commit `d12c4ca05310f6ab41fca94237afcd2c461c98af` repeats the optimized block-pair-stratified C2 pilot after removing a per-attempt bucket lookup overhead. Acceptance remains 9.789% and all invariants remain exact. The pilot step is ~55.2 s, implying roughly 6 h for a full null by linear extrapolation. This is still too slow for the current workflow, so C2 remains at the runtime/sampler optimization gate.
