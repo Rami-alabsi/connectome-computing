@@ -243,3 +243,22 @@ The primary C1 candidate will preserve the full directed in-degree and out-degre
 The distance bins will be fixed before the C1 benchmark and reported with the exact swap acceptance/failure diagnostics. No rich-club interpretation will be published from C1 unless the ensemble passes its pre-registered invariants and reaches the requested null count.
 
 Lin et al. (2024) provide the direct biological precedent for defining pairwise distance from outgoing and incoming synapse-derived arbor proxies; their NND analysis also shows that spatial information changes network null expectations. Salova & Kovács (2025) provide independent support for treating topology and spatial constraints jointly rather than treating either degree or distance alone as sufficient.
+
+
+## 2026-09-28 — Authoritative C1 feasibility result
+
+The Princeton arbor-distance path passed the feasibility gate.
+
+**Provenance**
+- C0: Run `36318477728`, artifact `10931780910`, SHA-256 `7265e20db3721f6b438a93227180eb0d0b8d3ad3fd9894bcbbe4a14a81dd5f36`.
+- C1: Run `36320329317`, artifact `10932471526`, SHA-256 `efa3b9837ece2920e37fde31383ea0e40f4787d5d1da6da61fc897850882ea45`.
+- Commit: `ad1005f4974048957b05e8eb21697fd495816fac`.
+- Graph: 3,732,460 directed pairs at min_synapses=5.
+- Coverage: 100% nodes and 100% edges.
+- Attempts: 100,000; accepted: 4,156; acceptance rate 4.156%.
+- Exact preservation: edge count, in-degree, out-degree, coarse arbor-distance-bin histogram.
+- Rich-edge drop: zero at degree thresholds 37, 75, 93 and 120.
+
+**Decision:** the hard-binned arbor-distance swap is computationally feasible on the complete authoritative graph. It is still a project-defined spatial sensitivity null, not an exact implementation of Lin et al.'s NND model and not the Salova & Kovács maximum-entropy model.
+
+**Next:** run four independent spatial rich-club nulls (seeds 20260927–20260930), each targeting one successful swap per edge, then aggregate only if all four pass invariants and full target completion.
