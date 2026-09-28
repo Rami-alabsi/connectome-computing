@@ -99,7 +99,7 @@ connectome-computing/
 
 ## Status
 
-**Stage: M5 → M6 — FAFB CFG and defined NPC-like gates closed; Gate C spatial control active**
+**Stage: C2 — joint NPC-like + spatial control; 1M-attempt feasibility validated; full C2 null ensemble is the active scientific gate**
 
 Gate A is closed for the defined FAFB v783 method-aligned CFG/rich-club path after Run `35987597540`: 100 CFG nulls, 3,732,460 successful swaps per null, exact edge-count/in-degree/out-degree preservation, and descriptive `phi_norm > 1.01` continuously from degree 27 through 120, peaking at 1.057835 at degree 96. This is a method-aligned v783 replication/extension, not an exact reproduction of Lin et al. 2024.
 
@@ -120,3 +120,9 @@ See docs/prior-art.md for links and detailed notes.
 ## License
 
 Software in this repository is released under the repository license. Biological datasets and external resources remain subject to their own licenses and terms.
+
+## Current 2026-09-28 compass update
+
+Gate A (CFG) and Gate B (NPC-like) are closed for their defined v783 analyses. C0 data-definition/coverage and the spatial 8-null stability check are validated. C2 now has a successful 1,000,000-attempt feasibility benchmark preserving edge count, directed in/out degree, source-block→target-block counts, and arbor-distance-bin histogram exactly. This is a feasibility result, not a biological or computational claim. The next blocking experiment is one full C2 null to 3,732,460 accepted swaps, followed by independent seeds, mixing diagnostics, and aggregation.
+
+The project also maintains an explicit discovery-watch protocol: unexpected, reproducible anomalies are investigated as hypothesis generators rather than suppressed or promoted prematurely. See docs/DISCOVERY-WATCH-AND-ANOMALY-PROTOCOL-2026-09-28.md.
