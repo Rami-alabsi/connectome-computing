@@ -414,3 +414,20 @@ Runtime record: the four-null ensemble took about 21 minutes wall-clock with fou
 ### 2026-09-28 literature refresh
 
 A fresh literature check was completed. Salova & Kovács (Network Neuroscience, 2025) support treating topology and spatial constraints jointly rather than assuming either alone is sufficient. Lin & Murthy (Nature Methods, 2025) reinforce the structure→function bridge. Zhang et al. (Fundamental Research, 2026) provide a structure-constrained Drosophila dynamics study, while Li et al. (bioRxiv, 2026) provide a recent FlyWire-v783 whole-brain spontaneous-activity modeling preprint. These sources reinforce the project order but do not change the current Gate C decision. 
+
+
+## 2026-09-28 — 8-null spatial stability run active
+
+The planned stability expansion has been launched.
+
+- Workflow: 36386665317
+- Purpose: spatial ensemble stability only
+- Seeds: 20260927–20260934
+- Target: 3,732,460 successful swaps per null
+- Parallelism: 4 jobs
+- Timeout: 90 minutes/job
+- Expected wall-clock: about 40–45 minutes
+- Source C0 run: 36318477728
+- The workflow was temporarily bootstrapped by push only to launch this explicit run, then immediately restored to manual-dispatch-only. No future code push will automatically launch the ensemble.
+
+Scientific interpretation is blocked until all 8 nulls reach target and all invariants pass.
