@@ -2,7 +2,7 @@
 
 ## Current position
 
-**Stage: M5 → M6 — FAFB CFG and defined NPC-like gates closed; Gate C spatial control preflight active**
+**Stage: M5 → M6 — FAFB CFG/NPC controls closed; Gate C spatial stability validated; C2 runtime/sampler optimization open**
 
 **Prototype-phase note:** the current implementation phase was built in a single intensive session. Treat the repository as a research prototype scaffold until real-data execution, matched controls, ablations and reproducible artifacts have been completed.
 
@@ -510,7 +510,7 @@ Optimized pilot Run `36396805573`:
 - artifact SHA-256: `9d831b88f75c919b8161608b1b603506173b57590b41f22b2fb2773dd33c6681`
 - pilot step runtime: approximately 86.6 s.
 
-The optimized kernel improves acceptance by about 8.4x versus the baseline pilot. A naive stationary extrapolation is still about 8.1 hours per full null, so **C2 is feasible as a move set but not yet operationally efficient enough for an ensemble on the current Python runner**.
+The optimized kernel improves acceptance by about 8.4x versus the baseline pilot. A naive stationary extrapolation is still about 9.2 hours per full null, so **C2 is feasible as a move set but not yet operationally efficient enough for an ensemble on the current Python runner**.
 
 ### Decision
 
@@ -530,4 +530,4 @@ The follow-up code fix `d12c4ca05310f6ab41fca94237afcd2c461c98af` removed per-at
 - all invariants passed;
 - pilot step runtime: approximately **55.2 s**.
 
-This is now the preferred runtime benchmark for the current Python proposal kernel. Simple linear extrapolation is approximately 6 hours per full null, still too large for the present workflow and not an acceptable reason to relax constraints. The next gate remains faster exact implementation/sampler validation.
+This is now the preferred runtime benchmark for the current Python proposal kernel. Simple linear extrapolation is approximately 5.85 hours (about 6 hours) per full null, still too large for the present workflow and not an acceptable reason to relax constraints. The next gate remains faster exact implementation/sampler validation.
