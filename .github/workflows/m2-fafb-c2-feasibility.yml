@@ -7,8 +7,6 @@ on:
         description: "Authoritative C0 workflow run ID"
         required: true
         type: string
-  push:
-    branches: [main]
 
 permissions:
   actions: read
@@ -32,7 +30,7 @@ jobs:
         with:
           github-token: ${{ github.token }}
           repository: ${{ github.repository }}
-          run-id: ${{ inputs.c0_run_id || '36318477728' }}
+          run-id: ${{ inputs.c0_run_id }}
           name: fafb-v783-gate-c0-princeton-arbor-spatial-preflight
           path: data/raw/fafb_v783/c0-artifact
       - name: Run 100k feasibility pilot
