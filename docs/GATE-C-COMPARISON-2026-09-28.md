@@ -226,3 +226,10 @@ Run `36396805573`, commit `8fd9f6ad8ca6765a5ed1d60d602ff131a86a7f1c`, artifact `
 The proposal-kernel optimization changes how candidate pairs are proposed, not the declared C2 constraints. It is therefore an implementation/runtime optimization, not a new scientific null definition. However, the resulting full-null runtime is still too high for the current Python runner (~8 h/null by simple extrapolation).
 
 **Decision:** C2 joint feasibility is established, but full C2 ensemble execution remains blocked on sampler/runtime optimization. Do not weaken the distance-bin or NPC block constraints to make the experiment faster.
+
+
+## Runtime refinement after bucket-lookup fix
+
+Run `36396814001` (commit `d12c4ca05310f6ab41fca94237afcd2c461c98af`) repeated the optimized C2 pilot after removing an avoidable per-attempt bucket-key lookup. The acceptance rate remained exactly 9.789% and all invariants remained exact. The pilot computation step decreased to approximately 55.2 s. Linear extrapolation gives approximately 6 h per 3,732,460-successful-swap null on this runner.
+
+This confirms the remaining bottleneck is the Python constrained-swap kernel rather than the proposal bookkeeping alone. Full C2 ensemble execution remains blocked pending a faster exact implementation.
