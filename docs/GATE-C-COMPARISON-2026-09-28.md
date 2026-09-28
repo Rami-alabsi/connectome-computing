@@ -200,3 +200,29 @@ Run 36393368885 is testing a combined null move set that preserves:
 - no self-loops or duplicate directed pairs.
 
 The pilot uses 100,000 attempted swaps and reports feasibility only. No rich-club interpretation is allowed.
+
+
+## 2026-09-28 — C2 feasibility result and runtime decision
+
+The corrected C2 feasibility pilot was executed against the authoritative Princeton C0 artifact.
+
+### Baseline kernel
+Run `36396525136`, artifact `10958119130`:
+- 100,000 attempts; 1,168 accepted; acceptance = 1.168%.
+- 9,869 edges without complete NPC block assignment were frozen.
+- All edge-count, in/out-degree, block-pair, distance-bin, self-loop and duplicate invariants passed.
+- Pilot step runtime ≈78.1 s.
+
+A direct extrapolation would require ≈319.6 million attempts for one 3,732,460-successful-swap null, or roughly 69 h at the measured attempt throughput. No ensemble was launched.
+
+### Optimized proposal kernel
+Run `36396805573`, commit `8fd9f6ad8ca6765a5ed1d60d602ff131a86a7f1c`, artifact `10958720816`:
+- 100,000 attempts; 9,789 accepted; acceptance = **9.789%**.
+- 0 block rejections because proposals are sampled within fixed source-block -> target-block classes.
+- 86,453 distance-bin rejections and 3,758 invalid/duplicate/self-loop rejections.
+- All declared invariants passed.
+- Pilot step runtime ≈86.6 s.
+
+The proposal-kernel optimization changes how candidate pairs are proposed, not the declared C2 constraints. It is therefore an implementation/runtime optimization, not a new scientific null definition. However, the resulting full-null runtime is still too high for the current Python runner (~8 h/null by simple extrapolation).
+
+**Decision:** C2 joint feasibility is established, but full C2 ensemble execution remains blocked on sampler/runtime optimization. Do not weaken the distance-bin or NPC block constraints to make the experiment faster.
