@@ -247,3 +247,14 @@ No C2 rich-club curve or scientific mechanism inference is allowed from the pilo
 
 Updated compass:
 Gate A CLOSED → Gate B CLOSED → C0 CLOSED → C1 CLOSED → spatial 8-null STABLE → C2 FEASIBILITY CLOSED → **C2 RUNTIME/SAMPLER OPTIMIZATION OPEN** → C2 ensemble → stronger spatial model → structure→function → computational abstraction.
+
+
+### C2 latest runtime benchmark
+
+Run `36396814001`, commit `d12c4ca05310f6ab41fca94237afcd2c461c98af`, repeats the optimized proposal after fixing bucket-key lookup overhead:
+- 100,000 attempts
+- 9,789 accepted (9.789%)
+- all invariants passed
+- computation step ≈55.2 s
+
+Use this as the current runtime anchor. Full null is still roughly 6 h by linear extrapolation. Do not launch the ensemble until a faster exact sampler/implementation is benchmarked and its stationary proposal logic is documented.
