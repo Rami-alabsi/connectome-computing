@@ -371,3 +371,16 @@ This closes the **spatial ensemble stability sub-gate**, but not Gate C overall.
 C2 feasibility is active: NPC-like block-pair preservation + coarse arbor-distance-bin preservation. The pilot is 100,000 attempts and is feasibility-only.
 
 **Updated compass:** Gate A CLOSED → Gate B CLOSED → C0 CLOSED → C1 feasibility CLOSED → spatial stability CLOSED → C2 feasibility RUNNING → possible C2 ensemble → stronger spatial model / maximum-entropy sensitivity → functional validation → computational abstraction.
+
+
+## 2026-09-28 — C2 feasibility checkpoint
+
+The 8-null spatial stability result is now validated: degrees 51–71 remain above the descriptive 1.01 line and degree 62 remains the peak; peak phi_norm changed only from 1.0121585 (4-null) to 1.0120821 (8-null).
+
+C2 was tested in two feasibility kernels. The corrected baseline kernel accepted 1.168% of 100,000 attempts while preserving all declared invariants. A block-pair-stratified proposal kernel raised acceptance to 9.789% with the same invariants. The latter is the current feasibility kernel.
+
+The 9,869 edges lacking complete NPC block assignment are frozen, not removed from the graph; centroid coverage remains mandatory and complete.
+
+A full C2 null is **not yet launched** because the current Python implementation extrapolates to roughly 8 hours per 3,732,460-successful-swap null. This is a computational feasibility issue, not a scientific failure. The next task is runtime/sampler optimization while preserving the exact constraint set and documenting the proposal kernel.
+
+C2 pilot results are feasibility evidence only; no rich-club inference is permitted.
