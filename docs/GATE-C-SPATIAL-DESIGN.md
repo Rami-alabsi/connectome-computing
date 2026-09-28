@@ -315,3 +315,10 @@ Benchmark a faster implementation of the same proposal kernel or an exactly equi
 - full-target completion on a small graph before full FAFB execution.
 
 Only after that gate passes should a C2 ensemble be launched.
+
+
+### Latest C2 runtime benchmark
+
+The optimized C2 kernel was re-benchmarked after commit `d12c4ca05310f6ab41fca94237afcd2c461c98af`. Run `36396814001` again accepted 9,789/100,000 swaps (9.789%) with all invariants preserved and a 55.2 s computation step. The proposal remains block-pair-stratified with exact global distance-bin acceptance.
+
+The current decision is unchanged: do not launch a full C2 ensemble until a faster exact implementation or sampler is validated. The constraint set must remain unchanged.
