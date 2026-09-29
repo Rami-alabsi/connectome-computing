@@ -1,6 +1,6 @@
 # Project Map — Master Compass
 
-Updated: 2026-09-27
+Updated: 2026-09-29
 
 ## Purpose
 
@@ -78,7 +78,15 @@ v630 reproduction.
 
 ### Gate C — spatial/distance-constrained null
 
-**C0 CLOSED for data-definition/coverage; C1 OPEN.**
+**C0 CLOSED; C1 CLOSED; spatial 8-null stability VALIDATED; C2 full-null #1 COMPLETED; Gate C remains OPEN.**
+
+Current state:
+- C0 authoritative Princeton spatial data definition/coverage: CLOSED.
+- C1 authoritative feasibility: CLOSED.
+- Spatial 4-null: VALIDATED.
+- Spatial 8-null: STABLE.
+- C2 joint NPC-like + arbor-distance-bin full-null #1: COMPLETED successfully.
+- Gate C is **not** closed: one C2 realization is insufficient for ensemble/mixing support and the planned stronger spatial/max-entropy sensitivity remains outstanding.
 
 The authoritative C0 uses the full FAFB v783 Princeton synapse table
 `fafb_v783_princeton_synapse_table.csv.gz` (~2.7 GB compressed).
@@ -189,8 +197,10 @@ surviving pattern into a computational primitive.
   -> CLOSED for the defined 100-null v783 benchmark
 
 **Gate C**
-  -> genuine spatial/distance null
-  -> OPEN
+  -> C0/C1 + spatial ensemble
+  -> C2 joint NPC-like + arbor-distance control
+  -> full-null #1 COMPLETED
+  -> OPEN for independent C2 seeds, mixing diagnostics and stronger spatial sensitivity
 
 **Surviving biological constraint**
   -> only if a structural effect survives the relevant null hierarchy
@@ -424,3 +434,23 @@ This is **feasibility evidence only**, not a rich-club null result. A linear est
 The earlier ~6 h/null estimate from the 100k benchmark is therefore superseded as the current calibration point.
 
 **Compass:** Gate A CLOSED → Gate B CLOSED → C0 CLOSED → C1 feasibility CLOSED → spatial 8-null stability VALIDATED → **C2 joint-constraint feasibility VALIDATED** → C2 full null execution OPEN → stronger spatial/max-entropy controls → Gate C closure → structure→function → RSS C/D/J hypothesis testing → matched ablations → computational abstraction → benchmark → scaling.
+
+
+---
+
+## 2026-09-29 — C2 full-null #1 checkpoint
+
+Authoritative C2 full-null #1 is complete.
+
+- Workflow run: `36418874492`
+- Seed: `20260935`
+- Attempts: `55,361,441`
+- Accepted swaps: `3,732,460`
+- Final acceptance rate: `6.7419849%`
+- All declared invariants: PASS
+- Artifact ID: `10968562956`
+- Artifact SHA-256: `70549dbe9e0082e710c0b4521b7c94cc01714e842c17b787cee2cbef5b0f8093`
+
+The declining acceptance trajectory is retained as a sampler diagnostic, not a biological finding.
+
+**Next:** C2 artifact audit and rich-club observable → non-invasive mixing diagnostics → independent C2 seeds → compare C2 against prior null families → stronger spatial/max-entropy sensitivity → Gate C decision.
