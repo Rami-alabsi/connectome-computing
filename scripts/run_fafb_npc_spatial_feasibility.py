@@ -5,6 +5,7 @@ import argparse, csv, gzip, json, math, random, bisect, time
 from collections import Counter, defaultdict
 from pathlib import Path
 from src.graph.connections import _open_csv, _pick, SOURCE_CANDIDATES, TARGET_CANDIDATES, aggregate_pair_synapses
+from scripts.run_fafb_rich_club import curve as rich_club_curve
 
 BINS_NM=(0,25000,50000,100000,200000,500000,1000000,2000000,5000000,10000000,float("inf"))
 
@@ -51,6 +52,32 @@ def degree_maps(edges):
     ins,outs=Counter(),Counter()
     for u,v in edges: outs[u]+=1; ins[v]+=1
     return ins,outs
+
+def c2_rich_club_curve(observed_edges, null_edges, thresholds=range(20,121)):
+    """Compute descriptive observed/null rich-club ratios for one completed C2 null."""
+    thresholds=sorted(set(int(k) for k in thresholds))
+    observed=rich_club_curve(observed_edges, thresholds)
+    null=rich_club_curve(null_edges, thresholds)
+    rows=[]
+    for o,n in zip(observed,null):
+        ratio=(o["rich_density"] / n["rich_density"]
+               if n["rich_density"] else None)
+        rows.append({**o,
+                     "null_rich_density":n["rich_density"],
+                     "observed_to_null":ratio,
+                     "phi_norm":ratio,
+                     "above_1pct":bool(ratio is not None and ratio > 1.01)})
+    above=[r["threshold"] for r in rows if r["above_1pct"]]
+    return {
+        "thresholds":thresholds,
+        "curve":rows,
+        "rich_club_criterion":"phi_norm > 1.01",
+        "onset_threshold":min(above) if above else None,
+        "offset_threshold":max(above) if above else None,
+        "peak_threshold":max(rows,key=lambda r: r["phi_norm"] if r["phi_norm"] is not None else float("-inf"))["threshold"] if rows else None,
+        "null_count":1,
+        "interpretation":"descriptive single-null comparison; not a significance test",
+    }
 
 def build_block_buckets(edge_list,blocks):
     """Index eligible edges by fixed source-block -> target-block class.
@@ -155,6 +182,9 @@ def main():
             })
 
     final_in,final_out=degree_maps(edge_list)
+    final_edges=set(edge_list)
+    rich_club=c2_rich_club_curve(set(edges),final_edges)
+    original_edge_overlap_fraction=sum(1 for e in final_edges if e in edges) / len(edges) if edges else 0.0
     preservation={
         "same_edge_count":len(edge_set)==len(edges),
         "same_in_degree":initial_in==final_in,
@@ -177,6 +207,8 @@ def main():
         "distance_bins_nm":list(BINS_NM),"preservation":preservation,
         "all_invariants_preserved":all(preservation.values()),
         "target_reached": (args.target_accepted <= 0 or accepted >= args.target_accepted),
+        "rich_club":rich_club,
+        "original_edge_overlap_fraction":original_edge_overlap_fraction,
         "scientific_conclusion":None,
         "interpretation":"feasibility only; no rich-club inference",
         "limitations":[
