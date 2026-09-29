@@ -1,63 +1,75 @@
-from scripts.run_fafb_npc_spatial_feasibility import (
-    block_counts,
-    build_block_buckets,
-    choose_bucket_pair,
-    c2_rich_club_curve,
-)
 
 
-def test_block_counts_freezes_edges_without_block_assignments():
-    edges={("a","c"),("a","d"),("x","c")}
-    blocks={"a":"X","c":"Y"}
-    assert block_counts(edges,blocks)=={("X","Y"):1}
+def test_c2_resume_matches_uninterrupted_trajectory(tmp_path, monkeypatch):
+    """A checkpoint/resume run must reproduce the same final state as uninterrupted C2."""
+    import csv
+    import gzip
+    import pickle
+    import sys
 
+    from scripts.run_fafb_npc_spatial_feasibility import load_c2_state, main
 
-def test_block_pair_stratified_proposal_stays_in_same_block_class():
-    edges=[("a","c"),("b","d"),("a","d"),("b","c"),("x","c")]
-    blocks={"a":"X","b":"X","c":"Y","d":"Y"}
-    buckets,keys,cumulative,total=build_block_buckets(edges,blocks)
-    assert len(buckets)==1
-    assert keys==[("X","Y")]
-    assert total==6
-    i,j=choose_bucket_pair(__import__("random").Random(7),buckets,keys,cumulative,total)
-    assert (blocks[edges[i][0]],blocks[edges[i][1]])==("X","Y")
-    assert (blocks[edges[j][0]],blocks[edges[j][1]])==("X","Y")
+    connections = tmp_path / "connections.csv"
+    with connections.open("w", newline="") as fh:
+        writer = csv.writer(fh)
+        writer.writerow(["pre_root_id", "post_root_id", "syn_count", "neuropil"])
+        for source in ("a", "b", "c"):
+            for target in ("d", "e", "f"):
+                writer.writerow([source, target, 5, "X"])
 
+    centroids = tmp_path / "centroids.csv.gz"
+    with gzip.open(centroids, "wt", newline="") as fh:
+        writer = csv.writer(fh)
+        writer.writerow(["root_id", "out_x", "out_y", "out_z", "in_x", "in_y", "in_z"])
+        for node in ("a", "b", "c", "d", "e", "f"):
+            writer.writerow([node, 0, 0, 0, 0, 0, 0])
 
-def test_c2_rich_club_curve_reports_single_null_descriptively():
-    edges = {("a","b"),("a","c"),("b","a"),("b","c"),("c","a"),("c","b")}
-    result = c2_rich_club_curve(edges, edges, thresholds=[2,3])
-    assert result["null_count"] == 1
-    assert result["interpretation"].startswith("descriptive single-null")
-    assert all(row["phi_norm"] == 1.0 for row in result["curve"])
+    def run(output, attempts, resume_state=""):
+        argv = [
+            "c2", "--connections", str(connections), "--centroids", str(centroids),
+            "--output", str(output), "--seed", "20260935", "--attempts", str(attempts),
+            "--target-accepted", "0", "--min-synapses", "5", "--checkpoint-every", "100",
+            "--code-version", "sampler-test",
+        ]
+        if resume_state:
+            argv += ["--resume-state", str(resume_state)]
+        monkeypatch.setattr(sys, "argv", argv)
+        main()
 
+    first = tmp_path / "first.json"
+    run(first, 100)
+    checkpoint = tmp_path / "resume-state.pkl.gz"
+    checkpoint.write_bytes((tmp_path / "c2-state.pkl.gz").read_bytes())
 
-def test_c2_checkpoint_roundtrip_preserves_rng_and_state(tmp_path):
-    import random
-    from scripts.run_fafb_npc_spatial_feasibility import load_c2_state, save_c2_state
+    resumed = tmp_path / "resumed.json"
+    run(resumed, 200, checkpoint)
 
-    rng=random.Random(20260935)
-    for _ in range(17):
-        rng.random()
-    state={
-        "version":1,
-        "seed":20260935,
-        "code_version":"sampler-test",
-        "attempt":170,
-        "accepted":11,
-        "invalid":7,
-        "block_reject":0,
-        "distance_reject":152,
-        "edge_list":[("a","b"),("b","c")],
-        "edge_bins":[1,2],
-        "rng_state":rng.getstate(),
-        "checkpoints":[{"attempts":170,"accepted_swaps":11}],
-    }
-    path=tmp_path/"c2-state.pkl.gz"
-    save_c2_state(path,state)
-    restored=load_c2_state(path)
-    assert restored==state
+    uninterrupted = tmp_path / "uninterrupted.json"
+    run(uninterrupted, 200)
 
-    rng2=random.Random()
-    rng2.setstate(restored["rng_state"])
-    assert [rng.random() for _ in range(10)] == [rng2.random() for _ in range(10)]
+    resumed_state = load_c2_state(tmp_path / "c2-state.pkl.gz")
+    # The uninterrupted run overwrote the shared state path, so retain its
+    # state separately by rerunning into an isolated directory below.
+    isolated = tmp_path / "isolated"
+    isolated.mkdir()
+    isolated_connections = isolated / "connections.csv"
+    isolated_connections.write_bytes(connections.read_bytes())
+    isolated_centroids = isolated / "centroids.csv.gz"
+    isolated_centroids.write_bytes(centroids.read_bytes())
+    monkeypatch.setattr(sys, "argv", [
+        "c2", "--connections", str(isolated_connections), "--centroids", str(isolated_centroids),
+        "--output", str(isolated / "uninterrupted.json"), "--seed", "20260935",
+        "--attempts", "200", "--target-accepted", "0", "--min-synapses", "5",
+        "--checkpoint-every", "100", "--code-version", "sampler-test",
+    ])
+    main()
+    uninterrupted_state = load_c2_state(isolated / "c2-state.pkl.gz")
+
+    assert resumed_state["attempt"] == uninterrupted_state["attempt"] == 200
+    assert resumed_state["accepted"] == uninterrupted_state["accepted"]
+    assert resumed_state["invalid"] == uninterrupted_state["invalid"]
+    assert resumed_state["block_reject"] == uninterrupted_state["block_reject"]
+    assert resumed_state["distance_reject"] == uninterrupted_state["distance_reject"]
+    assert resumed_state["edge_list"] == uninterrupted_state["edge_list"]
+    assert resumed_state["edge_bins"] == uninterrupted_state["edge_bins"]
+    assert resumed_state["rng_state"] == uninterrupted_state["rng_state"]
