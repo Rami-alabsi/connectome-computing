@@ -4,7 +4,6 @@ def test_c2_resume_matches_uninterrupted_trajectory(tmp_path, monkeypatch):
     """A checkpoint/resume run must reproduce the same final state as uninterrupted C2."""
     import csv
     import gzip
-    import pickle
     import sys
 
     from scripts.run_fafb_npc_spatial_feasibility import load_c2_state, main
@@ -43,13 +42,8 @@ def test_c2_resume_matches_uninterrupted_trajectory(tmp_path, monkeypatch):
 
     resumed = tmp_path / "resumed.json"
     run(resumed, 200, checkpoint)
-
-    uninterrupted = tmp_path / "uninterrupted.json"
-    run(uninterrupted, 200)
-
     resumed_state = load_c2_state(tmp_path / "c2-state.pkl.gz")
-    # The uninterrupted run overwrote the shared state path, so retain its
-    # state separately by rerunning into an isolated directory below.
+
     isolated = tmp_path / "isolated"
     isolated.mkdir()
     isolated_connections = isolated / "connections.csv"
