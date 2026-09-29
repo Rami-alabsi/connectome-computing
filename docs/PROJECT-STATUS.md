@@ -697,3 +697,12 @@ The run reached the full target before the 60M attempt cap. The cumulative accep
 **Next authorized sequence:** artifact audit → C2 rich-club observable → non-invasive mixing diagnostics → independent C2 seeds → compare the C2 ensemble with CFG/NPC/spatial controls → stronger spatial/max-entropy sensitivity → Gate C decision.
 
 See `docs/experiments/C2-FULL-NULL-2026-09-28.md` for the source-of-record experiment record.
+
+
+## C2 runtime anomaly / checkpoint hardening — 2026-09-29
+
+- C2 artifact-complete rerun `36523442690` was cancelled at the workflow's 180-minute self-imposed timeout; this is an execution/infrastructure event, not a scientific result.
+- Audit confirmed the prior `--checkpoint-every` mechanism stored checkpoints only in memory and wrote the final artifact only after normal completion.
+- Hardened C2 workflow/sampler commits now use a 350-minute workflow timeout, persist compressed resumable state (edge list, bins, counters, RNG state), validate resumed state, support optional prior checkpoint artifacts, and upload result/checkpoint artifacts with `if: always()` as best effort.
+- Current status remains: C2 full-null #1 is a valid feasibility realization; Gate C remains OPEN because its artifact lacks the final graph needed for the intended C2 rich-club comparison.
+- Next: verify CI → short runtime calibration → artifact-complete C2 realization → independent C2 seeds → Gate C decision.
