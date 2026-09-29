@@ -76,7 +76,8 @@ jobs:
           RESUME_STATE="$(find artifacts/fafb-v783/c2-resume -name c2-state.pkl.gz -print -quit)"
           RESUME_ARG=""
           if [ -n "$RESUME_STATE" ]; then RESUME_ARG="--resume-state $RESUME_STATE"; fi
-          python scripts/run_fafb_npc_spatial_feasibility.py --connections data/raw/fafb_v783/connections_princeton.csv.gz --centroids "$(find data/raw/fafb_v783/c0-artifact -name arbor-centroids.csv.gz -print -quit)" --seed 20260935 --attempts ${{ inputs.attempts }} --target-accepted ${{ inputs.target_accepted }} --min-synapses 5 --checkpoint-every 100000 --code-version "${{ github.sha }}" $RESUME_ARG --output artifacts/fafb-v783/c2-feasibility-${{ inputs.attempts }}.json
+          CODE_VERSION="$(sha256sum scripts/run_fafb_npc_spatial_feasibility.py | cut -d" " -f1)"
+          python scripts/run_fafb_npc_spatial_feasibility.py --connections data/raw/fafb_v783/connections_princeton.csv.gz --centroids "$(find data/raw/fafb_v783/c0-artifact -name arbor-centroids.csv.gz -print -quit)" --seed 20260935 --attempts ${{ inputs.attempts }} --target-accepted ${{ inputs.target_accepted }} --min-synapses 5 --checkpoint-every 100000 --code-version "$CODE_VERSION" $RESUME_ARG --output artifacts/fafb-v783/c2-feasibility-${{ inputs.attempts }}.json
       - name: Upload C2 result and latest checkpoint
         if: always()
         uses: actions/upload-artifact@v4
