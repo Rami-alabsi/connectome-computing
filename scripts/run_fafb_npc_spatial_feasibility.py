@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """C2 feasibility pilot: NPC-like block preservation + arbor-distance-bin preservation."""
 from __future__ import annotations
-import argparse, csv, gzip, json, math, random, bisect, time, pickle
+import argparse, csv, gzip, json, math, random, bisect, time, pickle, hashlib
 from collections import Counter, defaultdict
 from pathlib import Path
 from src.graph.connections import _open_csv, _pick, SOURCE_CANDIDATES, TARGET_CANDIDATES, aggregate_pair_synapses
@@ -9,7 +9,7 @@ from scripts.run_fafb_rich_club import curve as rich_club_curve
 
 BINS_NM=(0,25000,50000,100000,200000,500000,1000000,2000000,5000000,10000000,float("inf"))
 
-def load_centroids(path):
+def sha256_file(path, chunk_size=1024*1024):\n    h=hashlib.sha256()\n    with open(path,"rb") as fh:\n        while True:\n            chunk=fh.read(chunk_size)\n            if not chunk: break\n            h.update(chunk)\n    return h.hexdigest()\n\ndef load_centroids(path):
     out, inc = {}, {}
     with gzip.open(path,"rt",newline="") as f:
         for r in csv.DictReader(f):
@@ -133,7 +133,7 @@ def main():
     ap.add_argument("--attempts",type=int,default=100000); ap.add_argument("--target-accepted",type=int,default=0); ap.add_argument("--min-synapses",type=int,default=5)
     ap.add_argument("--checkpoint-every",type=int,default=100000)
     ap.add_argument("--resume-state",default="")
-    ap.add_argument("--code-version",default="unknown")
+    ap.add_argument("--code-version",default="unknown")\n    ap.add_argument("--input-fingerprint",default="unknown")
     args=ap.parse_args()
     outc,inc=load_centroids(Path(args.centroids))
     edges=list(aggregate_pair_synapses(args.connections,min_synapses=args.min_synapses))
@@ -150,7 +150,7 @@ def main():
     edge_list=list(edges); edge_set=set(edges)
     edge_bins=[dbin(distance_nm(outc[u],inc[v])) for u,v in edge_list]
     initial_bins=Counter(edge_bins); initial_blocks=block_counts(edge_list,blocks)
-    initial_in,initial_out=degree_maps(edge_list)
+    initial_in,initial_out=degree_maps(edge_list)\n    input_fingerprint=args.input_fingerprint\n    constraint_fingerprint=json.dumps({\n        "dataset":"FAFB", "version":"v783", "min_synapses":args.min_synapses,\n        "distance_bins_nm":list(BINS_NM), "input_fingerprint":input_fingerprint,\n        "unique_directed_pairs":len(edge_list),\n        "block_count_pairs":len(initial_blocks),\n    }, sort_keys=True, separators=(",",":"))
     frozen_block_edges=sum(1 for u,v in edge_list if u not in blocks or v not in blocks)
     buckets,bucket_keys,cumulative,total_pair_choices=build_block_buckets(edge_list,blocks)
 
