@@ -122,10 +122,17 @@ def choose_bucket_pair(rng,buckets,keys,cumulative,total):
     if y >= x: y += 1
     return ix[x],ix[y]
 
-def save_c2_state(path, state):
+def save_c2_state(path, state, compresslevel=1):
+    """Persist a resumable C2 state with low-overhead gzip compression.
+
+    The checkpoint is dominated by the 3.7M-edge edge_list. Level-1 gzip is
+    intentional: checkpoints are recovery artifacts, not archival artifacts.
+    The atomic tmp->replace sequence prevents a partial checkpoint from being
+    mistaken for a valid resume state after interruption.
+    """
     path=Path(path)
     tmp_path=Path(str(path)+".tmp")
-    with gzip.open(tmp_path,"wb") as fh:
+    with gzip.open(tmp_path,"wb",compresslevel=compresslevel) as fh:
         pickle.dump(state,fh,protocol=pickle.HIGHEST_PROTOCOL)
     tmp_path.replace(path)
 
