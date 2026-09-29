@@ -73,6 +73,7 @@ jobs:
         env:
           PYTHONPATH: .
         run: |
+          mkdir -p artifacts/fafb-v783/c2-resume
           RESUME_STATE="$(find artifacts/fafb-v783/c2-resume -name c2-state.pkl.gz -print -quit)"
           RESUME_ARG=""
           if [ -n "$RESUME_STATE" ]; then RESUME_ARG="--resume-state $RESUME_STATE"; fi
