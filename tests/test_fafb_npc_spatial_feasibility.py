@@ -69,3 +69,55 @@ def test_c2_resume_matches_uninterrupted_trajectory(tmp_path, monkeypatch):
     assert resumed_state["edge_list"] == uninterrupted_state["edge_list"]
     assert resumed_state["edge_bins"] == uninterrupted_state["edge_bins"]
     assert resumed_state["rng_state"] == uninterrupted_state["rng_state"]
+
+
+def test_c2_checkpoint_default_compression_is_low_overhead():
+    """Checkpoint compression must stay at level 1 unless explicitly overridden."""
+    import inspect
+
+    from scripts.run_fafb_npc_spatial_feasibility import save_c2_state
+
+    assert inspect.signature(save_c2_state).parameters["compresslevel"].default == 1
+
+
+def test_c2_checkpoint_real_scale_benchmark(tmp_path, capsys):
+    """Optional real-scale checkpoint benchmark; enable with RUN_C2_PERF_TESTS=1."""
+    import os
+    import random
+    import time
+
+    import pytest
+
+    if os.environ.get("RUN_C2_PERF_TESTS") != "1":
+        pytest.skip("set RUN_C2_PERF_TESTS=1 to run the real-scale checkpoint benchmark")
+
+    from scripts.run_fafb_npc_spatial_feasibility import save_c2_state
+
+    n_edges = 373246
+    edge_list = [(i, i + 1) for i in range(n_edges)]
+    edge_bins = [i % 10 for i in range(n_edges)]
+    state = {
+        "version": 2,
+        "seed": 20260935,
+        "code_version": "perf-test",
+        "constraint_fingerprint": "perf-test",
+        "attempt": 5_000_000,
+        "accepted": 350_000,
+        "invalid": 0,
+        "block_reject": 0,
+        "distance_reject": 0,
+        "edge_list": edge_list,
+        "edge_bins": edge_bins,
+        "rng_state": random.Random(20260935).getstate(),
+        "checkpoints": [],
+    }
+
+    output = tmp_path / "c2-state.pkl.gz"
+    started = time.perf_counter()
+    save_c2_state(output, state)
+    elapsed = time.perf_counter() - started
+
+    assert output.exists()
+    print(f"real-scale checkpoint benchmark: {n_edges:,} edges in {elapsed:.3f}s")
+    captured = capsys.readouterr()
+    assert "real-scale checkpoint benchmark" in captured.out
