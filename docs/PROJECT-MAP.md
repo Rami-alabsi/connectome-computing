@@ -463,3 +463,23 @@ The declining acceptance trajectory is retained as a sampler diagnostic, not a b
 - Hardened C2 workflow/sampler commits now use a 350-minute workflow timeout, persist compressed resumable state (edge list, bins, counters, RNG state), validate resumed state, support optional prior checkpoint artifacts, and upload result/checkpoint artifacts with `if: always()` as best effort.
 - Current status remains: C2 full-null #1 is a valid feasibility realization; Gate C remains OPEN because its artifact lacks the final graph needed for the intended C2 rich-club comparison.
 - Next: verify CI → short runtime calibration → artifact-complete C2 realization → independent C2 seeds → Gate C decision.
+
+
+## 2026-09-29 — C2 checkpoint performance gate (latest)
+
+The resumable C2 infrastructure has been performance-hardened after a real-scale audit.
+
+- Real-scale measurement: gzip level 9 checkpoint write ≈26 s; level 1 ≈2.3 s; uncompressed ≈1.1 s.
+- Current sampler checkpoint compression: gzip level 1.
+- Current workflow checkpoint interval: 5,000,000 attempts.
+- Workflow timeout: 350 minutes.
+- Ordinary CI after the change: PASS.
+- Optional scale benchmark: 373,246 edges, enabled only with `RUN_C2_PERF_TESTS=1`.
+
+This changes execution overhead only; it does not change the C2 constraint surface or proposal kernel.
+
+The full C2 #1 feasibility realization remains valid but is **not graph-artifact-complete** for rich-club analysis. The cancelled artifact-complete rerun is not a scientific result.
+
+**Current compass:** Gate A CLOSED → Gate B CLOSED → C0 CLOSED → C1 CLOSED → spatial 8-null STABLE → C2 joint-constraint feasibility VALIDATED → **artifact-complete C2 full null OPEN** → C2 rich-club observable → mixing diagnostics → independent C2 seeds → stronger spatial/max-entropy sensitivity → Gate C decision → structure→function → matched C/D/J ablations → computational abstraction → benchmark → scaling.
+
+**Discovery rule remains active:** do not optimize for confirmation. A disappearance, shift, unexpected peak, unusual null geometry, or other non-intuitive C2 outcome is a discovery candidate first; interpretation requires controls and replication.
