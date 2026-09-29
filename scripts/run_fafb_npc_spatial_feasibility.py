@@ -257,7 +257,7 @@ def main():
     result={
         "dataset":"FAFB","version":"v783","purpose":"C2 NPC-like + arbor-distance feasibility pilot",
         "proposal_kernel":"block-pair-stratified degree-preserving swap proposal; exact distance-bin acceptance check",
-        "attempts":attempt,"target_accepted":args.target_accepted,"seed":args.seed,"accepted_swaps":accepted,
+        "attempts":attempt,"target_accepted":args.target_accepted,"seed":args.seed,"accepted_swaps":accepted,\n        "code_version":args.code_version,"input_fingerprint":input_fingerprint,"constraint_fingerprint":constraint_fingerprint,
         "checkpoint_every":args.checkpoint_every,"checkpoints":checkpoints,
         "acceptance_rate":accepted/attempt if attempt else 0.0,
         "invalid_or_duplicate":invalid,"block_rejected":block_reject,"distance_bin_rejected":distance_reject,
