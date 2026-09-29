@@ -668,3 +668,32 @@ Potential commercial value remains possible through software/tooling, architectu
 
 ### Discovery priority
 Do not optimize the project only to confirm rich-club enrichment. Current discovery candidates are spatial-null narrow variance/constraint geometry, C2 acceptance structure, and any qualitative change in the residual under joint NPC+spatial constraints. Unexpected results remain hypotheses until independently controlled.
+
+
+## 2026-09-28 — C2 full-null #1 completed
+
+**Authoritative current C2 state: one complete full null has now been executed successfully.**
+
+- Workflow run: `36418874492` (run #15)
+- Commit: `ecac77ad658905e24990f35d1a5a34f389fe983d`
+- Seed: `20260935`
+- Attempts: **55,361,441**
+- Accepted swaps: **3,732,460 / 3,732,460**
+- Final acceptance rate: **6.7419849%**
+- Target reached: **true**
+- Distance-bin rejections: **49,122,517**
+- Invalid/duplicate/self-loop proposals: **2,506,464**
+- Block rejections: **0**
+- Frozen incomplete-block edges: **9,869**
+- All declared invariants: **true**
+- Artifact: `fafb-v783-c2-feasibility-60000000`
+- Artifact ID: `10968562956`
+- Artifact ZIP SHA-256: `70549dbe9e0082e710c0b4521b7c94cc01714e842c17b787cee2cbef5b0f8093`
+
+The run reached the full target before the 60M attempt cap. The cumulative acceptance rate declined from 9.674% at 0.4M attempts to 6.742% at completion. This is retained as a sampler/execution diagnostic only; it is not a biological or convergence claim.
+
+**Interpretation boundary:** this artifact establishes one complete C2 null realization under the declared joint constraint surface. It does not yet establish a C2 rich-club result, statistical significance, mixing/convergence, biological mechanism, or computational advantage.
+
+**Next authorized sequence:** artifact audit → C2 rich-club observable → non-invasive mixing diagnostics → independent C2 seeds → compare the C2 ensemble with CFG/NPC/spatial controls → stronger spatial/max-entropy sensitivity → Gate C decision.
+
+See `docs/experiments/C2-FULL-NULL-2026-09-28.md` for the source-of-record experiment record.
