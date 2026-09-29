@@ -706,3 +706,22 @@ See `docs/experiments/C2-FULL-NULL-2026-09-28.md` for the source-of-record exper
 - Hardened C2 workflow/sampler commits now use a 350-minute workflow timeout, persist compressed resumable state (edge list, bins, counters, RNG state), validate resumed state, support optional prior checkpoint artifacts, and upload result/checkpoint artifacts with `if: always()` as best effort.
 - Current status remains: C2 full-null #1 is a valid feasibility realization; Gate C remains OPEN because its artifact lacks the final graph needed for the intended C2 rich-club comparison.
 - Next: verify CI → short runtime calibration → artifact-complete C2 realization → independent C2 seeds → Gate C decision.
+
+
+## C2 checkpoint performance gate — 2026-09-29 (latest)
+
+A real-scale implementation audit identified that the first resumable-checkpoint design would have imposed excessive I/O overhead: serializing the 3,732,460-edge state with default gzip level 9 was measured at approximately 26 s per checkpoint, versus approximately 2.3 s at gzip level 1.
+
+The implementation is now hardened as follows:
+
+- `save_c2_state()` defaults to `compresslevel=1`.
+- C2 workflow checkpoint interval is `5,000,000` attempts.
+- Workflow timeout remains `350` minutes.
+- Resume validation still requires seed, code-version SHA-256, constraint fingerprint, edge-count/uniqueness, degree maps, distance-bin histogram, and block-pair counts to match.
+- Ordinary CI passed after the checkpoint changes.
+- An opt-in scale benchmark now exists for `373,246` edges under `RUN_C2_PERF_TESTS=1`; it is deliberately excluded from ordinary CI.
+- The detailed record is `docs/C2-CHECKPOINT-PERFORMANCE-AUDIT-2026-09-29.md`.
+
+**Important state correction:** the completed C2 #1 run remains a valid joint-constraint feasibility realization, but its artifact contains metadata/checkpoints rather than the final edge graph. Therefore it cannot supply the intended C2 rich-club observable. The cancelled artifact-complete rerun is not a scientific result.
+
+**Current gate:** performance/recovery infrastructure is hardened and ordinary CI is green. The next scientific execution is an artifact-complete C2 full null using the current code, followed by rich-club extraction and non-invasive mixing diagnostics. Do not treat checkpoint-performance measurements as biological evidence.
