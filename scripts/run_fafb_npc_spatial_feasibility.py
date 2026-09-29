@@ -175,60 +175,62 @@ def main():
             raise ValueError("resume state block-pair counts mismatch")
         print(json.dumps({"resumed_from_attempt":attempt,"accepted_swaps":accepted}))
     start_time=time.perf_counter()
+
+    def maybe_checkpoint():
+        if attempt % args.checkpoint_every != 0 and attempt != args.attempts:
+            return
+        elapsed=time.perf_counter()-start_time
+        checkpoints.append({
+            "attempts":attempt,
+            "accepted_swaps":accepted,
+            "acceptance_rate":accepted/attempt if attempt else 0.0,
+            "invalid_or_duplicate":invalid,
+            "block_rejected":block_reject,
+            "distance_bin_rejected":distance_reject,
+            "elapsed_seconds":elapsed,
+            "attempts_per_second":attempt/elapsed if elapsed > 0 else None,
+        })
+        state={
+            "version":1,
+            "seed":args.seed,
+            "code_version":args.code_version,
+            "attempt":attempt,
+            "accepted":accepted,
+            "invalid":invalid,
+            "block_reject":block_reject,
+            "distance_reject":distance_reject,
+            "edge_list":edge_list,
+            "edge_bins":edge_bins,
+            "rng_state":rng.getstate(),
+            "checkpoints":checkpoints,
+        }
+        state_path=Path(args.output).with_name("c2-state.pkl.gz")
+        tmp_path=Path(str(state_path)+".tmp")
+        with gzip.open(tmp_path,"wb") as fh:
+            pickle.dump(state,fh,protocol=pickle.HIGHEST_PROTOCOL)
+        tmp_path.replace(state_path)
+
     while attempt < args.attempts and (args.target_accepted <= 0 or accepted < args.target_accepted):
         attempt += 1
         i,j=choose_bucket_pair(rng,buckets,bucket_keys,cumulative,total_pair_choices)
         a,b=edge_list[i]; c,d=edge_list[j]
         if a==d or c==b or a==c or b==d:
-            invalid+=1; continue
+            invalid+=1; maybe_checkpoint(); continue
         p1,p2=(a,d),(c,b)
         if p1 in edge_set or p2 in edge_set or p1==p2:
-            invalid+=1; continue
+            invalid+=1; maybe_checkpoint(); continue
         # The proposal kernel already samples within one source-block -> target-
         # block class. Keep the explicit check as a defensive invariant.
         if blocks.get(a) != blocks.get(c) or blocks.get(b) != blocks.get(d):
-            block_reject+=1; continue
+            block_reject+=1; maybe_checkpoint(); continue
         old_bin=sorted((edge_bins[i],edge_bins[j]))
         new_bin=sorted((dbin(distance_nm(outc[a],inc[d])),dbin(distance_nm(outc[c],inc[b]))))
         if old_bin!=new_bin:
-            distance_reject+=1; continue
+            distance_reject+=1; maybe_checkpoint(); continue
         edge_set.remove((a,b)); edge_set.remove((c,d)); edge_set.add(p1); edge_set.add(p2)
         edge_list[i],edge_list[j]=p1,p2; edge_bins[i],edge_bins[j]=new_bin
         accepted+=1
-        # Checkpointing is intentionally outside the acceptance branch:
-        # a checkpoint represents every completed attempt boundary, regardless
-        # of whether the proposal was accepted or rejected.
-        if attempt % args.checkpoint_every == 0 or attempt == args.attempts:
-            elapsed=time.perf_counter()-start_time
-            checkpoints.append({
-                "attempts":attempt,
-                "accepted_swaps":accepted,
-                "acceptance_rate":accepted/attempt if attempt else 0.0,
-                "invalid_or_duplicate":invalid,
-                "block_rejected":block_reject,
-                "distance_bin_rejected":distance_reject,
-                "elapsed_seconds":elapsed,
-                "attempts_per_second":attempt/elapsed if elapsed > 0 else None,
-            })
-            state={
-                "version":1,
-                "seed":args.seed,
-                "code_version":args.code_version,
-                "attempt":attempt,
-                "accepted":accepted,
-                "invalid":invalid,
-                "block_reject":block_reject,
-                "distance_reject":distance_reject,
-                "edge_list":edge_list,
-                "edge_bins":edge_bins,
-                "rng_state":rng.getstate(),
-                "checkpoints":checkpoints,
-            }
-            state_path=Path(args.output).with_name("c2-state.pkl.gz")
-            tmp_path=Path(str(state_path)+".tmp")
-            with gzip.open(tmp_path,"wb") as fh:
-                pickle.dump(state,fh,protocol=pickle.HIGHEST_PROTOCOL)
-            tmp_path.replace(state_path)
+        maybe_checkpoint()
 
     final_in,final_out=degree_maps(edge_list)
     final_edges=set(edge_list)
