@@ -166,7 +166,7 @@ def main():
             raise ValueError("resume state edge count/uniqueness mismatch")
         if Counter(edge_bins) != initial_bins:
             raise ValueError("resume state distance-bin histogram mismatch")
-        if degree_maps(edge_list,blocks) != (initial_in, initial_out):
+        if degree_maps(edge_list) != (initial_in, initial_out):
             raise ValueError("resume state degree maps mismatch")
         if block_counts(edge_list,blocks) != initial_blocks:
             raise ValueError("resume state block-pair counts mismatch")
