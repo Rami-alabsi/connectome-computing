@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """C2 feasibility pilot: NPC-like block preservation + arbor-distance-bin preservation."""
 from __future__ import annotations
-import argparse, csv, gzip, json, math, random, bisect, time
+import argparse, csv, gzip, json, math, random, bisect, time, pickle
 from collections import Counter, defaultdict
 from pathlib import Path
 from src.graph.connections import _open_csv, _pick, SOURCE_CANDIDATES, TARGET_CANDIDATES, aggregate_pair_synapses
@@ -119,6 +119,7 @@ def main():
     ap.add_argument("--output",required=True); ap.add_argument("--seed",type=int,default=20260935)
     ap.add_argument("--attempts",type=int,default=100000); ap.add_argument("--target-accepted",type=int,default=0); ap.add_argument("--min-synapses",type=int,default=5)
     ap.add_argument("--checkpoint-every",type=int,default=100000)
+    ap.add_argument("--resume-state",default="")
     args=ap.parse_args()
     outc,inc=load_centroids(Path(args.centroids))
     edges=list(aggregate_pair_synapses(args.connections,min_synapses=args.min_synapses))
@@ -145,8 +146,32 @@ def main():
     rng=random.Random(args.seed)
     accepted=invalid=block_reject=distance_reject=0
     checkpoints=[]
-    start_time=time.perf_counter()
     attempt=0
+    if args.resume_state:
+        with gzip.open(args.resume_state, "rb") as fh:
+            state=pickle.load(fh)
+        if state.get("seed") != args.seed:
+            raise ValueError("resume state seed does not match --seed")
+        edge_list=list(map(tuple,state["edge_list"]))
+        edge_set=set(edge_list)
+        edge_bins=list(state["edge_bins"])
+        accepted=int(state["accepted"])
+        invalid=int(state["invalid"])
+        block_reject=int(state["block_reject"])
+        distance_reject=int(state["distance_reject"])
+        attempt=int(state["attempt"])
+        rng.setstate(state["rng_state"])
+        checkpoints=list(state.get("checkpoints", []))
+        if len(edge_list) != len(edges) or len(edge_set) != len(edge_list):
+            raise ValueError("resume state edge count/uniqueness mismatch")
+        if Counter(edge_bins) != initial_bins:
+            raise ValueError("resume state distance-bin histogram mismatch")
+        if degree_maps(edge_list,blocks) != (initial_in, initial_out):
+            raise ValueError("resume state degree maps mismatch")
+        if block_counts(edge_list,blocks) != initial_blocks:
+            raise ValueError("resume state block-pair counts mismatch")
+        print(json.dumps({"resumed_from_attempt":attempt,"accepted_swaps":accepted}))
+    start_time=time.perf_counter()
     while attempt < args.attempts and (args.target_accepted <= 0 or accepted < args.target_accepted):
         attempt += 1
         i,j=choose_bucket_pair(rng,buckets,bucket_keys,cumulative,total_pair_choices)
@@ -180,6 +205,24 @@ def main():
                 "elapsed_seconds":elapsed,
                 "attempts_per_second":attempt/elapsed if elapsed > 0 else None,
             })
+            state={
+                "version":1,
+                "seed":args.seed,
+                "attempt":attempt,
+                "accepted":accepted,
+                "invalid":invalid,
+                "block_reject":block_reject,
+                "distance_reject":distance_reject,
+                "edge_list":edge_list,
+                "edge_bins":edge_bins,
+                "rng_state":rng.getstate(),
+                "checkpoints":checkpoints,
+            }
+            state_path=Path(args.output).with_name("c2-state.pkl.gz")
+            tmp_path=Path(str(state_path)+".tmp")
+            with gzip.open(tmp_path,"wb") as fh:
+                pickle.dump(state,fh,protocol=pickle.HIGHEST_PROTOCOL)
+            tmp_path.replace(state_path)
 
     final_in,final_out=degree_maps(edge_list)
     final_edges=set(edge_list)
