@@ -73,3 +73,15 @@ Do not interpret runtime variation as biological or sampler evidence.
 3. If calibration is healthy, run the artifact-complete C2 realization.
 4. Preserve the final graph/state and rich-club observable in the artifact.
 5. Only then proceed to independent C2 seeds and Gate C evaluation.
+
+
+## 2026-09-29 follow-up hardening
+
+After the initial checkpoint hardening, the sampler was audited again.
+
+- Checkpoints are now triggered at completed attempt boundaries, including rejected proposals; they are not restricted to accepted swaps.
+- Resume state is bound to the SHA-256 hash of `scripts/run_fafb_npc_spatial_feasibility.py`, rather than the full repository commit, so workflow-only changes do not invalidate an otherwise identical sampler state.
+- The repository test workflow passed after the checkpoint-boundary change: GitHub Actions run `36551224898`, conclusion `success`, head commit `6d14564872f4e0139b16021149df7589c6120f2c`.
+- The sampler source was then updated to use the source-file hash as `--code-version`; this operational change does not alter the proposal kernel or scientific constraint surface.
+
+Decision: do not launch the artifact-complete C2 scientific run until the hardened path is exercised by an operational calibration/resume check. The cancelled run `36523442690` remains a runtime/infrastructure anomaly and is not a scientific replicate.
