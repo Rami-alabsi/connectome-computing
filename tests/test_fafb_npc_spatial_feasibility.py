@@ -12,9 +12,11 @@ def test_c2_resume_matches_uninterrupted_trajectory(tmp_path, monkeypatch):
     with connections.open("w", newline="") as fh:
         writer = csv.writer(fh)
         writer.writerow(["pre_root_id", "post_root_id", "syn_count", "neuropil"])
-        for source in ("a", "b", "c"):
-            for target in ("d", "e", "f"):
-                writer.writerow([source, target, 5, "X"])
+        nodes = ("a", "b", "c", "d", "e", "f")
+        for source in nodes:
+            for target in nodes:
+                if source != target:
+                    writer.writerow([source, target, 5, "X"])
 
     centroids = tmp_path / "centroids.csv.gz"
     with gzip.open(centroids, "wt", newline="") as fh:
