@@ -9,7 +9,16 @@ from scripts.run_fafb_rich_club import curve as rich_club_curve
 
 BINS_NM=(0,25000,50000,100000,200000,500000,1000000,2000000,5000000,10000000,float("inf"))
 
-def sha256_file(path, chunk_size=1024*1024):\n    h=hashlib.sha256()\n    with open(path,"rb") as fh:\n        while True:\n            chunk=fh.read(chunk_size)\n            if not chunk: break\n            h.update(chunk)\n    return h.hexdigest()\n\ndef load_centroids(path):
+def sha256_file(path, chunk_size=1024*1024):
+    h=hashlib.sha256()
+    with open(path,"rb") as fh:
+        while True:
+            chunk=fh.read(chunk_size)
+            if not chunk: break
+            h.update(chunk)
+    return h.hexdigest()
+
+def load_centroids(path):
     out, inc = {}, {}
     with gzip.open(path,"rt",newline="") as f:
         for r in csv.DictReader(f):
@@ -133,7 +142,8 @@ def main():
     ap.add_argument("--attempts",type=int,default=100000); ap.add_argument("--target-accepted",type=int,default=0); ap.add_argument("--min-synapses",type=int,default=5)
     ap.add_argument("--checkpoint-every",type=int,default=100000)
     ap.add_argument("--resume-state",default="")
-    ap.add_argument("--code-version",default="unknown")\n    ap.add_argument("--input-fingerprint",default="unknown")
+    ap.add_argument("--code-version",default="unknown")
+    ap.add_argument("--input-fingerprint",default="unknown")
     args=ap.parse_args()
     outc,inc=load_centroids(Path(args.centroids))
     edges=list(aggregate_pair_synapses(args.connections,min_synapses=args.min_synapses))
@@ -150,7 +160,14 @@ def main():
     edge_list=list(edges); edge_set=set(edges)
     edge_bins=[dbin(distance_nm(outc[u],inc[v])) for u,v in edge_list]
     initial_bins=Counter(edge_bins); initial_blocks=block_counts(edge_list,blocks)
-    initial_in,initial_out=degree_maps(edge_list)\n    input_fingerprint=args.input_fingerprint\n    constraint_fingerprint=json.dumps({\n        "dataset":"FAFB", "version":"v783", "min_synapses":args.min_synapses,\n        "distance_bins_nm":list(BINS_NM), "input_fingerprint":input_fingerprint,\n        "unique_directed_pairs":len(edge_list),\n        "block_count_pairs":len(initial_blocks),\n    }, sort_keys=True, separators=(",",":"))
+    initial_in,initial_out=degree_maps(edge_list)
+    input_fingerprint=args.input_fingerprint
+    constraint_fingerprint=json.dumps({
+        "dataset":"FAFB", "version":"v783", "min_synapses":args.min_synapses,
+        "distance_bins_nm":list(BINS_NM), "input_fingerprint":input_fingerprint,
+        "unique_directed_pairs":len(edge_list),
+        "block_count_pairs":len(initial_blocks),
+    }, sort_keys=True, separators=(",",":"))
     frozen_block_edges=sum(1 for u,v in edge_list if u not in blocks or v not in blocks)
     buckets,bucket_keys,cumulative,total_pair_choices=build_block_buckets(edge_list,blocks)
 
@@ -257,7 +274,8 @@ def main():
     result={
         "dataset":"FAFB","version":"v783","purpose":"C2 NPC-like + arbor-distance feasibility pilot",
         "proposal_kernel":"block-pair-stratified degree-preserving swap proposal; exact distance-bin acceptance check",
-        "attempts":attempt,"target_accepted":args.target_accepted,"seed":args.seed,"accepted_swaps":accepted,\n        "code_version":args.code_version,"input_fingerprint":input_fingerprint,"constraint_fingerprint":constraint_fingerprint,
+        "attempts":attempt,"target_accepted":args.target_accepted,"seed":args.seed,"accepted_swaps":accepted,
+        "code_version":args.code_version,"input_fingerprint":input_fingerprint,"constraint_fingerprint":constraint_fingerprint,
         "checkpoint_every":args.checkpoint_every,"checkpoints":checkpoints,
         "acceptance_rate":accepted/attempt if attempt else 0.0,
         "invalid_or_duplicate":invalid,"block_rejected":block_reject,"distance_bin_rejected":distance_reject,
@@ -280,7 +298,8 @@ def main():
         ],
     }
     Path(args.output).parent.mkdir(parents=True,exist_ok=True)
-    Path(args.output).write_text(json.dumps(result,indent=2,sort_keys=True)+"\n")
+    Path(args.output).write_text(json.dumps(result,indent=2,sort_keys=True)+"
+")
     print(json.dumps(result,indent=2))
 
 if __name__=="__main__": main()
