@@ -113,6 +113,19 @@ def choose_bucket_pair(rng,buckets,keys,cumulative,total):
     if y >= x: y += 1
     return ix[x],ix[y]
 
+def save_c2_state(path, state):
+    path=Path(path)
+    tmp_path=Path(str(path)+".tmp")
+    with gzip.open(tmp_path,"wb") as fh:
+        pickle.dump(state,fh,protocol=pickle.HIGHEST_PROTOCOL)
+    tmp_path.replace(path)
+
+
+def load_c2_state(path):
+    with gzip.open(path,"rb") as fh:
+        return pickle.load(fh)
+
+
 def main():
     ap=argparse.ArgumentParser()
     ap.add_argument("--connections",required=True); ap.add_argument("--centroids",required=True)
@@ -149,8 +162,7 @@ def main():
     checkpoints=[]
     attempt=0
     if args.resume_state:
-        with gzip.open(args.resume_state, "rb") as fh:
-            state=pickle.load(fh)
+        state=load_c2_state(args.resume_state)
         if state.get("seed") != args.seed:
             raise ValueError("resume state seed does not match --seed")
         if state.get("code_version") != args.code_version:
@@ -205,10 +217,7 @@ def main():
             "checkpoints":checkpoints,
         }
         state_path=Path(args.output).with_name("c2-state.pkl.gz")
-        tmp_path=Path(str(state_path)+".tmp")
-        with gzip.open(tmp_path,"wb") as fh:
-            pickle.dump(state,fh,protocol=pickle.HIGHEST_PROTOCOL)
-        tmp_path.replace(state_path)
+        save_c2_state(state_path,state)
 
     while attempt < args.attempts and (args.target_accepted <= 0 or accepted < args.target_accepted):
         attempt += 1
