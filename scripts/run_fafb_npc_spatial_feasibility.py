@@ -162,12 +162,13 @@ def main():
     initial_bins=Counter(edge_bins); initial_blocks=block_counts(edge_list,blocks)
     initial_in,initial_out=degree_maps(edge_list)
     input_fingerprint=args.input_fingerprint
-    constraint_fingerprint=json.dumps({
+    constraint_payload=json.dumps({
         "dataset":"FAFB", "version":"v783", "min_synapses":args.min_synapses,
         "distance_bins_nm":list(BINS_NM), "input_fingerprint":input_fingerprint,
         "unique_directed_pairs":len(edge_list),
         "block_count_pairs":len(initial_blocks),
     }, sort_keys=True, separators=(",",":"))
+    constraint_fingerprint=hashlib.sha256(constraint_payload.encode("utf-8")).hexdigest()
     frozen_block_edges=sum(1 for u,v in edge_list if u not in blocks or v not in blocks)
     buckets,bucket_keys,cumulative,total_pair_choices=build_block_buckets(edge_list,blocks)
 
@@ -184,6 +185,8 @@ def main():
             raise ValueError("resume state seed does not match --seed")
         if state.get("code_version") != args.code_version:
             raise ValueError("resume state code version does not match --code-version")
+        if state.get("constraint_fingerprint") != constraint_fingerprint:
+            raise ValueError("resume state constraint fingerprint does not match current inputs")
         edge_list=list(map(tuple,state["edge_list"]))
         edge_set=set(edge_list)
         edge_bins=list(state["edge_bins"])
@@ -220,9 +223,10 @@ def main():
             "attempts_per_second":attempt/elapsed if elapsed > 0 else None,
         })
         state={
-            "version":1,
+            "version":2,
             "seed":args.seed,
             "code_version":args.code_version,
+            "constraint_fingerprint":constraint_fingerprint,
             "attempt":attempt,
             "accepted":accepted,
             "invalid":invalid,
