@@ -120,6 +120,7 @@ def main():
     ap.add_argument("--attempts",type=int,default=100000); ap.add_argument("--target-accepted",type=int,default=0); ap.add_argument("--min-synapses",type=int,default=5)
     ap.add_argument("--checkpoint-every",type=int,default=100000)
     ap.add_argument("--resume-state",default="")
+    ap.add_argument("--code-version",default="unknown")
     args=ap.parse_args()
     outc,inc=load_centroids(Path(args.centroids))
     edges=list(aggregate_pair_synapses(args.connections,min_synapses=args.min_synapses))
@@ -152,6 +153,8 @@ def main():
             state=pickle.load(fh)
         if state.get("seed") != args.seed:
             raise ValueError("resume state seed does not match --seed")
+        if state.get("code_version") != args.code_version:
+            raise ValueError("resume state code version does not match --code-version")
         edge_list=list(map(tuple,state["edge_list"]))
         edge_set=set(edge_list)
         edge_bins=list(state["edge_bins"])
@@ -208,6 +211,7 @@ def main():
             state={
                 "version":1,
                 "seed":args.seed,
+                "code_version":args.code_version,
                 "attempt":attempt,
                 "accepted":accepted,
                 "invalid":invalid,
