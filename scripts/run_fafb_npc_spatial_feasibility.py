@@ -195,7 +195,9 @@ def main():
         edge_set.remove((a,b)); edge_set.remove((c,d)); edge_set.add(p1); edge_set.add(p2)
         edge_list[i],edge_list[j]=p1,p2; edge_bins[i],edge_bins[j]=new_bin
         accepted+=1
-
+        # Checkpointing is intentionally outside the acceptance branch:
+        # a checkpoint represents every completed attempt boundary, regardless
+        # of whether the proposal was accepted or rejected.
         if attempt % args.checkpoint_every == 0 or attempt == args.attempts:
             elapsed=time.perf_counter()-start_time
             checkpoints.append({
