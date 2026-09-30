@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """C2 feasibility pilot: NPC-like block preservation + arbor-distance-bin preservation."""
 from __future__ import annotations
-import argparse, csv, gzip, json, math, random, bisect, time, pickle, hashlib
+import argparse, csv, gzip, json, math, random, bisect, time, pickle, hashlib, gc, resource
 from collections import Counter, defaultdict
 from pathlib import Path
 from src.graph.connections import _open_csv, _pick, SOURCE_CANDIDATES, TARGET_CANDIDATES, aggregate_pair_synapses
@@ -142,6 +142,10 @@ def load_c2_state(path):
         return pickle.load(fh)
 
 
+def rss_mb():
+    return resource.getrusage(resource.RUSAGE_SELF).ru_maxrss / 1024.0
+
+
 def main():
     ap=argparse.ArgumentParser()
     ap.add_argument("--connections",required=True); ap.add_argument("--centroids",required=True)
@@ -207,9 +211,9 @@ def main():
             }), flush=True)
         if state.get("constraint_fingerprint") != constraint_fingerprint:
             raise ValueError("resume state constraint fingerprint does not match current inputs")
-        edge_list=list(map(tuple,state["edge_list"]))
+        edge_list=state["edge_list"]
         edge_set=set(edge_list)
-        edge_bins=list(state["edge_bins"])
+        edge_bins=state["edge_bins"]
         accepted=int(state["accepted"])
         invalid=int(state["invalid"])
         block_reject=int(state["block_reject"])
@@ -225,7 +229,10 @@ def main():
             raise ValueError("resume state degree maps mismatch")
         if block_counts(edge_list,blocks) != initial_blocks:
             raise ValueError("resume state block-pair counts mismatch")
-        print(json.dumps({"resumed_from_attempt":attempt,"accepted_swaps":accepted}), flush=True)
+        print(json.dumps({"resumed_from_attempt":attempt,"accepted_swaps":accepted,"resume_rss_max_mb_before_release":rss_mb()}), flush=True)
+        del state
+        gc.collect()
+        print(json.dumps({"resume_state_released":True,"resume_rss_max_mb_after_release":rss_mb(),"edge_list_len":len(edge_list),"edge_set_len":len(edge_set),"edge_bins_len":len(edge_bins)}), flush=True)
     start_time=time.perf_counter()
     last_checkpoint_time=start_time
 
@@ -276,7 +283,11 @@ def main():
 
     while attempt < args.attempts and (args.target_accepted <= 0 or accepted < args.target_accepted):
         attempt += 1
+        proposal_started=time.perf_counter()
         i,j=choose_bucket_pair(rng,buckets,bucket_keys,cumulative,total_pair_choices)
+        proposal_elapsed=time.perf_counter()-proposal_started
+        if proposal_elapsed >= 5.0:
+            print(json.dumps({"slow_proposal_seconds":proposal_elapsed,"attempt":attempt,"accepted_swaps":accepted,"rss_max_mb":rss_mb()}), flush=True)
         a,b=edge_list[i]; c,d=edge_list[j]
         if a==d or c==b or a==c or b==d:
             invalid+=1; maybe_checkpoint(); continue
