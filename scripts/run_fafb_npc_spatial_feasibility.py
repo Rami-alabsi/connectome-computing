@@ -151,6 +151,7 @@ def main():
     ap.add_argument("--checkpoint-seconds",type=float,default=120.0)
     ap.add_argument("--resume-state",default="")
     ap.add_argument("--code-version",default="unknown")
+    ap.add_argument("--allow-resume-code-version-mismatch",action="store_true")
     ap.add_argument("--input-fingerprint",default="unknown")
     args=ap.parse_args()
     outc,inc=load_centroids(Path(args.centroids))
@@ -193,8 +194,17 @@ def main():
         state=load_c2_state(args.resume_state)
         if state.get("seed") != args.seed:
             raise ValueError("resume state seed does not match --seed")
-        if state.get("code_version") != args.code_version:
-            raise ValueError("resume state code version does not match --code-version")
+        resume_code_version=state.get("code_version")
+        if resume_code_version != args.code_version:
+            if not args.allow_resume_code_version_mismatch:
+                raise ValueError("resume state code version does not match --code-version")
+            print(json.dumps({
+                "resume_code_version_migration": {
+                    "from": resume_code_version,
+                    "to": args.code_version,
+                    "reason": "checkpoint-only infrastructure change; constraint fingerprint remains mandatory",
+                }
+            }), flush=True)
         if state.get("constraint_fingerprint") != constraint_fingerprint:
             raise ValueError("resume state constraint fingerprint does not match current inputs")
         edge_list=list(map(tuple,state["edge_list"]))
