@@ -148,6 +148,7 @@ def main():
     ap.add_argument("--output",required=True); ap.add_argument("--seed",type=int,default=20260935)
     ap.add_argument("--attempts",type=int,default=100000); ap.add_argument("--target-accepted",type=int,default=0); ap.add_argument("--min-synapses",type=int,default=5)
     ap.add_argument("--checkpoint-every",type=int,default=100000)
+    ap.add_argument("--checkpoint-seconds",type=float,default=120.0)
     ap.add_argument("--resume-state",default="")
     ap.add_argument("--code-version",default="unknown")
     ap.add_argument("--input-fingerprint",default="unknown")
@@ -181,6 +182,8 @@ def main():
 
     if args.checkpoint_every <= 0:
         raise ValueError("--checkpoint-every must be > 0")
+    if args.checkpoint_seconds <= 0:
+        raise ValueError("--checkpoint-seconds must be > 0")
 
     rng=random.Random(args.seed)
     accepted=invalid=block_reject=distance_reject=0
@@ -212,14 +215,19 @@ def main():
             raise ValueError("resume state degree maps mismatch")
         if block_counts(edge_list,blocks) != initial_blocks:
             raise ValueError("resume state block-pair counts mismatch")
-        print(json.dumps({"resumed_from_attempt":attempt,"accepted_swaps":accepted}))
+        print(json.dumps({"resumed_from_attempt":attempt,"accepted_swaps":accepted}), flush=True)
     start_time=time.perf_counter()
+    last_checkpoint_time=start_time
 
-    def maybe_checkpoint():
-        if attempt % args.checkpoint_every != 0 and attempt != args.attempts:
-            return
+    def maybe_checkpoint(force=False):
+        nonlocal last_checkpoint_time
         elapsed=time.perf_counter()-start_time
-        checkpoints.append({
+        due_by_attempt=(attempt % args.checkpoint_every == 0 or attempt == args.attempts)
+        due_by_time=(elapsed-last_checkpoint_time) >= args.checkpoint_seconds
+        if not force and not due_by_attempt and not due_by_time:
+            return
+        if not checkpoints or checkpoints[-1]["attempts"] != attempt:
+            checkpoints.append({
             "attempts":attempt,
             "accepted_swaps":accepted,
             "acceptance_rate":accepted/attempt if attempt else 0.0,
@@ -228,7 +236,7 @@ def main():
             "distance_bin_rejected":distance_reject,
             "elapsed_seconds":elapsed,
             "attempts_per_second":attempt/elapsed if elapsed > 0 else None,
-        })
+            })
         state={
             "version":2,
             "seed":args.seed,
@@ -246,6 +254,15 @@ def main():
         }
         state_path=Path(args.output).with_name("c2-state.pkl.gz")
         save_c2_state(state_path,state)
+        last_checkpoint_time=time.perf_counter()
+        print(
+            f"attempt={attempt} accepted={accepted} "
+            f"rate={accepted/attempt:.4%}",
+            flush=True,
+        )
+
+    if args.resume_state:
+        maybe_checkpoint(force=True)
 
     while attempt < args.attempts and (args.target_accepted <= 0 or accepted < args.target_accepted):
         attempt += 1
@@ -287,7 +304,7 @@ def main():
         "proposal_kernel":"block-pair-stratified degree-preserving swap proposal; exact distance-bin acceptance check",
         "attempts":attempt,"target_accepted":args.target_accepted,"seed":args.seed,"accepted_swaps":accepted,
         "code_version":args.code_version,"input_fingerprint":input_fingerprint,"constraint_fingerprint":constraint_fingerprint,
-        "checkpoint_every":args.checkpoint_every,"checkpoints":checkpoints,
+        "checkpoint_every":args.checkpoint_every,"checkpoint_seconds":args.checkpoint_seconds,"checkpoints":checkpoints,
         "acceptance_rate":accepted/attempt if attempt else 0.0,
         "invalid_or_duplicate":invalid,"block_rejected":block_reject,"distance_bin_rejected":distance_reject,
         "unique_directed_pairs":len(edges),"block_count_pairs":len(initial_blocks),
