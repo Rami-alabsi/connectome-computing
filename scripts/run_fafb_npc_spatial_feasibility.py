@@ -180,7 +180,7 @@ def main():
     constraint_payload=json.dumps({
         "dataset":"FAFB", "version":"v783", "min_synapses":args.min_synapses,
         "distance_bins_nm":list(BINS_NM), "input_fingerprint":input_fingerprint,
-        "unique_directed_pairs":len(edge_list),
+        "unique_directed_pairs":len(edges),
         "block_count_pairs":len(initial_blocks),
     }, sort_keys=True, separators=(",",":"))
     constraint_fingerprint=hashlib.sha256(constraint_payload.encode("utf-8")).hexdigest()
