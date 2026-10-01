@@ -166,14 +166,16 @@ def main():
     # Arbor centroids are required for every graph edge because distance bins
     # are a global constraint. Missing NPC blocks are not a data-coverage
     # failure: those edges are deliberately frozen for C2.
-    missing_centroid=[e for e in edges if e[0] not in outc or e[1] not in inc]
+    missing_centroid=sum(1 for u,v in edges if u not in outc or v not in inc)
     if missing_centroid:
-        raise ValueError(f"arbor-centroid coverage incomplete: {len(missing_centroid)} edges")
+        raise ValueError(f"arbor-centroid coverage incomplete: {missing_centroid} edges")
 
-    edge_list=list(edges); edge_set=set(edges)
-    edge_bins=[dbin(distance_nm(outc[u],inc[v])) for u,v in edge_list]
-    initial_bins=Counter(edge_bins); initial_blocks=block_counts(edge_list,blocks)
-    initial_in,initial_out=degree_maps(edge_list)
+    # Keep the authoritative observed graph as the immutable baseline. On resume,
+    # do not build a second mutable edge_list/bucket index before loading the
+    # checkpoint; that duplication was causing severe memory pressure.
+    initial_bins=Counter(dbin(distance_nm(outc[u],inc[v])) for u,v in edges)
+    initial_blocks=block_counts(edges,blocks)
+    initial_in,initial_out=degree_maps(edges)
     input_fingerprint=args.input_fingerprint
     constraint_payload=json.dumps({
         "dataset":"FAFB", "version":"v783", "min_synapses":args.min_synapses,
@@ -182,8 +184,7 @@ def main():
         "block_count_pairs":len(initial_blocks),
     }, sort_keys=True, separators=(",",":"))
     constraint_fingerprint=hashlib.sha256(constraint_payload.encode("utf-8")).hexdigest()
-    frozen_block_edges=sum(1 for u,v in edge_list if u not in blocks or v not in blocks)
-    buckets,bucket_keys,cumulative,total_pair_choices=build_block_buckets(edge_list,blocks)
+    frozen_block_edges=sum(1 for u,v in edges if u not in blocks or v not in blocks)
 
     if args.checkpoint_every <= 0:
         raise ValueError("--checkpoint-every must be > 0")
@@ -212,7 +213,6 @@ def main():
         if state.get("constraint_fingerprint") != constraint_fingerprint:
             raise ValueError("resume state constraint fingerprint does not match current inputs")
         edge_list=state["edge_list"]
-        edge_set=set(edge_list)
         edge_bins=state["edge_bins"]
         accepted=int(state["accepted"])
         invalid=int(state["invalid"])
@@ -221,6 +221,7 @@ def main():
         attempt=int(state["attempt"])
         rng.setstate(state["rng_state"])
         checkpoints=list(state.get("checkpoints", []))
+        edge_set=set(edge_list)
         if len(edge_list) != len(edges) or len(edge_set) != len(edge_list):
             raise ValueError("resume state edge count/uniqueness mismatch")
         if Counter(edge_bins) != initial_bins:
@@ -233,6 +234,15 @@ def main():
         del state
         gc.collect()
         print(json.dumps({"resume_state_released":True,"resume_rss_max_mb_after_release":rss_mb(),"edge_list_len":len(edge_list),"edge_set_len":len(edge_set),"edge_bins_len":len(edge_bins)}), flush=True)
+    # Build the proposal buckets only after the final mutable edge_list has been
+    # selected. This avoids retaining a bucket index tied to the pre-resume graph
+    # alongside the resumed state.
+    if not args.resume_state:
+        edge_list=list(edges)
+        edge_bins=[dbin(distance_nm(outc[u],inc[v])) for u,v in edge_list]
+        edge_set=set(edge_list)
+    buckets,bucket_keys,cumulative,total_pair_choices=build_block_buckets(edge_list,blocks)
+
     start_time=time.perf_counter()
     last_checkpoint_time=start_time
 
