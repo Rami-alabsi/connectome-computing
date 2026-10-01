@@ -121,3 +121,21 @@ def test_c2_checkpoint_real_scale_benchmark(tmp_path, capsys):
     print(f"real-scale checkpoint benchmark: {n_edges:,} edges in {elapsed:.3f}s")
     captured = capsys.readouterr()
     assert "real-scale checkpoint benchmark" in captured.out
+
+
+def test_c2_block_buckets_use_compact_uint32_indices():
+    """C2 bucket indexing must avoid Python boxed-int lists at full graph scale."""
+    import array
+
+    from scripts.run_fafb_npc_spatial_feasibility import build_block_buckets
+
+    edges=[("a","b"),("c","d"),("a","d"),("c","b")]
+    blocks={"a":"X","b":"Y","c":"X","d":"Y"}
+    buckets, keys, cumulative, total = build_block_buckets(edges, blocks)
+
+    assert keys == [("X","Y")]
+    assert isinstance(buckets[("X","Y")], array.array)
+    assert buckets[("X","Y")].typecode == "I"
+    assert list(buckets[("X","Y")]) == [0, 1, 2, 3]
+    assert total == 6
+    assert cumulative == [6]
