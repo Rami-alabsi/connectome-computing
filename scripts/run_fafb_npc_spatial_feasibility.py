@@ -301,16 +301,19 @@ def main():
 
     while attempt < args.attempts and (args.target_accepted <= 0 or accepted < args.target_accepted):
         attempt += 1
-        proposal_started=time.perf_counter()
-        i,j=choose_bucket_pair(rng,buckets,bucket_keys,cumulative,total_pair_choices)
-        proposal_elapsed=time.perf_counter()-proposal_started
-        if proposal_elapsed >= 5.0:
-            print(json.dumps({"slow_proposal_seconds":proposal_elapsed,"attempt":attempt,"accepted_swaps":accepted,"rss_max_mb":rss_mb()}), flush=True)
         heartbeat_elapsed=time.perf_counter()-start_time
         if heartbeat_elapsed-last_heartbeat_elapsed >= 10.0:
             rate=attempt/heartbeat_elapsed if heartbeat_elapsed > 0 else 0.0
-            print(json.dumps({"heartbeat":True,"attempt":attempt,"accepted_swaps":accepted,"elapsed_seconds":heartbeat_elapsed,"attempts_per_second":rate,"rss_current_mb":current_rss_mb(),"rss_max_mb":rss_mb()}), flush=True)
+            print(json.dumps({"heartbeat":"before_proposal","attempt":attempt,"accepted_swaps":accepted,"elapsed_seconds":heartbeat_elapsed,"attempts_per_second":rate,"rss_current_mb":current_rss_mb(),"rss_max_mb":rss_mb()}), flush=True)
             last_heartbeat_elapsed=heartbeat_elapsed
+        proposal_started=time.perf_counter()
+        proposal_rss_before=current_rss_mb()
+        print(json.dumps({"proposal_start":True,"attempt":attempt,"accepted_swaps":accepted,"rss_current_mb":proposal_rss_before,"rss_max_mb":rss_mb()}), flush=True)
+        i,j=choose_bucket_pair(rng,buckets,bucket_keys,cumulative,total_pair_choices)
+        proposal_elapsed=time.perf_counter()-proposal_started
+        print(json.dumps({"proposal_end":True,"attempt":attempt,"accepted_swaps":accepted,"proposal_seconds":proposal_elapsed,"rss_current_mb":current_rss_mb(),"rss_max_mb":rss_mb()}), flush=True)
+        if proposal_elapsed >= 5.0:
+            print(json.dumps({"slow_proposal_seconds":proposal_elapsed,"attempt":attempt,"accepted_swaps":accepted,"rss_current_mb":current_rss_mb(),"rss_max_mb":rss_mb()}), flush=True)
         a,b=edge_list[i]; c,d=edge_list[j]
         if a==d or c==b or a==c or b==d:
             invalid+=1; maybe_checkpoint(); continue
