@@ -243,14 +243,14 @@ def main():
     # selected. This avoids retaining a bucket index tied to the pre-resume graph
     # alongside the resumed state. Emit diagnostics because this phase occurs
     # before start_time and therefore cannot be observed by the sampling heartbeat.
-    bucket_started=time.perf_counter()
-    bucket_status=Path("/proc/self/status").read_text()
-    bucket_rss_before=int(bucket_status.split("VmRSS:",1)[1].split("kB",1)[0].strip()) / 1024.0
-    print(json.dumps({"bucket_build_start":True,"edge_count":len(edge_list),"rss_current_mb":bucket_rss_before}), flush=True)
     if not args.resume_state:
         edge_list=list(edges)
         edge_bins=[dbin(distance_nm(outc[u],inc[v])) for u,v in edge_list]
         edge_set=set(edge_list)
+    bucket_started=time.perf_counter()
+    bucket_status=Path("/proc/self/status").read_text()
+    bucket_rss_before=int(bucket_status.split("VmRSS:",1)[1].split("kB",1)[0].strip()) / 1024.0
+    print(json.dumps({"bucket_build_start":True,"edge_count":len(edge_list),"rss_current_mb":bucket_rss_before}), flush=True)
     buckets,bucket_keys,cumulative,total_pair_choices=build_block_buckets(edge_list,blocks)
     bucket_elapsed=time.perf_counter()-bucket_started
     bucket_status=Path("/proc/self/status").read_text()
