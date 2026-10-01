@@ -244,13 +244,21 @@ def main():
     buckets,bucket_keys,cumulative,total_pair_choices=build_block_buckets(edge_list,blocks)
 
     start_time=time.perf_counter()
-    last_checkpoint_time=start_time
+    last_checkpoint_elapsed=0.0
+    last_heartbeat_elapsed=0.0
+
+    def current_rss_mb():
+        try:
+            text=Path("/proc/self/status").read_text()
+            return int(text.split("VmRSS:",1)[1].split("kB",1)[0].strip()) / 1024.0
+        except (FileNotFoundError,IndexError,ValueError):
+            return None
 
     def maybe_checkpoint(force=False):
-        nonlocal last_checkpoint_time
+        nonlocal last_checkpoint_elapsed
         elapsed=time.perf_counter()-start_time
         due_by_attempt=(attempt % args.checkpoint_every == 0 or attempt == args.attempts)
-        due_by_time=(elapsed-last_checkpoint_time) >= args.checkpoint_seconds
+        due_by_time=(elapsed-last_checkpoint_elapsed) >= args.checkpoint_seconds
         if not force and not due_by_attempt and not due_by_time:
             return
         if not checkpoints or checkpoints[-1]["attempts"] != attempt:
@@ -281,7 +289,7 @@ def main():
         }
         state_path=Path(args.output).with_name("c2-state.pkl.gz")
         save_c2_state(state_path,state)
-        last_checkpoint_time=time.perf_counter()
+        last_checkpoint_elapsed=elapsed
         print(
             f"attempt={attempt} accepted={accepted} "
             f"rate={accepted/attempt:.4%}",
@@ -298,6 +306,11 @@ def main():
         proposal_elapsed=time.perf_counter()-proposal_started
         if proposal_elapsed >= 5.0:
             print(json.dumps({"slow_proposal_seconds":proposal_elapsed,"attempt":attempt,"accepted_swaps":accepted,"rss_max_mb":rss_mb()}), flush=True)
+        heartbeat_elapsed=time.perf_counter()-start_time
+        if heartbeat_elapsed-last_heartbeat_elapsed >= 10.0:
+            rate=attempt/heartbeat_elapsed if heartbeat_elapsed > 0 else 0.0
+            print(json.dumps({"heartbeat":True,"attempt":attempt,"accepted_swaps":accepted,"elapsed_seconds":heartbeat_elapsed,"attempts_per_second":rate,"rss_current_mb":current_rss_mb(),"rss_max_mb":rss_mb()}), flush=True)
+            last_heartbeat_elapsed=heartbeat_elapsed
         a,b=edge_list[i]; c,d=edge_list[j]
         if a==d or c==b or a==c or b==d:
             invalid+=1; maybe_checkpoint(); continue
