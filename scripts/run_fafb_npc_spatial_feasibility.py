@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """C2 feasibility pilot: NPC-like block preservation + arbor-distance-bin preservation."""
 from __future__ import annotations
-import argparse, csv, gzip, json, math, random, bisect, time, pickle, hashlib, gc, resource
+import argparse, csv, gzip, json, math, random, bisect, time, pickle, hashlib, gc, resource, array
 from collections import Counter, defaultdict
 from pathlib import Path
 from src.graph.connections import _open_csv, _pick, SOURCE_CANDIDATES, TARGET_CANDIDATES, aggregate_pair_synapses
@@ -96,7 +96,12 @@ def build_block_buckets(edge_list,blocks):
     satisfy the NPC block constraint without changing the constrained state
     space. The distance-bin condition is still checked exactly.
     """
-    buckets=defaultdict(list)
+    # Use compact uint32 index arrays rather than Python-int lists. The
+    # checkpoint already holds the 3.7M-edge graph; rebuilding Python lists of
+    # boxed integers can push RSS into swap and make resume effectively stall.
+    # The proposal distribution is unchanged: each eligible edge index is still
+    # sampled uniformly within its fixed block-pair class.
+    buckets=defaultdict(lambda: array.array("I"))
     for idx,(u,v) in enumerate(edge_list):
         if u in blocks and v in blocks:
             buckets[(blocks[u],blocks[v])].append(idx)
@@ -236,12 +241,21 @@ def main():
         print(json.dumps({"resume_state_released":True,"resume_rss_max_mb_after_release":rss_mb(),"edge_list_len":len(edge_list),"edge_set_len":len(edge_set),"edge_bins_len":len(edge_bins)}), flush=True)
     # Build the proposal buckets only after the final mutable edge_list has been
     # selected. This avoids retaining a bucket index tied to the pre-resume graph
-    # alongside the resumed state.
+    # alongside the resumed state. Emit diagnostics because this phase occurs
+    # before start_time and therefore cannot be observed by the sampling heartbeat.
+    bucket_started=time.perf_counter()
+    bucket_status=Path("/proc/self/status").read_text()
+    bucket_rss_before=int(bucket_status.split("VmRSS:",1)[1].split("kB",1)[0].strip()) / 1024.0
+    print(json.dumps({"bucket_build_start":True,"edge_count":len(edge_list),"rss_current_mb":bucket_rss_before}), flush=True)
     if not args.resume_state:
         edge_list=list(edges)
         edge_bins=[dbin(distance_nm(outc[u],inc[v])) for u,v in edge_list]
         edge_set=set(edge_list)
     buckets,bucket_keys,cumulative,total_pair_choices=build_block_buckets(edge_list,blocks)
+    bucket_elapsed=time.perf_counter()-bucket_started
+    bucket_status=Path("/proc/self/status").read_text()
+    bucket_rss_after=int(bucket_status.split("VmRSS:",1)[1].split("kB",1)[0].strip()) / 1024.0
+    print(json.dumps({"bucket_build_end":True,"bucket_build_seconds":bucket_elapsed,"bucket_count":len(buckets),"eligible_pair_choices":total_pair_choices,"rss_current_mb":bucket_rss_after}), flush=True)
 
     start_time=time.perf_counter()
     last_checkpoint_elapsed=0.0
