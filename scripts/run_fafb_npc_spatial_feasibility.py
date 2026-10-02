@@ -220,7 +220,8 @@ def main():
             block_reject+=1
             maybe_checkpoint()
             continue
-        trace("distance_check_start")\n        old_bin=sorted((edge_bins[i],edge_bins[j]))
+        trace("distance_check_start")
+        old_bin=sorted((edge_bins[i],edge_bins[j]))
         new_bin=sorted((dbin(distance_nm(outc[a],inc[d])),dbin(distance_nm(outc[c],inc[b]))))
         if old_bin!=new_bin:
             distance_reject+=1
