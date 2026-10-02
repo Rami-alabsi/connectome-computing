@@ -166,6 +166,12 @@ def main():
     print(json.dumps({"bucket_build_end":True,"bucket_build_seconds":bucket_elapsed,"bucket_count":len(buckets),"eligible_pair_choices":total_pair_choices,"rss_current_mb":bucket_rss_after}),flush=True)
 
     start_time=time.perf_counter(); last_checkpoint_elapsed=0.0; last_heartbeat_elapsed=0.0
+    trace_until = attempt + args.trace_attempts if args.resume_state and args.trace_attempts > 0 else 0
+    def trace(stage, **fields):
+        if trace_until and attempt < trace_until:
+            payload={"micro_trace":True,"attempt":attempt,"stage":stage}
+            payload.update(fields)
+            print(json.dumps(payload), flush=True)
     def current_rss_mb():
         try:
             text=Path("/proc/self/status").read_text(); return int(text.split("VmRSS:",1)[1].split("kB",1)[0].strip()) / 1024.0
@@ -188,6 +194,7 @@ def main():
 
     while attempt < args.attempts and (args.target_accepted <= 0 or accepted < args.target_accepted):
         attempt += 1
+        trace("attempt_start")
         heartbeat_elapsed=time.perf_counter()-start_time
         diagnostic_probe=(attempt % 100000 == 0)
         if diagnostic_probe:
@@ -205,8 +212,11 @@ def main():
                 "rss_current_mb":current_rss_mb(),
                 "rss_max_mb":rss_mb()
             }),flush=True)
+        trace("choose_bucket_pair_start")
         i,j=choose_bucket_pair(rng,buckets,bucket_keys,cumulative,total_pair_choices)
+        trace("choose_bucket_pair_end", i=i, j=j)
         a,b=edge_list[i]; c,d=edge_list[j]
+        trace("edge_lookup_end", a=a, b=b, c=c, d=d)
         if a==d or c==b or a==c or b==d:
             invalid+=1
             maybe_checkpoint()
@@ -223,6 +233,7 @@ def main():
         trace("distance_check_start")
         old_bin=sorted((edge_bins[i],edge_bins[j]))
         new_bin=sorted((dbin(distance_nm(outc[a],inc[d])),dbin(distance_nm(outc[c],inc[b]))))
+        trace("distance_check_end", old_bin=old_bin, new_bin=new_bin)
         if old_bin!=new_bin:
             distance_reject+=1
             maybe_checkpoint()
