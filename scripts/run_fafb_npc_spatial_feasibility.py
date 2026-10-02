@@ -187,7 +187,9 @@ def main():
 
     while attempt < args.attempts and (args.target_accepted <= 0 or accepted < args.target_accepted):
         attempt += 1
-        trace = args.resume_state and attempt <= int(state_attempt_for_trace := 55000003)
+        trace = args.resume_state and attempt <= int(state_attempt_for_trace := 55000010)
+        if trace:
+            print(json.dumps({"TRACE":"loop_iteration_entered","attempt":attempt,"accepted_swaps":accepted}),flush=True)
         if trace:
             print(json.dumps({"TRACE":"after_attempt_increment","attempt":attempt,"accepted_swaps":accepted}),flush=True)
         heartbeat_elapsed=time.perf_counter()-start_time
@@ -209,16 +211,28 @@ def main():
         if trace: print(json.dumps({"TRACE":"after_edge_unpack","attempt":attempt,"a":a,"b":b,"c":c,"d":d}),flush=True)
         if a==d or c==b or a==c or b==d:
             if trace: print(json.dumps({"TRACE":"invalid_self_or_shared_endpoint","attempt":attempt}),flush=True)
-            invalid+=1; maybe_checkpoint(); continue
+            invalid+=1
+            if trace: print(json.dumps({"TRACE":"before_maybe_checkpoint_after_invalid","attempt":attempt}),flush=True)
+            maybe_checkpoint()
+            if trace: print(json.dumps({"TRACE":"after_maybe_checkpoint_after_invalid","attempt":attempt}),flush=True)
+            continue
         p1,p2=(a,d),(c,b)
         if trace: print(json.dumps({"TRACE":"after_new_edges_constructed","attempt":attempt,"p1":p1,"p2":p2}),flush=True)
         if p1 in edge_set or p2 in edge_set or p1==p2:
             if trace: print(json.dumps({"TRACE":"invalid_duplicate_check_rejected","attempt":attempt}),flush=True)
-            invalid+=1; maybe_checkpoint(); continue
+            invalid+=1
+            if trace: print(json.dumps({"TRACE":"before_maybe_checkpoint_after_duplicate_reject","attempt":attempt}),flush=True)
+            maybe_checkpoint()
+            if trace: print(json.dumps({"TRACE":"after_maybe_checkpoint_after_duplicate_reject","attempt":attempt}),flush=True)
+            continue
         if trace: print(json.dumps({"TRACE":"after_duplicate_check","attempt":attempt}),flush=True)
         if blocks.get(a) != blocks.get(c) or blocks.get(b) != blocks.get(d):
             if trace: print(json.dumps({"TRACE":"block_check_rejected","attempt":attempt}),flush=True)
-            block_reject+=1; maybe_checkpoint(); continue
+            block_reject+=1
+            if trace: print(json.dumps({"TRACE":"before_maybe_checkpoint_after_block_reject","attempt":attempt}),flush=True)
+            maybe_checkpoint()
+            if trace: print(json.dumps({"TRACE":"after_maybe_checkpoint_after_block_reject","attempt":attempt}),flush=True)
+            continue
         if trace: print(json.dumps({"TRACE":"after_block_check","attempt":attempt}),flush=True)
         old_bin=sorted((edge_bins[i],edge_bins[j]))
         if trace: print(json.dumps({"TRACE":"after_old_bin","attempt":attempt,"old_bin":old_bin}),flush=True)
@@ -226,7 +240,11 @@ def main():
         if trace: print(json.dumps({"TRACE":"after_new_bin","attempt":attempt,"new_bin":new_bin}),flush=True)
         if old_bin!=new_bin:
             if trace: print(json.dumps({"TRACE":"distance_check_rejected","attempt":attempt}),flush=True)
-            distance_reject+=1; maybe_checkpoint(); continue
+            distance_reject+=1
+            if trace: print(json.dumps({"TRACE":"before_maybe_checkpoint_after_distance_reject","attempt":attempt}),flush=True)
+            maybe_checkpoint()
+            if trace: print(json.dumps({"TRACE":"after_maybe_checkpoint_after_distance_reject","attempt":attempt}),flush=True)
+            continue
         if trace: print(json.dumps({"TRACE":"before_edge_set_update","attempt":attempt}),flush=True)
         edge_set.remove((a,b)); edge_set.remove((c,d)); edge_set.add(p1); edge_set.add(p2)
         if trace: print(json.dumps({"TRACE":"after_edge_set_update","attempt":attempt}),flush=True)
