@@ -118,7 +118,7 @@ def main():
     ap.add_argument("--output",required=True); ap.add_argument("--seed",type=int,default=20260935)
     ap.add_argument("--attempts",type=int,default=100000); ap.add_argument("--target-accepted",type=int,default=0); ap.add_argument("--min-synapses",type=int,default=5)
     ap.add_argument("--checkpoint-every",type=int,default=100000); ap.add_argument("--checkpoint-seconds",type=float,default=120.0)
-    ap.add_argument("--resume-state",default=""); ap.add_argument("--code-version",default="unknown")
+    ap.add_argument("--resume-state",default=""); ap.add_argument("--code-version",default="unknown"); ap.add_argument("--trace-attempts",type=int,default=0)
     ap.add_argument("--allow-resume-code-version-mismatch",action="store_true"); ap.add_argument("--input-fingerprint",default="unknown")
     args=ap.parse_args()
     outc,inc=load_centroids(Path(args.centroids))
