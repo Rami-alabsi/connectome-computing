@@ -312,6 +312,13 @@ def main():
 
     if args.resume_state:
         maybe_checkpoint(force=True)
+        # The hot loop creates many short-lived tuple objects. The graph state
+        # contains no cyclic-reference structures, so cyclic GC is unnecessary
+        # during sampling and can introduce long stop-the-world pauses. Keep
+        # normal reference counting; disable only the cyclic collector after
+        # the forced resume checkpoint and emit an explicit loop-entry marker.
+        gc.disable()
+        print(json.dumps({"hot_loop_gc_disabled":True,"entering_sampling_loop":True,"attempt":attempt,"accepted_swaps":accepted,"rss_current_mb":current_rss_mb(),"rss_max_mb":rss_mb()}), flush=True)
 
     while attempt < args.attempts and (args.target_accepted <= 0 or accepted < args.target_accepted):
         attempt += 1
