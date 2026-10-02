@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """C2 feasibility pilot: NPC-like block preservation + arbor-distance-bin preservation."""
 from __future__ import annotations
-import argparse, csv, gzip, json, math, random, bisect, time, pickle, hashlib, gc, resource, array
+import argparse, csv, gzip, json, math, random, bisect, time, pickle, hashlib, gc, resource, array, faulthandler
 from collections import Counter, defaultdict
 from pathlib import Path
 from src.graph.connections import _open_csv, _pick, SOURCE_CANDIDATES, TARGET_CANDIDATES, aggregate_pair_synapses
@@ -183,7 +183,8 @@ def main():
     if args.resume_state:
         maybe_checkpoint(force=True)
         gc.disable()
-        print(json.dumps({"hot_loop_gc_disabled":True,"entering_sampling_loop":True,"attempt":attempt,"accepted_swaps":accepted,"rss_current_mb":current_rss_mb(),"rss_max_mb":rss_mb()}),flush=True)
+        faulthandler.dump_traceback_later(30.0, repeat=True)
+        print(json.dumps({"hot_loop_gc_disabled":True,"faulthandler_watchdog_seconds":30,"entering_sampling_loop":True,"attempt":attempt,"accepted_swaps":accepted,"rss_current_mb":current_rss_mb(),"rss_max_mb":rss_mb()}),flush=True)
 
     while attempt < args.attempts and (args.target_accepted <= 0 or accepted < args.target_accepted):
         attempt += 1
@@ -230,6 +231,8 @@ def main():
         accepted+=1
         maybe_checkpoint()
 
+    if args.resume_state:
+        faulthandler.cancel_dump_traceback_later()
     final_in,final_out=degree_maps(edge_list); final_edges=set(edge_list)
     rich_club=c2_rich_club_curve(set(edges),final_edges)
     original_edge_overlap_fraction=sum(1 for e in final_edges if e in edges)/len(edges) if edges else 0.0
