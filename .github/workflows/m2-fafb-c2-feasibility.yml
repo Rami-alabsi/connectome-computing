@@ -84,7 +84,11 @@ jobs:
           CODE_VERSION="$(sha256sum scripts/run_fafb_npc_spatial_feasibility.py | cut -d" " -f1)"
           CENTROIDS="$(find data/raw/fafb_v783/c0-artifact -name arbor-centroids.csv.gz -print -quit)"
           INPUT_FINGERPRINT="$(sha256sum data/raw/fafb_v783/connections_princeton.csv.gz "$CENTROIDS" | sha256sum | cut -d" " -f1)"
-          python scripts/run_fafb_npc_spatial_feasibility.py --connections data/raw/fafb_v783/connections_princeton.csv.gz --centroids "$CENTROIDS" --seed 20260935 --attempts ${{ inputs.attempts }} --target-accepted ${{ inputs.target_accepted }} --min-synapses 5 --checkpoint-every 5000000 --checkpoint-seconds 120 --code-version "$CODE_VERSION" --input-fingerprint "$INPUT_FINGERPRINT" $RESUME_ARG $RESUME_COMPAT_ARG --output artifacts/fafb-v783/c2-feasibility-${{ inputs.attempts }}.json
+          # C2 final-completion run: disable time-based full-state checkpointing.
+          # The resume checkpoint is already available at 55M attempts; periodic
+          # time checkpoints serialize the full 3.7M-edge state and can obscure
+          # whether a stall is in sampling or checkpoint serialization.
+          python scripts/run_fafb_npc_spatial_feasibility.py --connections data/raw/fafb_v783/connections_princeton.csv.gz --centroids "$CENTROIDS" --seed 20260935 --attempts ${{ inputs.attempts }} --target-accepted ${{ inputs.target_accepted }} --min-synapses 5 --checkpoint-every 5000000 --checkpoint-seconds 1000000000 --code-version "$CODE_VERSION" --input-fingerprint "$INPUT_FINGERPRINT" $RESUME_ARG $RESUME_COMPAT_ARG --output artifacts/fafb-v783/c2-feasibility-${{ inputs.attempts }}.json
       - name: Upload C2 result and latest checkpoint
         if: always()
         uses: actions/upload-artifact@v4
