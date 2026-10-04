@@ -10,21 +10,32 @@ def load_edges(path, min_synapses=0):
     """Load unique directed pairs using the shared pair-level aggregation boundary."""
     return set(aggregate_pair_synapses(path, min_synapses=min_synapses))
 def curve(edges, thresholds):
+    """Compute the directed rich-club curve exactly, using one edge pass.
+
+    For threshold k, an edge is a rich edge iff both endpoint total degrees
+    are >= k.  Therefore its eligibility threshold is min(deg[u], deg[v]).
+    Sorting these edge thresholds lets us accumulate rich-edge counts without
+    rescanning all edges for every k.
+    """
     indeg={}
     outdeg={}
     for u,v in edges:
         outdeg[u]=outdeg.get(u,0)+1
         indeg[v]=indeg.get(v,0)+1
     totaldeg={u:indeg.get(u,0)+outdeg.get(u,0) for u in set(indeg)|set(outdeg)}
-    out=[]
     n=len(edges)
-    for k in thresholds:
-        rich={u for u,d in totaldeg.items() if d>=k}
-        possible=len(rich)*(len(rich)-1)
-        re=sum(1 for u,v in edges if u in rich and v in rich)
-        density=re/possible if possible else 0.0
-        cross=sum(1 for u,v in edges if (u in rich) ^ (v in rich))
-        out.append({"threshold":k,"rich_nodes":len(rich),"rich_edges":re,
+    degree_hist=Counter(totaldeg.values())
+    edge_cutoffs=sorted(min(totaldeg[u], totaldeg[v]) for u,v in edges)
+    out=[]
+    for k in sorted(set(int(x) for x in thresholds)):
+        rich_nodes=sum(count for degree,count in degree_hist.items() if degree>=k)
+        possible=rich_nodes*(rich_nodes-1)
+        pos=bisect.bisect_left(edge_cutoffs,k)
+        rich_edges=n-pos
+        incident=sum(degree*count for degree,count in degree_hist.items() if degree>=k)
+        cross=incident-2*rich_edges
+        density=rich_edges/possible if possible else 0.0
+        out.append({"threshold":k,"rich_nodes":rich_nodes,"rich_edges":rich_edges,
                     "rich_density":density,"cross_fraction":cross/n if n else 0.0})
     return out
 
