@@ -37,3 +37,28 @@ def test_rich_club_loader_aggregates_synapses_across_region_rows(tmp_path):
     )
     # a->b totals 6 (>=5) so it must be kept; a->c totals 3 (<5) so it is dropped
     assert load_edges(p, min_synapses=5) == {("a", "b"), ("b", "c")}
+
+
+
+def test_rich_club_curve_matches_direct_definition_on_multiple_thresholds():
+    edges = {
+        ("a", "b"), ("b", "a"), ("a", "c"), ("c", "a"), ("b", "c"),
+        ("c", "d"), ("d", "c"), ("d", "a")
+    }
+    thresholds = [1, 2, 3, 4, 5]
+    rows = curve(edges, thresholds)
+    indeg = {}
+    outdeg = {}
+    for u, v in edges:
+        outdeg[u] = outdeg.get(u, 0) + 1
+        indeg[v] = indeg.get(v, 0) + 1
+    degree = {u: indeg.get(u, 0) + outdeg.get(u, 0) for u in set(indeg) | set(outdeg)}
+    expected = []
+    for k in sorted(set(thresholds)):
+        rich = {u for u, d in degree.items() if d >= k}
+        possible = len(rich) * (len(rich) - 1)
+        re = sum(1 for u, v in edges if u in rich and v in rich)
+        cross = sum(1 for u, v in edges if (u in rich) ^ (v in rich))
+        expected.append((k, len(rich), re, re / possible if possible else 0.0, cross / len(edges)))
+    actual = [(r["threshold"], r["rich_nodes"], r["rich_edges"], r["rich_density"], r["cross_fraction"]) for r in rows]
+    assert actual == expected
