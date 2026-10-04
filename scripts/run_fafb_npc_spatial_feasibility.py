@@ -119,7 +119,7 @@ def main():
     ap.add_argument("--attempts",type=int,default=100000); ap.add_argument("--target-accepted",type=int,default=0); ap.add_argument("--min-synapses",type=int,default=5)
     ap.add_argument("--checkpoint-every",type=int,default=100000); ap.add_argument("--checkpoint-seconds",type=float,default=120.0)
     ap.add_argument("--resume-state",default=""); ap.add_argument("--code-version",default="unknown"); ap.add_argument("--trace-attempts",type=int,default=0)
-    ap.add_argument("--allow-resume-code-version-mismatch",action="store_true"); ap.add_argument("--input-fingerprint",default="unknown")
+    ap.add_argument("--allow-resume-code-version-mismatch",action="store_true"); ap.add_argument("--input-fingerprint",default="unknown"); ap.add_argument("--skip-finalization",action="store_true")
     args=ap.parse_args()
     outc,inc=load_centroids(Path(args.centroids))
     edges=list(aggregate_pair_synapses(args.connections,min_synapses=args.min_synapses))
@@ -245,6 +245,9 @@ def main():
 
     if args.resume_state:
         faulthandler.cancel_dump_traceback_later()
+    if args.skip_finalization:
+        print(json.dumps({"diagnostic_exit_after_loop":True,"attempt":attempt,"accepted_swaps":accepted,"target_reached":(args.target_accepted <= 0 or accepted >= args.target_accepted),"checkpoint_count":len(checkpoints)}), flush=True)
+        return
     final_in,final_out=degree_maps(edge_list); final_edges=set(edge_list)
     rich_club=c2_rich_club_curve(set(edges),final_edges)
     original_edge_overlap_fraction=sum(1 for e in final_edges if e in edges)/len(edges) if edges else 0.0
