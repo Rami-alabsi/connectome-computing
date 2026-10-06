@@ -284,14 +284,15 @@ Commits:
 - **5f3b42f6bcd1fc2c556dd3623f280234b091ed56** — fixed missing `Counter` and `bisect` imports
 
 The latest push CI for the 100-null workflow on **5f3b42f...** succeeded.
-A C2 workflow is currently in progress:
-- run **37415968989** (#41)
-- head **5f3b42f6...**
-- job **112114534428**
-- preflights and downloads completed
-- C2 benchmark step is in progress
+Run **37415968989** (#41) was cancelled after ~32 minutes. It produced a recovery artifact before cancellation:
+- artifact **11392495820**
+- name `fafb-v783-c2-feasibility-55000020`
+- SHA-256 **5d0cbb46f9080edbbb158bd5d5a05ee08102f4327574d7cce348ee28200b6a73**
+- this artifact is the checkpoint/result from attempt **55,000,020** with accepted **3,710,357**.
 
-Do not treat run #41 as a scientific result until its artifact and invariants are inspected.
+This is not a scientific null result; it is a recovery checkpoint. It is useful because it is newer than the 55M checkpoint and was produced after the rich-club import fix.
+
+Do not treat run #41 as a scientific C2 result.
 
 ## 13. Why the project appeared to “freeze”
 
@@ -311,12 +312,12 @@ Use `skip_finalization=true` for diagnostic runs when isolating the sampling loo
 
 Do not restart from zero.
 
-### Step C2-A — preserve/verify a 55.3M checkpoint
-If needed, run a diagnostic from the 55M checkpoint with:
+### Step C2-A — build a clean 55.3M recovery checkpoint
+Use the newer Run #41 artifact as the resume source first. Run a diagnostic with:
 - attempts = **55,300,000**
 - target_accepted = 0
-- resume_run_id = **36586932202**
-- resume_artifact_name = **fafb-v783-c2-feasibility-60000000**
+- resume_run_id = **37415968989**
+- resume_artifact_name = **fafb-v783-c2-feasibility-55000020**
 - skip_finalization = **true**
 - trace_attempts = 0 for normal run
 
