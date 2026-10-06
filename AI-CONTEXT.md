@@ -1,6 +1,6 @@
 # AI Context
 
-**Single source of truth:** read `docs/PROJECT-STATUS.md` for the current project stage, completed work, active workstreams, scientific status, and next actions.
+**Current operational source of truth:** read `docs/MASTER-COMPASS-2026-10-06.md` first for the live project stage, gate state, C2 status, recovery point, and next actions. Then use `docs/PROJECT-STATUS.md` as the historical experiment ledger and for detailed provenance.
 
 This file contains only persistent operating rules:
 
