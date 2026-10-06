@@ -2,6 +2,8 @@
 """Estimate FAFB v783 rich-club enrichment against degree-preserving nulls."""
 from __future__ import annotations
 import argparse, csv, json, math, random
+import bisect
+from collections import Counter
 from pathlib import Path
 from src.graph.connections import aggregate_pair_synapses
 from src.graph.random_baseline import degree_preserving_randomization, degree_preservation_report
