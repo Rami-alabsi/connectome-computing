@@ -819,3 +819,24 @@ Compared with Run #45 (seed 20260935), the qualitative result replicates: the >1
 **Decision:** C2 artifact-complete realization #2 is closed as an artifact/provenance milestone; C2 ensemble/mixing and Gate C remain OPEN.
 
 **Next:** run seed **20261002** with the unchanged C2 definition and no resume from another seed, then perform the planned three-seed comparison and non-invasive mixing/stability audit.
+
+
+## 2026-10-07 — C2 Run #47 completes the three-seed replication set
+
+Run #47 was independently verified as artifact-complete.
+
+- workflow run **37617681244**; job **112779897382**
+- seed **20261002**
+- C0 source **36318477728**
+- artifact **11481125143**
+- artifact SHA-256 **4850e27dcb285dcfa258a594241bb5c843d9bf295f65d807a77c55a51c47ce64**
+- attempts **55,264,717**; accepted **3,732,460**; target reached **true**
+- acceptance **6.7537847%**
+- max phi_norm **1.0077486180432564** at threshold **51**
+- no >1.01 threshold
+- overlap **0.4792729192007416**
+- all seven invariants preserved; frozen edges 9,869; block-pair classes 3,648.
+
+Together with #45 and #46, three independent C2 realizations now reproduce the same qualitative result. Maxima remain tightly clustered near 1.0077 and no realization crosses 1.01.
+
+**Decision:** the three-seed C2 replication set is complete, but C2 ensemble/mixing remains OPEN and Gate C is not yet closed. The next step is the planned non-invasive three-seed stability/mixing audit followed by stronger spatial/max-entropy sensitivity. Structure→function remains blocked.
