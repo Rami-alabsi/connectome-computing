@@ -2,7 +2,7 @@
 
 ## Status
 
-**SYNTHETIC VALIDATION IMPLEMENTATION — FAFB NOT TOUCHED**
+**SYNTHETIC VALIDATION IMPLEMENTATION — CI PASSED — FAFB NOT TOUCHED**
 
 This branch is a validation layer for the provisional C3-A mathematical candidate. It does not modify C2 and does not authorize any FAFB-scale C3 run.
 
@@ -81,9 +81,24 @@ This C3-A branch must never silently alter C2 degree constraints, C2 source-bloc
 
 Any future NPC-aware canonical model is a separate C3-B family and requires its own mathematical definition and validation.
 
+## CI verification
+
+GitHub Actions workflow **tests #587** (run **37625325208**) completed successfully on the current-main-based validation branch.
+
+The workflow executed:
+- Python syntax preflight;
+- pytest collection preflight;
+- full pytest suite.
+
+This closes the **software/CI validation sub-gate**, not the scientific C3-A gate.
+
 ## Decision
 
-**C3-A synthetic validation gate: OPEN / IMPLEMENTED**
+**C3-A implementation/CI sub-gate: PASSED**
+
+**C3-A scientific validation gate: OPEN**
+
+**FAFB C3: NOT AUTHORIZED**
 
 **FAFB C3: NOT AUTHORIZED**
 
