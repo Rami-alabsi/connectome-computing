@@ -19,7 +19,7 @@ M = N(N-1)
 For the project graph N = 138,584:
 
 \[
-M = 138,584 \times 138,583 = 19,194,? 
+M = 138,584 \times 138,583 = 19,205,386,472 
 \]
 
 The exact value must be computed by code before publication rather than copied from a rough estimate.
