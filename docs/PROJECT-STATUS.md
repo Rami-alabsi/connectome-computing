@@ -793,3 +793,29 @@ Decision:
 
 Next authorized experiment:
 Run independent C2 seeds with the **same** constraint surface, proposal kernel, dataset, and target. Prefer at least two additional seeds before Gate-C interpretation. Record the complete rich-club curve, acceptance trajectory, overlap/turnover, and non-invasive mixing diagnostics. Do not change the C2 definition to improve runtime. Treat any persistence, disappearance, shape shift, or reversal as a discovery/control signal requiring replication.
+
+
+## 2026-10-07 — C2 Run #46 independent-seed replication
+
+A second artifact-complete C2 realization was verified from GitHub Actions Run #46.
+
+- workflow run: **37582335296**
+- job: **112664615048**
+- seed: **20261001**
+- C0 source: **36318477728**
+- artifact: **11466140681**
+- artifact SHA-256: **d19aa6383818d30c4cd40d01e1cbc00db8d42af028c021052a5111d2edaec213**
+- attempts: **55,237,500**
+- accepted: **3,732,460 / 3,732,460**
+- acceptance: **6.7571125%**
+- target reached: **true**
+
+All seven declared C2 invariants passed. Frozen edges remained 9,869 and block-pair classes remained 3,648.
+
+The full rich-club curve has maximum phi_norm **1.0076660261640915** at threshold **50**, with **no >1.01 threshold**. Original-edge overlap is **0.47912877833921863** (~47.9129%).
+
+Compared with Run #45 (seed 20260935), the qualitative result replicates: the >1.01 region remains absent. The maximum phi differs by only ~0.00004395 and the peak threshold shifts by one degree. This is strong replication evidence for the descriptive C2 observation, but not a significance test, mixing proof, mechanism, or computational advantage.
+
+**Decision:** C2 artifact-complete realization #2 is closed as an artifact/provenance milestone; C2 ensemble/mixing and Gate C remain OPEN.
+
+**Next:** run seed **20261002** with the unchanged C2 definition and no resume from another seed, then perform the planned three-seed comparison and non-invasive mixing/stability audit.
