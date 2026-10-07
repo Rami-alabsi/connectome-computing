@@ -2,7 +2,7 @@
 
 ## Current position
 
-**Stage: C2 — FAFB CFG/NPC controls closed; spatial 8-null stability validated; C2 full-null execution OPEN**
+**Stage: C2 — artifact-complete realization #1 CLOSED; independent-seed ensemble/mixing OPEN**
 
 **Prototype-phase note:** the current implementation phase was built in a single intensive session. Treat the repository as a research prototype scaffold until real-data execution, matched controls, ablations and reproducible artifacts have been completed.
 
@@ -263,7 +263,7 @@ This section supersedes older Gate C wording below in this historical status fil
 - Gate C1 — spatial-null feasibility: **CLOSED**.
 - Spatial 4-null: **VALIDATED**.
 - Spatial 8-null: **STABLE** across the expanded seed ensemble.
-- C2 — joint NPC-like + arbor-distance-bin feasibility: **OPEN for runtime/sampler optimization**.
+- C2 — joint NPC-like + arbor-distance-bin: **artifact-complete realization #1 CLOSED; ensemble/mixing OPEN**.
 - Computational architecture interpretation remains downstream of the biological control hierarchy.
 - No Gate C closure is claimed until the joint C2 control is executable at the required ensemble scale and the stronger spatial/max-entropy controls are addressed.
 
@@ -728,6 +728,21 @@ The implementation is now hardened as follows:
 
 
 ## 2026-10-07 — C2 Run #45 artifact-complete realization
+
+## 2026-10-07 — C2 independent-seed phase prepared
+
+The next scientific phase is now explicitly documented as an independent C2 seed ensemble rather than a new null definition.
+
+- experiment record: `docs/experiments/C2-INDEPENDENT-SEED-ENSEMBLE-2026-10-07.md`
+- workflow seed parameterization commit: `0c8debaf121e1207ee90246b9e674f6d27b7f545`
+- documentation commit for the experiment record: `191887637392710151f72f00e3ffd1bd30633c4f`
+- reference seed: `20260935` (Run #45)
+- planned independent seeds: `20261001`, `20261002`
+- the workflow remains manual-dispatch-only; parameterizing the seed did not launch a run
+- no independent-seed scientific result exists yet
+
+The primary C2 constraint surface, proposal kernel, dataset, min_synapses, target accepted swaps, and provenance requirements are frozen for this ensemble. Any unexpected persistence, disappearance, shape shift, or reversal of the rich-club residual must be preserved and independently audited rather than selectively discarded.
+
 
 Run #45 (37573133004) is the first clean artifact-complete C2 realization under the joint NPC-like + arbor-distance-bin constraint surface.
 
