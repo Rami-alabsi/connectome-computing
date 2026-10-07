@@ -55,7 +55,7 @@ The lighter `synapse_coordinates` spatial path is secondary/superseded for prima
 | C1 spatial feasibility | **CLOSED** | Degree + distance-bin feasibility validated |
 | Spatial 4-null | **VALIDATED** | First ensemble |
 | Spatial 8-null | **STABLE** | Expanded seed ensemble gave same qualitative descriptive curve landmarks |
-| C2 joint NPC + spatial | **OPEN** | Feasibility is established; artifact-complete full null execution/finalization remains unfinished |
+| C2 joint NPC + spatial | **ARTIFACT-COMPLETE #1** | One full null is complete with final graph-derived rich-club curve and exact invariants; ensemble/mixing remain open |
 | Gate C / biological closure | **OPEN** | Must not be closed before C2 ensemble + mixing/sensitivity work |
 | Structure → function | **BLOCKED downstream** | Intentionally waiting for stronger biological controls |
 | Computational architecture claim | **NOT ESTABLISHED** | No benchmark advantage/novelty claim yet |
@@ -524,3 +524,57 @@ Do not alter the C2 null constraint or proposal kernel in response to Run #44. T
 
 Next action:
 **Run the same 20260935 C2 completion from the preserved 55.3M checkpoint with `skip_finalization=false`, then audit the resulting final JSON, rich-club output, invariants, provenance, artifact digest, and original-edge overlap.**
+
+
+## 24. C2 Run #45 — artifact-complete joint NPC + spatial null (2026-10-07)
+
+**Run:** 37573133004  
+**Job:** 112636019092  
+**Commit:** 59db12b97023e4e8258b4a9948e810ac0895c66c  
+**Seed:** 20260935  
+**C0 source:** 36318477728  
+**Artifact:** 11461697865  
+**Artifact SHA-256:** cb185da57f64467ecb1197f77062c510fd6f3e0c94a6c8e46689090709b9c97a
+
+The clean finalization rerun succeeded after the O(E²) original-edge-overlap bug was fixed. The sampler resumed from attempt 55,300,000 / 3,728,657 accepted swaps and reached the exact target at:
+- attempts: **55,361,441**
+- accepted swaps: **3,732,460 / 3,732,460**
+- acceptance rate: **6.7419849%**
+- target reached: **true**
+
+Exact C2 invariants passed:
+- same edge count: true
+- same in-degree: true
+- same out-degree: true
+- same source-block → target-block counts: true
+- same global distance-bin histogram: true
+- no self-loops: true
+- no duplicate edges: true
+- all invariants preserved: **true**
+- frozen edges without complete block assignment: **9,869**
+- block-pair classes: **3,648**
+
+### First artifact-complete C2 observable
+The final artifact contains the full descriptive rich-club curve for thresholds 20–120. Under the joint NPC-like + spatial constraint surface:
+- maximum phi_norm: **1.0076220771931181** at degree threshold **51**;
+- no threshold exceeded the project's descriptive criterion phi_norm > 1.01;
+- onset/offset above 1.01: **none**;
+- single-null comparison only: **not a significance test**;
+- original-edge overlap fraction: **0.47913761969317825** (~47.91%).
+
+This is scientifically important but deliberately bounded: it is **one realized C2 null**, not an ensemble estimate, p-value, mechanism, or convergence proof. The primary observation is that the C2 joint constraints reduce the maximum normalized rich-club residual to ~0.762%, below the project's 1% descriptive criterion, whereas the earlier spatial-null curve had a >1.01 descriptive region. This difference is a candidate structural-control result, but it must be tested against independent C2 seeds and mixing diagnostics before Gate C is closed.
+
+### C2 state after Run #45
+**C2 artifact-complete realization #1 = CLOSED as an artifact/provenance milestone.**  
+**C2 ensemble/mixing = OPEN.**  
+**Gate C = OPEN.**
+
+### Authorized next sequence
+1. Independently reproduce the same C2 constraint surface with new seeds; do not change the proposal kernel or constraints.
+2. Record acceptance trajectory and rich-club curve for each seed.
+3. Add non-invasive mixing diagnostics / chain checkpoints rather than changing the null definition.
+4. Compare the independent C2 ensemble against CFG, NPC-like, and spatial controls.
+5. Only after ensemble stability, run stronger spatial/max-entropy sensitivity as a separate null family.
+6. Then decide Gate C and only then proceed to matched structure→function ablations.
+
+**Discovery flag:** the disappearance of the >1.01 descriptive rich-club region under the joint C2 constraints is a potentially meaningful structural-control signal. It is not yet a discovery claim; replication is mandatory.
