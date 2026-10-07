@@ -840,3 +840,12 @@ Run #47 was independently verified as artifact-complete.
 Together with #45 and #46, three independent C2 realizations now reproduce the same qualitative result. Maxima remain tightly clustered near 1.0077 and no realization crosses 1.01.
 
 **Decision:** the three-seed C2 replication set is complete, but C2 ensemble/mixing remains OPEN and Gate C is not yet closed. The next step is the planned non-invasive three-seed stability/mixing audit followed by stronger spatial/max-entropy sensitivity. Structure→function remains blocked.
+
+
+## 2026-10-07 — Three-seed C2 stability audit
+
+A non-invasive audit of Runs #45–#47 compared their complete rich-club curves. Pairwise Pearson correlations are **0.9999346–0.9999503**, with maximum pointwise phi_norm difference **0.0006645**. The three maxima are **1.0076221, 1.0076660, 1.0077486**, with peak thresholds 51, 50, 51 and no >1.01 region.
+
+Acceptance rates are also tightly clustered at 6.74198%, 6.75711%, and 6.75378%. Run #47 shows smooth late-stage acceptance decline without a computational stall.
+
+**Decision:** the non-invasive stability/reproducibility check passes. Formal Markov-chain mixing/convergence remains unproven. Gate C remains OPEN pending the stronger spatial/max-entropy sensitivity family.
