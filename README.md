@@ -99,13 +99,23 @@ connectome-computing/
 
 ## Status
 
-**Stage: C2 — joint NPC-like + spatial control; 1M-attempt feasibility validated; full C2 null ensemble is the active scientific gate**
+**Stage: C2 three-seed replication CLOSED; non-invasive stability audit PASSED; formal mixing OPEN; C3 prior-art/design gate OPEN. Gate C remains OPEN.**
 
-Gate A is closed for the defined FAFB v783 method-aligned CFG/rich-club path after Run `35987597540`: 100 CFG nulls, 3,732,460 successful swaps per null, exact edge-count/in-degree/out-degree preservation, and descriptive `phi_norm > 1.01` continuously from degree 27 through 120, peaking at 1.057835 at degree 96. This is a method-aligned v783 replication/extension, not an exact reproduction of Lin et al. 2024.
+Current scientific state (2026-10-07):
+- **Gate A / CFG: CLOSED** — 100 v783 nulls; peak descriptive phi_norm 1.057835 at degree 96.
+- **Gate B / NPC-like: CLOSED** — 100 v783 nulls; peak descriptive phi_norm 1.015171 at degree 57; >1.01 region 41–69.
+- **C0 / C1 / spatial 8-null: CLOSED / VALIDATED / STABLE** — authoritative Princeton arbor-distance path.
+- **C2: three independent artifact-complete realizations (#45, #46, #47).** Each reached 3,732,460 accepted swaps and passed all seven declared invariants. Max phi_norm = 1.0076221, 1.0076660, 1.0077486 at thresholds 51, 50, 51; none exceeded 1.01.
+- **Three-seed stability audit: PASSED as a reproducibility/control check.** Full-curve correlations = 0.9999321–0.9999503; maximum pointwise spread = 0.0006645.
+- **Formal mixing/convergence: OPEN.** No ESS, integrated autocorrelation, trajectory-based convergence bound, or equivalent formal diagnostic has been established.
+- **Gate C: OPEN.** The C2 result is a strong descriptive structural-control signal, not a significance test, mechanism, uniqueness claim, or computational advantage.
+- **C3: design/prior-art stage only.** Salova & Kovács (2025) establishes relevant canonical maximum-entropy spatial connectome models; maximum-entropy spatial nulls are not claimed as novel. C3-A remains a separate sensitivity ensemble from C2.
+- **C3-A synthetic validation: not yet scientifically closed.** No FAFB C3 run is authorized until fitting, exact small-graph validation, support treatment, and scalability are formally validated.
+- **Structure → function / RSS / architecture / scaling: BLOCKED downstream** until Gate C is closed.
 
-Gate B is closed for the defined 100-null FAFB v783 NPC-like benchmark. The complete ensemble preserved degree and source-neuropil→target-neuropil block counts, and reduced the descriptive rich-club enrichment from the CFG peak of 1.057835 to an NPC-like peak of 1.015171. This is a v783 extension, not an exact v630 reproduction, and the comparison is not a formal significance test. Gate C now addresses genuine spatial/distance constraints before any computational architecture interpretation.
+**Current compass:** C2 three-seed replication CLOSED → stability audit PASSED → formal mixing OPEN → C3 prior-art/design gate OPEN → synthetic validation → spatial/max-entropy sensitivity ensemble → Gate C decision → structure→function → matched ablations → computational abstraction → benchmark → scaling.
 
-The master project compass is `docs/PROJECT-MAP.md`. Operational status and scientific decisions are maintained in `docs/PROJECT-STATUS.md`; the research protocol and AI handoff rules are in `docs/RESEARCH_PROTOCOL.md`.
+The authoritative operational compass is docs/MASTER-COMPASS-2026-10-07.md. Historical provenance remains in docs/PROJECT-STATUS.md; operational rules remain in docs/RESEARCH_PROTOCOL.md.
 
 ## References
 
@@ -121,8 +131,3 @@ See docs/prior-art.md for links and detailed notes.
 
 Software in this repository is released under the repository license. Biological datasets and external resources remain subject to their own licenses and terms.
 
-## Current 2026-09-28 compass update
-
-Gate A (CFG) and Gate B (NPC-like) are closed for their defined v783 analyses. C0 data-definition/coverage and the spatial 8-null stability check are validated. C2 now has a successful 1,000,000-attempt feasibility benchmark preserving edge count, directed in/out degree, source-block→target-block counts, and arbor-distance-bin histogram exactly. This is a feasibility result, not a biological or computational claim. The next blocking experiment is one full C2 null to 3,732,460 accepted swaps, followed by independent seeds, mixing diagnostics, and aggregation.
-
-The project also maintains an explicit discovery-watch protocol: unexpected, reproducible anomalies are investigated as hypothesis generators rather than suppressed or promoted prematurely. See docs/DISCOVERY-WATCH-AND-ANOMALY-PROTOCOL-2026-09-28.md.
