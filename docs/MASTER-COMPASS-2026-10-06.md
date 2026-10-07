@@ -501,3 +501,26 @@ No validated computational advantage, product-market fit, patentability, or comm
 Current immediate objective:
 
 **Finish artifact-complete C2 on the same 20260935 realization → independent C2 seeds → mixing/sensitivity audit → Gate C decision → only then structure→function and computational abstraction.**
+
+## 23. C2 Run #44 finalization root cause (2026-10-07)
+
+Run #44 (GitHub Actions run `37457876685`) was cancelled after 5h50m. The sampler itself is not the demonstrated bottleneck:
+- Run #43 resumed the identical checkpoint at attempt 55,300,000 / accepted 3,728,657 and reached the target 3,732,460 at attempt 55,361,441 in ~0.45 s after entering the loop.
+- The absence of `performance_probe` lines in #44 is therefore not evidence of a sampling stall: probes are emitted every 100,000 attempts, while only 61,441 attempts separate the checkpoint from the target.
+- The actual C2 finalization path contained an O(E²) overlap calculation: `sum(1 for e in final_edges if e in edges)`, where `edges` is a 3,732,460-element list. Worst-case membership work is approximately 13.93 trillion list comparisons.
+- The rich-club calculation itself uses set-based edge input and was not identified as the 5h-scale blocker.
+
+Fix committed in `aedb0a0315ede73b909db26dc838122480b85cb6`:
+- materialize `original_edge_set = set(edges)` once;
+- use hash membership for the original-edge overlap calculation;
+- reuse the same set for C2 rich-club finalization;
+- add regression test `test_c2_edge_overlap_materializes_original_edges_as_set`.
+- test workflow run 554 (`37572718666`) passed.
+
+Scientific status:
+**C2 constraint sampler validated; C2 artifact-complete result still OPEN pending a clean finalization run after this infrastructure-only fix.**
+
+Do not alter the C2 null constraint or proposal kernel in response to Run #44. The 5h50m failure was a finalization-complexity bug, not evidence for a rare-tail sampling phenomenon.
+
+Next action:
+**Run the same 20260935 C2 completion from the preserved 55.3M checkpoint with `skip_finalization=false`, then audit the resulting final JSON, rich-club output, invariants, provenance, artifact digest, and original-edge overlap.**
