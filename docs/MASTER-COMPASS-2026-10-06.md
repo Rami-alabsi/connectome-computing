@@ -655,3 +655,19 @@ This is strong descriptive replication of the structural-control signal, but not
 3. Run the stronger spatial/max-entropy sensitivity family as a separate null, without changing the primary C2 definition.
 4. Decide Gate C only after those controls.
 5. Only then proceed to matched structure→function ablations.
+
+
+## 2026-10-07 — Three-seed C2 stability audit
+
+A non-invasive audit was completed over the three artifact-complete C2 realizations (#45, #46, #47). The full threshold 20–120 rich-club curves were compared directly.
+
+- Pairwise curve correlations: **0.9999346–0.9999503**.
+- Maximum pairwise pointwise phi_norm difference: **0.0006645**.
+- Three max phi values: **1.0076221, 1.0076660, 1.0077486**.
+- Peak thresholds: **51, 50, 51**.
+- No realization contains phi_norm > 1.01.
+- Acceptance rates: **6.74198%, 6.75711%, 6.75378%**.
+
+This passes as a strong reproducibility/control check for the descriptive C2 curve. It is **not** a formal mixing/convergence proof: the artifacts do not provide integrated autocorrelation time, ESS, independent-chain trajectory diagnostics, or a convergence bound.
+
+The next authorized control remains the stronger spatial/max-entropy sensitivity family. Gate C remains OPEN.
