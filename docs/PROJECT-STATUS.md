@@ -7,7 +7,7 @@
 - C0/C1: **CLOSED**; spatial 8-null: **STABLE**.
 - C2: **three independent full realizations #45/#46/#47 COMPLETE**; exact seven invariants passed in each.
 - C2 max phi_norm: **1.0076221 / 1.0076660 / 1.0077486**; peaks 51 / 50 / 51; no >1.01.
-- Three-seed stability audit: **PASSED as reproducibility/control**; correlations 0.9999321–0.9999503; max pointwise spread 0.0006645.
+- Three-seed stability audit: **PASSED as reproducibility/control**; correlations 0.9999321–0.9999503; max pointwise spread 0.0006645; pairwise final-edge Jaccard **0.2439655–0.2441324**.
 - Formal mixing/convergence: **OPEN**.
 - Gate C: **OPEN**.
 - C3 prior-art/design gate: **OPEN**; generic canonical spatial max-entropy connectome modeling is prior art.
