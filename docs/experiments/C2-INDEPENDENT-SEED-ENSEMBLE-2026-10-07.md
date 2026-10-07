@@ -163,3 +163,33 @@ Every completed seed must receive its own experiment record before its result is
 
 Failed, cancelled, diagnostic, or superseded runs remain in the historical record and must not be silently relabeled as scientific nulls.
 
+
+## Operational checkpoint — 2026-10-07
+
+Repository/workflow audit performed after the ensemble preparation.
+
+- Latest C2 workflow run remains Run #45 (37573133004); no C2 workflow run for seed 20261001 or 20261002 exists yet.
+- Latest ordinary repository CI run after the preparation is successful (37579658417).
+- The C2 workflow is confirmed workflow_dispatch only; the current GitHub connector exposes no workflow-dispatch action, so no seed run was launched by this audit.
+- The current workflow file exposes seed as an explicit required dispatch input and retains the same C2 sampler/constraint definition.
+
+### Dispatch values — Seed 20261001
+
+- c0_run_id = 36318477728
+- seed = 20261001
+- attempts = 60000000
+- target_accepted = 3732460
+- resume_run_id = empty
+- resume_artifact_name = empty
+- trace_attempts = 0
+- skip_finalization = false
+
+### Dispatch values — Seed 20261002
+
+Use the same values, changing only seed = 20261002.
+
+Do not reuse Run #45's checkpoint for an independent seed: the independent-seed experiment must start from the observed graph with a fresh RNG seed. Any checkpoint created during a new seed run may be used only to resume that same seed and same constraint fingerprint.
+
+### Audit gate before accepting either seed
+
+A run counts as a scientific C2 realization only if the final artifact contains the final JSON and checkpoint, reaches target_reached=true, preserves every declared invariant, contains the full rich-club curve, records artifact provenance/digest, and has no unresolved execution/finalization anomaly. A cancelled/diagnostic/recovery run remains historical evidence only.
