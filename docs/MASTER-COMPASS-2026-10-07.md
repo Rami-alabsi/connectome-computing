@@ -44,8 +44,9 @@ No run has **phi_norm > 1.01**.
 - Maximum pointwise difference: **0.0006645**.
 - Acceptance: **6.74198%, 6.75711%, 6.75378%**.
 - Observed-edge overlap: ~**47.91–47.93%**.
+- Pairwise final-edge-set Jaccard: **0.2439655–0.2441324** (~24.4%).
 
-Interpretation: strong descriptive reproducibility. **Not** a formal mixing/convergence proof, significance test, mechanism, uniqueness proof, or computational advantage.
+Interpretation: strong descriptive reproducibility despite substantial microscopic edge turnover. **Not** a formal mixing/convergence proof, significance test, mechanism, uniqueness proof, or computational advantage.
 
 ### C3 guardrails
 - Salova & Kovács (Network Neuroscience, 2025; DOI 10.1162/netn_a_00428) establishes relevant canonical maximum-entropy spatial connectome modeling. Generic spatial max-entropy nulls are **not novel**.
