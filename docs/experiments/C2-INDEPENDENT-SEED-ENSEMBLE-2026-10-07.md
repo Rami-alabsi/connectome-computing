@@ -47,6 +47,15 @@ All independent seeds MUST use exactly:
 
 Do NOT strengthen, weaken, or otherwise alter the primary C2 constraint surface for this ensemble.
 
+## Workflow preparation
+
+The C2 workflow was updated so the RNG seed is an explicit manual-dispatch input rather than a hard-coded value:
+
+- workflow commit: `0c8debaf121e1207ee90246b9e674f6d27b7f545`
+- default seed remains `20260935` for backward-compatible reproduction of Run #45
+- independent runs can now use deterministic seeds `20261001` and `20261002` without changing the sampler or constraint surface
+- workflow remains `workflow_dispatch` only; this change does not launch a scientific run by itself.
+
 ## Independent seeds
 
 Recommended next realizations:
