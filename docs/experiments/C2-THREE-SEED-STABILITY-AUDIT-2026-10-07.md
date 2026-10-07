@@ -63,10 +63,26 @@ Throughput remained healthy, reaching roughly 122k attempts/s late in the run, w
 
 This rules out an obvious late-run computational stall in #47. It is not, by itself, a proof of Markov-chain mixing.
 
+## Pairwise edge-set turnover / Jaccard
+
+The three final edge sets were compared directly from the artifact checkpoint states (3,732,460 directed edges per realization). Pairwise intersection and Jaccard similarity were computed on the exact directed edge sets:
+
+| Pair | Shared directed edges | Jaccard |
+|---|---:|---:|
+| #45 vs #46 | 1,464,302 | **0.2440252** |
+| #45 vs #47 | 1,464,819 | **0.2441324** |
+| #46 vs #47 | 1,464,014 | **0.2439655** |
+
+Thus pairwise edge-set Jaccard is tightly clustered around **24.4%**, while the full rich-club curves correlate at >0.99993.
+
+This is useful evidence that the three realizations are not simply reproducing nearly identical final edge sets. It also shows that a highly reproducible aggregate observable can coexist with substantial microscopic graph turnover. However, final-state Jaccard alone is **not** a formal mixing diagnostic: it does not provide within-chain autocorrelation, ESS, burn-in/convergence behavior, or a convergence bound.
+
 ## Mixing/convergence boundary
 
 The existing artifacts provide:
 - independent seeds;
+- pairwise final-edge-set Jaccard/turnover;
+
 - complete final graphs;
 - full final rich-club curves;
 - checkpoint histories;
@@ -91,6 +107,8 @@ It should not yet be promoted to a biological mechanism or uniqueness claim.
 ## Decision
 
 - Three-seed C2 replication: **COMPLETE**
+- Pairwise final-edge-set Jaccard: **~24.4% across all three pairs**
+
 - Non-invasive curve stability audit: **PASSED as a reproducibility/control check**
 - Formal mixing/convergence: **OPEN**
 - Gate C: **OPEN**
