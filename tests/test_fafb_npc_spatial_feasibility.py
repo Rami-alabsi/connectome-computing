@@ -139,3 +139,16 @@ def test_c2_block_buckets_use_compact_uint32_indices():
     assert list(buckets[("X","Y")]) == [0, 1, 2, 3]
     assert total == 6
     assert cumulative == [6]
+
+
+def test_c2_edge_overlap_materializes_original_edges_as_set():
+    """Full-scale C2 finalization must not perform list-membership scans over all edges."""
+    from scripts.run_fafb_npc_spatial_feasibility import edge_overlap_fraction
+
+    class NoLinearMembership(list):
+        def __contains__(self, item):
+            raise AssertionError("original-edge overlap must use hash membership")
+
+    original = NoLinearMembership([("a", "b"), ("b", "c"), ("c", "d")])
+    final = {("a", "b"), ("c", "d"), ("d", "e")}
+    assert edge_overlap_fraction(original, final) == 2 / 3
