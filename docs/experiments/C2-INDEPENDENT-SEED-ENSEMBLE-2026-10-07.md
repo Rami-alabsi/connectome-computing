@@ -223,3 +223,22 @@ This independently replicates the qualitative Run #45 outcome. The ensemble is s
 - skip_finalization = false
 
 Do not reuse a checkpoint from Run #45 or #46. Start from the observed graph with the fresh seed 20261002. After completion, retain the final JSON, checkpoint, artifact digest, full curve, invariants, acceptance trajectory, and overlap.
+
+
+## Run #47 update — seed 20261002 completed
+
+The planned three-seed independent C2 replication set is now complete.
+
+- Run #45: seed 20260935; max phi_norm 1.0076221 at threshold 51
+- Run #46: seed 20261001; max phi_norm 1.0076660 at threshold 50
+- Run #47: seed 20261002; max phi_norm **1.0077486** at threshold **51**
+
+All three complete artifacts reach target_reached=true, preserve all seven declared invariants, and show no threshold with phi_norm > 1.01. Acceptance rates are tightly clustered at 6.742%, 6.757%, and 6.754%.
+
+### Decision boundary after three seeds
+
+The descriptive C2 observation is now replicated across three independent seeds. This is sufficient to advance to the planned **stability/mixing audit**, but not to close Gate C. Do not convert the three-seed replication into a p-value or convergence claim.
+
+### Next experiment
+
+Use the existing complete artifacts for non-invasive three-seed curve/acceptance/turnover comparison and mixing diagnostics. Then run the stronger spatial/max-entropy sensitivity family as a separate null. Preserve the primary C2 definition unchanged.
