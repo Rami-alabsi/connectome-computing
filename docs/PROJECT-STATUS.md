@@ -1,3 +1,23 @@
+# CURRENT AUTHORITATIVE STATUS — 2026-10-07
+
+> Compact first-read operational state. Historical entries below remain provenance, not current truth.
+
+- Gate A / CFG: **CLOSED**.
+- Gate B / NPC-like: **CLOSED**.
+- C0/C1: **CLOSED**; spatial 8-null: **STABLE**.
+- C2: **three independent full realizations #45/#46/#47 COMPLETE**; exact seven invariants passed in each.
+- C2 max phi_norm: **1.0076221 / 1.0076660 / 1.0077486**; peaks 51 / 50 / 51; no >1.01.
+- Three-seed stability audit: **PASSED as reproducibility/control**; correlations 0.9999321–0.9999503; max pointwise spread 0.0006645.
+- Formal mixing/convergence: **OPEN**.
+- Gate C: **OPEN**.
+- C3 prior-art/design gate: **OPEN**; generic canonical spatial max-entropy connectome modeling is prior art.
+- C3-A synthetic validation: **not yet scientifically closed; FAFB C3 NOT AUTHORIZED**.
+- Structure→function / RSS / architecture / scaling: **BLOCKED**.
+
+**Compass:** C2 replication CLOSED → stability audit PASSED → formal mixing OPEN → C3 design/synthetic validation → spatial/max-entropy sensitivity → Gate C → structure→function → ablations → abstraction → benchmark → scaling.
+
+---
+
 # Project Status
 
 ## Current position
