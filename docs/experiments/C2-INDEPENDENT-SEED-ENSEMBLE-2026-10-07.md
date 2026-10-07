@@ -193,3 +193,33 @@ Do not reuse Run #45's checkpoint for an independent seed: the independent-seed 
 ### Audit gate before accepting either seed
 
 A run counts as a scientific C2 realization only if the final artifact contains the final JSON and checkpoint, reaches target_reached=true, preserves every declared invariant, contains the full rich-club curve, records artifact provenance/digest, and has no unresolved execution/finalization anomaly. A cancelled/diagnostic/recovery run remains historical evidence only.
+
+
+## Run #46 update — seed 20261001 completed
+
+The independent seed phase now has two artifact-complete realizations: Run #45 (20260935) and Run #46 (20261001).
+
+Run #46:
+- workflow **37582335296**; job **112664615048**
+- artifact **11466140681**; SHA-256 **d19aa6383818d30c4cd40d01e1cbc00db8d42af028c021052a5111d2edaec213**
+- attempts **55,237,500**; accepted **3,732,460**; target reached **true**
+- acceptance **6.7571125%**
+- max phi_norm **1.0076660261640915** at threshold **50**
+- no >1.01 region
+- overlap **0.47912877833921863**
+- all seven invariants preserved; frozen edges 9,869; block-pair classes 3,648.
+
+This independently replicates the qualitative Run #45 outcome. The ensemble is still OPEN because the planned third seed is required before the Gate-C decision.
+
+### Dispatch values — Seed 20261002
+
+- c0_run_id = 36318477728
+- seed = 20261002
+- attempts = 60000000
+- target_accepted = 3732460
+- resume_run_id = empty
+- resume_artifact_name = empty
+- trace_attempts = 0
+- skip_finalization = false
+
+Do not reuse a checkpoint from Run #45 or #46. Start from the observed graph with the fresh seed 20261002. After completion, retain the final JSON, checkpoint, artifact digest, full curve, invariants, acceptance trajectory, and overlap.
