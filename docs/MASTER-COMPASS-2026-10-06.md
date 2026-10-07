@@ -671,3 +671,27 @@ A non-invasive audit was completed over the three artifact-complete C2 realizati
 This passes as a strong reproducibility/control check for the descriptive C2 curve. It is **not** a formal mixing/convergence proof: the artifacts do not provide integrated autocorrelation time, ESS, independent-chain trajectory diagnostics, or a convergence bound.
 
 The next authorized control remains the stronger spatial/max-entropy sensitivity family. Gate C remains OPEN.
+
+
+## 2026-10-07 — C3 spatial/max-entropy prior-art gate supersedes generic next-step wording
+
+A prior-art audit was performed before implementing any stronger spatial/max-entropy null.
+
+A directly relevant 2025 Network Neuroscience paper by Salova & Kovács, “Combined topological and spatial constraints are required to capture the structure of neural connectomes” (DOI 10.1162/netn_a_00428), explicitly develops scalable canonical maximum-entropy models for neural connectomes. Its model family includes distance-dependent, degree-sequence, degree+wiring-length, contact-constrained, and combined variants. The paper includes a fruit-fly connectome, but its reported fly network has 16,804 nodes, whereas this project uses the 138,584-node FAFB v783 graph. Its canonical soft-constraint/contact framework is also materially different from the project's directed exact hard-constraint C2 swap ensemble.
+
+Therefore:
+
+- “maximum-entropy spatial null for neural connectomes” is NOT by itself a project novelty claim.
+- The primary C2 definition remains unchanged.
+- C3 must first be a prior-art-aligned sensitivity/control family.
+- Any NPC-aware maximum-entropy extension must be mathematically defined and validated before implementation.
+- A joint block-pair × distance-bin hard null, if tested, must be a separately labeled sensitivity family and must never silently replace C2.
+
+New experiment/design record:
+docs/experiments/C3-SPATIAL-MAXENT-PRIOR-ART-DESIGN-2026-10-07.md
+
+### Updated current compass
+
+C2 three-seed replication CLOSED → non-invasive stability audit PASSED → formal mixing OPEN → C3 prior-art/design gate OPEN → synthetic validation → spatial/max-entropy sensitivity ensemble → Gate C decision → structure→function → matched ablations → computational abstraction → benchmark → scaling.
+
+No full FAFB C3 scientific run should be treated as authorized until the ensemble definition, sampling/parameterization method, and validation tests are documented and passed.
