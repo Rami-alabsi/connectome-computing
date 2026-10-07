@@ -60,6 +60,14 @@ def degree_maps(edges):
     for u,v in edges: outs[u]+=1; ins[v]+=1
     return ins,outs
 
+def edge_overlap_fraction(original_edges, final_edges):
+    """Return the fraction of final edges that were present in the original graph.
+
+    Materialize original_edges as a set so overlap remains O(E) at full FAFB scale.
+    """
+    original_edge_set = original_edges if isinstance(original_edges, set) else set(original_edges)
+    return sum(1 for e in final_edges if e in original_edge_set) / len(original_edge_set) if original_edge_set else 0.0
+
 def c2_rich_club_curve(observed_edges, null_edges, thresholds=range(20,121)):
     thresholds=sorted(set(int(k) for k in thresholds))
     observed=rich_club_curve(observed_edges, thresholds)
@@ -249,8 +257,9 @@ def main():
         print(json.dumps({"diagnostic_exit_after_loop":True,"attempt":attempt,"accepted_swaps":accepted,"target_reached":(args.target_accepted <= 0 or accepted >= args.target_accepted),"checkpoint_count":len(checkpoints)}), flush=True)
         return
     final_in,final_out=degree_maps(edge_list); final_edges=set(edge_list)
-    rich_club=c2_rich_club_curve(set(edges),final_edges)
-    original_edge_overlap_fraction=sum(1 for e in final_edges if e in edges)/len(edges) if edges else 0.0
+    original_edge_set=set(edges)
+    rich_club=c2_rich_club_curve(original_edge_set,final_edges)
+    original_edge_overlap_fraction=edge_overlap_fraction(original_edge_set,final_edges)
     preservation={"same_edge_count":len(edge_set)==len(edges),"same_in_degree":initial_in==final_in,"same_out_degree":initial_out==final_out,"same_block_pair_counts":initial_blocks==block_counts(edge_list,blocks),"same_distance_bin_histogram":initial_bins==Counter(edge_bins),"no_self_loops":all(u!=v for u,v in edge_list),"no_duplicate_edges":len(edge_set)==len(edge_list)}
     result={"dataset":"FAFB","version":"v783","purpose":"C2 NPC-like + arbor-distance feasibility pilot","proposal_kernel":"block-pair-stratified degree-preserving swap proposal; exact distance-bin acceptance check","attempts":attempt,"target_accepted":args.target_accepted,"seed":args.seed,"accepted_swaps":accepted,"code_version":args.code_version,"input_fingerprint":input_fingerprint,"constraint_fingerprint":constraint_fingerprint,"checkpoint_every":args.checkpoint_every,"checkpoint_seconds":args.checkpoint_seconds,"checkpoints":checkpoints,"acceptance_rate":accepted/attempt if attempt else 0.0,"invalid_or_duplicate":invalid,"block_rejected":block_reject,"distance_bin_rejected":distance_reject,"unique_directed_pairs":len(edges),"block_count_pairs":len(initial_blocks),"eligible_block_pair_classes":len(buckets),"eligible_pair_choices":total_pair_choices,"frozen_edges_without_complete_block_assignment":frozen_block_edges,"distance_bins_nm":list(BINS_NM),"preservation":preservation,"all_invariants_preserved":all(preservation.values()),"target_reached":(args.target_accepted <= 0 or accepted >= args.target_accepted),"rich_club":rich_club,"original_edge_overlap_fraction":original_edge_overlap_fraction,"scientific_conclusion":None,"interpretation":"feasibility only; no rich-club inference","limitations":["NPC-like block definition follows project implementation","edges without complete dominant block assignment are frozen and excluded from the block-pair constraint","proposal is stratified by fixed block-pair class; distance bins remain an exact acceptance constraint","coarse arbor-distance bins are preserved","pilot acceptance does not establish biological mechanism"]}
     Path(args.output).parent.mkdir(parents=True,exist_ok=True); Path(args.output).write_text(json.dumps(result,indent=2,sort_keys=True)+"\n"); print(json.dumps(result,indent=2))
