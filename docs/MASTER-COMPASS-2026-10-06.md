@@ -578,3 +578,42 @@ This is scientifically important but deliberately bounded: it is **one realized 
 6. Then decide Gate C and only then proceed to matched structure→function ablations.
 
 **Discovery flag:** the disappearance of the >1.01 descriptive rich-club region under the joint C2 constraints is a potentially meaningful structural-control signal. It is not yet a discovery claim; replication is mandatory.
+
+
+## 2026-10-07 — C2 Run #46 independent-seed replication
+
+Run #46 is the second artifact-complete C2 realization and the first independent-seed replication of Run #45.
+
+Provenance:
+- workflow run **37582335296** (Run #46)
+- job **112664615048**
+- commit **e22a13c41b7a25191b8bbecce700acc00e22efd7**
+- seed **20261001**
+- C0 source **36318477728**
+- artifact **11466140681**
+- artifact SHA-256 **d19aa6383818d30c4cd40d01e1cbc00db8d42af028c021052a5111d2edaec213**
+
+Execution:
+- attempts **55,237,500**
+- accepted swaps **3,732,460 / 3,732,460**
+- acceptance rate **6.7571125%**
+- target reached: **true**
+- frozen edges **9,869**
+- block-pair classes **3,648**
+
+All seven declared invariants passed.
+
+Rich-club:
+- maximum phi_norm **1.0076660261640915** at threshold **50**
+- no threshold exceeded **1.01**
+- onset/offset above 1.01: none
+- original-edge overlap **0.47912877833921863** (~47.9129%)
+- null_count=1; descriptive comparison only, not a significance test.
+
+### Replication reading
+Run #45 and #46 independently show the same qualitative C2 outcome: the descriptive >1.01 rich-club region is absent under the joint NPC-like + spatial constraint surface. Peak phi differs by only ~0.00004395 and peak threshold by one degree (51 → 50). Overlap is very close but not identical.
+
+This strengthens the C2 structural-control signal but does not establish significance, mixing/convergence, mechanism, uniqueness of explanation, or computational advantage. C2 ensemble/mixing remains OPEN and Gate C remains OPEN.
+
+### Immediate next step
+Run the planned third independent realization with **seed 20261002**, same C2 definition/kernel/dataset/target, starting from the observed graph with no resume from #45/#46. Then perform the planned three-seed curve comparison and non-invasive mixing/stability audit before Gate-C interpretation.
