@@ -11,8 +11,8 @@ biological observation → controlled null model → surviving structural constr
 
 Connectivity alone is not treated as proof of function.
 
-## Current stage
-C2 joint biological-control stage: FAFB v783 CFG and defined NPC-like gates are closed; spatial-null stability is validated; the corrected joint NPC-like + arbor-distance C2 sampler has passed a 1,000,000-attempt feasibility benchmark. The immediate blocking gate is a full C2 null and independent-seed ensemble before any biological interpretation.
+## Current stage — 2026-10-07
+C2 three-seed replication is complete and the non-invasive stability audit has passed as a reproducibility/control check. Formal mixing/convergence remains OPEN. Gate C remains OPEN. C3 is currently a prior-art/design and synthetic-validation gate only; no full FAFB C3 run is authorized yet.
 
 ## Dataset provenance
 Primary current dataset: FlyWire FAFB, Female Adult Fly Brain, snapshot v783.
@@ -90,7 +90,24 @@ Every large analysis artifact should record repository commit SHA, dataset/versi
 11. Continue from the first unfinished gate rather than jumping to M6.
 
 ## Current blocking gate
-C2 — joint NPC-like + spatial null. C0 data-definition/coverage is closed; the expanded 8-realization spatial hard-binned null is stable; the corrected C2 proposal kernel has passed a 1M-attempt feasibility benchmark. The next required scientific artifact is one full C2 null reaching 3,732,460 accepted swaps, followed by independent seeds and mixing diagnostics. No rich-club interpretation is permitted from the C2 pilot alone.
+The immediate scientific boundary is **formal C2 mixing/convergence assessment + validated C3 sensitivity design**. Runs #45–#47 are complete and artifact-backed; their full rich-club curves are highly reproducible, but the artifacts do not establish formal Markov-chain mixing or convergence.
+
+C2 three-seed audit:
+- #45: seed 20260935; max phi_norm 1.0076221 at degree 51; overlap 47.9138%.
+- #46: seed 20261001; max phi_norm 1.0076660 at degree 50; overlap 47.9129%.
+- #47: seed 20261002; max phi_norm 1.0077486 at degree 51; overlap 47.9273%.
+- Full-curve Pearson correlations: 0.9999321–0.9999503.
+- Maximum pointwise spread: 0.0006645.
+- No realization has phi_norm > 1.01.
+- Formal ESS/autocorrelation/convergence diagnostics: not established.
+
+C3 guardrail:
+- C2 definition and kernel remain unchanged.
+- Salova & Kovács (2025) makes generic canonical spatial maximum-entropy connectome modeling prior art, not novelty.
+- C3-A is a separate canonical sensitivity ensemble.
+- Synthetic exact-vs-canonical validation and support/scalability audit must precede FAFB.
+- Any support restriction is a model change and must be scientifically justified.
+- No structure→function, RSS, architecture, benchmark, scaling, or commercialization claim before Gate C closure.
 
 ### Gate B closure record — 2026-09-27
 The completed 100-null NPC-like ensemble (workflow 36295429519, artifact 10925776875) used FAFB v783, 3,732,460 unique directed pairs, a 5-synapse pair-level threshold, 100 deterministic nulls, exact in/out-degree preservation, exact source-neuropil→target-neuropil block-count preservation, and full swap realization. The descriptive phi_norm > 1.01 span was degrees 41–69 with peak 1.015171 at degree 57. This closes only the defined v783 NPC-like benchmark.
