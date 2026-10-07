@@ -1,0 +1,156 @@
+# C2 INDEPENDENT SEED ENSEMBLE PLAN — 2026-10-07
+
+## Purpose
+
+Extend the artifact-complete C2 joint NPC-like + arbor-distance-bin null from one realization to an independent seed ensemble without changing the declared null model.
+
+This is the next biological-control experiment after C2 Run #45.
+
+## Current source of record
+
+Primary C2 realization:
+
+- Workflow run: `37573133004`
+- Job: `112636019092`
+- Commit: `59db12b97023e4e8258b4a9948e810ac0895c66c`
+- Seed: `20260935`
+- C0 source run: `36318477728`
+- Artifact ID: `11461697865`
+- Artifact SHA-256: `cb185da57f64467ecb1197f77062c510fd6f3e0c94a6c8e46689090709b9c97a`
+- Attempts: 55,361,441
+- Accepted swaps: 3,732,460
+- Acceptance rate: 6.7419849%
+- Maximum phi_norm: 1.0076220771931181 at threshold 51
+- No threshold exceeded phi_norm > 1.01
+- Original-edge overlap fraction: 0.47913761969317825
+
+Run #45 is artifact-complete realization #1. It is not an ensemble result.
+
+## Fixed C2 definition
+
+All independent seeds MUST use exactly:
+
+- FAFB v783
+- authoritative Princeton C0 source
+- min_synapses = 5
+- unique directed pairs = 3,732,460
+- exact edge count
+- exact in-degree sequence
+- exact out-degree sequence
+- exact source-block → target-block counts for edges with complete dominant block assignment
+- exact global arbor-distance-bin histogram
+- no self-loops
+- no duplicate directed edges
+- edges without complete dominant block assignment frozen
+- current block-pair-stratified proposal kernel
+- same target: 3,732,460 accepted swaps
+
+Do NOT strengthen, weaken, or otherwise alter the primary C2 constraint surface for this ensemble.
+
+## Independent seeds
+
+Recommended next realizations:
+
+1. Seed `20261001`
+2. Seed `20261002`
+
+The existing realization with seed `20260935` remains the reference realization.
+
+At least two additional independent seeds are preferred before making a Gate-C interpretation. More seeds may be added if the ensemble remains unexpectedly narrow, unstable, or anomalous.
+
+## Required outputs per seed
+
+Each completed realization must retain:
+
+1. final JSON result;
+2. resumable C2 state artifact;
+3. artifact SHA-256;
+4. full rich-club curve, thresholds 20–120;
+5. maximum phi_norm and threshold;
+6. whether any threshold exceeds 1.01;
+7. onset/offset/peak descriptors;
+8. acceptance trajectory across checkpoints;
+9. final acceptance rate;
+10. invalid/duplicate/self-loop count;
+11. distance-bin rejection count;
+12. block rejection count;
+13. frozen-edge count;
+14. exact invariant results;
+15. original-edge overlap fraction.
+
+## Non-invasive mixing / stability diagnostics
+
+These diagnostics MUST NOT change the C2 sampler or its stationary target.
+
+For each seed, record:
+
+- early/mid/late acceptance trajectory;
+- cumulative acceptance-rate change;
+- edge turnover relative to the observed graph;
+- pairwise edge overlap/Jaccard between completed C2 realizations;
+- rich-club curve agreement across seeds;
+- maximum-phi variation and peak-threshold variation;
+- whether the descriptive >1.01 region appears, disappears, shifts, or reverses.
+
+Where final graphs are available, compare edge sets directly. Do not infer mixing from acceptance rate alone.
+
+A high overlap between independent final graphs is not automatically evidence of poor mixing: the constrained state space itself may be narrow. Conversely, low overlap is not automatically proof of good mixing. Interpret turnover jointly with rich-club stability and constraint geometry.
+
+## Decision rules
+
+### A. Stable C2 ensemble
+
+If independent seeds show similar rich-club curves and similar peak behavior, with meaningful edge turnover and no implementation anomalies:
+
+- C2 becomes a stronger ensemble control.
+- Proceed to the stronger spatial/max-entropy sensitivity family.
+- Then perform the Gate-C decision.
+
+### B. Persistent disappearance of >1.01
+
+If independent C2 seeds repeatedly show no >1.01 region:
+
+- treat the joint NPC + spatial constraints as a strong candidate explanation for the earlier residual;
+- do NOT call it a mechanism;
+- do NOT call it statistically significant;
+- complete the stronger spatial sensitivity and mixing audit before Gate C closure.
+
+### C. Persistent residual
+
+If independent C2 seeds retain a >1.01 region:
+
+- this becomes a higher-priority structural residual;
+- verify independent seeds and invariants;
+- compare the full curve against CFG/NPC/spatial controls;
+- then move toward matched computational ablations and targeted prior-art review.
+
+### D. Shape shift
+
+If the C2 ensemble changes onset, offset, peak location, or curve shape substantially:
+
+- treat the shape change as a discovery/control signal;
+- verify implementation and independent seeds before interpretation.
+
+### E. Reversal or anomalous realization
+
+If a seed produces an unexpected reversal or qualitatively incompatible result:
+
+- preserve the artifact;
+- do not discard it;
+- audit invariants, provenance, RNG continuity, and rich-club calculation;
+- replicate with an independent seed before proposing a biological explanation.
+
+## Gate-C boundary
+
+No Gate-C closure is permitted from Run #45 alone.
+
+The required sequence remains:
+
+**C2 independent seeds → mixing/stability audit → stronger spatial/max-entropy sensitivity → Gate-C decision → only then structure→function.**
+
+## Provenance rule
+
+Every completed seed must receive its own experiment record before its result is used in a scientific conclusion.
+
+Failed, cancelled, diagnostic, or superseded runs remain in the historical record and must not be silently relabeled as scientific nulls.
+
