@@ -725,3 +725,56 @@ The implementation is now hardened as follows:
 **Important state correction:** the completed C2 #1 run remains a valid joint-constraint feasibility realization, but its artifact contains metadata/checkpoints rather than the final edge graph. Therefore it cannot supply the intended C2 rich-club observable. The cancelled artifact-complete rerun is not a scientific result.
 
 **Current gate:** performance/recovery infrastructure is hardened and ordinary CI is green. The next scientific execution is an artifact-complete C2 full null using the current code, followed by rich-club extraction and non-invasive mixing diagnostics. Do not treat checkpoint-performance measurements as biological evidence.
+
+
+## 2026-10-07 — C2 Run #45 artifact-complete realization
+
+Run #45 (37573133004) is the first clean artifact-complete C2 realization under the joint NPC-like + arbor-distance-bin constraint surface.
+
+Provenance:
+- job: 112636019092
+- commit: 59db12b97023e4e8258b4a9948e810ac0895c66c
+- seed: 20260935
+- C0 source: 36318477728
+- artifact ID: 11461697865
+- artifact SHA-256: cb185da57f64467ecb1197f77062c510fd6f3e0c94a6c8e46689090709b9c97a
+
+Execution:
+- resumed from attempt 55,300,000 / accepted 3,728,657;
+- final attempts: **55,361,441**;
+- accepted swaps: **3,732,460**;
+- acceptance rate: **6.7419849%**;
+- target reached: **true**.
+
+Exact invariants:
+- same edge count: true;
+- same in-degree: true;
+- same out-degree: true;
+- same source-block → target-block counts: true;
+- same global distance-bin histogram: true;
+- no self-loops: true;
+- no duplicate edges: true;
+- all invariants preserved: **true**;
+- frozen edges without complete block assignment: 9,869;
+- block-pair classes: 3,648.
+
+Artifact-complete C2 rich-club observable:
+- threshold range: 20–120;
+- maximum phi_norm: **1.0076220771931181** at threshold **51**;
+- no threshold exceeded phi_norm > 1.01;
+- onset/offset above 1.01: none;
+- original-edge overlap fraction: **0.47913761969317825** (~47.91%);
+- null_count=1;
+- interpretation remains descriptive single-null comparison, not a significance test.
+
+Scientific reading:
+The joint NPC-like + spatial C2 constraints remove the >1.01 descriptive rich-club region in this first realization and reduce the maximum normalized residual to ~0.762%. This is a potentially important structural-control signal because the earlier spatial-only null had a >1.01 descriptive region. It is **not** yet evidence of a biological mechanism, statistical significance, convergence, or a computational advantage. One C2 realization cannot characterize the constrained ensemble.
+
+Decision:
+- **C2 artifact-complete realization #1: CLOSED as an artifact/provenance milestone.**
+- **C2 ensemble/mixing: OPEN.**
+- **Gate C: OPEN.**
+- Structure→function remains blocked until independent C2 seeds and mixing/sensitivity checks are complete.
+
+Next authorized experiment:
+Run independent C2 seeds with the **same** constraint surface, proposal kernel, dataset, and target. Prefer at least two additional seeds before Gate-C interpretation. Record the complete rich-club curve, acceptance trajectory, overlap/turnover, and non-invasive mixing diagnostics. Do not change the C2 definition to improve runtime. Treat any persistence, disappearance, shape shift, or reversal as a discovery/control signal requiring replication.
