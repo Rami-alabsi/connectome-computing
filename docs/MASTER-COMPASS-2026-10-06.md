@@ -617,3 +617,41 @@ This strengthens the C2 structural-control signal but does not establish signifi
 
 ### Immediate next step
 Run the planned third independent realization with **seed 20261002**, same C2 definition/kernel/dataset/target, starting from the observed graph with no resume from #45/#46. Then perform the planned three-seed curve comparison and non-invasive mixing/stability audit before Gate-C interpretation.
+
+
+## 2026-10-07 — C2 Run #47: third independent seed completed
+
+Run #47 completes the planned third independent C2 realization.
+
+- workflow run **37617681244**; job **112779897382**
+- commit **62d5f9fd0700eca281f4067bb0bf7c5fab922e87**
+- seed **20261002**
+- C0 source **36318477728**
+- artifact **11481125143**
+- artifact SHA-256 **4850e27dcb285dcfa258a594241bb5c843d9bf295f65d807a77c55a51c47ce64**
+- attempts **55,264,717**
+- accepted **3,732,460 / 3,732,460**
+- acceptance **6.7537847%**
+- target reached **true**
+
+All seven declared invariants passed; frozen edges **9,869** and block-pair classes **3,648**.
+
+Rich-club: maximum phi_norm **1.0077486180432564** at threshold **51**; no threshold exceeded **1.01**; onset/offset none; overlap **0.4792729192007416**; null_count=1.
+
+### Three-seed stability signal
+
+Runs #45, #46, and #47 independently reproduce the same qualitative C2 outcome. Maxima are **1.0076221, 1.0076660, 1.0077486** at thresholds **51, 50, 51**, respectively. All three have no >1.01 region.
+
+This is strong descriptive replication of the structural-control signal, but not a significance test, mixing/convergence proof, mechanism, uniqueness-of-explanation proof, or computational advantage.
+
+### Current gate state
+
+**Three-seed C2 replication set = COMPLETE. C2 ensemble/mixing audit = OPEN. Gate C = OPEN pending stability/mixing and stronger spatial/max-entropy sensitivity. Structure→function remains blocked.**
+
+### Next authorized sequence
+
+1. Perform non-invasive three-seed stability/mixing audit using the existing complete artifacts.
+2. Compare full curves, acceptance trajectories, edge turnover/overlap, and available chain/checkpoint diagnostics.
+3. Run the stronger spatial/max-entropy sensitivity family as a separate null, without changing the primary C2 definition.
+4. Decide Gate C only after those controls.
+5. Only then proceed to matched structure→function ablations.
