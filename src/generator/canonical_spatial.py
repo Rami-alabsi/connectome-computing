@@ -61,6 +61,41 @@ def expected_statistics(
     return out_degree, in_degree, total_length
 
 
+def expected_statistics_streaming(
+    alpha: Sequence[float],
+    beta: Sequence[float],
+    lam: float,
+    distance_fn,
+) -> tuple[list[float], list[float], float]:
+    """Evaluate exact full-support moments without materializing probabilities.
+
+    distance_fn(i, j) must return the same distance as distances[i][j].
+    Every ordered non-self pair is visited exactly once, so this changes
+    storage, not the statistical ensemble or its support.
+    """
+    n = len(alpha)
+    if len(beta) != n:
+        raise ValueError("alpha and beta must have matching size")
+    if lam < 0:
+        raise ValueError("lam must be non-negative")
+
+    out_degree = [0.0] * n
+    in_degree = [0.0] * n
+    total_length = 0.0
+
+    for i in range(n):
+        for j in range(n):
+            if i == j:
+                continue
+            distance = distance_fn(i, j)
+            probability = sigmoid(alpha[i] + beta[j] - lam * distance)
+            out_degree[i] += probability
+            in_degree[j] += probability
+            total_length += probability * distance
+
+    return out_degree, in_degree, total_length
+
+
 def _fit_degree_multipliers(
     target_out: Sequence[float],
     target_in: Sequence[float],
