@@ -1,56 +1,83 @@
 # C2 8E Mixing Extension — Closure Note (2026-10-08)
 
-## Verified run
+## Status
+
+**EXECUTED AND COMPLETE — 8E TARGET REACHED.**
+
+## Provenance
+
 - Repository: Rami-alabsi/connectome-computing
-- Workflow run: 37729284335
-- Source seed: 20261002
-- Resume source: C2 run #47 / workflow 37617681244
-- Maximum proposal attempts: 500,000,000
-- Target accepted swaps: 29,859,680 (8E)
-- Actual accepted swaps at 500M: 29,835,212
-- Remaining accepted swaps to 8E: 24,468
-- Final acceptance rate: 5.9670%
-- All seven C2 invariants remain preserved by the run.
+- Source chain: C2 Run #47 / workflow **37617681244**
+- Source seed: **20261002**
+- 500M-proposal checkpoint workflow: **37729284335**
+- Checkpoint artifact: **11531289161**
+- Checkpoint artifact SHA256: **b1a54a8070f6288d61e6d48b51b023c7ef863a1bf89352f1c3852bad6767ff62**
+- Completion workflow: **37737675496**
+- Completion artifact: **11532885112**
+- Completion artifact contents: `c2-feasibility-501000000.json` + `c2-state.pkl.gz`
 
-## Artifact
-- Artifact: fafb-v783-c2-feasibility-500000000
-- Artifact ID: 11531289161
-- SHA256: b1a54a8070f6288d61e6d48b51b023c7ef863a1bf89352f1c3852bad6767ff62
-- The artifact contains c2-feasibility-500000000.json and c2-state.pkl.gz.
-- The checkpoint state was independently inspected: attempt=500,000,000; edge_list length=3,732,460; code_version=890a73d18a8e3d4e006233b45d9dd2c5771fa849f69dc3d462ed7588af6ef076; constraint_fingerprint=b330c16977c084434c129086112cf75710f95b8c39af7fd4df57ab16a87d76e3.
+## Final 8E state
 
-## Milestones actually reached
+- Target accepted swaps: **29,859,680 = 8E**
+- Final accepted swaps: **29,859,680**
+- Final proposal attempts: **500,418,411**
+- Final cumulative acceptance rate: **5.9669427%**
+- Final observed-edge overlap: **0.2481518891 (~24.8152%)**
+- All seven C2 invariants: **true**
+- C2 definition/proposal/acceptance kernel: **unchanged**
+
+The completion run is a continuation of the same seed/chain, not an independent fifth C2 realization.
+
+## Clean mixing milestones
+
+The source checkpoint artifact contains the clean 2E and 4E milestone records:
+
 ### 2E
-- target_accepted: 7,464,920
-- attempt: 117,319,494
-- acceptance_rate: 0.0636289822
-- original_edge_overlap_fraction: 0.3882404634
+- accepted: **7,464,920**
+- attempt: **117,319,494**
+- acceptance rate: **0.0636289822**
+- original-edge overlap: **0.3882404634**
 - phi_norm: k32=1.0060707296; k50=1.0089147211; k60=1.0068321204; k100=0.9738670919; k120=0.9613952162
 
 ### 4E
-- target_accepted: 14,929,840
-- attempt: 244,062,520
-- acceptance_rate: 0.0611721947
-- original_edge_overlap_fraction: 0.3113573890
+- accepted: **14,929,840**
+- attempt: **244,062,520**
+- acceptance rate: **0.0611721947**
+- original-edge overlap: **0.3113573890**
 - phi_norm: k32=1.0068581546; k50=1.0100567055; k60=1.0077622837; k100=0.9732090468; k120=0.9595450197
 
-## Interpretation guardrails
-- This is a mixing/stability diagnostic, not a formal proof of Markov-chain convergence, burn-in, ESS, or independence.
-- The 8E milestone was NOT reached; therefore this note must not be cited as an 8E-complete result.
-- The 4E k=50 value crosses the project's descriptive 1.01 threshold. This must be retained as an observable, not suppressed or reinterpreted as statistical significance.
-- High-degree depletion remains an observable and is retained alongside the mild positive region.
-- Gate C remains OPEN.
-- No structure→function, RSS/architecture, benchmark, or scaling claim is unlocked by this run.
+### 8E final
+- accepted: **29,859,680**
+- attempt: **500,418,411**
+- original-edge overlap: **0.2481518891**
+- phi_norm: k32=1.0073589315; k50=1.0106059902; k60=1.0082127496; k100=0.9725134735; k120=0.9582184648
+- rich-club maximum: **1.0106499041 @ k=51**
+- descriptive >1.01: **k=45 and k=47–56**
+- descriptive <0.99: **k=84–120**
+- minimum: **0.9582184648 @ k=120**
 
-## Next authorized action
-Resume from the 500M checkpoint and request only the remaining 24,468 accepted swaps. Because the current workflow has a 500M proposal cap, dispatch a follow-up run with a proposal budget safely above 500M (for example 501,000,000) and:
-- c0_run_id=36318477728
-- seed=20261002
-- target_accepted=29859680
-- resume_run_id=37729284335
-- resume_artifact_name=fafb-v783-c2-feasibility-500000000
-- mixing_milestones=7464920,14929840,29859680
-- trace_attempts=0
-- skip_finalization=false
+## Scientific interpretation
 
-Do not change the C2 scientific kernel or its seven hard constraints.
+The chain shows substantial microscopic turnover while the aggregate curve remains qualitatively similar. Observed-edge overlap falls from roughly 47.9% at 1E to 38.824% at 2E, 31.136% at 4E, and 24.815% at 8E.
+
+The 4E and 8E descriptive >1.01 crossings are retained as genuine observations. They do **not** constitute significance tests and do not overturn the three-independent-seed result (#45/#46/#47), because the 8E chain is a continuation of #47 rather than an independent seed.
+
+High-degree depletion remains a distinct observable. The complete curve, not only its maximum, remains the primary descriptive object.
+
+**Critical boundary:** this is a mixing/stability diagnostic, not a formal proof of stationarity, ergodicity, burn-in adequacy, effective sample size, independence, or convergence. One seed and one starting state are insufficient for such a formal claim.
+
+## Decision
+
+- **C2 8E mixing diagnostic: COMPLETE.**
+- **Formal C2 mixing/convergence: OPEN.**
+- **Gate C: OPEN.**
+- C2 scientific kernel and seven hard constraints: **FROZEN/UNCHANGED**.
+- Structure→function, RSS/architecture, benchmark and scaling: **BLOCKED**.
+
+## Next authorized work
+
+1. Execute the planned **C2 positive-control/power demonstration** using a synthetic graph whose planted rich-club signal is not encoded by the seven preserved C2 constraints.
+2. Continue **C3-A synthetic/scientific validation** and the external k+L reproduction gate.
+3. Only after those controls are satisfied, decide whether the C2 residual is robust enough to motivate Gate C closure.
+
+No further C2 extension is required at this stage unless a new, explicitly justified diagnostic question arises.
