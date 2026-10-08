@@ -8,7 +8,7 @@
 - C2: **three independent full realizations #45/#46/#47 COMPLETE**; exact seven invariants passed in each.
 - C2 max phi_norm: **1.0076221 / 1.0076660 / 1.0077486**; peaks 51 / 50 / 51; no >1.01.
 - Three-seed stability audit: **PASSED as reproducibility/control**; correlations 0.9999321–0.9999503; max pointwise spread 0.0006645; pairwise final-edge Jaccard **0.2439655–0.2441324**.
-- Formal mixing/convergence: **OPEN**; optional 2E/4E/8E milestone-observable diagnostic is now implemented but **not yet executed**.
+- Formal mixing/convergence: **OPEN**; the extended chain reached 2E and 4E, then hit the 500M proposal cap at 29,835,212 accepted swaps; 8E target 29,859,680 is still short by 24,468 accepted swaps.
 - C2 interpretation: report the full curve, including the reproducible mild enrichment region and high-degree depletion; add descriptive `phi_norm < 0.99` alongside the existing `>1.01` flag.
 - Gate C: **OPEN**.
 - C3 prior-art/design gate: **OPEN**; generic canonical spatial max-entropy connectome modeling is prior art.
