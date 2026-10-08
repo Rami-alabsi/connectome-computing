@@ -127,7 +127,7 @@ def main():
     ap.add_argument("--attempts",type=int,default=100000); ap.add_argument("--target-accepted",type=int,default=0); ap.add_argument("--min-synapses",type=int,default=5)
     ap.add_argument("--checkpoint-every",type=int,default=100000); ap.add_argument("--checkpoint-seconds",type=float,default=120.0)
     ap.add_argument("--resume-state",default=""); ap.add_argument("--code-version",default="unknown"); ap.add_argument("--trace-attempts",type=int,default=0)
-    ap.add_argument("--allow-resume-code-version-mismatch",action="store_true"); ap.add_argument("--input-fingerprint",default="unknown"); ap.add_argument("--skip-finalization",action="store_true")
+    ap.add_argument("--allow-resume-code-version-mismatch",action="store_true"); ap.add_argument("--input-fingerprint",default="unknown"); ap.add_argument("--skip-finalization",action="store_true"); ap.add_argument("--mixing-milestones",default="",help="Optional comma-separated accepted-swap milestones for diagnostic observable snapshots")
     args=ap.parse_args()
     outc,inc=load_centroids(Path(args.centroids))
     edges=list(aggregate_pair_synapses(args.connections,min_synapses=args.min_synapses))
@@ -146,7 +146,7 @@ def main():
     if args.checkpoint_every <= 0: raise ValueError("--checkpoint-every must be > 0")
     if args.checkpoint_seconds <= 0: raise ValueError("--checkpoint-seconds must be > 0")
 
-    rng=random.Random(args.seed); accepted=invalid=block_reject=distance_reject=0; checkpoints=[]; attempt=0
+    rng=random.Random(args.seed); accepted=invalid=block_reject=distance_reject=0; checkpoints=[]; attempt=0; milestone_targets=sorted(set(int(x.strip()) for x in args.mixing_milestones.split(",") if x.strip())); milestone_observations=[]; next_milestone_index=0
     if args.resume_state:
         state=load_c2_state(args.resume_state)
         if state.get("seed") != args.seed: raise ValueError("resume state seed does not match --seed")
@@ -250,6 +250,23 @@ def main():
         edge_list[i],edge_list[j]=p1,p2; edge_bins[i],edge_bins[j]=new_bin
         accepted+=1
         maybe_checkpoint()
+        if next_milestone_index < len(milestone_targets) and accepted >= milestone_targets[next_milestone_index]:
+            milestone_target=milestone_targets[next_milestone_index]
+            milestone_edges=set(edge_list)
+            original_edge_set=set(edges)
+            milestone_curve=c2_rich_club_curve(original_edge_set, milestone_edges)
+            selected={str(k): next((row["phi_norm"] for row in milestone_curve["curve"] if row["threshold"]==k), None) for k in (32,50,60,100,120)}
+            milestone_observations.append({
+                "target_accepted": milestone_target,
+                "actual_accepted": accepted,
+                "attempt": attempt,
+                "acceptance_rate": accepted/attempt if attempt else 0.0,
+                "original_edge_overlap_fraction": edge_overlap_fraction(original_edge_set,milestone_edges),
+                "phi_norm_selected": selected,
+            })
+            maybe_checkpoint(force=True)
+            print(json.dumps({"mixing_milestone":milestone_observations[-1]}),flush=True)
+            next_milestone_index+=1
 
     if args.resume_state:
         faulthandler.cancel_dump_traceback_later()
@@ -261,7 +278,7 @@ def main():
     rich_club=c2_rich_club_curve(original_edge_set,final_edges)
     original_edge_overlap_fraction=edge_overlap_fraction(original_edge_set,final_edges)
     preservation={"same_edge_count":len(edge_set)==len(edges),"same_in_degree":initial_in==final_in,"same_out_degree":initial_out==final_out,"same_block_pair_counts":initial_blocks==block_counts(edge_list,blocks),"same_distance_bin_histogram":initial_bins==Counter(edge_bins),"no_self_loops":all(u!=v for u,v in edge_list),"no_duplicate_edges":len(edge_set)==len(edge_list)}
-    result={"dataset":"FAFB","version":"v783","purpose":"C2 NPC-like + arbor-distance feasibility pilot","proposal_kernel":"block-pair-stratified degree-preserving swap proposal; exact distance-bin acceptance check","attempts":attempt,"target_accepted":args.target_accepted,"seed":args.seed,"accepted_swaps":accepted,"code_version":args.code_version,"input_fingerprint":input_fingerprint,"constraint_fingerprint":constraint_fingerprint,"checkpoint_every":args.checkpoint_every,"checkpoint_seconds":args.checkpoint_seconds,"checkpoints":checkpoints,"acceptance_rate":accepted/attempt if attempt else 0.0,"invalid_or_duplicate":invalid,"block_rejected":block_reject,"distance_bin_rejected":distance_reject,"unique_directed_pairs":len(edges),"block_count_pairs":len(initial_blocks),"eligible_block_pair_classes":len(buckets),"eligible_pair_choices":total_pair_choices,"frozen_edges_without_complete_block_assignment":frozen_block_edges,"distance_bins_nm":list(BINS_NM),"preservation":preservation,"all_invariants_preserved":all(preservation.values()),"target_reached":(args.target_accepted <= 0 or accepted >= args.target_accepted),"rich_club":rich_club,"original_edge_overlap_fraction":original_edge_overlap_fraction,"scientific_conclusion":None,"interpretation":"feasibility only; no rich-club inference","limitations":["NPC-like block definition follows project implementation","edges without complete dominant block assignment are frozen and excluded from the block-pair constraint","proposal is stratified by fixed block-pair class; distance bins remain an exact acceptance constraint","coarse arbor-distance bins are preserved","pilot acceptance does not establish biological mechanism"]}
+    result={"dataset":"FAFB","version":"v783","purpose":"C2 NPC-like + arbor-distance feasibility pilot","proposal_kernel":"block-pair-stratified degree-preserving swap proposal; exact distance-bin acceptance check","attempts":attempt,"target_accepted":args.target_accepted,"seed":args.seed,"accepted_swaps":accepted,"code_version":args.code_version,"input_fingerprint":input_fingerprint,"constraint_fingerprint":constraint_fingerprint,"checkpoint_every":args.checkpoint_every,"checkpoint_seconds":args.checkpoint_seconds,"checkpoints":checkpoints,"mixing_milestones":milestone_targets,"mixing_observations":milestone_observations,"acceptance_rate":accepted/attempt if attempt else 0.0,"invalid_or_duplicate":invalid,"block_rejected":block_reject,"distance_bin_rejected":distance_reject,"unique_directed_pairs":len(edges),"block_count_pairs":len(initial_blocks),"eligible_block_pair_classes":len(buckets),"eligible_pair_choices":total_pair_choices,"frozen_edges_without_complete_block_assignment":frozen_block_edges,"distance_bins_nm":list(BINS_NM),"preservation":preservation,"all_invariants_preserved":all(preservation.values()),"target_reached":(args.target_accepted <= 0 or accepted >= args.target_accepted),"rich_club":rich_club,"original_edge_overlap_fraction":original_edge_overlap_fraction,"scientific_conclusion":None,"interpretation":"feasibility only; no rich-club inference","limitations":["NPC-like block definition follows project implementation","edges without complete dominant block assignment are frozen and excluded from the block-pair constraint","proposal is stratified by fixed block-pair class; distance bins remain an exact acceptance constraint","coarse arbor-distance bins are preserved","pilot acceptance does not establish biological mechanism"]}
     Path(args.output).parent.mkdir(parents=True,exist_ok=True); Path(args.output).write_text(json.dumps(result,indent=2,sort_keys=True)+"\n"); print(json.dumps(result,indent=2))
 
 if __name__=="__main__": main()
