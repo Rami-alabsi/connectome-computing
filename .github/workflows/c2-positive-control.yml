@@ -1,0 +1,39 @@
+name: C2 synthetic positive control
+
+on:
+  pull_request:
+    paths:
+      - "scripts/run_c2_positive_control.py"
+      - "tests/test_c2_positive_control.py"
+      - "docs/experiments/C2-POSITIVE-CONTROL-*.md"
+      - ".github/workflows/c2-positive-control.yml"
+  workflow_dispatch:
+
+jobs:
+  positive-control:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Python syntax preflight
+        run: python -m py_compile scripts/run_c2_positive_control.py
+      - name: Execute pre-registered synthetic positive control
+        run: |
+          python scripts/run_c2_positive_control.py \
+            --nodes 80 \
+            --edge-probability 0.18 \
+            --club-size 12 \
+            --plant-gain 50 \
+            --plant-seed 7 \
+            --base-seed 1 \
+            --null-attempts 100000 \
+            --null-seeds 101,102,103 \
+            --output artifacts/c2-positive-control/result.json
+      - name: Upload positive-control artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: c2-positive-control-result
+          path: artifacts/c2-positive-control/result.json
