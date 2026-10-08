@@ -53,7 +53,7 @@ From this point, C2 reporting records both:
 Neither is a significance threshold. The complete curve, not only the maximum,
 is the primary descriptive object.
 
-### C2 mixing extension
+### Three-seed stability audit
 - Full-curve Pearson correlations: **0.9999321–0.9999503**.
 - Maximum pointwise difference: **0.0006645**.
 - Acceptance: **6.74198%, 6.75711%, 6.75378%**.
@@ -61,6 +61,10 @@ is the primary descriptive object.
 - Pairwise final-edge-set Jaccard: **0.2439655–0.2441324** (~24.4%).
 
 Interpretation: strong descriptive reproducibility despite substantial microscopic edge turnover. **Not** a formal mixing/convergence proof, significance test, mechanism, uniqueness proof, or computational advantage.
+
+### C2 mixing extension
+
+A diagnostic extension has now been added to the runner to record, during one continued chain, observed-edge overlap and phi_norm at k=32, 50, 60, 100, and 120 at accepted-swap milestones. The intended continuation is from a completed 1E checkpoint to 2E, 4E, and 8E accepted swaps (E=3,732,460), without changing the C2 proposal or acceptance kernel. This is not yet executed and remains a convergence diagnostic rather than a proof of stationarity or ergodicity.
 
 ### C3 guardrails
 - Salova & Kovács (Network Neuroscience, 2025; DOI 10.1162/netn_a_00428) establishes relevant canonical maximum-entropy spatial connectome modeling. Generic spatial max-entropy nulls are **not novel**.
