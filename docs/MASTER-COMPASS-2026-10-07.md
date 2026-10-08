@@ -62,9 +62,44 @@ is the primary descriptive object.
 
 Interpretation: strong descriptive reproducibility despite substantial microscopic edge turnover. **Not** a formal mixing/convergence proof, significance test, mechanism, uniqueness proof, or computational advantage.
 
-### C2 mixing extension
+### C2 extended-chain mixing diagnostic — 8E COMPLETE
 
-A diagnostic extension has now been added to the runner to record, during one continued chain, observed-edge overlap and phi_norm at k=32, 50, 60, 100, and 120 at accepted-swap milestones. The intended continuation was executed from the completed 1E/#47 checkpoint. It reached 2E and 4E milestones, then hit the 500M proposal cap at 29,835,212 accepted swaps, leaving 24,468 accepted swaps to the 8E target of 29,859,680. The extension remains a convergence diagnostic rather than a proof of stationarity or ergodicity. The next authorized action is to resume from the verified 500M checkpoint and complete those remaining swaps without changing the C2 proposal or acceptance kernel.
+The planned continuation from the completed 1E/#47 checkpoint is now complete through **8E accepted swaps** under the unchanged C2 proposal/acceptance kernel.
+
+Provenance:
+- source chain: seed **20261002** / Run #47;
+- 500M-proposal checkpoint: workflow **37729284335**, artifact **11531289161**, SHA-256 **b1a54a8070f6288d61e6d48b51b023c7ef863a1bf89352f1c3852bad6767ff62**;
+- completion run: workflow **37737675496**, artifact **11532885112**;
+- final target: **29,859,680 accepted swaps = 8E**;
+- final proposals: **500,418,411**;
+- final cumulative acceptance: **5.9669427%**;
+- all seven C2 invariants remained true;
+- final observed-edge overlap: **0.2481518891 (~24.8152%)**.
+
+Clean milestone records from the source run and completion artifact show substantial microscopic turnover:
+- 1E: ~47.9% overlap;
+- 2E: **38.8240%**;
+- 4E: **31.1357%**;
+- 8E: **24.8152%**.
+
+The 8E final rich-club curve has:
+- max phi_norm **1.0106499041 @ k=51**;
+- descriptive >1.01 region at **k=45 and k=47–56**;
+- phi_norm <0.99 beginning at **k=84** and continuing through k=120;
+- k=120 minimum **0.9582184648**.
+
+The 8E chain therefore shows **strong microscopic turnover with a qualitatively persistent aggregate curve**, including a mild positive region and a distinct high-degree depletion region. The 4E and 8E descriptive >1.01 crossings must be retained as observations; they do not retroactively invalidate the three-seed result and are not significance tests.
+
+**Critical interpretation boundary:** this is a mixing/stability diagnostic, not a formal proof of stationarity, ergodicity, burn-in adequacy, effective sample size, or convergence. The chain has one starting state and one seed; aggregate stability plus edge turnover is evidence for mixing behavior, not a theorem about the stationary ensemble.
+
+Decision:
+- **C2 8E mixing diagnostic: COMPLETE.**
+- **Formal C2 mixing/convergence: OPEN.**
+- **Gate C: OPEN.**
+- C2 definition/kernel: unchanged.
+- Structure→function, RSS/architecture, benchmark and scaling remain blocked.
+
+Next authorized work: positive-control/power validation of the C2 constrained ensemble, then scientific validation/external reproduction of the C3-A spatial canonical sensitivity family. No further C2 extension is required unless a new diagnostic question is justified.
 
 ### C3 guardrails
 - Salova & Kovács (Network Neuroscience, 2025; DOI 10.1162/netn_a_00428) establishes relevant canonical maximum-entropy spatial connectome modeling. Generic spatial max-entropy nulls are **not novel**.
