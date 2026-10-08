@@ -1,4 +1,4 @@
-# CURRENT AUTHORITATIVE STATUS — 2026-10-07
+# CURRENT AUTHORITATIVE STATUS — 2026-10-08
 
 > Compact first-read operational state. Historical entries below remain provenance, not current truth.
 
@@ -8,10 +8,11 @@
 - C2: **three independent full realizations #45/#46/#47 COMPLETE**; exact seven invariants passed in each.
 - C2 max phi_norm: **1.0076221 / 1.0076660 / 1.0077486**; peaks 51 / 50 / 51; no >1.01.
 - Three-seed stability audit: **PASSED as reproducibility/control**; correlations 0.9999321–0.9999503; max pointwise spread 0.0006645; pairwise final-edge Jaccard **0.2439655–0.2441324**.
-- Formal mixing/convergence: **OPEN**.
+- Formal mixing/convergence: **OPEN**; optional 2E/4E/8E milestone-observable diagnostic is now implemented but **not yet executed**.
+- C2 interpretation: report the full curve, including the reproducible mild enrichment region and high-degree depletion; add descriptive `phi_norm < 0.99` alongside the existing `>1.01` flag.
 - Gate C: **OPEN**.
 - C3 prior-art/design gate: **OPEN**; generic canonical spatial max-entropy connectome modeling is prior art.
-- C3-A synthetic validation: **not yet scientifically closed; FAFB C3 NOT AUTHORIZED**.
+- C3-A exact-support streaming equivalence: **PASSED on synthetic tests**; scientific validation remains **OPEN**; external k+L reproduction and FAFB scalability remain OPEN; FAFB C3 **NOT AUTHORIZED**.
 - Structure→function / RSS / architecture / scaling: **BLOCKED**.
 
 **Compass:** C2 replication CLOSED → stability audit PASSED → formal mixing OPEN → C3 design/synthetic validation → spatial/max-entropy sensitivity → Gate C → structure→function → ablations → abstraction → benchmark → scaling.
@@ -218,6 +219,46 @@ analysis.
 11. Keep RSS/M6 architecture interpretation frozen while the biological Gate A remains open.
 12. Sparse brokerage ablation is already completed and documented as task- and budget-dependent; do not re-list it as an upcoming control.
 13. Re-run M6-COSMIC only after the bounded-state correction, independently of the FAFB Gate A interpretation.
+
+### C2 interpretation correction — 2026-10-08
+
+The C2 result is no longer described as "enrichment disappeared." The full
+curve contains a reproducible mild positive region around k≈32–60 and a
+high-degree depletion tail. The existing phi_norm > 1.01 criterion remains a
+descriptive flag, but a symmetric phi_norm < 0.99 depletion flag is now also
+recorded. Neither is a significance threshold.
+
+A three-stage continued-chain diagnostic is prepared at 2E, 4E, and 8E accepted
+swaps from a completed 1E checkpoint. The diagnostic records observed-edge
+overlap and phi_norm at k=32, 50, 60, 100, and 120. It does not alter the C2
+proposal/acceptance kernel and is not yet executed.
+
+### C3 prior-art correction — 2026-10-08
+
+The Salova & Kovács work uses the fruit-fly hemibrain dataset and undirected,
+unweighted connectomes. Its k+L model is relevant prior art for degree +
+wiring-length canonical modeling, but it is not the same as the project's
+directed C3-A model. Their results also indicate that k+c performs better than
+k+L on several fly measures and that k+L does not capture fly distance-
+dependence heterogeneity. Therefore a C3-A residual cannot be treated as a
+mechanism without a model-adequacy check.
+
+The project will also use fixed empirical club membership for C3-A rich-club
+comparisons, so sampled degree fluctuations do not move nodes across the club
+threshold.
+
+### Gate C closure criteria — 2026-10-08
+
+Gate C requires, at minimum:
+1. full-curve C2 stability including enrichment and depletion;
+2. executed extended-chain mixing diagnostic;
+3. positive-control/power demonstration for the C2 constrained ensemble;
+4. scientifically validated spatial sensitivity ensemble, or a documented
+   exact-support computational boundary;
+5. external-data reproduction check if C3-A is used as sensitivity evidence.
+
+These are closure criteria, not a promise that the gate closes in favor of the
+hypothesis.
 
 ### Documentation rule
 
