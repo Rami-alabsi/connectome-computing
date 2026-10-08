@@ -75,10 +75,12 @@ def c2_rich_club_curve(observed_edges, null_edges, thresholds=range(20,121)):
     rows=[]
     for o,n in zip(observed,null):
         ratio=(o["rich_density"] / n["rich_density"] if n["rich_density"] else None)
-        rows.append({**o,"null_rich_density":n["rich_density"],"observed_to_null":ratio,"phi_norm":ratio,"above_1pct":bool(ratio is not None and ratio > 1.01)})
+        rows.append({**o,"null_rich_density":n["rich_density"],"observed_to_null":ratio,"phi_norm":ratio,"above_1pct":bool(ratio is not None and ratio > 1.01),"below_0_99":bool(ratio is not None and ratio < 0.99)})
     above=[r["threshold"] for r in rows if r["above_1pct"]]
+    below=[r["threshold"] for r in rows if r["below_0_99"]]
     return {
-        "thresholds":thresholds,"curve":rows,"rich_club_criterion":"phi_norm > 1.01",
+        "thresholds":thresholds,"curve":rows,"rich_club_criterion":"phi_norm > 1.01","depletion_criterion":"phi_norm < 0.99",
+        "depletion_onset_threshold":min(below) if below else None,"depletion_offset_threshold":max(below) if below else None,
         "onset_threshold":min(above) if above else None,"offset_threshold":max(above) if above else None,
         "peak_threshold":max(rows,key=lambda r: r["phi_norm"] if r["phi_norm"] is not None else float("-inf"))["threshold"] if rows else None,
         "null_count":1,"interpretation":"descriptive single-null comparison; not a significance test",
