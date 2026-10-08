@@ -101,6 +101,22 @@ Decision:
 
 Next authorized work: positive-control/power validation of the C2 constrained ensemble, then scientific validation/external reproduction of the C3-A spatial canonical sensitivity family. No further C2 extension is required unless a new diagnostic question is justified.
 
+### C2 positive-control / power validation — CLOSED
+
+The synthetic C2 positive-control has now been executed and verified through GitHub Actions.
+
+- workflow: **37761534464**
+- artifact: **11542512108**
+- artifact SHA-256 digest: **3f59437bf5d0208f21aae4d22e7ba719236b36e9913f6b2581e8888dcb8a0ace**
+- synthetic graph: N=80, two source/target blocks, three distance bins
+- fixed club: 12 highest-total-degree nodes from the unplanted base graph
+- planted fixed-club edges: **36 → 86**
+- preserved exactly: edge count, full in/out-degree sequences, block-pair counts, distance-bin histogram, no self-loops, no duplicate edges
+- independent null seeds 101/102/103 after 100,000 attempts: fixed-club edges **36 / 41 / 34**
+- all predeclared acceptance criteria passed.
+
+Interpretation: the unchanged C2 constraint geometry can detect a deliberately planted rich-club signal that is not encoded by the seven preserved C2 statistics. This is a **synthetic power/control result only**. It does not establish a FAFB effect, significance, mechanism, mixing/convergence, or Gate C closure.
+
 ### C3 guardrails
 - Salova & Kovács (Network Neuroscience, 2025; DOI 10.1162/netn_a_00428) establishes relevant canonical maximum-entropy spatial connectome modeling. Generic spatial max-entropy nulls are **not novel**.
 - C3-A is a separate canonical directed sensitivity ensemble; it does **not** replace C2.
