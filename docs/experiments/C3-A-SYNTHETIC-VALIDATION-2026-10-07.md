@@ -61,9 +61,34 @@ It would not establish:
 - that its rich-club prediction differs from or agrees with C2;
 - any biological significance or mechanism.
 
-## 5. Next gate after synthetic tests
+## 5. Rich-club observable definition
 
-If the synthetic tests pass, the next gate is scalability and fitting feasibility, still without a scientific FAFB run:
+The C3-A rich-club observable must use **fixed empirical club membership**:
+for threshold k, the club is selected from the observed graph's degree sequence
+and the same node set is evaluated in each sampled canonical graph. This avoids
+letting sampled degree fluctuations move nodes across the threshold and create
+an artificial change in the observable.
+
+This is a methodological choice for fair comparison with C2, where degrees are
+hard-preserved. A separate "realized-degree club" analysis may be reported only
+as a secondary sensitivity analysis.
+
+C3-A also has a known prior-art limitation. Salova & Kovács' published k+L family
+is a degree + total-wiring-length canonical maximum-entropy model, but their fly
+analysis uses an undirected, unweighted hemibrain network and reports that k+c
+performs better than k+L on several fly structural measures. They also report
+that k+L does not capture the distance-dependence heterogeneity seen in the fly.
+Therefore, if C3-A leaves a residual, that residual cannot be treated as a
+mechanism without first ruling out model inadequacy.
+
+Before any FAFB C3 interpretation, the project therefore requires an external
+reproduction check against the released hemibrain/Zenodo data and code. The
+published work reports a fly k+L characteristic distance of approximately 9 soma
+sizes. This is a validation target, not a claim that the project's directed
+C3-A model is identical to their model.
+
+After the synthetic tests, the next gate is scalability and fitting feasibility,
+still without a scientific FAFB run:
 
 - establish memory/runtime cost of evaluating the dense N(N-1) probability surface;
 - determine whether expected-degree equations can be solved at useful scale;
@@ -73,7 +98,7 @@ If the synthetic tests pass, the next gate is scalability and fitting feasibilit
 
 Only after that should a small FAFB pilot be considered.
 
-## 6. Non-negotiable boundary
+## 6. Scalability and external validation gate
 
 C2 remains the primary hard-constraint null.
 
@@ -99,6 +124,42 @@ This closes the **software/CI validation sub-gate**, not the scientific C3-A gat
 **C3-A scientific validation gate: OPEN**
 
 **FAFB C3: NOT AUTHORIZED**
+
+**C2: UNCHANGED**
+
+## 8. Exact-support streaming update — 2026-10-08
+
+An exact full-support streaming evaluator was added to
+`src/generator/canonical_spatial.py`. It visits every ordered non-self pair
+exactly once without materializing the probability matrix. Dense and streaming
+expected statistics agree to floating-point precision on the synthetic
+equivalence test.
+
+The streaming path changes storage, not the ensemble. It remains O(N^2) per
+sufficient-statistic evaluation. An exploratory local probe through N=2,048
+confirmed the quadratic cost; therefore exact streaming is a memory solution,
+not yet a FAFB-time solution.
+
+No sparse support, distance cutoff, kNN restriction, observed-edge support, or
+candidate sampling is authorized under C3-A. Any such restriction would define
+a different ensemble.
+
+The current C3-A implementation remains stdlib-only. A scientific dependency
+such as NumPy will be introduced only when an accelerated implementation is
+actually added and benchmarked; dependency changes are not a substitute for
+the mathematical support requirement.
+
+## Decision update
+
+**C3-A implementation/CI sub-gate: PASSED**
+
+**C3-A exact-support equivalence: PASSED on synthetic tests**
+
+**C3-A scientific validation gate: OPEN**
+
+**C3-A external-data reproduction: OPEN**
+
+**C3-A FAFB scalability: OPEN**
 
 **FAFB C3: NOT AUTHORIZED**
 
