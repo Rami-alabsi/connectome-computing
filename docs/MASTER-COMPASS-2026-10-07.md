@@ -64,7 +64,7 @@ Interpretation: strong descriptive reproducibility despite substantial microscop
 
 ### C2 mixing extension
 
-A diagnostic extension has now been added to the runner to record, during one continued chain, observed-edge overlap and phi_norm at k=32, 50, 60, 100, and 120 at accepted-swap milestones. The intended continuation is from a completed 1E checkpoint to 2E, 4E, and 8E accepted swaps (E=3,732,460), without changing the C2 proposal or acceptance kernel. This is not yet executed and remains a convergence diagnostic rather than a proof of stationarity or ergodicity.
+A diagnostic extension has now been added to the runner to record, during one continued chain, observed-edge overlap and phi_norm at k=32, 50, 60, 100, and 120 at accepted-swap milestones. The intended continuation was executed from the completed 1E/#47 checkpoint. It reached 2E and 4E milestones, then hit the 500M proposal cap at 29,835,212 accepted swaps, leaving 24,468 accepted swaps to the 8E target of 29,859,680. The extension remains a convergence diagnostic rather than a proof of stationarity or ergodicity. The next authorized action is to resume from the verified 500M checkpoint and complete those remaining swaps without changing the C2 proposal or acceptance kernel.
 
 ### C3 guardrails
 - Salova & Kovács (Network Neuroscience, 2025; DOI 10.1162/netn_a_00428) establishes relevant canonical maximum-entropy spatial connectome modeling. Generic spatial max-entropy nulls are **not novel**.
