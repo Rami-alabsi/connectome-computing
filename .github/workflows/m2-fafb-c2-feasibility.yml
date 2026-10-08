@@ -42,6 +42,11 @@ on:
         required: false
         default: false
         type: boolean
+      mixing_milestones:
+        description: "Optional comma-separated accepted-swap milestones for mixing diagnostics (e.g. 7464920,14929840,29859680)"
+        required: false
+        default: ""
+        type: string
 
 permissions:
   actions: read
@@ -105,7 +110,7 @@ jobs:
           # The resume checkpoint is already available at 55M attempts; periodic
           # time checkpoints serialize the full 3.7M-edge state and can obscure
           # whether a stall is in sampling or checkpoint serialization.
-          python scripts/run_fafb_npc_spatial_feasibility.py --connections data/raw/fafb_v783/connections_princeton.csv.gz --centroids "$CENTROIDS" --seed ${{ inputs.seed }} --attempts ${{ inputs.attempts }} --target-accepted ${{ inputs.target_accepted }} --min-synapses 5 --checkpoint-every 5000000 --checkpoint-seconds 1000000000 --trace-attempts ${{ inputs.trace_attempts || 0 }} --code-version "$CODE_VERSION" --input-fingerprint "$INPUT_FINGERPRINT" $RESUME_ARG $RESUME_COMPAT_ARG $SKIP_ARG --output artifacts/fafb-v783/c2-feasibility-${{ inputs.attempts }}.json
+          python scripts/run_fafb_npc_spatial_feasibility.py --connections data/raw/fafb_v783/connections_princeton.csv.gz --centroids "$CENTROIDS" --seed ${{ inputs.seed }} --attempts ${{ inputs.attempts }} --target-accepted ${{ inputs.target_accepted }} --min-synapses 5 --checkpoint-every 5000000 --checkpoint-seconds 1000000000 --trace-attempts ${{ inputs.trace_attempts || 0 }} --mixing-milestones "${{ inputs.mixing_milestones || '' }}" --code-version "$CODE_VERSION" --input-fingerprint "$INPUT_FINGERPRINT" $RESUME_ARG $RESUME_COMPAT_ARG $SKIP_ARG --output artifacts/fafb-v783/c2-feasibility-${{ inputs.attempts }}.json
       - name: Upload C2 result and latest checkpoint
         if: always()
         uses: actions/upload-artifact@v4
