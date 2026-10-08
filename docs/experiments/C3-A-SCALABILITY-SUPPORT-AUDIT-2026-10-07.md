@@ -154,3 +154,48 @@ Crucially, fitting C3-A requires repeated evaluations of the degree and wiring-l
 The project should not proceed directly from the small synthetic implementation to a FAFB fit.
 
 The next technical gate is an exact-support benchmark with a streaming implementation and explicit instrumentation. Any acceleration must be shown to reproduce the same sufficient statistics, rather than merely produce a faster approximate model.
+
+
+## 10. Exact dense-vs-streaming equivalence and exploratory scaling probe
+
+An additional local synthetic probe compared the dense formulation with the new
+exact full-support streaming formulation using the same random 2-D coordinates,
+parameters, sigmoid, and Euclidean distance calculation.
+
+For every tested N, both implementations evaluated all ordered non-self pairs.
+The resulting total expected wiring lengths agreed to floating-point precision;
+the largest observed absolute difference in this probe was approximately
+4.6e-8 at N=2,048, with the absolute difference remaining tiny relative to the
+total statistic.
+
+Observed wall times for one pass were:
+
+| N | Pair count | Dense | Exact streaming |
+|---:|---:|---:|---:|
+| 64 | 4,032 | 0.0039 s | 0.0037 s |
+| 128 | 16,256 | 0.0092 s | 0.0067 s |
+| 256 | 65,280 | 0.0892 s | 0.0246 s |
+| 512 | 261,632 | 0.1790 s | 0.0974 s |
+| 1,024 | 1,047,552 | 0.9553 s | 0.4509 s |
+| 1,536 | 2,357,760 | 1.6712 s | 0.8574 s |
+| 2,048 | 4,192,256 | 2.8574 s | 1.5381 s |
+
+These numbers are an exploratory local Python probe, not a hardware-normalized
+benchmark and not a FAFB runtime claim. The streaming implementation removes
+the N×N probability storage requirement, but it does **not** remove the O(N²)
+pair-evaluation cost.
+
+Using the observed streaming timing as a rough local warning only, one full
+19.205-billion-pair pass is on the order of hours rather than seconds. Because
+C3-A fitting requires repeated sufficient-statistic evaluations, this is not
+yet a feasible FAFB implementation.
+
+The correct conclusion at this stage is therefore:
+
+1. Exact streaming preserves the declared full-support ensemble.
+2. Exact streaming is substantially lighter in storage than dense evaluation.
+3. Exact streaming remains computationally quadratic.
+4. No FAFB C3 execution is authorized yet.
+5. The next investigation should target exact mathematical acceleration or a
+   rigorously validated computational decomposition, not an unannounced sparse
+   approximation.
