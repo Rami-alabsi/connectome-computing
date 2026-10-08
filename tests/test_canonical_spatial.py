@@ -7,6 +7,7 @@ from src.generator.canonical_spatial import (
     fit_canonical_model,
     graph_statistics,
     sample_graph,
+    expected_statistics_streaming,
 )
 
 
@@ -34,6 +35,24 @@ def test_c3a_recovers_known_directed_canonical_parameters():
     assert abs(target_length - length2) < 1e-7
     assert abs(sum(fitted_alpha) / len(fitted_alpha)) < 1e-9
     assert abs(fitted_lam - lam) < 1e-6
+
+
+def test_c3a_streaming_statistics_are_exactly_equivalent_to_dense():
+    coords = [(0.0, 0.0), (1.0, 0.0), (0.0, 1.0), (1.0, 1.0), (2.0, 0.0)]
+    distances = _distances(coords)
+    alpha = [0.4, -0.2, 0.1, -0.3, 0.0]
+    beta = [-0.1, 0.2, -0.4, 0.1, 0.2]
+    lam = 1.7
+    probabilities = edge_probabilities(alpha, beta, lam, distances)
+    dense = expected_statistics(probabilities, distances)
+
+    def distance_fn(i, j):
+        return math.dist(coords[i], coords[j])
+
+    streaming = expected_statistics_streaming(alpha, beta, lam, distance_fn)
+    assert dense[0] == streaming[0]
+    assert dense[1] == streaming[1]
+    assert dense[2] == streaming[2]
 
 
 def test_c3a_exact_enumeration_matches_analytic_moments():
