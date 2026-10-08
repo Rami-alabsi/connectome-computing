@@ -36,7 +36,7 @@ def choose_c2_swap(edges,blocks,rng):
     for edge in edges: buckets[(blocks[edge[0]],blocks[edge[1]])].append(edge)
     eligible=[k for k,v in buckets.items() if len(v)>=2]
     if not eligible: return None
-    e1,e2=rng.sample(buckets[rng.choice(eligible)],2]); a,b=e1; c,d=e2
+    e1,e2=rng.sample(buckets[rng.choice(eligible)],2); a,b=e1; c,d=e2
     if a==d or c==b or a==c or b==d: return None
     p1,p2=(a,d),(c,b)
     if p1 in edges or p2 in edges or p1==p2: return None
