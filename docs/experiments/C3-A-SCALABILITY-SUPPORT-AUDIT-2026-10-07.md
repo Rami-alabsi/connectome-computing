@@ -126,3 +126,31 @@ If exact full-support evaluation is infeasible, report that boundary and decide 
 - Full-support scalability: **open**.
 - Sparse support: **not authorized**.
 - FAFB C3: **not authorized**.
+
+
+## 8. Initial local complexity probe
+
+A dependency-free Python pair-evaluation probe was timed on random 2-D synthetic coordinates, evaluating every ordered non-self pair once and accumulating a wiring-length statistic.
+
+Observed wall times for one full pair pass:
+
+| N | Pair count | One-pass time |
+|---:|---:|---:|
+| 32 | 992 | ~0.00036 s |
+| 64 | 4,032 | ~0.00101 s |
+| 128 | 16,256 | ~0.00441 s |
+| 256 | 65,280 | ~0.0191 s |
+| 512 | 261,632 | ~0.0771 s |
+| 1,024 | 1,047,552 | ~0.299 s |
+
+This is a local complexity probe, not a production benchmark and not a claim about FAFB runtime on another machine.
+
+The observed scaling is consistent with O(N²). A naive quadratic extrapolation from N=1,024 would put one full pair pass at roughly 1.5 hours for N=138,584 on comparable single-threaded Python execution. This extrapolation is intentionally treated only as an order-of-magnitude warning; it must not be used as a final performance claim.
+
+Crucially, fitting C3-A requires repeated evaluations of the degree and wiring-length expectations. Therefore a naive dense/streaming implementation could require many such passes. This is currently the main computational feasibility risk.
+
+## 9. Consequence
+
+The project should not proceed directly from the small synthetic implementation to a FAFB fit.
+
+The next technical gate is an exact-support benchmark with a streaming implementation and explicit instrumentation. Any acceleration must be shown to reproduce the same sufficient statistics, rather than merely produce a faster approximate model.
