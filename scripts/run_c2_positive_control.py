@@ -24,9 +24,10 @@ def constraint_signature(edges,blocks):
     bp=Counter((blocks[u],blocks[v]) for u,v in edges)
     db=Counter(distance_bin(u,v) for u,v in edges)
     indegree,outdegree,_=degree_maps(edges)
+    block_pair_counts={f"{a}->{b}":count for (a,b),count in sorted(bp.items())}
     return {"edge_count":len(edges),"in_degree":dict(sorted(indegree.items())),
             "out_degree":dict(sorted(outdegree.items())),
-            "block_pair_counts":dict(sorted(bp.items())),
+            "block_pair_counts":block_pair_counts,
             "distance_bin_counts":dict(sorted(db.items())),
             "no_self_loops":all(u!=v for u,v in edges),
             "no_duplicate_edges":len(edges)==len(set(edges))}
