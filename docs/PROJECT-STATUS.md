@@ -932,3 +932,8 @@ Final curves were re-extracted from the target-reaching runs #52–#55 (101 thre
 Across all 101 thresholds, 16E→32E and 32E→64E each showed a positive pointwise `phi_norm` delta at every threshold. For 32E→64E, Pearson correlation was 0.9999118 but mean delta was +0.00041453 and maximum absolute pointwise change was 0.00093964 (k=82). High correlation therefore does not imply a plateau. **Formal mixing/convergence remains OPEN; Gate C remains OPEN.** A predeclared 128E continuation may be considered as a drift diagnostic after checkpoint-artifact review and Actions-capacity check; it cannot certify convergence by itself.
 
 Full details: `docs/experiments/C2-RUN-55-64E-COMPLETION-AUDIT-2026-10-11.md`.
+
+
+## 2026-10-11 — 128E C2 continuation protocol prepared
+
+A manual-dispatch protocol is documented in `docs/experiments/C2-128E-CONTINUATION-PROTOCOL-2026-10-11.md`. It specifies cumulative target `477,754,880`, source Run #55 (`38122390361`), seed `20261002`, resume artifact `fafb-v783-c2-feasibility-5000000000`, C0 source `36318477728`, and attempt cap `9,000,000,000`. The protocol requires exact resume-counter/fingerprint checks and all seven C2 invariants. **This run has not been dispatched**; the protocol is a prepared handoff, not execution evidence. Formal mixing/convergence and Gate C remain OPEN.
