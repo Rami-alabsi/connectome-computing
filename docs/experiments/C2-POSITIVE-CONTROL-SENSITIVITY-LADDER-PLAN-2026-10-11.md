@@ -47,13 +47,13 @@ These are absolute edge increments, not percentages of all graph edges. Report t
 
 ## Replication and null procedure
 
-- Use 20 predeclared independent synthetic base-graph seeds. Record the seed list before generating or inspecting outcomes.
+- Freeze the 20 base-graph seeds as **20261011 through 20261030 inclusive**. These are proposed seeds only; no graph has been generated under this plan.
 - For each base graph, run all six conditions using the same graph, fixed club, block labels, distance-bin assignments, and C2 kernel.
-- For each condition, generate 19 independently seeded C2-constrained null realizations. Keep the null-seed derivation deterministic and recorded.
-- Use the same proposal-attempt budget for nulls within this synthetic experiment, and record accepted swaps, attempts, acceptance rate, and whether the budget was reached. Do not compare acceptance rate as a mixing-speed estimator.
-- First benchmark one complete base-graph replicate. If runtime or construction failures require changing the plan, stop and version a revised protocol before inspecting sensitivity outcomes.
+- Use null seed derivation `base_seed * 100000 + condition_index * 1000 + null_index`, with condition indices 0–5 in the table order and null indices 1–19. Record the derived seed for every realization.
+- Set the initial proposal budget to **100,000 proposals per null realization**, matching the proposal budget used in the historical synthetic positive-control comparison. Record accepted swaps, attempts, acceptance rate, and whether the budget was reached. Do not compare acceptance rate as a mixing-speed estimator.
+- First benchmark one complete base-graph replicate using the frozen budget. If runtime, code-path compatibility, or construction failures require changing the budget or design, stop before inspecting any sensitivity outcomes and publish a versioned protocol amendment. Do not selectively extend only difficult or inconvenient conditions.
 
-The 20 × 6 × 19 design is a proposed replication target, not an assertion that these runs have occurred. Any reduction must be documented as a protocol deviation before result inspection.
+The full 20 × 6 × 19 design contains 2,280 null realizations and is a proposed replication target, not an assertion that these runs have occurred. Any reduction must be documented as a protocol deviation before sensitivity outcome inspection.
 
 ## Primary outcomes
 
@@ -69,12 +69,12 @@ For each base graph and condition, archive:
 
 Primary sensitivity summaries:
 
-1. fraction of independent base graphs for which the planted fixed-club edge count exceeds the 95th percentile of its 19-null distribution;
-2. corresponding false-positive fraction for the zero-effect negative control;
+1. fraction of independent base graphs for which the planted fixed-club edge count is strictly greater than all 19 null values (the finite-sample upper-tail rank rule; with 19 nulls its nominal resolution is coarse, approximately 1/20);
+2. corresponding false-positive fraction for the zero-effect negative control using the same rank rule;
 3. the complete effect-versus-detection curve, with uncertainty across base graphs;
 4. full-curve separation summaries, reported alongside—not replaced by—the fixed-club edge-count outcome.
 
-With 19 nulls, the empirical tail resolution is coarse. State that limitation explicitly; do not report a precise p-value unsupported by the finite null count. The percentile-based fraction is a pilot sensitivity summary, not a universal guarantee of statistical power.
+With 19 nulls, the empirical tail resolution is coarse. State that limitation explicitly; do not report a precise p-value unsupported by the finite null count. The rank-based fraction is a pilot sensitivity summary, not a universal guarantee of statistical power. Do not describe it as a calibrated 5% test without additional calibration.
 
 ## Acceptance and interpretation rules
 
