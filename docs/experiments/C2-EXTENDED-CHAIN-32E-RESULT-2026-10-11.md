@@ -66,7 +66,7 @@ The seven C2 invariants remain the frozen constraint surface: exact directed edg
 | Accepted swaps | 29,859,680 | 59,719,360 | 119,438,720 |
 | Acceptance rate | 5.9669427% | 5.8727697% | 5.8176266% |
 | Original-edge overlap | 24.8152% | 19.8354% | 16.1910% |
-| `phi_norm` at k=50 | 1.00891* | 1.0111500 | 1.0117064 |
+| `phi_norm` at k=50 | 1.01061* | 1.0111500 | 1.0117064 |
 | `phi_norm` at k=120 | 0.9582185 | 0.9563634 | 0.9569453 |
 
 `* `The 8E value is the previously recorded rounded milestone value; consult its original artifact for full precision.
