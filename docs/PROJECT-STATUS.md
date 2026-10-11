@@ -912,3 +912,23 @@ A non-invasive audit of Runs #45–#47 compared their complete rich-club curves.
 Acceptance rates are also tightly clustered at 6.74198%, 6.75711%, and 6.75378%. Run #47 shows smooth late-stage acceptance decline without a computational stall.
 
 **Decision:** the non-invasive stability/reproducibility check passes. Formal Markov-chain mixing/convergence remains unproven. Gate C remains OPEN pending the stronger spatial/max-entropy sensitivity family.
+
+
+## 2026-10-11 — C2 Run #55 completes cumulative 64E target
+
+Run #55 completed successfully: [workflow 38122390361](https://github.com/Rami-alabsi/connectome-computing/actions/runs/38122390361), job 114419636270. The run resumed seed 20261002 from the 32E checkpoint at 2,053,048,908 attempts / 119,438,720 accepted swaps and reached cumulative **238,877,440 accepted swaps** at **4,128,211,946 attempts**. Final acceptance rate was **5.7864625927%**; original-edge overlap was **0.1369839195** (~13.6984%). All seven declared C2 invariants and `target_reached=true` were reported in the final result log.
+
+Artifact: [fafb-v783-c2-feasibility-5000000000, ID 11702767144](https://github.com/Rami-alabsi/connectome-computing/actions/runs/38122390361/artifacts/11702767144); ZIP SHA-256 `2febb9ec29918ca811a4139076e6caf7342d34fc664f44c8677d9511847493ac`. Code fingerprint `890a73d18a8e3d4e006233b45d9dd2c5771fa849f69dc3d462ed7588af6ef076`; constraint fingerprint `b330c16977c084434c129086112cf75710f95b8c39af7fd4df57ab16a87d76e3`; input fingerprint `b43e3aa79c14f5338b4d0dd66ec5c0db88d68b02281facfd2a28941093072a8e`.
+
+The descriptive single-null curve peaks at `phi_norm=1.0119603674` at `k=51`; the `>1.01` interval is `k=39–59`, and the `<0.99` interval is `k=86–120`. Compared with 32E, the peak moved upward by ~0.000243 and overlap fell from ~16.1910% to ~13.6984%. This is continued turnover with modest aggregate drift, **not** proof of mixing or convergence. The run itself records `scientific_conclusion=null` and `feasibility only; no rich-club inference`.
+
+**Gate state unchanged:** C2 formal mixing/convergence OPEN; matched-turnover cross-family audit PARTIAL/BLOCKED; sensitivity ladder preregistered but not executed; C3-A validation OPEN; Gate C OPEN; structure→function and downstream architecture claims BLOCKED. Full audit: `docs/experiments/C2-RUN-55-64E-COMPLETION-AUDIT-2026-10-11.md`.
+
+
+### 2026-10-11 — Full C2 continuation-chain curve audit (8E–64E)
+
+Final curves were re-extracted from the target-reaching runs #52–#55 (101 thresholds each). Run #48 was an under-target predecessor (`target_reached=false`, 29,835,212 accepted at 500,000,000 attempts); Run #52 is the exact 8E checkpoint (29,859,680 accepted at 500,418,411 attempts). Peaks at k=51 progressed 1.0106499 → 1.0112045 → 1.0117177 → 1.0119604 for 8E/16E/32E/64E. Original-edge overlap declined 24.8152% → 19.8354% → 16.1910% → 13.6984%.
+
+Across all 101 thresholds, 16E→32E and 32E→64E each showed a positive pointwise `phi_norm` delta at every threshold. For 32E→64E, Pearson correlation was 0.9999118 but mean delta was +0.00041453 and maximum absolute pointwise change was 0.00093964 (k=82). High correlation therefore does not imply a plateau. **Formal mixing/convergence remains OPEN; Gate C remains OPEN.** A predeclared 128E continuation may be considered as a drift diagnostic after checkpoint-artifact review and Actions-capacity check; it cannot certify convergence by itself.
+
+Full details: `docs/experiments/C2-RUN-55-64E-COMPLETION-AUDIT-2026-10-11.md`.
