@@ -121,3 +121,33 @@ First preserve this result and compare the full 32E and 64E curves point-by-poin
 ## Evidence boundary
 
 This audit is based on GitHub Actions metadata and the decoded job log. The uploaded artifact is identified by its run, artifact ID, size, and ZIP digest above. The artifact ZIP itself has not been independently downloaded and unpacked in this review, so no claim is made that its internal files were independently rehashed or parsed outside the Actions log.
+
+
+## Post-run continuation-chain audit — all four checkpoints
+
+After the initial 64E report was drafted, the complete final curves were re-extracted from the authoritative job logs for the actual target-reaching checkpoints: 8E Run #52 (not the earlier under-target Run #48), 16E Run #53, 32E Run #54, and 64E Run #55. Each curve has 101 degree thresholds. This additional audit corrects a common lineage ambiguity: **Run #48 did not reach its target** (`target_reached=false`, 29,835,212 accepted at 500,000,000 attempts); Run #52 continued the chain to the exact 8E accepted-swap target (29,859,680 at 500,418,411 attempts).
+
+| Checkpoint | Workflow run | Accepted swaps | Attempts | Original-edge overlap | Peak `phi_norm` @ k | >1.01 interval | <0.99 interval |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| 8E | #52 / 37772800694 | 29,859,680 | 500,418,411 | 24.8152% | 1.0106499 @ 51 | 45–56 | 84–120 |
+| 16E | #53 / 37774000742 | 59,719,360 | 1,016,885,788 | 19.8354% | 1.0112045 @ 51 | 43–57 | 84–120 |
+| 32E | #54 / 38112364771 | 119,438,720 | 2,053,048,908 | 16.1910% | 1.0117177 @ 51 | 42–58 | 85–120 |
+| 64E | #55 / 38122390361 | 238,877,440 | 4,128,211,946 | 13.6984% | 1.0119604 @ 51 | 39–59 | 86–120 |
+
+### Full-curve comparison (101 common thresholds)
+
+| Comparison | Pearson correlation | Mean pointwise delta (later − earlier) | RMSE | Minimum delta | Maximum delta |
+|---|---:|---:|---:|---:|---:|
+| 8E → 16E | 0.9999372 | −0.00017435 | 0.00083594 | −0.00185506 | +0.00061961 |
+| 16E → 32E | 0.9998992 | +0.00067267 | 0.00073861 | +0.00006573 | +0.00134651 |
+| 32E → 64E | 0.9999118 | +0.00041453 | 0.00048474 | +0.00005726 | +0.00093964 |
+| 8E → 64E | 0.9996261 | +0.00091285 | 0.00117322 | −0.00096571 | +0.00192696 |
+
+The key diagnostic is not Pearson correlation alone: from 16E→32E and again from 32E→64E, **all 101 `phi_norm` values increased**. The 32E→64E mean shift is +0.00041453, and the maximum pointwise change is +0.00093964 at k=82. The curve shape is highly correlated, but the curve is still drifting systematically upward; this does not support a claim that the observable has plateaued. Edge overlap also continues to fall, but overlap is not itself a convergence statistic.
+
+### Updated decision
+
+- 64E execution milestone remains CLOSED.
+- The full-curve comparison strengthens the reason to keep formal mixing/convergence OPEN.
+- The next useful diagnostic is a predeclared 128E continuation from Run #55's exact checkpoint, target `477,754,880` cumulative accepted swaps, with identical seed/kernel/data/constraints. This should be considered only after reviewing Actions capacity and the checkpoint artifact; it is a drift diagnostic, not a convergence certificate.
+- Do not run the synthetic sensitivity ladder concurrently until this C2 checkpoint audit is accepted and runner capacity is clear.
