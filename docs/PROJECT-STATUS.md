@@ -1,4 +1,4 @@
-# CURRENT AUTHORITATIVE STATUS — 2026-10-08
+# CURRENT AUTHORITATIVE STATUS — 2026-10-11
 
 > Compact first-read operational state. Historical entries below remain provenance, not current truth.
 
@@ -8,7 +8,7 @@
 - C2: **three independent full realizations #45/#46/#47 COMPLETE**; exact seven invariants passed in each.
 - C2 max phi_norm: **1.0076221 / 1.0076660 / 1.0077486**; peaks 51 / 50 / 51; no >1.01.
 - Three-seed stability audit: **PASSED as reproducibility/control**; correlations 0.9999321–0.9999503; max pointwise spread 0.0006645; pairwise final-edge Jaccard **0.2439655–0.2441324**.
-- C2 extended-chain mixing diagnostic: **8E COMPLETE**; continuation from #47 reached 29,859,680 accepted swaps in workflow **37737675496**. Final acceptance **5.9669427%**, final observed-edge overlap **24.8152%**, all seven invariants true. Clean 2E/4E records are preserved; 8E final curve has max phi_norm **1.0106499041 @ k=51**, descriptive >1.01 at k=45 and k=47–56, and phi_norm <0.99 from k=84 through k=120. This is a mixing/stability diagnostic, **not** formal stationarity/ergodicity/burn-in/ESS/convergence proof. Formal mixing/convergence remains **OPEN**.
+- C2 extended-chain diagnostic: **32E COMPLETE** in Run #54 (workflow **38112364771**, job **114390401018**), resumed from the verified 16E checkpoint in Run #53 (**37774000742**, artifact **11552145132**). At 32E: 119,438,720 accepted swaps; 2,053,048,908 proposal attempts; acceptance **5.8176266%**; original-edge overlap **16.1910%**; all declared invariants preserved. Max phi_norm **1.0117177 @ k=51**; descriptive >1.01 onset/offset reported at k=42/58; phi_norm <0.99 from k=85 through k=120; phi_norm at k=120 **0.9569453**. Relative to 16E, overlap and selected curve values still move; this is evidence of continued turnover and modest observable drift, **not** proof of stationarity or convergence. Formal mixing/convergence and Gate C remain **OPEN**. Source record: `docs/experiments/C2-EXTENDED-CHAIN-32E-RESULT-2026-10-11.md`.
 - C2 positive-control/power sub-gate: **CLOSED / PASS**; official synthetic execution workflow **37761534464**, artifact **11542512108**, digest **3f59437bf5d0208f21aae4d22e7ba719236b36e9913f6b2581e8888dcb8a0ace**. The planted fixed-club signal increased 36→86 while preserving all seven C2 statistics; three independent nulls reduced it to 36/41/34. This demonstrates C2 has detectable power for a rich-club signal not encoded by its preserved constraints. Synthetic only; no biological inference and no Gate C closure.
 - C2 interpretation: report the full curve, including the reproducible mild enrichment region and high-degree depletion; add descriptive `phi_norm < 0.99` alongside the existing `>1.01` flag.
 - Gate C: **OPEN**.
