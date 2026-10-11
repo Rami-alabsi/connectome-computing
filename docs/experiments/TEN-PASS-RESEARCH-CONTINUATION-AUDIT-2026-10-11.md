@@ -1,5 +1,7 @@
 # Ten-Pass Research Continuation Audit — 2026-10-11
 
+> **Superseding update — 2026-10-11 after Run #55 completed:** the earlier status below was accurate at the time it was written but is now historical. Run #55 / workflow 38122390361 completed successfully, reached cumulative 64E (238,877,440 accepted swaps), and uploaded artifact 11702767144. Full run evidence and the subsequent 8E–64E curve-drift audit are recorded in [C2 Run #55 64E Completion Audit](https://github.com/Rami-alabsi/connectome-computing/blob/c2-run55-64e-completion-audit-2026-10-11/docs/experiments/C2-RUN-55-64E-COMPLETION-AUDIT-2026-10-11.md). The new full-curve comparison shows a systematic upward shift at every threshold from 16E→32E and 32E→64E; formal mixing/convergence and Gate C therefore remain OPEN. This update does not mean the sensitivity ladder was executed.
+
 **Scope:** bounded documentation/review pass during C2 Run #55, without changing the running workflow, C2 kernel, graph, constraints, or scientific thresholds.
 
 **Repository:** `Rami-alabsi/connectome-computing`
