@@ -80,6 +80,8 @@ The shape is highly correlated, but systematic upward movement and falling overl
 
 ## 5. Next actions — ordered, no shortcut
 
+The detailed gated decision tree is maintained in `docs/POST-RUN56-PRIORITIZED-PLAN-2026-10-12.md`; use it together with this compass.
+
 ### A. Current live run — Run #56 (128E continuation)
 As of the 2026-10-12 review, workflow Run #56 (ID `38204750622`, job `114665646123`) is already **in progress** on commit `c06ef737a5a45d41dbfd062e54ed9f1fe9d75ab7`. Its syntax preflight, pytest collection, graph download, authoritative C0 download, and optional resume-artifact download have succeeded; the C2 sampling step is still running and artifact upload is pending. The job-log endpoint temporarily returned a BlobNotFound response while the job was active, so do not infer failure or progress counters from that response.
 
@@ -90,14 +92,20 @@ The Run #55 artifact is identified and verified in its Actions log, but independ
 ### B. After Run #56 completes
 Verify resumed attempt/accepted counters and matching input/constraint fingerprints; require all seven invariants and full curve output. Compare full curves at common thresholds and report pointwise drift, mean delta, RMSE, maximum absolute delta, overlap and acceptance trajectory—not correlation alone. This is a diagnostic, not a convergence certificate.
 
-### C. Keep the synthetic sensitivity ladder separate
-Draft PR #7 defines +0, +1, +2, +5, +10, +50 planted-edge increments, independent synthetic base seeds, invariant checks and finite-sample reporting. It has **not** been executed and does not establish calibrated 5% testing. Do not run it concurrently with a long C2 continuation before capacity/artifact review.
+### C. Measure cross-family turnover before spending on another long C2 chain
+CFG/NPC-like/spatial historical aggregate artifacts lack final edge sets/original-edge overlap. Do not infer missing overlap from acceptance rates or rounded prose. Add prospective edge-set and overlap accounting to future runners, with one bounded representative null per family first (CFG short; NPC-like/spatial around 20–25 minutes each, subject to available budget). Record original-edge overlap, changed-edge counts, accepted/attempted proposals, fingerprints, and invariants. Do not fabricate historical turnover. See `docs/POST-RUN56-PRIORITIZED-PLAN-2026-10-12.md` for decision rules and caveats.
 
-### D. Then validate C3-A; no full FAFB C3 yet
-C3-A is a different canonical family, provisionally p_ij = sigmoid(alpha_i + beta_j − lambda d_ij), with degree and wiring cost matched in expectation, not exact C2 constraints. Draft PR #1 contains synthetic validation work; still required are exact small-graph checks, parameter/moment recovery, support/self-loop policy, scalability audit, and external reproduction of the published Salova & Kovács k+L family on released hemibrain/Zenodo data. The published model is not the same directed equation. Full FAFB C3 is not authorized until these gates pass.
+### D. Redesign PR #7 before running the sensitivity ladder
+Draft PR #7 is **not executed** and its small-graph +1/+2/+5/+10/+50 edge ladder does not establish 1% FAFB-scale detection power. Revise it to include 1%, 2%, and 3% effects relative to a pre-defined rich-club edge-count denominator, a matched negative/sham control, repeated independent seeds, invariant/fingerprint checks, and predeclared threshold/multiple-testing handling. Define planting as a constraint-aware intervention (for example, edge replacement under fixed edge count), not unconstrained edge addition. Report empirical detection and false-positive rates with uncertainty. Run synthetic calibration first; only consider bounded FAFB-scale calibration after Run #56 audit and compute-budget review.
 
-### E. Cross-family comparison remains blocked
-CFG/NPC-like/spatial historical aggregate artifacts lack final edge sets/original-edge overlap. Do not infer missing overlap from acceptance rates or rounded prose. Add prospective, non-invasive turnover records to future runs and keep the CFG→NPC→spatial→C2 causal interpretation descriptive until comparable evidence exists.
+### E. C3-A external reproduction before full FAFB
+C3-A is a different canonical family, provisionally p_ij = sigmoid(alpha_i + beta_j − lambda d_ij), with degree and wiring cost matched in expectation, not exact C2 constraints. Keep the gate closed to full FAFB. First reproduce the published k+L spatial model on released hemibrain/Zenodo data using the paper's original undirected graph and preprocessing; record the exact data record, equations, objective, parameters and reference outputs, and ensure NumPy is declared in the reproducible environment. The published model is not the same as the project's provisional directed equation. Require small-graph checks, parameter/moment recovery where applicable, support/self-loop policy, external reproduction, and measured runtime/memory profiling before any scale-up. The rough 12-minute-per-pass FAFB estimate is not a benchmark.
+
+### F. Methods-paper hypothesis — only after comparable evidence
+A possible methodological contribution is that null-family comparisons may be confounded by unequal state-space turnover or memory of the initial edge set, and that constrained samplers should report turnover and provenance alongside structural metrics. This remains a hypothesis, not a finding or novelty claim. Require comparable prospective measurements, independent seeds, controlled synthetic graphs, and a targeted prior-art review before drafting conclusions. Seek qualified IP advice before public disclosure of any potentially protectable implementation.
+
+### G. Low-cost parallel descriptive branch
+Inventory cross-neuropil participation and inter-hemisphere edges from the authoritative graph as a separate observational branch. Document region/block mapping, missing labels, denominators and uncertainty. Do not infer function, mechanism or computational value from these counts alone, and do not launch a costly workflow that competes with Run #56.
 
 ## 6. Discovery, computation and commercial guardrails
 
