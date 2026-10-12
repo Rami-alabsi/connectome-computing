@@ -126,4 +126,4 @@ Inventory cross-neuropil participation and inter-hemisphere edges from the autho
 6. Do not close Gate C or unblock structure→function from curve correlation or edge overlap alone.
 7. Update this compass and the experiment ledger when a gate or milestone changes.
 
-**One-line compass:** C2's 64E run is complete and its curve is still drifting; same-chain 128E Run #56 is now in progress. Audit it before launching anything else; Gate C remains open.
+**One-line compass:** C2's 64E run is complete and its curve is still drifting; same-chain 128E Run #56 was cancelled short of target; its partial checkpoint is preserved and hashed. Audit it before launching anything else; Gate C remains open.
