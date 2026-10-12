@@ -80,20 +80,15 @@ The shape is highly correlated, but systematic upward movement and falling overl
 
 ## 5. Next actions — ordered, no shortcut
 
-### A. Preserve/review Run #55 evidence before dispatch
-- Recheck the merged 128E continuation protocol in PR #9 and the source artifact/checkpoint lineage.
-- The artifact is identified and verified in the Actions log, but independent ZIP unpacking/re-hashing has not been done in this environment.
-- Check current Actions capacity and ensure no conflicting long run is active.
-- Do not claim that the artifact has been independently parsed unless that actually happens.
+### A. Current live run — Run #56 (128E continuation)
+As of the 2026-10-12 review, workflow Run #56 (ID `38204750622`, job `114665646123`) is already **in progress** on commit `c06ef737a5a45d41dbfd062e54ed9f1fe9d75ab7`. Its syntax preflight, pytest collection, graph download, authoritative C0 download, and optional resume-artifact download have succeeded; the C2 sampling step is still running and artifact upload is pending. The job-log endpoint temporarily returned a BlobNotFound response while the job was active, so do not infer failure or progress counters from that response.
 
-### B. If the checkpoint audit is accepted, run the predeclared 128E diagnostic
-Protocol merged via PR #9:
-- source run 38122390361; artifact `fafb-v783-c2-feasibility-5000000000` (ID 11702767144);
-- seed 20261002;
-- cumulative target 477,754,880 accepted swaps (128E);
-- proposal-attempt cap 9,000,000,000;
-- C0 source run 36318477728.
-Before launch, verify resumed attempt/accepted counters and matching input/constraint fingerprints. Require all seven invariants and full curve output. Report pointwise drift, mean delta, RMSE, max absolute delta, overlap and acceptance trajectory—not correlation alone. This is a diagnostic, not a convergence certificate. Workflow dispatch is manual; do not imply it was dispatched unless verified.
+**Do not dispatch another C2 run or the sensitivity ladder concurrently.** Monitor Run #56 until it finishes; then inspect its final log, artifact, counters, fingerprints, all seven invariants, and complete curve. The 128E protocol was merged in PR #9. Expected target is cumulative 477,754,880 accepted swaps, seed 20261002, attempts cap 9,000,000,000, source Run #55 artifact ID 11702767144, C0 source 36318477728. Verify the actual run inputs/results rather than assuming the target was reached.
+
+The Run #55 artifact is identified and verified in its Actions log, but independent ZIP unpacking/re-hashing has not been done in this environment. Do not claim independent parsing unless that actually happens.
+
+### B. After Run #56 completes
+Verify resumed attempt/accepted counters and matching input/constraint fingerprints; require all seven invariants and full curve output. Compare full curves at common thresholds and report pointwise drift, mean delta, RMSE, maximum absolute delta, overlap and acceptance trajectory—not correlation alone. This is a diagnostic, not a convergence certificate.
 
 ### C. Keep the synthetic sensitivity ladder separate
 Draft PR #7 defines +0, +1, +2, +5, +10, +50 planted-edge increments, independent synthetic base seeds, invariant checks and finite-sample reporting. It has **not** been executed and does not establish calibrated 5% testing. Do not run it concurrently with a long C2 continuation before capacity/artifact review.
@@ -123,4 +118,4 @@ CFG/NPC-like/spatial historical aggregate artifacts lack final edge sets/origina
 6. Do not close Gate C or unblock structure→function from curve correlation or edge overlap alone.
 7. Update this compass and the experiment ledger when a gate or milestone changes.
 
-**One-line compass:** C2's 64E run is complete, but its curve is still drifting; next is a carefully audited same-chain 128E diagnostic, then independent sensitivity/model validation, while Gate C remains open.
+**One-line compass:** C2's 64E run is complete and its curve is still drifting; same-chain 128E Run #56 is now in progress. Audit it before launching anything else; Gate C remains open.
