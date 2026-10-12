@@ -1,19 +1,20 @@
 # AI Context
 
-**Current operational source of truth:** read `docs/MASTER-COMPASS-2026-10-07.md` first for the live project stage, gate state, C2 status, recovery point, and next actions. Then use `docs/PROJECT-STATUS.md` as the historical experiment ledger and for detailed provenance.
+**Current operational source of truth:** read `docs/MASTER-COMPASS-2026-10-12.md` first. It captures the verified C2 64E Run #55 state, current drift interpretation, gate status, and authorized next sequence. Then read the relevant run-specific record under `docs/experiments/`.
 
-This file contains only persistent operating rules:
+`docs/PROJECT-STATUS.md` is the historical experiment ledger. Its older narrative sections and prior dated summaries preserve provenance; when a summary conflicts with the latest dated compass or a newer run-specific audit, use the newer verified evidence and update documentation rather than guessing.
+
+Persistent operating rules:
 
 - Do not restart the project or invent results.
-- Continue from the current checkpoint in `docs/PROJECT-STATUS.md`.
 - Biology is evidence, not specification.
 - Separate biological observations, synthetic structures, hypotheses, implementation validation, and scientific results.
 - Every claimed advantage requires matched controls and ablations.
-- Record dataset/version, configuration, seed, metrics, and transformations.
+- Record dataset/version, configuration, seed, metrics, fingerprints, artifacts, and transformations.
 - Never claim an experiment passed without an executed artifact or verified CI result.
 - Keep large biological data out of Git.
 - Avoid O(N^3) algorithms on full connectomes.
 - Label sampling and transformations clearly.
-- Update `docs/PROJECT-STATUS.md` when the project state changes.
-
-Do not maintain an independent milestone checklist here; that caused stage drift.
+- Keep the primary C2 constraint surface/kernel fixed; any stronger null is a separately named sensitivity family.
+- Update the compass and experiment ledger when project state changes.
+- Do not close Gate C or make architecture/commercial claims from descriptive curve stability or edge overlap alone.
