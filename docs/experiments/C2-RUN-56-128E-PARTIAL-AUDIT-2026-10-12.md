@@ -35,7 +35,9 @@ The checkpoint pickle was inspected after confirming it contains no GLOBAL/STACK
 - RNG state present; 1,248 checkpoint records present.
 - Saved distance-bin counts: bin 0: 15,340; 1: 53,700; 2: 180,439; 3: 465,059; 4: 1,212,172; 5: 1,052,594; 6: 622,653; 7: 130,303; 8: 200.
 
-These checks establish internal checkpoint readability and basic edge-list consistency. They do **not** independently revalidate degree sequences, block-pair counts, or the distance-bin histogram against the authoritative starting graph because the final result JSON is absent and the checkpoint alone does not include the original graph/constraint maps. The workflow log does show that Run #56 successfully loaded the Run #55 state at attempt 4,128,211,946 / 238,877,440 accepted, and passed the runner's resume validation (edge count/uniqueness, distance-bin histogram, degree maps, block-pair counts) before entering the sampling loop.
+A second independent comparison loaded the Run #55 checkpoint from its own artifact and compared its saved edge state to Run #56's saved checkpoint. Both carry the same seed and constraint fingerprint. The 3,732,460-edge count and uniqueness match; there are no self-loops; in-degree maps and out-degree maps are exactly equal; and the distance-bin histogram is exactly equal. Edge-set overlap between the saved 64E state and the partial Run #56 state is **20.8697%** (this is inter-state overlap, not overlap with the original observed graph). The Run #55 result JSON itself reports all seven invariants true. The final Run #56 block-pair counts were not independently recomputed because the artifact does not contain the authoritative block mapping/graph; do not describe all seven final invariants as independently revalidated.
+
+The workflow log also shows that Run #56 successfully loaded the Run #55 state at attempt 4,128,211,946 / 238,877,440 accepted, and passed the runner's resume validation (edge count/uniqueness, distance-bin histogram, degree maps, block-pair counts) before entering the sampling loop.
 
 ### Last log line versus saved checkpoint
 - Last supplied/logged probe: attempt 6,202,800,000; accepted 358,260,480.
