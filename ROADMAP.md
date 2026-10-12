@@ -8,11 +8,12 @@ Read the compass first, then the relevant run-specific record under `docs/experi
 
 Immediate sequence:
 1. Monitor active C2 128E continuation Run #56 (ID `38204750622`) until completion; do not dispatch competing long runs.
-2. Audit final counters, fingerprints, all seven invariants, artifact, and full-curve drift against 8E/16E/32E/64E.
-3. Keep the synthetic C2 small-effect sensitivity ladder (draft PR #7) separate and unexecuted until Run #56 is audited and Actions capacity is clear.
-4. Continue C3-A synthetic/external-family validation; no full FAFB C3 until its gates pass.
-5. Search and test unexpected patterns only with explicit competing explanations, controls, replication, and a targeted prior-art review.
-6. Revisit Gate C only after the required biological controls, mixing/sensitivity evidence, and limitations are reviewed.
-7. Advance a commercial/product hypothesis only after a concrete workload benchmark and user/problem validation; obtain qualified IP review before making protection or freedom-to-operate claims.
+2. Audit final counters, fingerprints, all seven invariants, artifact bytes/hash, and full-curve drift against 8E/16E/32E/64E; partial/timeout-limited runs stay labelled partial.
+3. Measure cross-family edge turnover prospectively with bounded representative CFG/NPC-like/spatial runs before committing more compute to a longer C2 chain; never infer missing historical edge sets.
+4. Revise PR #7 for 1–3% club-edge effect sizes, a matched negative/sham control, independent seeds, constraint-aware planting, and false-positive/detection calibration. Keep it unexecuted until the Run #56 audit and budget review.
+5. Reproduce the published k+L model on released undirected hemibrain/Zenodo data before any full-FAFB C3-A attempt; ensure NumPy and record the exact external reference.
+6. Consider a methods-paper hypothesis about turnover/memory confounding only after comparable cross-family measurements, synthetic controls, replication, and targeted prior-art review.
+7. A low-cost observational branch may inventory cross-neuropil participation and inter-hemisphere edges, without function/architecture claims or costly competition with Run #56.
+8. Revisit Gate C only after biological controls, mixing/sensitivity evidence, and limitations are reviewed; commercial/product hypotheses require concrete benchmark and user/problem validation plus qualified IP review.
 
 Historical milestone structure is preserved in Git history. Do not infer current completion status from older roadmap text.
