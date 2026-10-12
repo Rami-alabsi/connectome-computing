@@ -1,23 +1,24 @@
-# CURRENT AUTHORITATIVE STATUS — 2026-10-11
+# CURRENT AUTHORITATIVE STATUS — 2026-10-12
 
-> Compact first-read operational state. Historical entries below remain provenance, not current truth.
+> Operational snapshot. Older entries below are historical provenance, not current truth. See `docs/MASTER-COMPASS-2026-10-12.md` for the complete compass.
 
 - Gate A / CFG: **CLOSED**.
 - Gate B / NPC-like: **CLOSED**.
 - C0/C1: **CLOSED**; spatial 8-null: **STABLE**.
-- C2: **three independent full realizations #45/#46/#47 COMPLETE**; exact seven invariants passed in each.
-- C2 max phi_norm: **1.0076221 / 1.0076660 / 1.0077486**; peaks 51 / 50 / 51; no >1.01.
-- Three-seed stability audit: **PASSED as reproducibility/control**; correlations 0.9999321–0.9999503; max pointwise spread 0.0006645; pairwise final-edge Jaccard **0.2439655–0.2441324**.
-- C2 extended-chain diagnostic: **32E COMPLETE** in Run #54 (workflow **38112364771**, job **114390401018**), resumed from the verified 16E checkpoint in Run #53 (**37774000742**, artifact **11552145132**). At 32E: 119,438,720 accepted swaps; 2,053,048,908 proposal attempts; acceptance **5.8176266%**; original-edge overlap **16.1910%**; all declared invariants preserved. Max phi_norm **1.0117177 @ k=51**; descriptive >1.01 onset/offset reported at k=42/58; phi_norm <0.99 from k=85 through k=120; phi_norm at k=120 **0.9569453**. Relative to 16E, overlap and selected curve values still move; this is evidence of continued turnover and modest observable drift, **not** proof of stationarity or convergence. Formal mixing/convergence and Gate C remain **OPEN**. Source record: `docs/experiments/C2-EXTENDED-CHAIN-32E-RESULT-2026-10-11.md`.
-- C2 positive-control/power sub-gate: **CLOSED / PASS**; official synthetic execution workflow **37761534464**, artifact **11542512108**, digest **3f59437bf5d0208f21aae4d22e7ba719236b36e9913f6b2581e8888dcb8a0ace**. The planted fixed-club signal increased 36→86 while preserving all seven C2 statistics; three independent nulls reduced it to 36/41/34. This demonstrates C2 has detectable power for a rich-club signal not encoded by its preserved constraints. Synthetic only; no biological inference and no Gate C closure.
-- C2 interpretation: report the full curve, including the reproducible mild enrichment region and high-degree depletion; add descriptive `phi_norm < 0.99` alongside the existing `>1.01` flag.
-- Cross-family turnover audit (2026-10-11): **PARTIAL / BLOCKED**. Archived CFG/NPC-like/spatial aggregate artifacts contain accepted-swap/attempt statistics but not original-edge-overlap or final edge sets; see `docs/experiments/CROSS-FAMILY-TURNOVER-AUDIT-2026-10-11.md`. Do not attribute the rich-club ladder solely to constraint strength until matched-turnover diagnostics are available.
-- Gate C: **OPEN**.
-- C3 prior-art/design gate: **OPEN**; generic canonical spatial max-entropy connectome modeling is prior art.
-- C3-A exact-support streaming equivalence: **PASSED on synthetic tests**; scientific validation remains **OPEN**; external k+L reproduction and FAFB scalability remain OPEN; FAFB C3 **NOT AUTHORIZED**.
-- Structure→function / RSS / architecture / scaling: **BLOCKED**.
+- C2 independent 1E realizations #45/#46/#47: **COMPLETE**; all seven invariants passed; full curves highly correlated; none exceeded phi_norm 1.01 at 1E.
+- C2 synthetic positive-control: **PASS (synthetic only)**; planted fixed-club edges 36→86, three nulls returned 36/41/34.
+- C2 same-chain continuation: **64E COMPLETE** in Run #55 (ID **38122390361**, job **114419636270**). Accepted swaps **238,877,440**; attempts **4,128,211,946**; acceptance **5.7864626%**; observed-edge overlap **13.6984%**; all seven declared invariants true. Peak phi_norm **1.0119603674 @ k=51**; descriptive >1.01 interval k=39–59; <0.99 interval k=86–120. The result is explicitly feasibility/descriptive only, not a significance test.
+- Extended-chain curve audit: 8E/16E/32E/64E full curves each have 101 thresholds. Correlations remain high, but all 101 values rose from 16E→32E and again from 32E→64E; 32E→64E mean pointwise delta **+0.00041453**, RMSE **0.00048474**. This is continuing drift, not a plateau/convergence proof.
+- Run #55 artifact: ID **11702767144**, name `fafb-v783-c2-feasibility-5000000000`, ZIP SHA-256 `2febb9ec29918ca811a4139076e6caf7342d34fc664f44c8677d9511847493ac`. The workflow log verifies the digest and declared outputs; the ZIP has not been independently unpacked/rehashed in this environment.
+- C2 same-chain **128E Run #56 is IN PROGRESS**: workflow ID **38204750622**, job **114665646123**, started 2026-10-12 04:40:35Z. Syntax preflight, test collection, graph download, C0 download, and resume-artifact download passed; sampling is running and final artifact upload is pending. Do not dispatch another long run until this one is audited.
+- Cross-family turnover audit: **PARTIAL / BLOCKED**; CFG/NPC-like/spatial aggregate artifacts lack final edge sets/overlap measurements. Acceptance rates cannot substitute for matched-turnover evidence.
+- C2 small-effect sensitivity ladder: **PLAN ONLY**, draft PR #7, not executed.
+- C3-A: **OPEN**; synthetic validation work remains in draft PR #1; external k+L reproduction and FAFB scalability remain open. Full FAFB C3 is **NOT AUTHORIZED**.
+- Formal C2 mixing/convergence: **OPEN**. Gate C: **OPEN**.
+- Structure→function / RSS / architecture / benchmark / scaling: **BLOCKED**.
+- Commercialization: **RESEARCH ONLY**; no validated computational advantage or novelty claim.
 
-**Compass:** C2 replication CLOSED → stability audit PASSED → formal mixing OPEN → C3 design/synthetic validation → spatial/max-entropy sensitivity → Gate C → structure→function → ablations → abstraction → benchmark → scaling.
+**Current sequence:** monitor Run #56 → audit counters/fingerprints/seven invariants/artifact/full-curve drift → only then choose the next experiment. Keep C2 constraints/kernel frozen; keep sensitivity and C3-A as separate model families.
 
 ---
 
