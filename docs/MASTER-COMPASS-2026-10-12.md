@@ -134,6 +134,14 @@ Inventory cross-neuropil participation and inter-hemisphere edges from the autho
 
 **One-line compass:** same-chain C2 128E Run #57 completed at 477,754,880 accepted swaps; artifact ZIP and JSON were independently inspected and the ZIP hash matches GitHub; all seven declared invariants report true. The single-null curve is descriptive only and still drifts versus 64E; formal mixing/convergence and Gate C remain OPEN. The 8E–128E full-curve comparison is complete; next prioritize cross-family turnover evidence before another expensive run.
 
+## 2026-10-13 — Independent Run #57 artifact re-audit
+
+Re-downloaded artifact `11761653312` for workflow run `38244237906` and independently inspected the ZIP and result JSON. ZIP SHA-256 matches GitHub: `cae38791987a8f5fb7f00e380e12342d789c6f643794f2bc3c736ea9fea9b674`. Result JSON SHA-256: `4c1c9691d2c73f739a9c937c7b4775bd6b9f2112a7ddaeb31dd4ef72f946e902`; checkpoint SHA-256: `4196fdc9dfa1a92b01aad9a815a375e795360718841e3b22d14a4181047ee32a`.
+
+Direct JSON checks: 1,669 checkpoint records, 101 rich-club thresholds, all seven declared invariants report true, target reached at 477,754,880 accepted swaps after 8,280,080,824 attempts, acceptance 5.7699302%, peak `phi_norm=1.0126376258` at k=51, descriptive >1.01 interval k=38–59, and <0.99 interval k=86–120. Saved milestone overlap declines from 12.6766% to 12.0973%; selected `phi_norm(k=50)` rises from 1.0122339 to 1.0126168 across the five milestones. This supports continued drift/turnover, not a convergence plateau.
+
+Boundary: artifact hash and JSON were independently checked, but the checkpoint graph was not independently re-derived from the authoritative graph. The workflow's pytest step was collection-only, not a full test-suite execution. The run remains a same-chain, single-null feasibility/descriptive result. Formal mixing, significance, biological mechanism and Gate C remain OPEN.
+
 ## 2026-10-13 — Cross-family turnover code audit
 
 A static code audit confirmed that the current CFG (`scripts/run_fafb_rich_club.py`), NPC-like (`scripts/run_fafb_npc_rich_club.py`), and spatial (`scripts/run_fafb_spatial_rich_club.py`) runners do not report observed-edge overlap or a canonical final-edge fingerprint in their result JSON. C2 already reports observed-edge overlap and input/constraint fingerprints. This confirms the instrumentation gap described by the historical aggregate-artifact audit; no missing historical overlap has been inferred.
