@@ -1,18 +1,15 @@
-# Post-Run #56 Prioritized Research Plan
-## Decision note — 2026-10-12
+# Post-Run #57 Prioritized Research Plan
+## Decision note — 2026-10-13
 
 This note operationalizes the latest review. It does not change the C2 null definition, authorize a long run, close a gate, or report new scientific findings. The current live-run status must always be checked against GitHub.
 
 ## Priority 0 — Completed: Run #57 128E completion and artifact audit (2026-10-13)
 
-For Run #56 (128E continuation), first establish the actual terminal status. If an artifact exists:
-1. Download the exact artifact; independently compute SHA-256 before unpacking.
-2. Inspect archive contents and record the exact filenames, sizes, and hashes.
-3. Parse the result JSON and checkpoint; verify seed, source artifact, resumed attempt/accepted counters, code/data/constraint fingerprints, cumulative target, and the seven declared invariants.
-4. Recompute the 101-point curve from the saved edge state, compare with the reported curve, and calculate mean delta, RMSE, maximum absolute delta, threshold crossings, overlap, and acceptance trajectory against 8E/16E/32E/64E.
-5. Label a partial or timeout-limited run as partial. A saved checkpoint is useful evidence, not a completed 128E milestone. Do not infer convergence from curve correlation or edge overlap.
+Run #57 (workflow 38244237906) reached 477,754,880 accepted swaps and its artifact ZIP was independently downloaded, hashed, and inspected. The ZIP digest matches GitHub; it contains the final JSON and checkpoint. The JSON records seed 20261002, 8,280,080,824 attempts, matching code/input/constraint fingerprints, target reached, and all seven declared invariants true. Full audit: `docs/experiments/C2-RUN-57-128E-COMPLETION-AUDIT-2026-10-13.md`.
 
-Do not dispatch another long C2 run or start PR #7 while this audit and the Actions budget remain unresolved.
+The five same-chain result artifacts (8E/16E/32E/64E/128E) have now all been downloaded and ZIP-hashed independently; every digest matches GitHub. Their 101-point curves were compared at common thresholds. The 64E→128E curve has Pearson r=0.99992982, mean delta +0.0001459177, RMSE 0.0002613567, and max absolute delta 0.0006879088 at k=50; 71 thresholds increased and 30 decreased. Original-edge overlap declined from 24.8152% at 8E to 12.0973% at 128E. This is evidence of continued trajectory/turnover, not a convergence certificate. Full comparison: `docs/experiments/C2-128E-CURVE-DRIFT-COMPARISON-2026-10-13.md`.
+
+Next step: review the curve/turnover evidence and prioritize matched cross-family controls. Do not launch PR #7 or another expensive C2/C3 run without a separate budget and scientific decision.
 
 ## Priority 1 — Close the cross-family turnover / edge-set evidence gap
 
