@@ -143,8 +143,8 @@ The paper is open access and reports scalable canonical maximum-entropy connecto
 
 
 
-## Operational update — 2026-10-13 (C2 Run #58)
+## Operational update — 2026-10-13 (C2 Run #57 (workflow run #58))
 
-C2's same-chain seed-20261002 continuation reached the planned 128E target in [Run #58](https://github.com/Rami-alabsi/connectome-computing/actions/runs/38244237906). The full evidence and checksums are in [the Run #58 completion audit](C2-RUN-58-128E-COMPLETION-AUDIT-2026-10-12.md). Its peak is `phi_norm=1.0126376258` at k=51, with the descriptive `>1.01` interval k=38–59. The 64E→128E curve remains highly correlated but drifts upward at most thresholds; this is not a plateau or convergence proof. The artifact itself explicitly makes no rich-club inference.
+C2's same-chain seed-20261002 continuation reached the planned 128E target in [Run #58](https://github.com/Rami-alabsi/connectome-computing/actions/runs/38244237906). The full evidence and checksums are in [the Run #57 completion audit](C2-RUN-57-128E-COMPLETION-AUDIT-2026-10-13.md). Its peak is `phi_norm=1.0126376258` at k=51, with the descriptive `>1.01` interval k=38–59. The 64E→128E curve remains highly correlated but drifts upward at most thresholds; this is not a plateau or convergence proof. The artifact itself explicitly makes no rich-club inference.
 
 This update does not make a generic spatial maximum-entropy null novel, does not change the C3-A design requirements, and does not authorize full FAFB C3 execution. C2 mixing/convergence and Gate C remain OPEN. Preserve the separate prior-art reproduction, mathematical definition, synthetic exact-vs-canonical validation, and scalability gates below before any FAFB-scale C3-A run.
