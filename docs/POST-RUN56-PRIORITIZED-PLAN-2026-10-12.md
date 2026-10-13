@@ -3,7 +3,7 @@
 
 This note operationalizes the latest review. It does not change the C2 null definition, authorize a long run, close a gate, or report new scientific findings. The current live-run status must always be checked against GitHub.
 
-## Priority 0 — Finish the active run audit before spending more compute
+## Priority 0 — Completed: Run #57 128E completion and artifact audit (2026-10-13)
 
 For Run #56 (128E continuation), first establish the actual terminal status. If an artifact exists:
 1. Download the exact artifact; independently compute SHA-256 before unpacking.
@@ -65,8 +65,8 @@ A separate descriptive branch may inventory cross-neuropil participation and int
 
 ## Decision rules
 
-- If Run #56 completes: audit its artifact and full curve before choosing the next compute job.
-- If Run #56 times out but uploads a valid checkpoint: record a partial result, verify resumability and fingerprints, then decide whether continuation is worth the remaining budget; no automatic rerun.
+- Run #57 has completed 128E; its artifact and final JSON are hashed and audited. The next decision is cross-run curve/turnover comparison, not automatic scale-up.
+- Run #56 remains a historical cancelled partial checkpoint; Run #57 resumed from it and reached the cumulative target. Preserve both records for provenance.
 - If no valid artifact/checkpoint is available: preserve the failure evidence and fix the artifact path/protocol before resubmitting.
 - If cross-family turnover can be measured cheaply: do that before extending the same C2 chain again.
 - If sensitivity controls fail calibration: repair the test design rather than escalating to full FAFB.
