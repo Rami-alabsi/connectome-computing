@@ -695,3 +695,14 @@ docs/experiments/C3-SPATIAL-MAXENT-PRIOR-ART-DESIGN-2026-10-07.md
 C2 three-seed replication CLOSED → non-invasive stability audit PASSED → formal mixing OPEN → C3 prior-art/design gate OPEN → synthetic validation → spatial/max-entropy sensitivity ensemble → Gate C decision → structure→function → matched ablations → computational abstraction → benchmark → scaling.
 
 No full FAFB C3 scientific run should be treated as authorized until the ensemble definition, sampling/parameterization method, and validation tests are documented and passed.
+
+
+## 2026-10-12 — C2 long-resume run #38244237906 (diagnostic signal; not Gate C closure)
+
+Record: [docs/experiments/C2-LONG-RESUME-RUN-38244237906-2026-10-12.md](experiments/C2-LONG-RESUME-RUN-38244237906-2026-10-12.md)
+
+Workflow run **38244237906**, job **114794049385**, commit **07e362e476c3f1a15b51e9c60013eb46804849a4**, seed **20261002**. The run resumed from attempt **6,200,000,000** / **358,099,863** accepted swaps and reached **477,754,880 accepted swaps** after **8,280,080,824 attempts** (acceptance **5.76993015%**). All seven declared C2 invariants passed. Output artifact ID **11761653312**, SHA-256 **cae38791987a8f5fb7f00e380e12342d789c6f643794f2bc3c736ea9fea9b674**.
+
+**Important diagnostic flag:** this single resumed realization reports selected `phi_norm(50)=1.0126168`, a >1.01 region with reported onset/offset **38/59**, unlike independent-seed runs #45–#47, which had no threshold above 1.01. This difference must not be hidden or prematurely interpreted. The workflow labels the result **feasibility only**, sets `scientific_conclusion=null`, and identifies the curve as a single-null descriptive comparison, not a significance test.
+
+**Required follow-up:** audit the checkpoint ancestry and exact comparison baseline/code version; compare the full curve and provenance with #45–#47; preserve this as a diagnostic/discovery-control signal. Do not change the primary C2 definition to force agreement. Formal mixing/convergence remains **OPEN**, C3 spatial/max-entropy design/synthetic validation remains the next control path, Gate C remains **OPEN**, and structure→function remains blocked pending those controls.
