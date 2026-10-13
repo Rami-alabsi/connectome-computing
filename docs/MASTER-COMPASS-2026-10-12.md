@@ -133,3 +133,11 @@ Inventory cross-neuropil participation and inter-hemisphere edges from the autho
 7. Update this compass and the experiment ledger when a gate or milestone changes.
 
 **One-line compass:** same-chain C2 128E Run #57 completed at 477,754,880 accepted swaps; artifact ZIP and JSON were independently inspected and the ZIP hash matches GitHub; all seven declared invariants report true. The single-null curve is descriptive only and still drifts versus 64E; formal mixing/convergence and Gate C remain OPEN. The 8E–128E full-curve comparison is complete; next prioritize cross-family turnover evidence before another expensive run.
+
+## 2026-10-13 — Cross-family turnover code audit
+
+A static code audit confirmed that the current CFG (`scripts/run_fafb_rich_club.py`), NPC-like (`scripts/run_fafb_npc_rich_club.py`), and spatial (`scripts/run_fafb_spatial_rich_club.py`) runners do not report observed-edge overlap or a canonical final-edge fingerprint in their result JSON. C2 already reports observed-edge overlap and input/constraint fingerprints. This confirms the instrumentation gap described by the historical aggregate-artifact audit; no missing historical overlap has been inferred.
+
+Implementation contract and validation gates are recorded in `docs/experiments/CROSS-FAMILY-TURNOVER-INSTRUMENTATION-PLAN-2026-10-13.md`. The next authorized action is to add deterministic edge-state fingerprints and comparable overlap/turnover fields to CFG/NPC-like/spatial outputs, add synthetic unit tests, validate without changing scientific constraints, and only then dispatch bounded representative diagnostics. Do not start another long C2 chain or full C3-A run instead of this gap-closing work.
+
+Gate C remains OPEN; formal mixing/convergence remains OPEN. Turnover is a state-memory descriptor, not a convergence statistic.
