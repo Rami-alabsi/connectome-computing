@@ -938,3 +938,14 @@ Full details: `docs/experiments/C2-RUN-55-64E-COMPLETION-AUDIT-2026-10-11.md`.
 ## 2026-10-11 — 128E C2 continuation protocol prepared
 
 A manual-dispatch protocol is documented in `docs/experiments/C2-128E-CONTINUATION-PROTOCOL-2026-10-11.md`. It specifies cumulative target `477,754,880`, source Run #55 (`38122390361`), seed `20261002`, resume artifact `fafb-v783-c2-feasibility-5000000000`, C0 source `36318477728`, and attempt cap `9,000,000,000`. The protocol requires exact resume-counter/fingerprint checks and all seven C2 invariants. **This run has not been dispatched**; the protocol is a prepared handoff, not execution evidence. Formal mixing/convergence and Gate C remain OPEN.
+
+
+## 2026-10-13 — Run #57 independent artifact re-audit
+
+The Run #57 artifact for workflow 38244237906 / job 114794049385 was downloaded again and inspected independently. The ZIP digest matches the GitHub digest: `cae38791987a8f5fb7f00e380e12342d789c6f643794f2bc3c736ea9fea9b674`. Result JSON SHA-256: `4c1c9691d2c73f739a9c937c7b4775bd6b9f2112a7ddaeb31dd4ef72f946e902`; checkpoint SHA-256: `4196fdc9dfa1a92b01aad9a815a375e795360718841e3b22d14a4181047ee32a`.
+
+Direct JSON audit confirmed 1,669 checkpoint entries, 101 rich-club thresholds, target reached at 477,754,880 accepted swaps after 8,280,080,824 attempts, acceptance rate 5.7699302%, and all seven invariant booleans true. Peak `phi_norm=1.0126376258` at k=51; descriptive >1.01 interval k=38–59; <0.99 interval k=86–120. At five saved milestones, overlap decreased 12.6766%→12.0973%; selected phi_norm(k=50) increased 1.0122339→1.0126168. This is additional evidence of continued curve movement and edge turnover within the same chain, not a convergence plateau.
+
+Audit boundary: the artifact archive and result JSON were independently inspected, but the checkpoint graph was not independently re-derived from the authoritative graph. The workflow ran pytest collection preflight only, not the full test suite. One chain/null and descriptive threshold flags do not establish statistical significance or mechanism.
+
+Decision unchanged: **C2 same-chain 128E operational milestone complete; formal mixing/convergence OPEN; Gate C OPEN.** Follow the already-authorized priority: complete cross-family turnover/fingerprint instrumentation and bounded prospective diagnostics before launching another long C2 chain or full C3-A scale-up. Full detail: `docs/experiments/C2-RUN-57-128E-COMPLETION-AUDIT-2026-10-13.md`.
