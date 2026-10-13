@@ -142,9 +142,9 @@ Next authorized technical step:
 No full FAFB C3 scientific run is authorized by this document.
 
 
-## Operational update — 2026-10-13 (after C2 Run #58 / 128E)
+## Operational update — 2026-10-13 (after C2 Run #57 / workflow run #58 / 128E)
 
-The same seed-20261002 C2 continuation has now reached 128E. See [Run #58 completion audit](C2-RUN-58-128E-COMPLETION-AUDIT-2026-10-12.md). The 128E curve still has a descriptive `phi_norm > 1.01` interval (k=38–59); relative to 64E the peak increased from 1.0119604 to 1.0126376 at k=51, and 71/101 curve points increased. This is continuing observable drift, not evidence of a plateau or a formal mixing/convergence result. It does not alter the C3-A design gate or justify changing C2's definition.
+The same seed-20261002 C2 continuation has now reached 128E. See [Run #57 completion audit](C2-RUN-57-128E-COMPLETION-AUDIT-2026-10-13.md). The 128E curve still has a descriptive `phi_norm > 1.01` interval (k=38–59); relative to 64E the peak increased from 1.0119604 to 1.0126376 at k=51, and 71/101 curve points increased. This is continuing observable drift, not evidence of a plateau or a formal mixing/convergence result. It does not alter the C3-A design gate or justify changing C2's definition.
 
 ### Current authorized order
 
