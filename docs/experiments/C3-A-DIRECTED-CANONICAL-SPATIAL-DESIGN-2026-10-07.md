@@ -140,3 +140,18 @@ Next authorized technical step:
 **small synthetic exact-vs-canonical validation**, followed by a scalability assessment.
 
 No full FAFB C3 scientific run is authorized by this document.
+
+
+## Operational update — 2026-10-13 (after C2 Run #58 / 128E)
+
+The same seed-20261002 C2 continuation has now reached 128E. See [Run #58 completion audit](C2-RUN-58-128E-COMPLETION-AUDIT-2026-10-12.md). The 128E curve still has a descriptive `phi_norm > 1.01` interval (k=38–59); relative to 64E the peak increased from 1.0119604 to 1.0126376 at k=51, and 71/101 curve points increased. This is continuing observable drift, not evidence of a plateau or a formal mixing/convergence result. It does not alter the C3-A design gate or justify changing C2's definition.
+
+### Current authorized order
+
+1. Keep the C2 primary constraint surface frozen; formal mixing/convergence remains OPEN.
+2. Execute the documented [external prior-art reproduction plan](C3-A-EXTERNAL-REPRODUCTION-PLAN-2026-10-08.md) for the published undirected k+L family, recording data/code provenance and deviations. Do not call the directed candidate equation an exact reproduction of the published model.
+3. Define a small directed synthetic test suite with a known target distribution and exact-enumeration cases where feasible; predeclare parameter-recovery tolerances and edge/self-loop/support conventions.
+4. Validate canonical sampling against those small exact cases and test parameter recovery before any FAFB-scale model or ensemble.
+5. Benchmark memory/runtime on a smaller subset only after correctness gates pass.
+
+No full FAFB C3-A run is authorized yet. The run's own result remains `scientific_conclusion=null` / `feasibility only; no rich-club inference`; Gate C stays OPEN and structure→function stays BLOCKED.
