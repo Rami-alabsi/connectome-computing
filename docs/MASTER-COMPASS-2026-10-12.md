@@ -5,7 +5,7 @@ This is the current operational source of truth. The detailed historical experim
 
 ## Latest milestone — 2026-10-13: C2 same-chain 128E complete
 
-Run #57 ([workflow 38244237906](https://github.com/Rami-alabsi/connectome-computing/actions/runs/38244237906), job 114794049385) reached **477,754,880 accepted swaps** after 8,280,080,824 attempts. All seven declared invariants are true in the result JSON. The artifact was independently downloaded and its ZIP SHA-256 matches GitHub. Full record: [C2 Run #57 completion audit](experiments/C2-RUN-57-128E-COMPLETION-AUDIT-2026-10-13.md).
+C2 experiment Run #57 ([GitHub Actions workflow run #58 / ID 38244237906](https://github.com/Rami-alabsi/connectome-computing/actions/runs/38244237906), job 114794049385) reached **477,754,880 accepted swaps** after 8,280,080,824 attempts. All seven declared invariants are true in the result JSON. The artifact was independently downloaded and its ZIP SHA-256 matches GitHub. Full record: [C2 Run #57 completion audit](experiments/C2-RUN-57-128E-COMPLETION-AUDIT-2026-10-13.md).
 
 Interpretation remains bounded: the 101-point curve is a **single-null descriptive feasibility result** (peak phi_norm 1.0126376258 at k=51; >1.01 over k=38–59; <0.99 over k=86–120). This does not prove significance, formal mixing/convergence, a biological mechanism, computational advantage, novelty, or commercial value. Gate C remains OPEN. Run #56's partial audit below is historical and is superseded operationally by Run #57; preserve it as provenance.
 
