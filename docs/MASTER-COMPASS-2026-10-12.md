@@ -36,8 +36,8 @@ A repeated curve is not automatically convergence; an unusual result is a discov
 | Spatial 8-null | STABLE | Descriptive curve landmarks stable; not a significance claim |
 | C2 independent 1E seeds #45–#47 | COMPLETE | Seven invariants passed; full curves highly correlated |
 | C2 synthetic positive control | PASS | Demonstrates power for a planted synthetic signal only |
-| C2 same-chain 64E diagnostic (#55) | COMPLETE | Exact cumulative target and all seven invariants verified in workflow log |
-| Formal C2 mixing / convergence | OPEN | 64E curve still drifts; no stationarity/ESS proof |
+| C2 same-chain 128E diagnostic (#57) | COMPLETE | Exact cumulative target and all seven invariants verified; artifact and full curve independently inspected |
+| Formal C2 mixing / convergence | OPEN | 128E curve still drifts; no stationarity/ESS proof |
 | Cross-family matched-turnover audit | PARTIAL / BLOCKED | Historical CFG/NPC/spatial artifacts lack overlap/final edge sets |
 | C2 smaller-effect sensitivity ladder | PLAN ONLY | Draft PR #7; not executed; do not claim power calibration |
 | C3-A canonical spatial sensitivity | OPEN | Synthetic tests exist on draft PR #1; external reproduction and FAFB scalability remain open |
@@ -93,7 +93,7 @@ As of the 2026-10-12 review, workflow Run #56 (ID `38204750622`, job `1146656461
 
 **Do not dispatch another C2 run or the sensitivity ladder concurrently.** The ZIP SHA-256 was independently verified. The saved checkpoint is at attempt 6,200,000,000 / 358,099,863 accepted; the last log probe reached 6,202,800,000 / 358,260,480 accepted. The target was not reached. Full audit: `docs/experiments/C2-RUN-56-128E-PARTIAL-AUDIT-2026-10-12.md`. The 128E protocol was merged in PR #9. Expected target is cumulative 477,754,880 accepted swaps, seed 20261002, attempts cap 9,000,000,000, source Run #55 artifact ID 11702767144, C0 source 36318477728. The checkpoint was independently parsed and basic edge-list consistency verified; the final JSON and full curve are absent, so do not claim 128E completion or independent validation of all seven invariants against the original graph.
 
-The Run #55 artifact is identified and verified in its Actions log, but independent ZIP unpacking/re-hashing has not been done in this environment. Do not claim independent parsing unless that actually happens.
+The Run #55 artifact was subsequently downloaded and independently SHA-256 verified on 2026-10-13; its ZIP digest matches GitHub, and its result JSON was extracted and compared pointwise with 128E. See `docs/experiments/C2-128E-CURVE-DRIFT-COMPARISON-2026-10-13.md`. The full checkpoint graph state was not independently regenerated from the authoritative graph.
 
 ### B. Completion checks now satisfied by Run #57; remaining cross-family work is still open
 Verify resumed attempt/accepted counters and matching input/constraint fingerprints; require all seven invariants and full curve output. Compare full curves at common thresholds and report pointwise drift, mean delta, RMSE, maximum absolute delta, overlap and acceptance trajectory—not correlation alone. This is a diagnostic, not a convergence certificate.
@@ -132,4 +132,4 @@ Inventory cross-neuropil participation and inter-hemisphere edges from the autho
 6. Do not close Gate C or unblock structure→function from curve correlation or edge overlap alone.
 7. Update this compass and the experiment ledger when a gate or milestone changes.
 
-**One-line compass:** same-chain C2 128E Run #57 completed at 477,754,880 accepted swaps; artifact ZIP was independently hashed and matches GitHub; all seven declared invariants report true. The single-null curve is descriptive only; formal mixing/convergence and Gate C remain OPEN. Next prioritize full-curve/turnover comparison and cross-family evidence before another expensive run.
+**One-line compass:** same-chain C2 128E Run #57 completed at 477,754,880 accepted swaps; artifact ZIP and JSON were independently inspected and the ZIP hash matches GitHub; all seven declared invariants report true. The single-null curve is descriptive only and still drifts versus 64E; formal mixing/convergence and Gate C remain OPEN. The 8E–128E full-curve comparison is complete; next prioritize cross-family turnover evidence before another expensive run.
