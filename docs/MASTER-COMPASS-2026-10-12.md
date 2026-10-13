@@ -1,7 +1,13 @@
 # MASTER COMPASS — Connectome Computing
-## Operational handoff snapshot — 2026-10-12
+## Operational handoff snapshot — 2026-10-13
 
 This is the current operational source of truth. The detailed historical experiment ledger remains in `docs/PROJECT-STATUS.md`; run-specific evidence lives under `docs/experiments/`. Preserve older records; supersede them with dated notes rather than rewriting history.
+
+## Latest milestone — 2026-10-13: C2 same-chain 128E complete
+
+Run #57 ([workflow 38244237906](https://github.com/Rami-alabsi/connectome-computing/actions/runs/38244237906), job 114794049385) reached **477,754,880 accepted swaps** after 8,280,080,824 attempts. All seven declared invariants are true in the result JSON. The artifact was independently downloaded and its ZIP SHA-256 matches GitHub. Full record: [C2 Run #57 completion audit](experiments/C2-RUN-57-128E-COMPLETION-AUDIT-2026-10-13.md).
+
+Interpretation remains bounded: the 101-point curve is a **single-null descriptive feasibility result** (peak phi_norm 1.0126376258 at k=51; >1.01 over k=38–59; <0.99 over k=86–120). This does not prove significance, formal mixing/convergence, a biological mechanism, computational advantage, novelty, or commercial value. Gate C remains OPEN. Run #56's partial audit below is historical and is superseded operationally by Run #57; preserve it as provenance.
 
 ## 1. Mission and non-negotiable interpretation rule
 
@@ -82,14 +88,14 @@ The shape is highly correlated, but systematic upward movement and falling overl
 
 The detailed gated decision tree is maintained in `docs/POST-RUN56-PRIORITIZED-PLAN-2026-10-12.md`; use it together with this compass.
 
-### A. Run #56 (128E continuation) — PARTIAL / CANCELLED
+### A. Historical Run #56 (128E continuation) — PARTIAL / CANCELLED (superseded by Run #57)
 As of the 2026-10-12 review, workflow Run #56 (ID `38204750622`, job `114665646123`) was cancelled short of target on commit `c06ef737a5a45d41dbfd062e54ed9f1fe9d75ab7`. Its syntax preflight, pytest collection, graph download, authoritative C0 download, and optional resume-artifact download have succeeded; the C2 sampling step was cancelled; artifact upload succeeded, but the ZIP contains only `c2-state.pkl.gz`, not the final result JSON. The job-log endpoint temporarily returned a BlobNotFound response while the job was active, so do not infer failure or progress counters from that response.
 
 **Do not dispatch another C2 run or the sensitivity ladder concurrently.** The ZIP SHA-256 was independently verified. The saved checkpoint is at attempt 6,200,000,000 / 358,099,863 accepted; the last log probe reached 6,202,800,000 / 358,260,480 accepted. The target was not reached. Full audit: `docs/experiments/C2-RUN-56-128E-PARTIAL-AUDIT-2026-10-12.md`. The 128E protocol was merged in PR #9. Expected target is cumulative 477,754,880 accepted swaps, seed 20261002, attempts cap 9,000,000,000, source Run #55 artifact ID 11702767144, C0 source 36318477728. The checkpoint was independently parsed and basic edge-list consistency verified; the final JSON and full curve are absent, so do not claim 128E completion or independent validation of all seven invariants against the original graph.
 
 The Run #55 artifact is identified and verified in its Actions log, but independent ZIP unpacking/re-hashing has not been done in this environment. Do not claim independent parsing unless that actually happens.
 
-### B. After Run #56 completes
+### B. Completion checks now satisfied by Run #57; remaining cross-family work is still open
 Verify resumed attempt/accepted counters and matching input/constraint fingerprints; require all seven invariants and full curve output. Compare full curves at common thresholds and report pointwise drift, mean delta, RMSE, maximum absolute delta, overlap and acceptance trajectory—not correlation alone. This is a diagnostic, not a convergence certificate.
 
 ### C. Measure cross-family turnover before spending on another long C2 chain
@@ -126,4 +132,4 @@ Inventory cross-neuropil participation and inter-hemisphere edges from the autho
 6. Do not close Gate C or unblock structure→function from curve correlation or edge overlap alone.
 7. Update this compass and the experiment ledger when a gate or milestone changes.
 
-**One-line compass:** C2's 64E run is complete and its curve is still drifting; same-chain 128E Run #56 was cancelled short of target; its partial checkpoint is preserved and hashed. Audit it before launching anything else; Gate C remains open.
+**One-line compass:** same-chain C2 128E Run #57 completed at 477,754,880 accepted swaps; artifact ZIP was independently hashed and matches GitHub; all seven declared invariants report true. The single-null curve is descriptive only; formal mixing/convergence and Gate C remain OPEN. Next prioritize full-curve/turnover comparison and cross-family evidence before another expensive run.
