@@ -70,6 +70,14 @@ This is the runner's reported invariant validation, independently confirmed to b
 - No biological mechanism, functional advantage, novelty, patentability, or commercial value is established.
 - Gate C and formal mixing/convergence remain **OPEN**.
 
+## Independent follow-up audit (2026-10-13)
+
+The artifact was downloaded again in this session and inspected directly. ZIP SHA-256 recomputed locally: `cae38791987a8f5fb7f00e380e12342d789c6f643794f2bc3c736ea9fea9b674`, matching the GitHub artifact digest. The archive contains the result JSON and `c2-state.pkl.gz`; the result JSON SHA-256 is `4c1c9691d2c73f739a9c937c7b4775bd6b9f2112a7ddaeb31dd4ef72f946e902`, and checkpoint SHA-256 is `4196fdc9dfa1a92b01aad9a815a375e795360718841e3b22d14a4181047ee32a`.
+
+The extracted JSON was checked independently for all seven invariant booleans and the complete 101-point curve. The five saved mixing milestones report `phi_norm(k=50)` increasing from `1.0122338811` to `1.0126167629`, `phi_norm(k=60)` varying from `1.0095255478` to `1.0101887711` then ending at `1.0099717269`, and observed-edge overlap declining from `12.6766%` to `12.0973%`. Final peak is `1.0126376258` at k=51, with the descriptive >1.01 region k=38–59. These trajectory observations reinforce that the chain has not demonstrated a plateau; they do not establish statistical significance or biological interpretation.
+
+The downloaded artifact's presence and JSON contents were inspected, but the edge-state graph was **not** independently re-derived from the authoritative graph; invariant booleans remain the runner's reported checks. The pytest workflow step was collection-only, not full test execution.
+
 ## Next decision
 
 1. Preserve Run #57 and its hashes as the completed same-chain 128E record.
