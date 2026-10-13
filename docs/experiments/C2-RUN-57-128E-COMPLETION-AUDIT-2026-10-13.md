@@ -2,13 +2,13 @@
 
 ## Status and scope
 
-- Workflow run: [#57 / 38244237906](https://github.com/Rami-alabsi/connectome-computing/actions/runs/38244237906)
+- C2 experiment run: **#57**; GitHub Actions workflow run: [**#58 / 38244237906**](https://github.com/Rami-alabsi/connectome-computing/actions/runs/38244237906)
 - Job: [feasibility / 114794049385](https://github.com/Rami-alabsi/connectome-computing/actions/runs/38244237906/job/114794049385)
 - Workflow conclusion: **success**; all 10 substantive job steps completed successfully.
 - Dataset: FAFB v783; purpose remains the C2 NPC-like + arbor-distance feasibility pilot.
 - Seed: `20261002`.
 - Run commit: `07e362e476c3f1a15b51e9c60013eb46804849a4`.
-- The job resumed from Run #56's saved checkpoint at attempt `6,200,000,000`, accepted swaps `358,099,863`; log confirms resume and entry into the sampling loop.
+- The job resumed from Run #56's saved checkpoint at attempt `6,200,000,000`, accepted swaps `358,099,863`; log confirms resume and entry into the sampling loop. The GitHub Actions API reports workflow `run_number=58`; the project's C2 experiment sequence labels this as Run #57.
 - Cumulative target `477,754,880` accepted swaps (128E) was reached.
 
 ## Result and reproducibility metadata
@@ -65,6 +65,7 @@ This is the runner's reported invariant validation, independently confirmed to b
 - **128E completion is an operational milestone, not proof of Markov-chain mixing or convergence.** The single-chain trajectory still shows changing overlap and descriptive curve movement; do not infer a plateau from this run alone.
 - `phi_norm > 1.01` and `phi_norm < 0.99` are descriptive thresholds, not p-values or significance tests.
 - The 9,869 edges lacking complete dominant-block assignment are frozen/excluded from the block-pair constraint as documented by the runner.
+- CI's pytest step was **collection preflight only**, not execution of the full test suite; do not report this workflow as a full pytest pass.
 - Coarse arbor-distance bins and project-specific NPC-like block definitions remain modeling choices.
 - No biological mechanism, functional advantage, novelty, patentability, or commercial value is established.
 - Gate C and formal mixing/convergence remain **OPEN**.
