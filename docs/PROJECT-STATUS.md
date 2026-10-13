@@ -1,4 +1,4 @@
-# CURRENT AUTHORITATIVE STATUS — 2026-10-12
+# CURRENT AUTHORITATIVE STATUS — 2026-10-13
 
 > Operational snapshot. Older entries below are historical provenance, not current truth. See `docs/MASTER-COMPASS-2026-10-12.md` for the complete compass.
 
@@ -10,7 +10,7 @@
 - C2 same-chain continuation: **64E COMPLETE** in Run #55 (ID **38122390361**, job **114419636270**). Accepted swaps **238,877,440**; attempts **4,128,211,946**; acceptance **5.7864626%**; observed-edge overlap **13.6984%**; all seven declared invariants true. Peak phi_norm **1.0119603674 @ k=51**; descriptive >1.01 interval k=39–59; <0.99 interval k=86–120. The result is explicitly feasibility/descriptive only, not a significance test.
 - Extended-chain curve audit: 8E/16E/32E/64E full curves each have 101 thresholds. Correlations remain high, but all 101 values rose from 16E→32E and again from 32E→64E; 32E→64E mean pointwise delta **+0.00041453**, RMSE **0.00048474**. This is continuing drift, not a plateau/convergence proof.
 - Run #55 artifact: ID **11702767144**, name `fafb-v783-c2-feasibility-5000000000`, ZIP SHA-256 `2febb9ec29918ca811a4139076e6caf7342d34fc664f44c8677d9511847493ac`. The workflow log verifies the digest and declared outputs; the ZIP has not been independently unpacked/rehashed in this environment.
-- C2 same-chain **128E Run #56 is PARTIAL / CANCELLED**: workflow ID **38204750622**, job **114665646123**, started 2026-10-12 04:40:35Z and ended cancelled. Upload succeeded. Artifact **11740612480** (`fafb-v783-c2-feasibility-9000000000`) ZIP SHA-256 independently matches GitHub: `def6b8161ee641e7a1db122029b2123f06afe98fbf83c1dc76da333d421b7e6c`. ZIP contains only `c2-state.pkl.gz`, no final JSON. Checkpoint attempt **6,200,000,000**, accepted **358,099,863**; checkpoint SHA-256 `5a1b7942b2ee18cee387a25f36c4d7ea8bfe2df3fecea8a31a982f48eb449b49`. Compared with saved 64E state, edge count/uniqueness, no-self-loop check, in/out-degree maps, and distance-bin histogram match; inter-state edge overlap is **20.8697%**. Final block-pair counts were not independently recomputed. Last log probe: 6,202,800,000 attempts / 358,260,480 accepted. Target 477,754,880 was not reached. Full audit: `docs/experiments/C2-RUN-56-128E-PARTIAL-AUDIT-2026-10-12.md`. Do not launch another long run before budget and resume-plan review.
+- C2 same-chain **128E COMPLETE** in Run #57 (workflow **38244237906**, job **114794049385**): target **477,754,880** accepted swaps reached after **8,280,080,824** attempts; acceptance **5.7699302%**; original-edge overlap **12.0973%**; all seven declared invariants report true. Peak `phi_norm` **1.0126376258 @ k=51**; descriptive >1.01 interval **k=38–59**; <0.99 interval **k=86–120**. This is a one-null feasibility/descriptive result, not a significance test or mixing/convergence proof. Artifact **11761653312** ZIP SHA-256 independently verified as `cae38791987a8f5fb7f00e380e12342d789c6f643794f2bc3c736ea9fea9b674`; final JSON and checkpoint hashes and detailed limitations are recorded in `docs/experiments/C2-RUN-57-128E-COMPLETION-AUDIT-2026-10-13.md`.
 - Cross-family turnover audit: **PARTIAL / BLOCKED**; CFG/NPC-like/spatial aggregate artifacts lack final edge sets/overlap measurements. Acceptance rates cannot substitute for matched-turnover evidence.
 - C2 small-effect sensitivity ladder: **PLAN ONLY**, draft PR #7, not executed.
 - C3-A: **OPEN**; synthetic validation work remains in draft PR #1; external k+L reproduction and FAFB scalability remain open. Full FAFB C3 is **NOT AUTHORIZED**.
@@ -18,7 +18,7 @@
 - Structure→function / RSS / architecture / benchmark / scaling: **BLOCKED**.
 - Commercialization: **RESEARCH ONLY**; no validated computational advantage or novelty claim.
 
-**Current sequence:** monitor Run #56 → audit counters/fingerprints/seven invariants/artifact/full-curve drift → only then choose the next experiment. Keep C2 constraints/kernel frozen; keep sensitivity and C3-A as separate model families.
+**Current sequence:** preserve and audit completed Run #57 / 128E → compare the 8E/16E/32E/64E/128E curves and turnover with explicit limitations → prioritize cross-family turnover evidence before another expensive run. Keep C2 constraints/kernel frozen; keep sensitivity and C3-A as separate model families.
 
 ---
 
