@@ -149,3 +149,12 @@ A static code audit confirmed that the current CFG (`scripts/run_fafb_rich_club.
 Implementation contract and validation gates are recorded in `docs/experiments/CROSS-FAMILY-TURNOVER-INSTRUMENTATION-PLAN-2026-10-13.md`. The next authorized action is to add deterministic edge-state fingerprints and comparable overlap/turnover fields to CFG/NPC-like/spatial outputs, add synthetic unit tests, validate without changing scientific constraints, and only then dispatch bounded representative diagnostics. Do not start another long C2 chain or full C3-A run instead of this gap-closing work.
 
 Gate C remains OPEN; formal mixing/convergence remains OPEN. Turnover is a state-memory descriptor, not a convergence statistic.
+
+## 2026-10-13 — Run #57 follow-up: audit landed
+
+The Run #57 audit has been appended to `docs/experiments/C2-RUN-57-128E-COMPLETION-AUDIT-2026-10-13.md` and this compass, and a dated entry has been appended to `docs/PROJECT-STATUS.md`. Commits:
+- `7a9f13f3248acf5cdf871487a6c38ecd76a8a095` — run-specific audit.
+- `d7c6d2180523f7cea5883d6b0fcd8734fda33841` — compass.
+- `8b65cb92e33dd244965de2a2de571b5f085da1dd` — project status ledger.
+
+The authorized next action is unchanged: implement and unit-test deterministic final-edge fingerprints and overlap/turnover reporting in CFG/NPC-like/spatial runners without altering any scientific null constraints; then run bounded prospective diagnostics. No new long C2 chain or full C3-A run should be started as a substitute for this instrumentation gap. Gate C and formal mixing/convergence remain OPEN.
