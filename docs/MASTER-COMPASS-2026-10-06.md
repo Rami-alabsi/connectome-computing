@@ -1,25 +1,9 @@
 # MASTER COMPASS — Connectome Computing
-## Authoritative handoff snapshot — 2026-10-06
+## Historical handoff snapshot — 2026-10-06
 
-> This file is the current operational compass for continuing the project.
+> This is a historical snapshot; the current operational source of truth is `docs/MASTER-COMPASS-2026-10-12.md`.
 > It supplements the historical experiment ledger in `docs/PROJECT-STATUS.md`.
 > Do not erase historical entries merely because later work supersedes them.
-
-## Current operational update — 2026-10-12 (Run #58 / 128E)
-
-The 128E same-chain continuation is now complete. See [the Run #58 completion audit](experiments/C2-RUN-58-128E-COMPLETION-AUDIT-2026-10-12.md) and the historical [project status ledger](PROJECT-STATUS.md).
-
-- Workflow run **38244237906**, job **114794049385**, conclusion `success`.
-- Seed **20261002** resumed at attempt **6,200,000,000** / **358,099,863 accepted** and reached **477,754,880 accepted swaps** at **8,280,080,824 attempts**.
-- Artifact **11761653312**, name `fafb-v783-c2-feasibility-9000000000`; ZIP SHA-256 `cae38791987a8f5fb7f00e380e12342d789c6f643794f2bc3c736ea9fea9b674`.
-- All seven declared C2 invariants passed; `target_reached=true`; code, constraint, and input fingerprints match the frozen protocol.
-- Full curve: peak `phi_norm=1.0126376258` at k=51; descriptive `>1.01` interval k=38–59; `<0.99` interval k=86–120.
-- Versus 64E: Pearson r **0.9999298210**, mean pointwise delta **+0.0001459177**, RMSE **0.0002613567**, max absolute delta **0.0006879088** at k=50; 71/101 points increased. High correlation does not imply a plateau.
-- Run output explicitly states `scientific_conclusion=null` and `feasibility only; no rich-club inference`.
-
-**Gate state:** 128E execution CLOSED; formal mixing/convergence OPEN; C3-A/prior-art-aligned spatial-max-entropy design and synthetic validation OPEN; Gate C OPEN; structure→function and downstream claims BLOCKED. Do not start another continuation automatically. Next: preserve the artifact, use the recorded drift comparison, and continue the separate C3-A design/validation path without changing C2's primary definition.
-
----
 
 ## 1. Mission
 
@@ -71,7 +55,7 @@ The lighter `synapse_coordinates` spatial path is secondary/superseded for prima
 | C1 spatial feasibility | **CLOSED** | Degree + distance-bin feasibility validated |
 | Spatial 4-null | **VALIDATED** | First ensemble |
 | Spatial 8-null | **STABLE** | Expanded seed ensemble gave same qualitative descriptive curve landmarks |
-| C2 joint NPC + spatial | **128E SAME-CHAIN EXECUTION COMPLETE** | Run #58 reached 477,754,880 cumulative accepted swaps; final curve/artifact/invariants verified; formal mixing and Gate C remain open |
+| C2 joint NPC + spatial | **ARTIFACT-COMPLETE #1** | Historical snapshot at Run #45; later independent-seed and same-chain extensions are recorded in the current compass and experiment ledger |
 | Gate C / biological closure | **OPEN** | Must not be closed before C2 ensemble + mixing/sensitivity work |
 | Structure → function | **BLOCKED downstream** | Intentionally waiting for stronger biological controls |
 | Computational architecture claim | **NOT ESTABLISHED** | No benchmark advantage/novelty claim yet |
