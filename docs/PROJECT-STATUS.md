@@ -938,3 +938,18 @@ Full details: `docs/experiments/C2-RUN-55-64E-COMPLETION-AUDIT-2026-10-11.md`.
 ## 2026-10-11 — 128E C2 continuation protocol prepared
 
 A manual-dispatch protocol is documented in `docs/experiments/C2-128E-CONTINUATION-PROTOCOL-2026-10-11.md`. It specifies cumulative target `477,754,880`, source Run #55 (`38122390361`), seed `20261002`, resume artifact `fafb-v783-c2-feasibility-5000000000`, C0 source `36318477728`, and attempt cap `9,000,000,000`. The protocol requires exact resume-counter/fingerprint checks and all seven C2 invariants. **This run has not been dispatched**; the protocol is a prepared handoff, not execution evidence. Formal mixing/convergence and Gate C remain OPEN.
+
+
+## 2026-10-12 — C2 Run #58 completes cumulative 128E target
+
+Run #58 completed successfully: [workflow 38244237906](https://github.com/Rami-alabsi/connectome-computing/actions/runs/38244237906), job 114794049385. It resumed seed `20261002` at attempt **6,200,000,000** / **358,099,863 accepted swaps** and reached cumulative **477,754,880 accepted swaps (128E)** at **8,280,080,824 attempts**. Final acceptance rate was **5.7699301511%**; original-edge overlap was **0.1209730312** (~12.0973%). All seven declared C2 invariants passed; `target_reached=true`.
+
+Artifact: [`fafb-v783-c2-feasibility-9000000000`, ID 11761653312](https://github.com/Rami-alabsi/connectome-computing/actions/runs/38244237906/artifacts/11761653312); ZIP SHA-256 `cae38791987a8f5fb7f00e380e12342d789c6f643794f2bc3c736ea9fea9b674`. The ZIP was downloaded and inspected: it contains the final JSON and `c2-state.pkl.gz`; the extracted JSON SHA-256 is `4c1c9691d2c73f739a9c937c7b4775bd6b9f2112a7ddaeb31dd4ef72f946e902`. Code, constraint, and input fingerprints match the predeclared 128E protocol.
+
+The full 101-threshold curve peaks at **`phi_norm=1.0126376258` at k=51**; the descriptive `>1.01` interval is **k=38–59**, and `<0.99` remains **k=86–120**. A direct artifact-to-artifact comparison with 64E yields Pearson correlation **0.9999298210**, mean delta **+0.0001459177**, RMSE **0.0002613567**, and maximum absolute pointwise delta **0.0006879088 at k=50**; 71/101 thresholds increased. Peak `phi_norm` rose by ~0.0006773 and the `>1.01` onset moved from k=39 to k=38. Thus the curve is highly correlated but not a demonstrated plateau. Overlap decline is a turnover descriptor, not a mixing statistic.
+
+The result JSON explicitly records `scientific_conclusion=null` and `feasibility only; no rich-club inference`. This is a single continued chain, not an independent seed or ensemble; it does not establish significance, formal mixing/convergence, mechanism, or computational advantage. The job's pytest step was **collection preflight only**, not a full test-suite execution.
+
+**Decision:** C2 same-chain 128E execution milestone CLOSED; formal mixing/convergence OPEN; matched-turnover cross-family audit PARTIAL/BLOCKED; C3-A/spatial-max-entropy design and validation OPEN; Gate C OPEN; structure→function and downstream architecture claims remain BLOCKED.
+
+Full provenance, integrity checks, full-curve comparison, limitations, and next actions: [`docs/experiments/C2-RUN-58-128E-COMPLETION-AUDIT-2026-10-12.md`](experiments/C2-RUN-58-128E-COMPLETION-AUDIT-2026-10-12.md).
