@@ -78,8 +78,8 @@ The small-effect synthetic sensitivity ladder remains a separate preregistered t
 
 ## Outcome update — 2026-10-12
 
-The planned continuation was dispatched and completed as [Run #58, ID 38244237906](https://github.com/Rami-alabsi/connectome-computing/actions/runs/38244237906), job [114794049385](https://github.com/Rami-alabsi/connectome-computing/actions/runs/38244237906/job/114794049385). It reached **477,754,880 accepted swaps (128E)** at **8,280,080,824 attempts**; all seven invariants passed and `target_reached=true`. Artifact ID **11761653312**, ZIP SHA-256 `cae38791987a8f5fb7f00e380e12342d789c6f643794f2bc3c736ea9fea9b674`.
+The planned continuation was dispatched and completed as **C2 experiment Run #57** (GitHub Actions workflow run **#58**, ID 38244237906), job [114794049385](https://github.com/Rami-alabsi/connectome-computing/actions/runs/38244237906/job/114794049385). It reached **477,754,880 accepted swaps (128E)** at **8,280,080,824 attempts**; all seven invariants passed and `target_reached=true`. Artifact ID **11761653312**, ZIP SHA-256 `cae38791987a8f5fb7f00e380e12342d789c6f643794f2bc3c736ea9fea9b674`.
 
 The full-curve comparison with 64E shows Pearson r=**0.9999298210**, mean delta=**+0.0001459177**, RMSE=**0.0002613567**, peak rising from **1.0119603674** to **1.0126376258** at k=51, and the `>1.01` interval expanding from k=39–59 to k=38–59. This is high correlation with continued observable drift, not a demonstrated plateau or convergence proof. The result still states `scientific_conclusion=null` and `feasibility only; no rich-club inference`.
 
-The current outcome and limitations supersede the protocol's earlier “not dispatched / not yet run” status snapshot. See [Run #58 completion audit](C2-RUN-58-128E-COMPLETION-AUDIT-2026-10-12.md). Formal mixing/convergence and Gate C remain OPEN; structure→function remains BLOCKED.
+The current outcome and limitations supersede the protocol's earlier “not dispatched / not yet run” status snapshot. See [Run #57 completion audit](C2-RUN-57-128E-COMPLETION-AUDIT-2026-10-13.md). Formal mixing/convergence and Gate C remain OPEN; structure→function remains BLOCKED.
